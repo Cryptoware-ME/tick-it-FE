@@ -1,15 +1,24 @@
-import './globals.css'
-import 'bootstrap/dist/css/bootstrap.css';
-
+import "./globals.css";
+import "bootstrap/dist/css/bootstrap.css";
+import NavBar from "@/components/Navbar/navbar";
 export const metadata = {
-  title: 'Tick It',
-  description: 'Ticketing',
-}
+  title: "Tick It",
+  description: "Ticketing",
+};
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <NavBar />
+        <div
+          style={{
+            paddingTop: "80px",
+          }}
+        >
+          {children}
+        </div>
+      </body>
     </html>
-  )
+  );
 }
