@@ -1,7 +1,7 @@
 import "./globals.css";
 import "bootstrap/dist/css/bootstrap.css";
 import NavBar from "@/components/Navbar/navbar";
-
+import '@next/font/google'
 import 'swiper/scss';
 import 'swiper/scss/navigation';
 import 'swiper/scss/pagination';
