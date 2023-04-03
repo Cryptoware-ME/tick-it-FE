@@ -6,19 +6,35 @@ const Stats = ({}) => {
     <>
       <Col
         md={4}
-        style={{
-          padding: "10px",
-          color: "white",
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "column",
-          textAlign: "center",
-          alignContent: "center",
-        }}
+       
+        className={styles.statsWrapper}
       >
-        <p>number</p>
-        <p>type</p>
+        <div>
+          <div  className={styles.statNumber}>10,000+</div>
+          <div  className={styles.statType}>Events created</div>
+        </div>
       </Col>
+      <Col
+        md={4}
+       
+        className={styles.statsWrapper}
+      >
+        <div>
+          <div  className={styles.statNumber}>200,000+</div>
+          <div  className={styles.statType}>Attendees</div>
+        </div>
+      </Col>
+      <Col
+        md={4}
+       
+        className={styles.statsWrapper}
+      >
+        <div>
+          <div  className={styles.statNumber}>$1M+</div>
+          <div  className={styles.statType}>In Sales</div>
+        </div>
+      </Col>
+     
     </>
   );
 };
