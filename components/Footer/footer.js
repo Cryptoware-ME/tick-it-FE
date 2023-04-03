@@ -70,7 +70,7 @@ const Footer = () => {
                   setEmail(e.target.value);
                 }}
                 className={styles.emailInput}
-                placeholder="EMAIL ADDRESS"
+                placeholder="Email"
               />
 
               <div
