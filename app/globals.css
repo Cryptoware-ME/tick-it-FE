@@ -1,9 +1,9 @@
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
+    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
+    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -104,4 +104,67 @@ a {
   html {
     color-scheme: dark;
   }
+}
+/* Required styles for Swiper.js */
+.swiper-container {
+  width: 100%;
+  height: 100%;
+}
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  /* Other styles as needed */
+}
+
+/* Optional styles for Swiper.js */
+.swiper-button-prev,
+.swiper-button-next {
+  position: absolute;
+  top: 50%;
+  width: auto;
+  height: auto;
+  margin-top: -20px;
+  z-index: 10;
+  cursor: pointer;
+}
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  opacity: 0.7;
+}
+
+.swiper-pagination {
+  position: absolute;
+  z-index: 10;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+}
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  opacity: 0.6;
+  background-color: #000;
+  border-radius: 10px;
+  display: inline-block;
+  margin: 0 8px;
+  cursor: pointer;
+}
+.swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+/* Custom styles for Swiper.js */
+.my-swiper-container {
+  /* Custom container styles */
+}
+.my-swiper-slide {
+  /* Custom slide styles */
+}
+.section-title {
+  color: white;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 34px;
+  margin: 55px 0px 40px 0px;
 }

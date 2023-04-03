@@ -1,6 +1,32 @@
-.navWrapper {
-  background-color: rgba(5, 5, 5, 0.9);
-  display: flex;
-  flex-direction: column;
+.navbarCon {
   height: 70px;
+  background-color: rgba(5, 5, 5, 0.9);
+  color: white !important;
+  z-index: 100000000;
+  backdrop-filter: blur(3px);
+}
+
+.mainLogo {
+  max-width: 160px;
+  @media (max-width: 991px) {
+    margin: 0;
+  }
+}
+
+.navbarRoutes {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15%;
+  flex-grow: 1;
+}
+.navbarLink {
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 14px;
+  text-decoration: none;
+}
+.navbarLink:hover {
+  color: rgb(255, 204, 0);
 }

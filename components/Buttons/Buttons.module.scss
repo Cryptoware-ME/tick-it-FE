@@ -1,0 +1,42 @@
+.yellow {
+  color: white;
+  background-color: rgba(255, 204, 0, 0.8);
+  border-radius: 8px;
+  padding: 10px 20px 10px 20px;
+  font-size: 20px;
+  border: none;
+  max-width: fit-content !important;
+}
+.yellow:hover {
+  color: white;
+  background-color: rgba(255, 204, 0, 1);
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 20px;
+}
+
+.gradient {
+  color: white;
+  background: linear-gradient(180deg, rgba(137, 102, 15, 0) 0%, #0c0c0c 100%),
+    linear-gradient(
+      180deg,
+      rgba(255, 204, 0, 0.38) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+
+  border-radius: 34px;
+  padding: 10px 20px;
+  font-size: 20px;
+  border: none;
+  max-width: fit-content !important;
+
+}
+.gradient:hover {
+  color: white;
+  background: linear-gradient(180deg, #0c0c0c 0%, #89660f 100%),
+    linear-gradient(0deg, rgba(255, 204, 0, 0.38), rgba(255, 204, 0, 0.38));
+
+  border-radius: 34px;
+  padding: 10px 20px;
+  font-size: 20px;
+}
