@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <main style={{ backgroundColor: "#0c0c0c" }}>
       <Swiper />
-      <Container style={{ paddingBottom: "65px" }}>
+      <Container  style={{ paddingBottom: "65px" }}>
         <Row style={{ marginTop: "65px" }}>
           <p className="section-title">Upcoming Events Near You</p>
           <Row>
