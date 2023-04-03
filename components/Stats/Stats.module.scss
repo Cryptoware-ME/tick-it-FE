@@ -1,0 +1,32 @@
+.eventCard {
+  border-radius: 20px;
+  display: flex;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.cardGradient {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 204, 0, 0.38) -40.54%,
+    rgba(255, 204, 0, 0) 9.46%,
+    rgba(0, 0, 0, 1) 59.46%
+  );
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid;
+
+  border-image-source: linear-gradient(
+    180deg,
+    rgba(255, 204, 0, 0.38) 0%,
+    rgba(255, 204, 0, 0) 50%,
+    rgba(255, 204, 0, 0.69) 100%
+  );
+}
+.cardDetails {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  margin-top: 55%;
+}

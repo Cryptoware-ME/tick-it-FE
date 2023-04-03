@@ -4,6 +4,7 @@ import EventCard from "@/components/EventCard/eventCard";
 import { Container, Row } from "react-bootstrap";
 import Categories from "@/components/Categories/categories";
 import YellowButton from "@/components/Buttons/yellowButton";
+import Stats from "@/components/Stats/stats";
 export default function Home() {
   return (
     <main style={{ backgroundColor: "#0c0c0c" }}>
@@ -39,7 +40,9 @@ export default function Home() {
             <YellowButton text="Explore More" />
           </Row>
           <Row>
-            <div>stats</div>
+            {[0, 1, 2]?.map((event, index) => (
+              <Stats key={index} />
+            ))}
           </Row>
         </Row>
       </Container>
