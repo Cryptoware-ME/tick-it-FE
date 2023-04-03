@@ -18,10 +18,7 @@ const Footer = () => {
 
   async function addEmail(email) {
     if (email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
-      const docRef = await setDoc(doc(firestore, "cw-emails", email), {
-        email: email,
-      });
-
+      
       setSubmitted(true);
       setValidMail(true);
     } else {
@@ -82,6 +79,7 @@ const Footer = () => {
                 <FontAwesomeIcon
                   icon={faArrowRight}
                   className={styles.arrowRight}
+                  style={{color:"white"}}
                 />
               </div>
             </div>
