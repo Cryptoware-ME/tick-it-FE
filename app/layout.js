@@ -2,9 +2,10 @@ import "./globals.css";
 import "bootstrap/dist/css/bootstrap.css";
 import NavBar from "@/components/Navbar/navbar";
 
-import 'swiper/scss';
-import 'swiper/scss/navigation';
-import 'swiper/scss/pagination';
+import "swiper/scss";
+import "swiper/scss/navigation";
+import "swiper/scss/pagination";
+import Footer from "@/components/Footer/footer";
 
 export const metadata = {
   title: "Tick It",
@@ -16,13 +17,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <NavBar />
-        <div
-          // style={{
-          //   paddingTop: "80px",
-          // }}
-        >
-          {children}
-        </div>
+        <div>{children}</div>
+        <Footer/>
       </body>
     </html>
   );
