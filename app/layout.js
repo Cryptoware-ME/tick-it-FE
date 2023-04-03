@@ -2,10 +2,15 @@ import "./globals.css";
 import "bootstrap/dist/css/bootstrap.css";
 import NavBar from "@/components/Navbar/navbar";
 
-import "swiper/scss";
-import "swiper/scss/navigation";
-import "swiper/scss/pagination";
+
+
 import Footer from "@/components/Footer/footer";
+
+import '@next/font/google'
+import 'swiper/scss';
+import 'swiper/scss/navigation';
+import 'swiper/scss/pagination';
+
 
 export const metadata = {
   title: "Tick It",
