@@ -46,18 +46,20 @@ export default function Slider() {
           <div className={styles.shadow}>
             <Container className={styles.sliderContainer}>
               <Row>
-                <h1>AC/DC live in Munich {k}</h1>
+                <h1>AC/DC live in Munich </h1>
                 <p>
                   This is the first ACDC concert in Germany in years. Reserve
                   your ticket now!
                 </p>
-                <YellowButton text="Reserve" />
+                <div >
+              <YellowButton text="Reserve" />
+            </div>
               </Row>
             </Container>
+           
           </div>
         </SwiperSlide>
       ))}
     </Swiper>
-  
   );
 }

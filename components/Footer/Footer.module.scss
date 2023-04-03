@@ -36,11 +36,16 @@
 }
 
 .emailInput {
- 
-    font-size: 14px;
-  
+ background-color: #1e1e1e;
+ font-size: 14px;
+
 }
 
+.emailInput:focus {
+  background-color: #1e1e1e;
+  
+ color: white;
+ }
 .callForSubscription {
     color: #f1f1f1;
   font-size: 17px;
@@ -70,3 +75,10 @@
   padding-top: 8px;
   color: white;
 }
+.arrowRight{
+  position: absolute;
+  top: 32%;
+  right: 10px;
+}
+
+

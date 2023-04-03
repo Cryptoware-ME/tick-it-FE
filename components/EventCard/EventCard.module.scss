@@ -33,12 +33,14 @@
   margin-top: 55%;
   // font-family: Inter;
 
-  // h1{
-  //   font-size: 32px;
-  // }
-  // h4{
-  //   font-size: 18;
-  // }
+  h1{
+    font-size: 24px;
+    font-weight: 700px;
+  }
+  h4{
+    font-size: 17px;
+    font-weight: 500px;
+  }
  
 }
 .cardWrapper{
@@ -53,4 +55,18 @@
    );
   padding: 1px;
   border-radius: 20px;
+}
+.eventDate{
+font-weight: 500px;
+font-size: 17px;
+
+  span{
+    color:rgba(255, 204, 0, 1)
+
+  }
+}
+.eventLocation{
+  font-weight: 500px;
+  font-size: 17px;
+  color: #F1F1F1;
 }
