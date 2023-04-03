@@ -3,6 +3,7 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import styles from "./Navbar.module.scss";
 import Link from "next/link";
 import Image from "next/image";
+// import { ConnectWalletComponent } from "@cryptogate/react-ui";
 export default function NavBar() {
   return (
     <Navbar
@@ -25,6 +26,10 @@ export default function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className={styles.navbarRoutes}>
+            {/* <ConnectWalletComponent
+              NetworkChainIds={[1, 5]}
+              onSign={(key) => {}}
+            /> */}
             <Link href="/explore" className={styles.navbarLink}>
               Explore
             </Link>

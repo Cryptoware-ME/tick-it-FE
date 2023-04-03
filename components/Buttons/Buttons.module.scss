@@ -14,31 +14,34 @@
   padding: 10px 20px;
   font-size: 20px;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
-
 }
 
 .gradient {
   color: white;
-  background: linear-gradient(180deg, rgba(137, 102, 15, 0) 0%, #0c0c0c 100%),
-    linear-gradient(
-      180deg,
-      rgba(255, 204, 0, 0.38) 0%,
-      rgba(255, 255, 255, 0) 100%
-    );
+  background: linear-gradient(
+    180deg,
+    rgba(255, 204, 0, 0.4) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
 
+  opacity: 0.6;
+  transition:  ease-in-out 0.4s;
   border-radius: 34px;
   padding: 10px 20px;
   font-size: 20px;
   border: none;
   max-width: fit-content !important;
-
 }
 .gradient:hover {
   color: white;
-  background: linear-gradient(180deg, #0c0c0c 0%, #89660f 100%),
-    linear-gradient(0deg, rgba(255, 204, 0, 0.38), rgba(255, 204, 0, 0.38));
-
+  background: linear-gradient(
+    0deg,
+    rgba(255, 204, 0, 0.4) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
   border-radius: 34px;
   padding: 10px 20px;
   font-size: 20px;
+  // transition: all ease-in-out 0.4s;
+  opacity: 1;
 }
