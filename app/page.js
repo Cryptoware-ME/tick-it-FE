@@ -12,20 +12,20 @@ export default function Home() {
           <p className="section-title">Upcoming Events Near You</p>
           <Row>
             {[0, 1, 2]?.map((event, index) => (
-              <EventCard />
+              <EventCard  key={index}/> 
             ))}
           </Row>
         </Row>
         <Row style={{ marginTop: "65px" }}>
           <p className="section-title">Explore Events</p>
           <Row>
-            {[0, 1, 2, 3, 4, 5]?.map((event, index) => (
-              <Categories />
+            {[0, 1, 2, 3, 4, 5]?.map((category, index) => (
+              <Categories key={index}/>
             ))}
           </Row>
           <Row  style={{ marginTop: "25px" }}>
             {[0, 1, 2]?.map((event, index) => (
-              <EventCard />
+              <EventCard key={index} />
             ))}
           </Row>
         </Row>
