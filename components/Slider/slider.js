@@ -1,23 +1,31 @@
 "use client";
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
-import "swiper/css";
+
 import Image from "next/image";
 import styles from "./Slider.module.scss";
 import { Autoplay } from "swiper";
+
 import { Container, Col, Row } from "react-bootstrap";
 import YellowButton from "../Buttons/yellowButton";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/scss";
+import "swiper/scss/navigation";
+import "swiper/scss/pagination";
+import "swiper/scss/scrollbar";
 export default function Slider() {
   return (
     <Swiper
-      spaceBetween={0}
+      // install Swiper modules
+      modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+      spaceBetween={50}
       slidesPerView={1}
-      onSlideChange={() => console.log("slide change")}
-      onSwiper={(swiper) => console.log(swiper)}
       className={styles.wrapper}
-      pagination={true}
-      navigation={true}
+      pagination={{ clickable: true }}
+      onSwiper={(swiper) => console.log(swiper)}
+      onSlideChange={() => console.log("slide change")}
       loop={true}
       centeredSlides={true}
       autoplay={{
@@ -25,13 +33,14 @@ export default function Slider() {
         disableOnInteraction: false,
       }}
       speed={2500}
-      modules={[Autoplay]}
     >
       {[0, 1, 2, 3]?.map((item, k) => (
         <SwiperSlide
+          key={k}
           style={{
             backgroundImage: `url('/images/acdc.png')`,
             backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         >
           <div className={styles.shadow}>
@@ -42,12 +51,13 @@ export default function Slider() {
                   This is the first ACDC concert in Germany in years. Reserve
                   your ticket now!
                 </p>
-               <YellowButton text="Reserve"/>
+                <YellowButton text="Reserve" />
               </Row>
             </Container>
           </div>
         </SwiperSlide>
       ))}
     </Swiper>
+  
   );
 }
