@@ -1,15 +1,14 @@
-"use client";
-import Swiper from "@/components/Slider/slider";
-import EventCard from "@/components/EventCard/eventCard";
+import Slider from "../components/Slider";
+import EventCard from "../components/EventCard";
 import { Container, Row } from "react-bootstrap";
-import Categories from "@/components/Categories/categories";
-import YellowButton from "@/components/Buttons/yellowButton";
-import Stats from "@/components/Stats/stats";
+import Categories from "../components/Categories";
+// import YellowButton from "@/components/Buttons/yellowButton";
+import Stats from "../components/Stats";
 export default function Home() {
   return (
     <main style={{ backgroundColor: "#0c0c0c" }}>
-      <Swiper />
-      <Container  style={{ paddingBottom: "65px" }}>
+      <Slider />
+      <Container style={{ paddingBottom: "65px" }}>
         <Row style={{ marginTop: "65px" }}>
           <p className="section-title">Upcoming Events Near You</p>
           <Row>
@@ -37,7 +36,7 @@ export default function Home() {
               paddingTop: "65px",
             }}
           >
-            <YellowButton text="Explore More" />
+            {/* <YellowButton text="Explore More" /> */}
           </Row>
         </Row>
         <Row style={{ marginTop: "65px" }}>

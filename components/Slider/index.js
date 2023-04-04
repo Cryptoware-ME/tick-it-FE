@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import styles from "./Slider.module.scss";
 import { Autoplay } from "swiper";
@@ -51,12 +49,11 @@ export default function Slider() {
                   This is the first ACDC concert in Germany in years. Reserve
                   your ticket now!
                 </p>
-                <div >
-              <YellowButton text="Reserve" />
-            </div>
+                <div>
+                  <YellowButton text="Reserve" />
+                </div>
               </Row>
             </Container>
-           
           </div>
         </SwiperSlide>
       ))}

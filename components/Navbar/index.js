@@ -1,10 +1,10 @@
-"use client";
+import React, { useState, useEffect } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import styles from "./Navbar.module.scss";
 import Link from "next/link";
 import Image from "next/image";
-// import { ConnectWalletComponent } from "@cryptogate/react-ui";
-export default function NavBar() {
+import { ConnectWalletComponent, ConnectedMenuOptions } from "@cryptogate/react-ui";
+export default function NavBar({ setIsOpen }) {
   return (
     <Navbar
       sticky="top"
@@ -26,10 +26,6 @@ export default function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className={styles.navbarRoutes}>
-            {/* <ConnectWalletComponent
-              NetworkChainIds={[1, 5]}
-              onSign={(key) => {}}
-            /> */}
             <Link href="/explore" className={styles.navbarLink}>
               Explore
             </Link>
@@ -44,14 +40,27 @@ export default function NavBar() {
             </Link>
           </Nav>
           <Nav>
-            <Link href="/" style={{ marginRight: "15px" }}>
-              <Image
-                width={35}
-                height={35}
-                alt="crytoware-icon"
-                src="/images/user.png"
+            <div
+              onClick={() => {
+                setIsOpen(false);
+              }}
+              style={{ marginRight: "15px" }}
+            >
+              <ConnectWalletComponent
+                NetworkChainIds={[1, 5]}
+                ConnectedMenuChosen={ConnectedMenuOptions.NOMENU}
+                onSign={(key) => {}}
+                ActiveComponent={
+                  <Image
+                    width={35}
+                    height={35}
+                    alt="crytoware-icon"
+                    src="/images/user.png"
+                  />
+                }
               />
-            </Link>
+            </div>
+
             <Link href="/">
               <Image
                 width={35}

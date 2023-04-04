@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useState } from "react";
 import styles from "./Footer.module.scss";
 import { Container, Col, Row, Form } from "react-bootstrap";
@@ -11,6 +10,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 const Footer = () => {
   const [email, setEmail] = useState(null);
   const [validmail, setValidMail] = useState(true);
@@ -18,7 +18,6 @@ const Footer = () => {
 
   async function addEmail(email) {
     if (email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
-      
       setSubmitted(true);
       setValidMail(true);
     } else {
@@ -79,7 +78,7 @@ const Footer = () => {
                 <FontAwesomeIcon
                   icon={faArrowRight}
                   className={styles.arrowRight}
-                  style={{color:"white"}}
+                  style={{ color: "white" }}
                 />
               </div>
             </div>
