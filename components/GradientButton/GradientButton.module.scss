@@ -1,27 +1,23 @@
-
 .gradient {
   color: white;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 204, 0, 0.4) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
-
-  opacity: 0.6;
-  transition:  ease-in-out 0.4s;
+  background: linear-gradient(180deg, rgba(137, 102, 15, 0) 0%, #0C0C0C 100%),
+  linear-gradient(180deg, rgba(255, 204, 0, 0.38) 0%, rgba(255, 255, 255, 0) 100%);
+    opacity: 0.6;
+  transition: ease-in-out 0.6s;
   border-radius: 34px;
   padding: 10px 20px;
   font-size: 20px;
   border: none;
   max-width: fit-content !important;
+  border: 0.5px solid  rgba(255, 204, 0, 0.38);
+
+
 }
 .gradient:hover {
   color: white;
-  background: linear-gradient(
-    0deg,
-    rgba(255, 204, 0, 0.4) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
+  background: linear-gradient(180deg, #0C0C0C 0%, #89660F 100%),
+  linear-gradient(0deg, rgba(255, 204, 0, 0.38), rgba(255, 204, 0, 0.38));
+  border: 0.5px solid #FFCC0061;
   border-radius: 34px;
   padding: 10px 20px;
   font-size: 20px;

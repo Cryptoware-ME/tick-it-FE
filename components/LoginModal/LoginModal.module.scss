@@ -27,7 +27,17 @@
   width: 100%;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 50px;
+}
+.googleinput {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 0;
+  font-weight: 600;
+  font-size: 20px;
+  margin-left: -36px;
 }
 .googleLogin {
   width: 80%;
@@ -44,4 +54,51 @@
   order: 0;
   flex-grow: 0;
   color: #f1f1f1;
+}
+.forgetpassword {
+  font-weight: 400;
+  font-size: 11px;
+  text-decoration-line: underline;
+  color: rgba(241, 241, 241, 0.6);
+  display: flex;
+}
+.forgetpass {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  flex-direction: column;
+  padding-left: 50px;
+  margin-top: 8px;
+  :hover{
+    color:#FFCC00
+  }
+}
+.signup {
+  margin-bottom: 0;
+  font-weight: 400;
+  font-size: 11px;
+  color: rgba(241, 241, 241, 0.6);
+}
+.signuplink{
+  font-weight: 400;
+  font-size: 11px;
+  color: rgba(241, 241, 241, 0.6);
+  margin-left: 3px;
+  text-decoration: underline;
+  cursor: pointer;
+ 
+}
+.signuplink:hover{
+
+  color: #FFCC00;
+
+  text-decoration: underline;
+  cursor: pointer;
+ 
+}
+.signupdiv{
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 90px;
 }

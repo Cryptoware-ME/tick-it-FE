@@ -3,11 +3,10 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import styles from "./Navbar.module.scss";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  ConnectWalletComponent,
-  ConnectedMenuOptions,
-} from "@cryptogate/react-ui";
-export default function NavBar({ setModalOpen }) {
+import { useAuthModalContext } from "../../context/AuthModalProvider";
+
+export default function NavBar() {
+  const { setModalOpen } = useAuthModalContext();
   return (
     <Navbar
       sticky="top"
@@ -22,7 +21,7 @@ export default function NavBar({ setModalOpen }) {
             width={180}
             height={30}
             className={styles.mainLogo}
-            alt="crytoware-icon"
+            alt="icon"
             src="/images/logo.png"
           />
         </Navbar.Brand>

@@ -21,3 +21,30 @@ a {
   color: white !important;
   border-radius: 10px !important;
 }
+.section-title {
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 28px;
+  /* font-family: 'Druk Wide Trial' */
+}
+
+.btn-close {
+  color: #dd2929 !important;
+  background: transparent url("/images/closebutton.png") no-repeat center  !important;
+  
+}
+.modal-header {
+  border-bottom: none !important;
+}
+.swiper-pagination-bullet {
+  width: 10px !important;
+  height: 10px !important;
+  opacity: 0.6 !important;
+  background-color: rgba(255, 255, 255, 0.4) !important;
+
+}
+.swiper-pagination-bullet-active {
+  opacity: 1 !important; 
+  background-color: rgba(255, 255, 255, 1) !important;
+}
+

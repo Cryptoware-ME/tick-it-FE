@@ -12,21 +12,21 @@ import NavBar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Inter } from "@next/font/google";
 import LoginModal from "../components/LoginModal";
+import { AuthModalProvider } from "../context/AuthModalProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
 function MyApp({ Component, pageProps }) {
-  const [modalOpen, setModalOpen] = useState(false);
+
   return (
     <div className={inter.className}>
       <MultiChainProvider config={config}>
-        {/* <AuthModalProvider> */}
-          <NavBar setModalOpen={setModalOpen} />
-          {modalOpen && <LoginModal />}
-
+        <AuthModalProvider>
+          <NavBar />
+          <LoginModal />
           <Component {...pageProps} />
           <Footer />
-        {/* </AuthModalProvider> */}
+        </AuthModalProvider>
       </MultiChainProvider>
     </div>
   );
