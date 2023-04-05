@@ -28,7 +28,7 @@ export default function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className={styles.navbarRoutes}>
-            <Link href="/explore" className={styles.navbarLink}>
+            <Link href="#explore" scroll className={styles.navbarLink}>
               Explore
             </Link>
             <Link href="/create-event" className={styles.navbarLink}>
@@ -66,7 +66,7 @@ export default function NavBar() {
               onClick={() => {
                 setModalOpen(true);
               }}
-              style={{ marginRight: "15px" }}
+              style={{ marginRight: "15px", cursor: "pointer" }}
             >
               <Image
                 width={35}

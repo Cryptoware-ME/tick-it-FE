@@ -1,0 +1,41 @@
+.barContainer {
+  width: 100%;
+  margin-left: -13%;
+  opacity: 0.5;
+  border: var(--border-light);
+}
+
+.subbarItem {
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--white);
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+  position: relative;
+  padding: 20px 0 20px 20px;
+  border: 1px solid #1a2a47;
+}
+
+.subbarItem:hover {
+  color: #1a2a47 !important;
+  background-color: var(--white) !important;
+  font-weight: 500;
+}
+
+.poolText {
+  text-decoration: none;
+  color: var(--white);
+}
+.barTitle {
+  text-decoration: none;
+  color: var(--white);
+}
+
+.barTitle:hover {
+  color: var(--blue);
+  background-color: var(--white);
+}

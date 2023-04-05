@@ -30,8 +30,7 @@ a {
 
 .btn-close {
   color: #dd2929 !important;
-  background: transparent url("/images/closebutton.png") no-repeat center  !important;
-  
+  background: transparent url("/images/closebutton.png") no-repeat center !important;
 }
 .modal-header {
   border-bottom: none !important;
@@ -41,10 +40,43 @@ a {
   height: 10px !important;
   opacity: 0.6 !important;
   background-color: rgba(255, 255, 255, 0.4) !important;
-
 }
 .swiper-pagination-bullet-active {
-  opacity: 1 !important; 
+  opacity: 1 !important;
   background-color: rgba(255, 255, 255, 1) !important;
 }
 
+.cardWrapper {
+  padding: 1px;
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 204, 0, 0.38) 0%,
+    rgba(255, 204, 0, 0) 50%,
+    rgba(255, 204, 0, 0.69) 100%
+  );
+
+  border-radius: 20px;
+}
+
+* {
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: black;
+  border-radius: 20px;
+  border: 1px solid #f9f4f0;
+}
+
+html {
+  scroll-behavior: smooth !important;
+}

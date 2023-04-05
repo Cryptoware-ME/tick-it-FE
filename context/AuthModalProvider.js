@@ -15,6 +15,8 @@ export const AuthModalProvider = ({ children }) => {
         modalOpen,
         setModalOpen,
       }}
-    >{children}</AuthModalContext.Provider>
+    >
+      {children}
+    </AuthModalContext.Provider>
   );
 };

@@ -4,6 +4,14 @@
   background-size: contain;
   background-repeat: no-repeat;
 }
+.cardContainer {
+  height: 100%;
+  width: 100%;
+
+  border-radius: 20px;
+  overflow: hidden;
+}
+
 .cardGradient {
   background: linear-gradient(
     180deg,
@@ -11,62 +19,62 @@
     rgba(255, 204, 0, 0) 9.46%,
     rgba(0, 0, 0, 1) 59.46%
   );
+
+  pointer-events: none;
+  position: absolute;
+  width: 99.5%;
+  bottom: 1px;
   height: 100%;
-  width: 100%;
-  padding: 20px;
+  z-index: 2;
   border-radius: 20px;
+}
+.cardImage {
+  width: 100%;
+  height: auto;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  object-fit: contain;
 
-  // border: 1px solid;
-
-  // border-image-source: linear-gradient(
-  //   180deg,
-  //   rgba(255, 204, 0, 0.38) 0%,
-  //   rgba(255, 204, 0, 0) 50%,
-  //   rgba(255, 204, 0, 0.69) 100%
-  // );
+  position: relative;
+  z-index: 1;
+  transition: all ease-in-out 0.7s;
+  transform-origin: bottom;
+  transform: scale(1);
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
 .cardDetails {
+ padding: 20px;
   display: flex;
   flex-direction: column;
   color: white;
-  margin-top: 55%;
+
+  position: relative;
+  z-index: 3;
   // font-family: Inter;
 
-  h1{
+  h1 {
     font-size: 24px;
-    font-weight: 700px;
+    font-weight: 700;
   }
-  h4{
+  h4 {
     font-size: 17px;
-    font-weight: 500px;
-  }
- 
-}
-.cardWrapper{
-
-  padding: 1px;
-  position: relative;
-  background: linear-gradient(
-   180deg,
-   rgba(255, 204, 0, 0.38) 0%,
-    rgba(255, 204, 0, 0) 50%,
-    rgba(255, 204, 0, 0.69) 100%
-   );
-  padding: 1px;
-  border-radius: 20px;
-}
-.eventDate{
-font-weight: 500px;
-font-size: 17px;
-
-  span{
-    color:rgba(255, 204, 0, 1)
-
+    font-weight: 500;
   }
 }
-.eventLocation{
-  font-weight: 500px;
+
+.eventDate {
+  font-weight: 500;
   font-size: 17px;
-  color: #F1F1F1;
+
+  span {
+    color: rgba(255, 204, 0, 1);
+  }
+}
+.eventLocation {
+  font-weight: 500;
+  font-size: 17px;
+  color: #f1f1f1;
 }
