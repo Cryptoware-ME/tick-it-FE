@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import styles from "./Buttons.module.scss";
+import styles from "./GradientButton.module.scss";
 
-const YellowButton = ({
+const GradientButton = ({
   text,
   onClick,
   disabled,
@@ -13,7 +13,7 @@ const YellowButton = ({
     <>
       {text ? (
         <button
-          className={styles.yellow}
+          className={styles.gradient}
           onClick={onClick}
           disabled={disabled}
           style={{ padding: padding, minWidth: minWidth }}
@@ -27,4 +27,4 @@ const YellowButton = ({
   );
 };
 
-export default YellowButton;
+export default GradientButton;

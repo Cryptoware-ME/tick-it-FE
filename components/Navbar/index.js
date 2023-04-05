@@ -3,8 +3,11 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import styles from "./Navbar.module.scss";
 import Link from "next/link";
 import Image from "next/image";
-import { ConnectWalletComponent, ConnectedMenuOptions } from "@cryptogate/react-ui";
-export default function NavBar({ setIsOpen }) {
+import {
+  ConnectWalletComponent,
+  ConnectedMenuOptions,
+} from "@cryptogate/react-ui";
+export default function NavBar({ setModalOpen }) {
   return (
     <Navbar
       sticky="top"
@@ -40,7 +43,7 @@ export default function NavBar({ setIsOpen }) {
             </Link>
           </Nav>
           <Nav>
-            <div
+            {/* <div
               onClick={() => {
                 setIsOpen(false);
               }}
@@ -58,6 +61,19 @@ export default function NavBar({ setIsOpen }) {
                     src="/images/user.png"
                   />
                 }
+              />
+            </div> */}
+            <div
+              onClick={() => {
+                setModalOpen(true);
+              }}
+              style={{ marginRight: "15px" }}
+            >
+              <Image
+                width={35}
+                height={35}
+                alt="crytoware-icon"
+                src="/images/user.png"
               />
             </div>
 

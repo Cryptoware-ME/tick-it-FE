@@ -2,7 +2,7 @@ import Slider from "../components/Slider";
 import EventCard from "../components/EventCard";
 import { Container, Row } from "react-bootstrap";
 import Categories from "../components/Categories";
-// import YellowButton from "@/components/Buttons/yellowButton";
+import YellowButton from "../components/yellowButton";
 import Stats from "../components/Stats";
 export default function Home() {
   return (
@@ -36,7 +36,7 @@ export default function Home() {
               paddingTop: "65px",
             }}
           >
-            {/* <YellowButton text="Explore More" /> */}
+            <YellowButton text="Explore More" />
           </Row>
         </Row>
         <Row style={{ marginTop: "65px" }}>

@@ -3,8 +3,8 @@ import styles from "./Slider.module.scss";
 import { Autoplay } from "swiper";
 
 import { Container, Col, Row } from "react-bootstrap";
-import YellowButton from "../Buttons/yellowButton";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import YellowButton from "../yellowButton";
+import { EffectFade, Navigation, Pagination, Scrollbar, A11y } from "swiper";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -13,13 +13,29 @@ import "swiper/scss";
 import "swiper/scss/navigation";
 import "swiper/scss/pagination";
 import "swiper/scss/scrollbar";
+import "swiper/css/effect-fade";
 export default function Slider() {
+  let slides = [
+    {
+      image: "/images/acdc.png",
+      name: "AC/DC",
+    },
+    {
+      image: "/images/opeth.png",
+      name: "OPETH",
+    },
+    {
+      image: "/images/thelyric.png",
+      name: "THE LYRIC",
+    },
+  ];
   return (
     <Swiper
       // install Swiper modules
-      modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-      spaceBetween={50}
+      modules={[EffectFade, Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+      spaceBetween={0}
       slidesPerView={1}
+      effect={"fade"}
       className={styles.wrapper}
       pagination={{ clickable: true }}
       onSwiper={(swiper) => console.log(swiper)}
@@ -27,16 +43,16 @@ export default function Slider() {
       loop={true}
       centeredSlides={true}
       autoplay={{
-        delay: 1500,
+        delay: 3000,
         disableOnInteraction: false,
       }}
-      speed={2500}
+      speed={1000}
     >
-      {[0, 1, 2, 3]?.map((item, k) => (
+      {slides?.map((item, k) => (
         <SwiperSlide
           key={k}
           style={{
-            backgroundImage: `url('/images/acdc.png')`,
+            backgroundImage: `url(${item.image})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -44,10 +60,10 @@ export default function Slider() {
           <div className={styles.shadow}>
             <Container className={styles.sliderContainer}>
               <Row>
-                <h1>AC/DC live in Munich </h1>
+                <h1>{item.name} </h1>
                 <p>
-                  This is the first ACDC concert in Germany in years. Reserve
-                  your ticket now!
+                  This is the first {item.name} concert in Germany in years.
+                  Reserve your ticket now!
                 </p>
                 <div>
                   <YellowButton text="Reserve" />

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Categories.module.scss";
 import { Col, Row } from "react-bootstrap";
-import GradientButton from "../Buttons/gradientButton";
+import GradientButton from "../GradientButton";
 const Categories = ({}) => {
   return (
     <>

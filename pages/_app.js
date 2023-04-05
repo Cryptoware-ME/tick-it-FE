@@ -10,18 +10,25 @@ import config from "../config";
 import React, { useState, useEffect } from "react";
 import NavBar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { Inter } from "@next/font/google";
+import LoginModal from "../components/LoginModal";
+
+const inter = Inter({ subsets: ["latin"] });
 
 function MyApp({ Component, pageProps }) {
-  let [isOpen, setIsOpen] = React.useState(false);
-
+  const [modalOpen, setModalOpen] = useState(false);
   return (
-    <>
+    <div className={inter.className}>
       <MultiChainProvider config={config}>
-        <NavBar setIsOpen={setIsOpen}/>
-        <Component {...pageProps} />
-        <Footer />
+        {/* <AuthModalProvider> */}
+          <NavBar setModalOpen={setModalOpen} />
+          {modalOpen && <LoginModal />}
+
+          <Component {...pageProps} />
+          <Footer />
+        {/* </AuthModalProvider> */}
       </MultiChainProvider>
-    </>
+    </div>
   );
 }
 
