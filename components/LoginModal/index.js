@@ -23,7 +23,7 @@ const LoginModal = () => {
       email: "",
       password: "",
       username: "",
-      confirmpassword: " ",
+      confirmpassword: "",
       isSignup:false
     },
     validationSchema: schema,
