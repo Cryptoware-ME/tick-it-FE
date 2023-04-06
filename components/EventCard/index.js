@@ -27,8 +27,8 @@ const EventCard = ({}) => {
             </div>
 
             <div className={styles.cardDetails}>
-              <h1>Billie Eilish</h1>
-              <h4>sponsor</h4>
+              <h1 className={styles.cardTitle}>Billie Eilish</h1>
+              <h4  className={styles.cardSponsor}>sponsor</h4>
               <div className={styles.eventDate}>
                 date <span> | </span> date
               </div>

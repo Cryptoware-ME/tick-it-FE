@@ -3,11 +3,15 @@
   background-color: rgb(255, 204, 0);
   border-radius: 8px;
   padding: 10px 20px 10px 20px;
+  font-style: normal;
+  font-weight: 500;
   font-size: 20px;
+  line-height: 24px;
+  font-family: "DrukWideMedium";
   border: none;
   max-width: fit-content !important;
   opacity: 0.8;
-  transition:  ease-in-out 0.4s;
+  transition: ease-in-out 0.4s;
 }
 .yellow:hover {
   color: white;

@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import "../styles/fonts.css";
 import "@next/font/google";
 import "swiper/scss";
 import "swiper/scss/navigation";

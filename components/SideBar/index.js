@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
-import Link from "next/link";
+import YellowButton from "../../components/YellowButton";
 import Image from "next/image";
 import styles from "./SideBar.module.scss";
 
@@ -19,41 +19,216 @@ export default function SideBar() {
   };
 
   return (
-    <div style={{ display: "flex", height: "100%" }}>
+    <div className={styles.sideBar}>
       <Sidebar
         breakPoint="lg"
-        background="#1a2a47"
+        backgroundColor
         width={width > 991 ? "100%" : "80%"}
       >
         <Menu>
-          <Link
-            href={`/#`}
-            onClick={() => {
-              toggleSidebar();
-            }}
-            style={{
-              color: " white",
-            }}
-          >
-            link
-          </Link>
+          <div className={styles.sideBarInputDiv}>
+            <Image
+              width={18}
+              height={18}
+              alt="search"
+              src="/images/searchIcon.png"
+            />
+            <input
+              type="text"
+              // value={}
+              placeholder="Search"
+              onChange={(e) => {}}
+              required
+              className={styles.sideBarInput}
+            />
+          </div>
+          <div className={styles.sideBarInputDiv}>
+            <Image
+              width={14}
+              height={20}
+              alt="search"
+              src="/images/mapIcon.png"
+            />
+            <input
+              type="text"
+              // value={}
+              placeholder="Enter Location"
+              onChange={(e) => {}}
+              required
+              className={styles.sideBarInput}
+            />
+          </div>
+          <div className={styles.sideBarCheckboxesDiv}>
+            <div
+              style={{
+                display: "flex",
+                marginTop: "10px",
+
+                alignItems: "center",
+              }}
+            >
+              <input
+                className={styles.squareCheckbox}
+                type="checkbox"
+                onclick="myFunction()"
+              />
+              <p className={styles.checkboxText}>Used Tickets</p>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <input
+                className={styles.squareCheckbox}
+                type="checkbox"
+                onclick="myFunction()"
+              />
+              <p className={styles.checkboxText}>Unused Tickets</p>
+            </div>
+          </div>
+          <div className={styles.dateFilterDiv}>
+            <p className={styles.filterTitle}>Date</p>
+            <div
+              style={{
+                display: "flex",
+                marginTop: "10px",
+                alignItems: "center",
+              }}
+            >
+              <input
+                className={styles.roundCheckbox}
+                type="checkbox"
+                onclick="myFunction()"
+              />
+              <p className={styles.checkboxText}>Today</p>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <input
+                className={styles.roundCheckbox}
+                type="checkbox"
+                onclick="myFunction()"
+              />
+              <p className={styles.checkboxText}>This Week</p>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <input
+                className={styles.roundCheckbox}
+                type="checkbox"
+                onclick="myFunction()"
+              />
+              <p className={styles.checkboxText}>This Month</p>
+            </div>
+            <div className={styles.sideBarInputDiv}>
+              <p className={styles.dateText}>From</p>
+              <input
+                type="date"
+                // value={}
+                placeholder="Search"
+                onChange={(e) => {}}
+                required
+                className={styles.sideBarInput}
+                style={{ color: "#656565" }}
+              />
+            </div>
+            <div className={styles.sideBarInputDiv}>
+              <p className={styles.dateText}>To</p>
+              <input
+                type="date"
+                // value={}
+                placeholder="Search"
+                onChange={(e) => {}}
+                required
+                className={styles.sideBarInput}
+                style={{ color: "#656565" }}
+              />
+            </div>
+          </div>
+          <div className={styles.dateFilterDiv}>
+            <p className={styles.filterTitle}>Categories</p>
+            <div
+              style={{
+                display: "flex",
+                marginTop: "10px",
+                alignItems: "center",
+              }}
+            >
+              <input
+                className={styles.roundCheckbox}
+                type="checkbox"
+                onclick="myFunction()"
+              />
+              <p className={styles.checkboxText}>All</p>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <input
+                className={styles.squareCheckbox}
+                type="checkbox"
+                onclick="myFunction()"
+              />
+              <p className={styles.checkboxText}>Concert</p>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <input
+                className={styles.squareCheckbox}
+                type="checkbox"
+                onclick="myFunction()"
+              />
+              <p className={styles.checkboxText}>Workshop</p>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <input
+                className={styles.squareCheckbox}
+                type="checkbox"
+                onclick="myFunction()"
+              />
+              <p className={styles.checkboxText}>Hobbies</p>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <input
+                className={styles.squareCheckbox}
+                type="checkbox"
+                onclick="myFunction()"
+              />
+              <p className={styles.checkboxText}>Other</p>
+            </div>
+          </div>
+          <div className={styles.filterButton}>
+            <YellowButton text="Filter" />
+          </div>
         </Menu>
       </Sidebar>
-      <main style={{ display: "flex", padding: 10 }}>
-        <div
-          onClick={() => {
-            toggleSidebar();
-          }}
-          className={`d-lg-none mx-auto mb-2`}
-        >
-          {/* <Image
-              alt="openmodal"
-              src="/openmodal.png"
-              width="25"
-              height="25"
-            /> */}
-        </div>
-      </main>
     </div>
   );
 }
