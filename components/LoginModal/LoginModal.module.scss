@@ -35,9 +35,10 @@
   justify-content: center;
   width: 100%;
   margin-bottom: 0;
-  font-weight: 600;
-  font-size: 20px;
+  font-weight: 400;
+  font-size: 16px;
   margin-left: -36px;
+  color: #F1F1F1;
 }
 .googleLogin {
   width: 80%;
@@ -69,8 +70,8 @@
   flex-direction: column;
   padding-left: 50px;
   margin-top: 8px;
-  :hover{
-    color:#FFCC00
+  :hover {
+    color: #ffcc00;
   }
 }
 .signup {
@@ -79,26 +80,32 @@
   font-size: 11px;
   color: rgba(241, 241, 241, 0.6);
 }
-.signuplink{
+.signuplink {
   font-weight: 400;
   font-size: 11px;
   color: rgba(241, 241, 241, 0.6);
   margin-left: 3px;
   text-decoration: underline;
   cursor: pointer;
- 
 }
-.signuplink:hover{
-
-  color: #FFCC00;
+.signuplink:hover {
+  color: #ffcc00;
 
   text-decoration: underline;
   cursor: pointer;
- 
 }
-.signupdiv{
+.signupdiv {
   display: flex;
   align-items: center;
   margin-top: 20px;
   margin-bottom: 90px;
+}
+.errors {
+  display: flex;
+  padding: 0 10%;
+}
+.error {
+  color: red;
+  font-size: 13px;
+  margin-bottom: 0;
 }
