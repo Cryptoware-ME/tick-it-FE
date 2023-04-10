@@ -49,49 +49,6 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  color: white;
-
   position: relative;
   z-index: 3;
-  // font-family: Inter;
-
-  h1 {
-    font-size: 24px;
-    font-weight: 700;
-  }
-  h4 {
-    font-size: 17px;
-    font-weight: 500;
-  }
-}
-
-.eventDate {
-font-style: normal;
-font-weight: 500;
-font-size: 17px;
-line-height: 21px;
-color: #F1F1F1;
-
-  span {
-    color: rgba(255, 204, 0, 1);
-  }
-}
-.eventLocation {
-  font-weight: 500;
-  font-size: 17px;
-  color: #f1f1f1;
-}
-.cardTitle {
-  font-style: normal;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 29px;
-}
-.cardSponsor {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 17px;
-  line-height: 21px;
-  color: #f1f1f1;
-  opacity: 0.6;
 }

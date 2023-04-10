@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import styles from "./EventCard.module.scss";
 import { Col, Row } from "react-bootstrap";
 import Image from "next/image";
-
+import EventDate from "../EventDate";
+import EventLocation from "../EventLocation";
+import EventOrganizer from "../EventOrganizer";
+import EventTitle from "../EventTitle";
 const EventCard = ({}) => {
   return (
     <>
@@ -27,12 +30,10 @@ const EventCard = ({}) => {
             </div>
 
             <div className={styles.cardDetails}>
-              <h1 className={styles.cardTitle}>Billie Eilish</h1>
-              <h4  className={styles.cardSponsor}>sponsor</h4>
-              <div className={styles.eventDate}>
-                date <span> | </span> date
-              </div>
-              <div className={styles.eventLocation}>location</div>
+              <EventTitle title="Billie Eilish" />
+              <EventOrganizer organizer="NRJ" />
+              <EventDate date="june 17" time="8pm GMT" />
+              <EventLocation location="Allianz Arena" />
             </div>
           </div>
         </div>
