@@ -4,7 +4,12 @@ import { Col, Row } from "react-bootstrap";
 import Image from "next/image";
 import TicketCounter from "../TicketCounter";
 import EventDetails from "../EventDetails";
+import YellowButton from "../yellowButton";
+import Counter from "../Counter";
+
+
 const TicketCard = ({ index }) => {
+  const [counter, setCounter] = useState(1);
   return (
     <>
       <Col xl={12} style={{ padding: "10px" }}>
@@ -21,16 +26,38 @@ const TicketCard = ({ index }) => {
               <div className={styles.imageGradient} />
             </div>
             <div className={styles.cardDetails}>
-              <div>
-              <h1 className={styles.cardTitle}> Tier {index + 1}</h1>
-              <div>
-                delete
+              <div className={styles.cardHeader}>
+                <h1 className={styles.cardTitle}> Tier {index + 1}</h1>
+                <div>
+                  <Image
+                    width={28}
+                    height={32}
+                    style={{ marginRight: "40px" }}
+                    alt="delete"
+                    src="/images/delete.png"
+                  />
+                  <Image
+                    width={32}
+                    height={32}
+                    alt="edit"
+                    src="/images/edit.png"
+                  />
+                </div>
               </div>
-              </div>
-             
+
               <TicketCounter sold={286} total={900} />
               <EventDetails details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
               <h1 className={styles.cardPrice}>$15</h1>
+              <Row>
+                <Col className={styles.cardCounter} >
+                  <h1 className={styles.cardQuantity}>Enter Quantity</h1>
+                <Counter counter={counter} setCounter={setCounter}/>
+                </Col>
+                <Col>
+                  <YellowButton text="ADD TO CART" />
+              
+                </Col>
+              </Row>
             </div>
           </div>
         </div>
