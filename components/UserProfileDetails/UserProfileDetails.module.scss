@@ -1,0 +1,46 @@
+.wrapper {
+  width: 100%;
+  background: rgba(212, 212, 212, 0.1);
+  min-height: 70vh;
+  align-items: center;
+  display: flex;
+}
+.profile {
+  display: flex;
+  flex-direction: row;
+}
+.imageCol {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profileHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.profileReport {
+  margin-bottom: 0;
+  margin-left: 5px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 9px;
+  line-height: 11px;
+  color: #f1f1f1;
+}
+.profileTitle {
+  font-family: "DrukWideMedium";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 48px;
+  color: #ffffff;
+}
+.reportDiv {
+  display: flex;
+  flex-direction: row;
+  margin-left: 24px;
+  cursor: pointer;
+  height: fit-content;
+  justify-content: center;
+}

@@ -62,25 +62,15 @@ export default function NavBar() {
                 }
               />
             </div> */}
-            <div
-              onClick={() => {
-                setModalOpen(true);
-              }}
-              style={{ marginRight: "15px", cursor: "pointer" }}
-            >
-              <Image
-                width={35}
-                height={35}
-                alt="crytoware-icon"
-                src="/images/user.png"
-              />
-            </div>
+            <Link href="/profile" style={{ marginRight: "15px" }}>
+              <Image width={35} height={35} alt="icon" src="/images/user.png" />
+            </Link>
 
             <Link href="/">
               <Image
                 width={35}
                 height={35}
-                alt="crytoware-icon"
+                alt="icon"
                 src="/images/chart.png"
               />
             </Link>
