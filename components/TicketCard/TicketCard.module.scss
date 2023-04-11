@@ -20,7 +20,7 @@
 
   height: 99.3%;
   z-index: 2;
-  border-radius: 17px;
+  border-radius: 20px;
 }
 .imageDiv {
   width: 30%;
@@ -46,4 +46,13 @@
   font-size: 30px;
   line-height: 36px;
   color: #f1f1f1;
+}
+.cardPrice {
+  font-family: "DrukWideMedium";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  color: #ffffff;
+  margin-top: 30px;
 }

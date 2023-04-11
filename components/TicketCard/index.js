@@ -21,9 +21,16 @@ const TicketCard = ({ index }) => {
               <div className={styles.imageGradient} />
             </div>
             <div className={styles.cardDetails}>
+              <div>
               <h1 className={styles.cardTitle}> Tier {index + 1}</h1>
+              <div>
+                delete
+              </div>
+              </div>
+             
               <TicketCounter sold={286} total={900} />
               <EventDetails details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+              <h1 className={styles.cardPrice}>$15</h1>
             </div>
           </div>
         </div>
