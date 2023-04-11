@@ -34,9 +34,7 @@ export default function NavBar() {
             <Link href="/create-event" className={styles.navbarLink}>
               Create Event
             </Link>
-            <Link href="/about" className={styles.navbarLink}>
-              About
-            </Link>
+        
             <Link href="/support" className={styles.navbarLink}>
               Support
             </Link>
