@@ -1,0 +1,25 @@
+.dashboardWrapper {
+  min-height: 100vh;
+  background-color: #0c0c0c;
+}
+
+.organizationSection {
+  border-bottom: 3px solid #1a1a1a;
+  padding: 24px 0px;
+}
+.viewAll {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #f1f1f1;
+}
+.viewAll:hover {
+  color: #ffcc00;
+  cursor: pointer;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

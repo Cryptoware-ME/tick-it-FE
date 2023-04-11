@@ -7,7 +7,7 @@ const PageTitle = ({
   return (
     <>
       {text ? (
-        <h1 className={styles.pageTitle}>Explore</h1>
+        <h1 className={styles.pageTitle}>{text}</h1>
       ) : (
         <></>
       )}

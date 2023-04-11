@@ -64,17 +64,18 @@ a {
 }
 
 *::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 
 *::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: #595959;
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: black;
+  background-color: #ffcc00;
+  opacity: 0.5;
   border-radius: 20px;
-  border: 1px solid #f9f4f0;
+  /* border: 1px solid #f9f4f0; */
 }
 
 html {

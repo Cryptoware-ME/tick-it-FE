@@ -54,13 +54,13 @@ export default function NavBar() {
                   <Image
                     width={35}
                     height={35}
-                    alt="crytoware-icon"
+                    alt="icon"
                     src="/images/user.png"
                   />
                 }
               />
             </div> */}
-            <Link href="/profile" style={{ marginRight: "15px" }}>
+            <Link href="/dashboard" style={{ marginRight: "15px" }}>
               <Image width={35} height={35} alt="icon" src="/images/user.png" />
             </Link>
 

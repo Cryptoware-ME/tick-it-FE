@@ -1,0 +1,35 @@
+.cardWrapper {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cardImage {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #f1f1f1;
+  min-height: 150px;
+  color: #f1f1f1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  p {
+    margin-bottom: 0;
+  }
+}
+.eventTitle {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+}
+.eventTime {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}

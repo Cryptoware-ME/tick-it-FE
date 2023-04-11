@@ -11,12 +11,6 @@ const EventCard = ({}) => {
     <>
       <Col md={4} style={{ padding: "10px" }}>
         <div className="cardWrapper">
-          {/* <div
-            className={styles.eventCard}
-            style={{
-              backgroundImage: `url('/images/belle.png')`,
-            }}
-          > */}
           <div className={styles.cardContainer}>
             <div>
               <Image
@@ -37,7 +31,6 @@ const EventCard = ({}) => {
             </div>
           </div>
         </div>
-        {/* </div> */}
       </Col>
     </>
   );
