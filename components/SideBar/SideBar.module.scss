@@ -2,8 +2,8 @@
   display: flex;
   min-height: 100vh;
   height: 100%;
-  background: linear-gradient(270deg, #1a1a1a 0%, rgba(26, 26, 26, 0) 100%);
-  box-shadow: 4px 0px 20px 0px rgba(0, 0, 0, 0.25);
+  background: var(--sideBarGradient);
+  box-shadow: var(--sideBarShadow);
 }
 .sideBarInputDiv {
   display: flex;
@@ -23,7 +23,7 @@
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
-  color: #f1f1f1;
+  color: var(--text);
   overflow-x: hidden;
   background-color: transparent !important;
 }
@@ -35,18 +35,17 @@
   flex-direction: column;
   border-radius: 4px;
   margin-top: 10px;
-
 }
 .checkboxText {
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
-  color: #f1f1f1;
+  color:  var(--text);
   margin-left: 8px;
   margin-bottom: 8px;
 }
 .dateText {
-  color: #f1f1f1;
+  color: var(--text);
   margin-bottom: 0;
 }
 
@@ -54,7 +53,7 @@
   margin-top: 30px;
 }
 .filterTitle {
-  color: #f1f1f1;
+  color: var(--text);
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
@@ -81,7 +80,6 @@
     linear-gradient(0deg, #878787, #878787);
 }
 .filterButton {
-  
   display: flex;
   justify-content: center;
   margin-top: 48px;

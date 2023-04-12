@@ -1,6 +1,6 @@
 .yellow {
-  color: white;
-  background-color: rgb(255, 204, 0);
+  color: var(--text);
+  //  background-color: var(--yellow1);
   border-radius: 8px;
   padding: 10px 20px 10px 20px;
   font-style: normal;
@@ -10,15 +10,18 @@
   font-family: "DrukWideMedium";
   border: none;
   max-width: fit-content !important;
-  opacity: 0.8;
+
   transition: ease-in-out 0.4s;
 }
 .yellow:hover {
   color: white;
-  background-color: rgb(255, 204, 0);
+  // background-color: var(--yellow1Hover);
   border-radius: 8px;
   padding: 10px 20px;
   font-size: 20px;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
-  opacity: 1;
+}
+.btnImage {
+  object-fit: cover;
+  margin-right: 10px;
 }

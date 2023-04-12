@@ -1,8 +1,8 @@
 .footerWrapper {
-  background-color: #1e1e1e;
+  background-color:  var(--footerBackground);
   min-height: 300px;
   border-top: 1px solid;
-  border-color: #ffcc00;
+  border-color:   var(--yellow1Hover);
   padding: 60px 40px;
 }
 .linksWrapper {
@@ -13,42 +13,40 @@
   flex-direction: column;
 }
 .footerLink {
-  font-family: "Inter";
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
-  color: #f1f1f1;
+  color: var(--text);
   text-decoration: none;
   margin-bottom: 20px;
   width: fit-content;
 }
 .footerLink:hover {
-  color: #ffcc00;
+  color:   var(--yellow1Hover);
   text-decoration: none;
 }
 
 .subscribeTitle {
-  color: #f1f1f1;
-  font-size: 14px;
+  color: var(--text);
+  font-size: 17px;
   font-weight: Poppins;
-  font-weight: 900;
+  font-weight: 500;
 }
 
 .emailInput {
- background-color: #1e1e1e;
+ background-color:var(--footerBackground);
  font-size: 14px;
-
+font-weight: 400;
 }
 
 .emailInput:focus {
-  background-color: #1e1e1e;
-
- color: white;
+  background-color: var(--footerBackground);
+ color: var(--text);
  border: none;
  }
 .callForSubscription {
-    color: #f1f1f1;
+    color:var(--text);
   font-size: 17px;
   font-weight: 500;
 }
@@ -63,7 +61,7 @@
   .socialIcon {
     height: 26px;
     cursor: pointer;
-    color: white;
+    color: var(--text);
   }
 }
 
@@ -74,7 +72,7 @@
 
 .mailSubmitted {
   padding-top: 8px;
-  color: white;
+  color: var(--text);
 }
 .arrowRight{
   position: absolute;

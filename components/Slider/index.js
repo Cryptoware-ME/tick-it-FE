@@ -14,6 +14,7 @@ import "swiper/scss/navigation";
 import "swiper/scss/pagination";
 import "swiper/scss/scrollbar";
 import "swiper/css/effect-fade";
+
 export default function Slider() {
   let slides = [
     {

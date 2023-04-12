@@ -5,7 +5,7 @@ import EventDate from "../../components/EventDate";
 import EventLocation from "../../components/EventLocation";
 import EventDetails from "../../components/EventDetails";
 import Tickets from "../../components/Tickets";
-const Event = ({}) => {
+const Event = () => {
   return (
     <div className={styles.eventWrapper}>
       <div
