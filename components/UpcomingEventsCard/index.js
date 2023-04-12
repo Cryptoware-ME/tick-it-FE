@@ -8,7 +8,7 @@ const UpcomingEventsCard = () => {
       <Col lg={3} md={6} className={styles.cardWrapper}>
         <div
           style={{
-            backgroundImage: `url("/images/belle.png")`,
+            backgroundImage: `url("/images/ticket.png")`,
           }}
           className={styles.cardImage}
         >
