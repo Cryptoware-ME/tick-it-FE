@@ -12,7 +12,7 @@ const Vetting = ({}) => {
       .string()
       .min(3, "Must be 3 characters or more")
       .max(45, "Must be 45 character or less")
-      .required("Name is a reuired field"),
+      .required("Name is a required field"),
     Description: yup.string().required(),
     EventKind: yup.string().required("This field is required"),
   });
