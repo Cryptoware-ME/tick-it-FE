@@ -1,5 +1,105 @@
 .wrapper {
   min-height: 100vh;
   background-color: #0c0c0c;
-
 }
+.error {
+  color: red;
+  font-size: 13px;
+  margin-top: 10px;
+}
+.modalInput {
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  border: 1px solid #f1f1f1;
+  background-color: transparent !important;
+  border-radius: 10px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  color: #f1f1f1;
+}
+.inputDiv {
+  display: flex;
+  margin-top: 90px;
+}
+.roundCheckbox {
+  border-radius: 50% !important;
+  width: 14px;
+  height: 14px;
+  margin-bottom: 8px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 0.5px solid #878787;
+  background: linear-gradient(0deg, #ffcc00), linear-gradient(0deg, #ffcc00);
+}
+.checkboxText {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #f1f1f1;
+  margin-left: 8px;
+  margin-bottom: 8px;
+ 
+}
+.descriptionDiv {
+  display: flex;
+  margin-top: 10px;
+}
+.modalDescription {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  border: 1px solid #f1f1f1;
+  background-color: transparent !important;
+  border-radius: 10px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  color: #f1f1f1;
+  min-height: 140px;
+}
+.socialTitle {
+  color: #f1f1f1;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+}
+.socialName{
+  color: #f1f1f1;
+  font-weight: 400;
+  font-size: 13px;
+margin-top: 20px;
+margin-bottom: 0px;
+}
+.socialInput{
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  gap: 7px;
+  border: 1px solid #f1f1f1;
+  background-color: transparent !important;
+  border-radius: 10px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  color: #f1f1f1;
+}
+.social{
+padding-bottom: 20px;
+}
+.socialLink{
+  padding:40px 0px;
+}
+.submitBtn{
+  padding-top: 50px;
+}
+
