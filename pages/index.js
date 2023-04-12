@@ -5,7 +5,7 @@ import Stats from "../components/Stats";
 import ExploreEvents from "../components/ExploreEvents";
 export default function Home() {
   return (
-    <main style={{ backgroundColor: "#0c0c0c" }}>
+    <main style={{ backgroundColor: " var(--background)" }}>
       <Slider />
       <Container style={{ paddingBottom: "65px" }}>
         <Row style={{ marginTop: "65px" }}>

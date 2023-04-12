@@ -1,0 +1,25 @@
+/* Global Theme Variables */
+
+:root {
+  --text: #f1f1f1;
+  --textGrey: rgba(241, 241, 241, 0.6);
+  --yellow1: rgba(255, 204, 0, 0.8);
+  --yellow1Hover: rgba(255, 204, 0, 1);
+  --yellow2: rgba(209, 149, 0, 0.8);
+  --yellow2Hover: rgba(209, 149, 0, 1);
+  --yellowDisabled: rgba(199, 183, 122, 0.8);
+  --background: #0c0c0c;
+  --footerBackground: rgba(26, 26, 26, 0.8);
+  --cardWrapper: linear-gradient(
+    180deg,
+    rgba(255, 204, 0, 0.38) 0%,
+    rgba(255, 204, 0, 0) 50%,
+    rgba(255, 204, 0, 0.69) 100%
+  );
+  --sideBarGradient: linear-gradient(
+    270deg,
+    #1a1a1a 0%,
+    rgba(26, 26, 26, 0) 100%
+  );
+  --sideBarShadow: 4px 0px 20px 0px rgba(0, 0, 0, 0.25);
+}

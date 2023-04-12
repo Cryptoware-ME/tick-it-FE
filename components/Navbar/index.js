@@ -28,13 +28,13 @@ export default function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className={styles.navbarRoutes}>
-            <Link href="#explore" scroll className={styles.navbarLink}>
+            <Link href="/explore" scroll className={styles.navbarLink}>
               Explore
             </Link>
             <Link href="/create-event" className={styles.navbarLink}>
               Create Event
             </Link>
-        
+
             <Link href="/support" className={styles.navbarLink}>
               Support
             </Link>
@@ -60,17 +60,19 @@ export default function NavBar() {
                 }
               />
             </div> */}
-            <Link href="/dashboard" style={{ marginRight: "15px" }}>
-              <Image width={35} height={35} alt="icon" src="/images/user.png" />
-            </Link>
 
-            <Link href="/">
+            <Link href="#" onClick={(()=>{
+              setModalOpen(true)
+            })} style={{ marginRight: "15px" }}>
               <Image
                 width={35}
                 height={35}
                 alt="icon"
                 src="/images/chart.png"
               />
+            </Link>
+            <Link href="/dashboard">
+              <Image width={35} height={35} alt="icon" src="/images/user.png" />
             </Link>
           </Nav>
         </Navbar.Collapse>

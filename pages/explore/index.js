@@ -4,8 +4,9 @@ import { Container, Col, Row } from "react-bootstrap";
 import SideBar from "../../components/SideBar";
 import EventCard from "../../components/EventCard";
 import PageTitle from "../../components/pageTitle";
-import YellowButton from "../../components/YellowButton";
-const Explore = ({}) => {
+import YellowButton from "../../components/yellowButton";
+
+const Explore = () => {
   return (
     <Container fluid className={styles.exploreWrapper}>
       <Row>

@@ -3,9 +3,9 @@
   font-weight: 500;
 
   line-height: 21px;
-  color: #F1F1F1;
-  
-    span {
-      color: rgba(255, 204, 0, 1);
-    }
+  color: var(--text);
+
+  span {
+    color: var(--yellow1Hover);
   }
+}

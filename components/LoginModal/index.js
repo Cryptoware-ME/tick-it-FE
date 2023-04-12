@@ -7,14 +7,25 @@ import Link from "next/link";
 import { useAuthModalContext } from "../../context/AuthModalProvider";
 import YellowButton from "../yellowButton";
 import Image from "next/image";
+import { login } from "../../axios-controller/auth.axios";
 
 const LoginModal = () => {
   const { modalOpen, setModalOpen } = useAuthModalContext();
   const schema = yup.object().shape({
     email: yup.string().email().required(),
     password: yup.string().min(6).required(),
-    username: yup.string().when('isSignup', {is: true, then: () => yup.string().required()}),
-    confirmpassword: yup.string().when('isSignup', {is: true, then : () => yup.string().min(6).required('This field is required').oneOf([yup.ref('password'), null], 'Passwords must match')}),
+    username: yup
+      .string()
+      .when("isSignup", { is: true, then: () => yup.string().required() }),
+    confirmpassword: yup.string().when("isSignup", {
+      is: true,
+      then: () =>
+        yup
+          .string()
+          .min(6)
+          .required("This field is required")
+          .oneOf([yup.ref("password"), null], "Passwords must match"),
+    }),
   });
 
   //Formik
@@ -24,7 +35,7 @@ const LoginModal = () => {
       password: "",
       username: "",
       confirmpassword: "",
-      isSignup:false
+      isSignup: false,
     },
     validationSchema: schema,
     onSubmit: (values) => {
@@ -131,7 +142,13 @@ const LoginModal = () => {
                 ) : null}
 
                 <div className={styles.inputDiv}>
-                  <YellowButton text="Sign Up" onClick={() => {}} />
+                  <YellowButton
+                    text="Sign Up"
+                    onClick={() => {
+                      login()
+                      // getLogin(localStorage.getItem("token"));
+                    }}
+                  />
                 </div>
                 <div className={styles.googleLoginDiv}>
                   <div className={styles.googleLogin}>
@@ -148,7 +165,7 @@ const LoginModal = () => {
                     <p className={styles.signup}>If you have an account,</p>
                     <div
                       onClick={() => {
-                        setFieldValue("isSignup",false)
+                        setFieldValue("isSignup", false);
                       }}
                       className={styles.signuplink}
                     >
@@ -223,8 +240,7 @@ const LoginModal = () => {
                       </p>
                       <div
                         onClick={() => {
-                          setFieldValue("isSignup",true)
-                      
+                          setFieldValue("isSignup", true);
                         }}
                         className={styles.signuplink}
                       >
