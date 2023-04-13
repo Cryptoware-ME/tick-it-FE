@@ -6,6 +6,7 @@
   align-items: center;
   margin-top: 20px;
 }
+
 .modalInput {
   width: 80%;
   display: flex;
@@ -20,6 +21,9 @@
   order: 0;
   flex-grow: 0;
   color: #f1f1f1;
+}
+.modalInput:focus{
+  background-color: var(--footerBackground);
 }
 .googleLoginDiv {
   display: flex;
@@ -55,6 +59,7 @@
   order: 0;
   flex-grow: 0;
   color: #f1f1f1;
+  cursor: pointer;
 }
 .forgetpassword {
   font-weight: 400;

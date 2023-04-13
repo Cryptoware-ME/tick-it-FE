@@ -7,12 +7,18 @@ import Link from "next/link";
 import { useAuthModalContext } from "../../context/AuthModalProvider";
 import YellowButton from "../YellowButton";
 import Image from "next/image";
+
+import { useSession, signIn, signOut } from "next-auth/react";
+
 import { login, signup } from "../../axios/auth.axios";
 import { useAuth } from "../../auth/useAuth";
+
 
 const LoginModal = () => {
   const { logIn } = useAuth();
   const { modalOpen, setModalOpen } = useAuthModalContext();
+  const { data: session } = useSession();
+
   const schema = yup.object().shape({
     email: yup.string().email().required(),
     password: yup.string().min(6).required(),
@@ -68,7 +74,6 @@ const LoginModal = () => {
     status,
     setValues,
   } = formik;
-
   return (
     <>
       {modalOpen ? (
@@ -225,8 +230,7 @@ const LoginModal = () => {
                       <p className={styles.error}> {errors.password}</p>
                     </div>
                   ) : null}
-
-                  <div className={styles.forgetpass}>
+<div className={styles.forgetpass}>
                     <Link className={styles.forgetpassword} href="#">
                       Forgot password?
                     </Link>
@@ -235,10 +239,16 @@ const LoginModal = () => {
                     <YellowButton text="Log In" onClick={handleSubmit} />
                   </div>
 
-                  {/* <button type="submit">Log In</button> */}
+                <div className={styles.googleLoginDiv}>
+                  {session &&
+                    <div
+                      onClick={() => {
+                        signIn("google");
+                  
+                      }}
+                      className={styles.googleLogin}
+                    >
 
-                  <div className={styles.googleLoginDiv}>
-                    <div className={styles.googleLogin}>
                       <Image
                         width={26}
                         height={26}
@@ -248,6 +258,11 @@ const LoginModal = () => {
                       />
                       <p className={styles.googleinput}>Log In with Google</p>
                     </div>
+
+                  }
+
+             
+
                     <div className={styles.signupdiv}>
                       <p className={styles.signup}>
                         If you don’t have an account yet,
@@ -260,6 +275,7 @@ const LoginModal = () => {
                       >
                         Sign up.
                       </div>
+
                     </div>
                   </div>
                 </Form>

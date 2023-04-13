@@ -16,16 +16,18 @@ import { Inter } from "@next/font/google";
 import LoginModal from "../components/LoginModal";
 import { AuthModalProvider } from "../context/AuthModalProvider";
 import { ProSidebarProvider } from "react-pro-sidebar";
+
 import { validate } from "../axios/auth.axios";
 
 import AuthContext from "../auth/AuthContext";
-
+import { SessionProvider } from "next-auth/react";
 const inter = Inter({ subsets: ["latin"] });
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps,session }) {
   const [user, setUser] = useState();
 
   const restoreUser = async () => {
+
     const token = localStorage.getItem("token");
     if (token) {
       const response = await validate(token);
@@ -43,7 +45,11 @@ function MyApp({ Component, pageProps }) {
   return (
     <div className={inter.className}>
       <MultiChainProvider config={config}>
+
+        <SessionProvider session={session}>
+
         <AuthContext.Provider value={{ user, setUser }}>
+
           <AuthModalProvider>
             <ProSidebarProvider>
               <NavBar />
@@ -52,7 +58,11 @@ function MyApp({ Component, pageProps }) {
               <Footer />
             </ProSidebarProvider>
           </AuthModalProvider>
+
+        </SessionProvider>
+
         </AuthContext.Provider>
+
       </MultiChainProvider>
     </div>
   );

@@ -6,7 +6,8 @@ import EventDetails from "../../components/EventDetails";
 import YellowButton from "../../components/yellowButton";
 import { useFormik } from "formik";
 import * as yup from "yup";
-const Vetting = ({}) => {
+const Vetting = () => {
+const [submited ,setSubmited ]= useState(false)
   const schema = yup.object().shape({
     name: yup
       .string()
@@ -44,7 +45,7 @@ const Vetting = ({}) => {
   } = formik;
   return (
     <div className={styles.wrapper}>
-      <Container style={{ paddingBottom: "100px " }}>
+      { ! submited && <Container style={{ paddingBottom: "100px " }}>
         <PageTitle text=" Become an organizer" />
         <EventDetails details=" Lorem ipsum dolor sit amet, consecteur adipscing elit, sed do eiusmod tempor incididunt ut labore et dolor magna aliqua" />
         <div className={styles.inputDiv}>
@@ -131,9 +132,24 @@ const Vetting = ({}) => {
           </div>
         ) : null}
         <div className={styles.submitBtn}>
-          <YellowButton text="SUBMIT" />
+          <YellowButton onClick={() => {
+            setSubmited(true)
+          }} text="SUBMIT" />
         </div>
+      </Container>}
+      { submited && 
+      <Container>
+      <PageTitle text=" Application submited" />
+      <div className={styles.event}>
+
+        <EventDetails  details="Check your inbox for the approval email. Meanwhile, you can buy tickets for the best events in your region." />
+      </div>
+      <div  className={styles.appButton}>
+
+      <YellowButton text="SEE APPLICATION"/>
+      </div>
       </Container>
+      }
     </div>
   );
 };
