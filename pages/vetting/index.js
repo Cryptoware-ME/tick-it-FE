@@ -3,7 +3,7 @@ import styles from "./Vetting.module.scss";
 import { Col, Row, Container } from "react-bootstrap";
 import PageTitle from "../../components/PageTitle";
 import EventDetails from "../../components/EventDetails";
-import YellowButton from "../../components/YellowButton";
+import YellowButton from "../../components/yellowButton";
 import { useFormik } from "formik";
 import * as yup from "yup";
 const Vetting = ({}) => {
