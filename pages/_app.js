@@ -23,11 +23,10 @@ import AuthContext from "../auth/AuthContext";
 import { SessionProvider } from "next-auth/react";
 const inter = Inter({ subsets: ["latin"] });
 
-function MyApp({ Component, pageProps,session }) {
+function MyApp({ Component, pageProps, session }) {
   const [user, setUser] = useState();
 
   const restoreUser = async () => {
-
     const token = localStorage.getItem("token");
     if (token) {
       const response = await validate(token);
@@ -45,24 +44,18 @@ function MyApp({ Component, pageProps,session }) {
   return (
     <div className={inter.className}>
       <MultiChainProvider config={config}>
-
         <SessionProvider session={session}>
-
-        <AuthContext.Provider value={{ user, setUser }}>
-
-          <AuthModalProvider>
-            <ProSidebarProvider>
-              <NavBar />
-              <LoginModal />
-              <Component {...pageProps} />
-              <Footer />
-            </ProSidebarProvider>
-          </AuthModalProvider>
-
+          <AuthContext.Provider value={{ user, setUser }}>
+            <AuthModalProvider>
+              <ProSidebarProvider>
+                <NavBar />
+                <LoginModal />
+                <Component {...pageProps} />
+                <Footer />
+              </ProSidebarProvider>
+            </AuthModalProvider>
+          </AuthContext.Provider>
         </SessionProvider>
-
-        </AuthContext.Provider>
-
       </MultiChainProvider>
     </div>
   );

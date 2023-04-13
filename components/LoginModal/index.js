@@ -13,7 +13,6 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { login, signup } from "../../axios/auth.axios";
 import { useAuth } from "../../auth/useAuth";
 
-
 const LoginModal = () => {
   const { logIn } = useAuth();
   const { modalOpen, setModalOpen } = useAuthModalContext();
@@ -230,7 +229,7 @@ const LoginModal = () => {
                       <p className={styles.error}> {errors.password}</p>
                     </div>
                   ) : null}
-<div className={styles.forgetpass}>
+                  <div className={styles.forgetpass}>
                     <Link className={styles.forgetpassword} href="#">
                       Forgot password?
                     </Link>
@@ -239,16 +238,13 @@ const LoginModal = () => {
                     <YellowButton text="Log In" onClick={handleSubmit} />
                   </div>
 
-                <div className={styles.googleLoginDiv}>
-                  {session &&
+                  <div className={styles.googleLoginDiv}>
                     <div
                       onClick={() => {
                         signIn("google");
-                  
                       }}
                       className={styles.googleLogin}
                     >
-
                       <Image
                         width={26}
                         height={26}
@@ -258,10 +254,6 @@ const LoginModal = () => {
                       />
                       <p className={styles.googleinput}>Log In with Google</p>
                     </div>
-
-                  }
-
-             
 
                     <div className={styles.signupdiv}>
                       <p className={styles.signup}>
@@ -275,7 +267,6 @@ const LoginModal = () => {
                       >
                         Sign up.
                       </div>
-
                     </div>
                   </div>
                 </Form>
