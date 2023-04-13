@@ -5,12 +5,17 @@ import * as yup from "yup";
 import { Col, Row, Modal, Container, Alert, Form } from "react-bootstrap";
 import Link from "next/link";
 import { useAuthModalContext } from "../../context/AuthModalProvider";
-import YellowButton from "../yellowButton";
+import YellowButton from "../YellowButton";
 import Image from "next/image";
-import { login, signup } from "../../axios-controller/auth.axios";
+
 import { useSession, signIn, signOut } from "next-auth/react";
 
+import { login, signup } from "../../axios/auth.axios";
+import { useAuth } from "../../auth/useAuth";
+
+
 const LoginModal = () => {
+  const { logIn } = useAuth();
   const { modalOpen, setModalOpen } = useAuthModalContext();
   const { data: session } = useSession();
 
@@ -41,8 +46,16 @@ const LoginModal = () => {
       isSignup: false,
     },
     validationSchema: schema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      const loginRes = await login({
+        email: values.email,
+        password: values.password,
+      });
+
+      logIn(loginRes);
+      if (loginRes) {
+        setModalOpen(false);
+      }
     },
   });
 
@@ -182,79 +195,52 @@ const LoginModal = () => {
               </Container>
             ) : (
               <Container>
-                <div className={styles.inputDiv}>
-                  <input
-                    name="email"
-                    type="email"
-                    value={values.email}
-                    placeholder="Email"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    className={styles.modalInput}
-                  />
-                </div>
-                {errors.email && touched.email ? (
-                  <div className={styles.errors}>
-                    <p className={styles.error}> {errors.email}</p>
+                <Form>
+                  <div className={styles.inputDiv}>
+                    <input
+                      name="email"
+                      type="email"
+                      value={values.email}
+                      placeholder="Email"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      className={styles.modalInput}
+                    />
                   </div>
-                ) : null}
+                  {errors.email && touched.email ? (
+                    <div className={styles.errors}>
+                      <p className={styles.error}> {errors.email}</p>
+                    </div>
+                  ) : null}
 
-                <div className={styles.inputDiv}>
-                  <input
-                    name="password"
-                    type="password"
-                    value={values.password}
-                    placeholder="Password"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={styles.modalInput}
-                  />
-                </div>
-
-                {errors.password && touched.password ? (
-                  <div className={styles.errors}>
-                    <p className={styles.error}> {errors.password}</p>
+                  <div className={styles.inputDiv}>
+                    <input
+                      name="password"
+                      type="password"
+                      value={values.password}
+                      placeholder="Password"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className={styles.modalInput}
+                    />
                   </div>
-                ) : null}
 
-                <div className={styles.forgetpass}>
-                  <Link className={styles.forgetpassword} href="#">
-                    Forgot password?
-                  </Link>
-                </div>
-                <div className={styles.inputDiv}>
-                  <YellowButton
-                    text="Log In"
-                    onClick={async () => {
-                      const response = await login({
-                        email: values.email,
-                        password: values.password,
-                      });
-                      localStorage.setItem("token", "bearer " + response.token);
-                    }}
-                  />
-                </div>
-
-                {/* <button type="submit">Log In</button> */}
+                  {errors.password && touched.password ? (
+                    <div className={styles.errors}>
+                      <p className={styles.error}> {errors.password}</p>
+                    </div>
+                  ) : null}
+<div className={styles.forgetpass}>
+                    <Link className={styles.forgetpassword} href="#">
+                      Forgot password?
+                    </Link>
+                  </div>
+                  <div className={styles.inputDiv}>
+                    <YellowButton text="Log In" onClick={handleSubmit} />
+                  </div>
 
                 <div className={styles.googleLoginDiv}>
-                  {session ? (
-                    <div
-                      onClick={() => {
-                        signOut();
-                      }}
-                      className={styles.googleLogin}
-                    >
-                      <Image
-                        width={26}
-                        height={26}
-                        className={styles.mainLogo}
-                        alt="google-icon"
-                        src="/images/googleicon.svg"
-                      />
-                      <p className={styles.googleinput}>Log out</p>
-                    </div>
-                  ) : (
+                  {session &&
                     <div
                       onClick={() => {
                         signIn("google");
@@ -262,6 +248,7 @@ const LoginModal = () => {
                       }}
                       className={styles.googleLogin}
                     >
+
                       <Image
                         width={26}
                         height={26}
@@ -271,22 +258,27 @@ const LoginModal = () => {
                       />
                       <p className={styles.googleinput}>Log In with Google</p>
                     </div>
-                  )}
 
-                  <div className={styles.signupdiv}>
-                    <p className={styles.signup}>
-                      If you don’t have an account yet,
-                    </p>
-                    <div
-                      onClick={() => {
-                        setFieldValue("isSignup", true);
-                      }}
-                      className={styles.signuplink}
-                    >
-                      Sign up.
+                  }
+
+             
+
+                    <div className={styles.signupdiv}>
+                      <p className={styles.signup}>
+                        If you don’t have an account yet,
+                      </p>
+                      <div
+                        onClick={() => {
+                          setFieldValue("isSignup", true);
+                        }}
+                        className={styles.signuplink}
+                      >
+                        Sign up.
+                      </div>
+
                     </div>
                   </div>
-                </div>
+                </Form>
               </Container>
             )}
           </Modal.Body>

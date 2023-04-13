@@ -11,6 +11,7 @@ const YellowButton = ({
   style2 = false,
   add = false,
 }) => {
+  
   return (
     <>
       {text ? (
@@ -52,6 +53,7 @@ const YellowButton = ({
               src="/images/add.png"
             />
           )}
+         
 
           {text}
         </button>
