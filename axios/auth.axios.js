@@ -9,10 +9,7 @@ export const signup = async (payload) => {
   return data.data;
 };
 export const validate = async (token) => {
-  const data = await instance.post("/auth/validateToken", {
-    headers: {
-      authorization: token,
-    },
-  });
+  instance.defaults.headers.common["Authorization"] = token;
+  const data = await instance.post("/auth/validateToken");
   return data.data;
 };

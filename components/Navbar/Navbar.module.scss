@@ -21,7 +21,7 @@
   flex-grow: 1;
 }
 .navbarLink {
-  color: var(--text) ;
+  color: var(--text);
   text-align: center;
   text-transform: uppercase;
   font-weight: 400;
@@ -30,5 +30,19 @@
   transition: ease-in-out 0.4s;
 }
 .navbarLink:hover {
-  color: var(--yellow1) ;
+  color: var(--yellow1);
+}
+.rightLinks {
+  display: flex;
+  align-items: center;
+  @media (max-width: 991px) {
+    display: none;
+  }
+}
+.mobileLinks {
+  display: flex;
+  align-items: center;
+  @media (min-width: 991px) {
+    display: none;
+  }
 }
