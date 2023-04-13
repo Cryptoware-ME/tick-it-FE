@@ -17,11 +17,12 @@ import LoginModal from "../components/LoginModal";
 import { AuthModalProvider } from "../context/AuthModalProvider";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import { validate } from "../axios-controller/auth.axios";
+import { SessionProvider } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-function MyApp({ Component, pageProps }) {
-  useEffect( () => {
+function MyApp({ Component, pageProps,session }) {
+  useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       const response = validate(token);
@@ -31,14 +32,16 @@ function MyApp({ Component, pageProps }) {
   return (
     <div className={inter.className}>
       <MultiChainProvider config={config}>
-        <AuthModalProvider>
-          <ProSidebarProvider>
-            <NavBar />
-            <LoginModal />
-            <Component {...pageProps} />
-            <Footer />
-          </ProSidebarProvider>
-        </AuthModalProvider>
+        <SessionProvider session={session}>
+          <AuthModalProvider>
+            <ProSidebarProvider>
+              <NavBar />
+              <LoginModal />
+              <Component {...pageProps} />
+              <Footer />
+            </ProSidebarProvider>
+          </AuthModalProvider>
+        </SessionProvider>
       </MultiChainProvider>
     </div>
   );

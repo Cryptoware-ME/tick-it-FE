@@ -8,9 +8,12 @@ import { useAuthModalContext } from "../../context/AuthModalProvider";
 import YellowButton from "../yellowButton";
 import Image from "next/image";
 import { login, signup } from "../../axios-controller/auth.axios";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const LoginModal = () => {
   const { modalOpen, setModalOpen } = useAuthModalContext();
+  const { data: session } = useSession();
+
   const schema = yup.object().shape({
     email: yup.string().email().required(),
     password: yup.string().min(6).required(),
@@ -58,7 +61,6 @@ const LoginModal = () => {
     status,
     setValues,
   } = formik;
-
   return (
     <>
       {modalOpen ? (
@@ -236,16 +238,41 @@ const LoginModal = () => {
                 {/* <button type="submit">Log In</button> */}
 
                 <div className={styles.googleLoginDiv}>
-                  <div className={styles.googleLogin}>
-                    <Image
-                      width={26}
-                      height={26}
-                      className={styles.mainLogo}
-                      alt="google-icon"
-                      src="/images/googleicon.svg"
-                    />
-                    <p className={styles.googleinput}>Log In with Google</p>
-                  </div>
+                  {session ? (
+                    <div
+                      onClick={() => {
+                        signOut();
+                      }}
+                      className={styles.googleLogin}
+                    >
+                      <Image
+                        width={26}
+                        height={26}
+                        className={styles.mainLogo}
+                        alt="google-icon"
+                        src="/images/googleicon.svg"
+                      />
+                      <p className={styles.googleinput}>Log out</p>
+                    </div>
+                  ) : (
+                    <div
+                      onClick={() => {
+                        signIn("google");
+                  
+                      }}
+                      className={styles.googleLogin}
+                    >
+                      <Image
+                        width={26}
+                        height={26}
+                        className={styles.mainLogo}
+                        alt="google-icon"
+                        src="/images/googleicon.svg"
+                      />
+                      <p className={styles.googleinput}>Log In with Google</p>
+                    </div>
+                  )}
+
                   <div className={styles.signupdiv}>
                     <p className={styles.signup}>
                       If you don’t have an account yet,
