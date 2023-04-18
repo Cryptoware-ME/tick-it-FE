@@ -10,7 +10,7 @@ import UserDropdown from "../UserDropdown";
 export default function NavBar() {
   const { setModalOpen } = useAuthModalContext();
   const { user } = useAuth();
-  const [showUserDropdown, setShowUserDropdown] = useState(true);
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
 
   return (
     <>
