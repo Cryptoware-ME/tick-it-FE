@@ -62,14 +62,12 @@
   color: var(--yellow1Hover);
   text-decoration: none;
 }
-.switch {
-  background-color: red;
-}
+
 .inputBar {
   display: flex;
   flex-direction: row;
   align-items: center;
-   border: 0.5px solid var(--text);
+  border: 0.5px solid var(--text);
   border-radius: 5px;
   margin-left: -5px;
   padding: 4px;

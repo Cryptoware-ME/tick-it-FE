@@ -14,13 +14,13 @@
   background-color: #161616 !important;
   border-radius: 10px;
   transform: matrix(-1, 0, 0, 1, 0, 0);
-  color: #f1f1f1;
+  color: var(--text);
 }
 .banner {
   display: flex;
   font-weight: 400;
   font-size: 9px;
-  color: #f1f1f1;
+  color: var(--text);
   padding: 10px 16px;
 }
 
@@ -31,12 +31,14 @@
   align-items: center;
   padding: 10px;
   gap: 7px;
+
   background-color: #161616 !important;
+
   border-radius: 10px;
   flex: none;
   order: 0;
   flex-grow: 0;
-  color: #f1f1f1;
+  color: var(--text);
 }
 .Input:focus {
   outline: none;
@@ -52,7 +54,7 @@
   width: 440px;
 }
 .title {
-  color: #f1f1f1;
+  color: var(--text);
   font-style: normal;
   font-weight: 400;
   font-size: 13px;
@@ -69,13 +71,13 @@
   align-items: center;
   padding: 10px;
   gap: 10px;
-  border: 1px solid #f1f1f1;
+  border: 1px solid var(--text);
   background-color: transparent !important;
   border-radius: 10px;
   flex: none;
   order: 0;
   flex-grow: 0;
-  color: #f1f1f1;
+  color: var(--text);
   min-height: 140px;
 }
 .appButton {

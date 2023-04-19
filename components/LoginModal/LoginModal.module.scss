@@ -14,15 +14,15 @@
   align-items: center;
   padding: 10px;
   gap: 10px;
-  border: 1px solid #f1f1f1;
+  border: 1px solid var(--text);
   background-color: transparent !important;
   border-radius: 10px;
   flex: none;
   order: 0;
   flex-grow: 0;
-  color: #f1f1f1;
+  color: var(--text);
 }
-.modalInput:focus{
+.modalInput:focus {
   background-color: var(--footerBackground);
 }
 .googleLoginDiv {
@@ -42,7 +42,7 @@
   font-weight: 400;
   font-size: 16px;
   margin-left: -36px;
-  color: #F1F1F1;
+  color: var(--text);
 }
 .googleLogin {
   width: 80%;
@@ -51,14 +51,14 @@
   align-items: center;
   padding: 10px;
   gap: 10px;
-  border: 1px solid #f1f1f1;
+  border: 1px solid var(--text);
   background-color: #3a3a3a !important;
   border-radius: 10px;
   height: 52px;
   flex: none;
   order: 0;
   flex-grow: 0;
-  color: #f1f1f1;
+  color: var(--text);
   cursor: pointer;
 }
 .forgetpassword {
@@ -76,7 +76,7 @@
   padding-left: 50px;
   margin-top: 8px;
   :hover {
-    color: #ffcc00;
+    color: var(--yellow1Hover);
   }
 }
 .signup {
@@ -94,7 +94,7 @@
   cursor: pointer;
 }
 .signuplink:hover {
-  color: #ffcc00;
+  color: var(--yellow1Hover);
 
   text-decoration: underline;
   cursor: pointer;

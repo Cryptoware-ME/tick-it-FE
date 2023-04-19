@@ -26,7 +26,7 @@
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
-  color: #f1f1f1;
+  color: var(--text);
   overflow-x: hidden;
   background-color: transparent !important;
 }
@@ -43,12 +43,12 @@
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
-  color: #f1f1f1;
+  color: var(--text);
   margin-left: 8px;
   margin-bottom: 8px;
 }
 .dateText {
-  color: #f1f1f1;
+  color: var(--text);
   margin-bottom: 0;
 }
 
@@ -56,7 +56,7 @@
   margin-top: 30px;
 }
 .filterTitle {
-  color: #f1f1f1;
+  color: var(--text);
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;

@@ -1,0 +1,36 @@
+.checkOutCard {
+  border: 1px solid var(--text);
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--text);
+  text-align: center;
+}
+.input {
+  width: 90%;
+  border-radius: 4px;
+  background-color: transparent;
+  border: 0.5px solid var(--textGrey);
+  padding: 10px;
+  color: var(--textGrey);
+}
+.checkOutDetails {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  color: var(--text);
+}
+.checkOutDetailsDiv{
+  width: 90%;
+  margin-top: 24px;
+}

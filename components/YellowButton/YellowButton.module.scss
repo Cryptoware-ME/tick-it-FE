@@ -12,10 +12,12 @@
   max-width: fit-content !important;
 
   transition: ease-in-out 0.4s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .yellow:hover {
-  color: white;
-  // background-color: var(--yellow1Hover);
+  color: var(--text);
   border-radius: 8px;
   padding: 10px 20px;
   font-size: 20px;
@@ -24,4 +26,10 @@
 .btnImage {
   object-fit: cover;
   margin-right: 10px;
+  background-color: transparent !important;
+}
+
+.visaImage {
+  object-fit: cover;
+  background-color: transparent !important;
 }
