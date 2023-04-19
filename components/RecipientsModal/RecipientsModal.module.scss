@@ -1,0 +1,60 @@
+.checkOutCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  font-family: "DrukWideMedium";
+  color: var(--text);
+  text-align: center;
+}
+.subtitle {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  font-family: "DrukWideMedium";
+  color: var(--textGrey);
+  text-align: center;
+  margin-bottom: 0;
+}
+.type {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  font-family: "DrukWideMedium";
+  color: var(--textGrey);
+  text-align: center;
+}
+.input {
+  width: 80%;
+  border-radius: 4px;
+  background-color: transparent;
+  border: 0.5px solid var(--textGrey);
+  padding: 10px;
+  color: var(--textGrey);
+}
+.checkOutDetails {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  color: var(--text);
+}
+.checkOutDetailsDiv {
+  width: 90%;
+  margin-top: 24px;
+}
+.addRecipientsDiv {
+  width: 90%;
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

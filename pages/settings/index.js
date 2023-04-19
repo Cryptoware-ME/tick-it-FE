@@ -35,15 +35,14 @@ const Settings = () => {
                     <p className={styles.settingValue}>{user?.username}</p>
                   )}
                   {userNameEdit && (
-               <input
-               type="text"
-               defaultValue={user?.username}
-               placeholder="Search"
-               onChange={(e) => {}}
-               required
-               className={styles.inputBar}
-             />
-                  
+                    <input
+                      type="text"
+                      defaultValue={user?.username}
+                      placeholder="Enter Username"
+                      onChange={(e) => {}}
+                      required
+                      className={styles.inputBar}
+                    />
                   )}
                 </Col>
                 <Col md={4} className={styles.settingCol}>
@@ -58,6 +57,7 @@ const Settings = () => {
                   {userNameEdit && (
                     <YellowButton
                       text="Save"
+                      style2={true}
                       onClick={() => {
                         setUserNameEdit(false);
                       }}
@@ -70,10 +70,38 @@ const Settings = () => {
                   <p className={styles.settingCategory}>Email</p>
                 </Col>
                 <Col md={4} className={styles.settingCol}>
-                  <p className={styles.settingValue}>{user?.email}</p>
+                  {!emailEdit && (
+                    <p className={styles.settingValue}>{user?.email}</p>
+                  )}
+                  {emailEdit && (
+                    <input
+                      type="text"
+                      defaultValue={user?.email}
+                      placeholder="Enter Email"
+                      onChange={(e) => {}}
+                      required
+                      className={styles.inputBar}
+                    />
+                  )}
                 </Col>
                 <Col md={4} className={styles.settingCol}>
-                  <YellowButton text="Edit" />
+                  {!emailEdit && (
+                    <YellowButton
+                      text="Edit"
+                      onClick={() => {
+                        setEmailEdit(true);
+                      }}
+                    />
+                  )}
+                  {emailEdit && (
+                    <YellowButton
+                      text="Save"
+                      style2={true}
+                      onClick={() => {
+                        setEmailEdit(false);
+                      }}
+                    />
+                  )}
                 </Col>
               </Row>
               <Row>
@@ -81,10 +109,38 @@ const Settings = () => {
                   <p className={styles.settingCategory}>Phone Number</p>
                 </Col>
                 <Col md={4} className={styles.settingCol}>
-                  <p className={styles.settingValue}>Phone Number</p>
+                {!mobileEdit && (
+                   <p className={styles.settingValue}>961112233</p>
+                  )}
+                  {mobileEdit && (
+                    <input
+                      type="text"
+                      defaultValue="961112233"
+                      placeholder="Enter Phone Number"
+                      onChange={(e) => {}}
+                      required
+                      className={styles.inputBar}
+                    />
+                  )}
                 </Col>
                 <Col md={4} className={styles.settingCol}>
-                  <YellowButton text="Edit" />
+                {!mobileEdit && (
+                    <YellowButton
+                      text="Edit"
+                      onClick={() => {
+                        setMobileEdit(true);
+                      }}
+                    />
+                  )}
+                  {mobileEdit && (
+                    <YellowButton
+                      text="Save"
+                      style2={true}
+                      onClick={() => {
+                        setMobileEdit(false);
+                      }}
+                    />
+                  )}
                 </Col>
               </Row>
             </Row>

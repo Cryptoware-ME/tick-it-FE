@@ -1,7 +1,13 @@
+.cardWrapper {
+  background: #0c0c0c;
+  border: 1px solid var(--text);
+  border-radius: 12px;
+  position: relative;
+}
 .cardContainer {
   display: flex;
   flex-direction: row;
-  border-radius: 20px;
+  border-radius: 12px;
   overflow: hidden;
 }
 
@@ -17,10 +23,9 @@
   pointer-events: none;
   position: absolute;
   bottom: 1px;
-
   height: 99.3%;
   z-index: 2;
-  border-radius: 20px;
+  border-radius: 12px;
 }
 .imageDiv {
   width: 30%;
@@ -28,33 +33,30 @@
 }
 .cardImage {
   width: 100%;
-  border: 20px;
-  height: auto;
-  object-fit: contain;
+  border: 12px;
+  object-fit: cover;
   position: relative;
   z-index: 1;
 }
 .cardDetails {
   background-color: #050505;
   width: 70%;
-  padding: 38px 24px;
+  padding: 12px 24px;
 }
 .cardTitle {
   font-family: "DrukWideMedium";
   font-style: normal;
   font-weight: 500;
-  font-size: 30px;
-  line-height: 36px;
+  font-size: 26px;
   color: var(--text);
 }
 .cardPrice {
   font-family: "DrukWideMedium";
   font-style: normal;
   font-weight: 500;
-  font-size: 24px;
-  line-height: 29px;
-  color: #ffffff;
-  margin-top: 30px;
+  font-size: 20px;
+  color: var(--text);
+  width: fit-content;
 }
 
 .cardHeader {
@@ -66,11 +68,42 @@
   font-family: "DrukWideMedium";
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
-  line-height: 36px;
+  font-size: 16px;
   color: var(--text);
+  width: fit-content;
 }
 .cardCounter {
   display: flex;
   align-items: center;
+  margin-top: 18px;
+  flex-direction: row;
+  width: fit-content;
+}
+.cardRightLinks {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.cardAdd {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+}
+.cardRecipients {
+  color: var(--yellow1Hover);
+  text-decoration: underline;
+}
+.cardRecipients:hover {
+  color: var(--yellow1Hover);
+  text-decoration: underline;
+}
+.cardDate {
+  font-style: normal;
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 6px;
 }

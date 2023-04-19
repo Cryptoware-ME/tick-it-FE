@@ -1,13 +1,12 @@
 .eventWrapper {
   min-height: 100vh;
   background-color: #0c0c0c;
-
 }
-.eventTtile{
+.eventTtile {
   font-style: normal;
-font-weight: 500;
-font-size: 42px;
-line-height: 50px;
-font-family: "DrukWideMedium";
-color: #F1F1F1;
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 50px;
+  font-family: "DrukWideMedium";
+  color: var(--text);
 }

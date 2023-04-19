@@ -7,7 +7,7 @@
   opacity: 0.6;
   transition: ease-in-out 0.4s;
 }
-.arrowLeft:hover{
+.arrowLeft:hover {
   opacity: 1;
   cursor: pointer;
 }
@@ -21,28 +21,25 @@
   opacity: 0.6;
   transition: ease-in-out 0.4s;
 }
-.arrowRight:hover{
-    opacity: 1;
-    cursor: pointer;
-  }
+.arrowRight:hover {
+  opacity: 1;
+  cursor: pointer;
+}
 
-
-.counterDiv{
+.counterDiv {
   display: flex;
-  margin-left: 15px;
-  width: 25%;
+  width: 80px;
   justify-content: space-between;
-align-items: center;
+  align-items: center;
 }
 .counter {
   display: flex;
   justify-content: center;
   align-items: center;
-  width:30px;
+  width: 30px;
   height: 30px;
-  color: #f1f1f1;
+  color: var(--text);
   border-radius: 5px;
-  border: 1px solid #d2a906 ;
+  border: 1px solid #d2a906;
   background-color: #050505 !important;
-
 }

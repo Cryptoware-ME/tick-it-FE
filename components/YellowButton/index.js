@@ -10,8 +10,8 @@ const YellowButton = ({
   minWidth = "140px",
   style2 = false,
   add = false,
+  visa = false,
 }) => {
-  
   return (
     <>
       {text ? (
@@ -53,9 +53,18 @@ const YellowButton = ({
               src="/images/add.png"
             />
           )}
-         
 
           {text}
+          {visa && (
+            <Image
+              width={100}
+              height={20}
+              className={styles.visaImage}
+              alt="card-image"
+              src="/images/visa.png"
+            />
+          )}
+
         </button>
       ) : (
         <></>
