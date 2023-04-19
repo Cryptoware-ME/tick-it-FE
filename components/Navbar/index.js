@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import styles from "./Navbar.module.scss";
 import Link from "next/link";
@@ -7,11 +7,22 @@ import { useAuthModalContext } from "../../context/AuthModalProvider";
 import YellowButton from "../../components/YellowButton";
 import { useAuth } from "../../auth/useAuth";
 import UserDropdown from "../UserDropdown";
+import AddedToCartAlert from "../AddedToCartAlert";
 export default function NavBar() {
   const { setModalOpen } = useAuthModalContext();
   const { user } = useAuth();
   const [showUserDropdown, setShowUserDropdown] = useState(false);
 
+  const [added, setAdded] = useState(false);
+
+
+  useEffect(() => {
+    if (added) {
+      setTimeout(() => {
+        setAdded(false);
+      }, 3000);
+    }
+  }, [added]);
   return (
     <>
       <UserDropdown
@@ -19,6 +30,12 @@ export default function NavBar() {
           setShowUserDropdown(false);
         }}
         isOpen={showUserDropdown}
+      />
+      <AddedToCartAlert
+        onClose={() => {
+          setAdded(false);
+        }}
+        isOpen={added}
       />
 
       <Navbar
@@ -108,6 +125,9 @@ export default function NavBar() {
             </div> */}
               <div className={styles.rightLinks}>
                 <Image
+                  onClick={() => {
+                    setAdded(true);
+                  }}
                   style={{ marginRight: "15px" }}
                   width={33}
                   height={33}
