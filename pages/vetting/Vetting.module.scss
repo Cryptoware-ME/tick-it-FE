@@ -14,13 +14,13 @@
   align-items: center;
   padding: 10px;
   gap: 10px;
-  border: 1px solid #f1f1f1;
+  border: 1px solid var(--text);
   background-color: transparent !important;
   border-radius: 10px;
   flex: none;
   order: 0;
   flex-grow: 0;
-  color: #f1f1f1;
+  color: var(--text);
 }
 .inputDiv {
   display: flex;
@@ -34,16 +34,16 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   border: 0.5px solid #878787;
-  background: linear-gradient(0deg, #ffcc00), linear-gradient(0deg, #ffcc00);
+  background: linear-gradient(0deg, var(--yellow1Hover)),
+    linear-gradient(0deg, var(--yellow1Hover));
 }
 .checkboxText {
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
-  color: #f1f1f1;
+  color: var(--text);
   margin-left: 8px;
   margin-bottom: 8px;
- 
 }
 .descriptionDiv {
   display: flex;
@@ -56,55 +56,55 @@
   align-items: center;
   padding: 10px;
   gap: 10px;
-  border: 1px solid #f1f1f1;
+  border: 1px solid var(--text);
   background-color: transparent !important;
   border-radius: 10px;
   flex: none;
   order: 0;
   flex-grow: 0;
-  color: #f1f1f1;
+  color: var(--text);
   min-height: 140px;
 }
 .socialTitle {
-  color: #f1f1f1;
+  color: var(--text);
   font-style: normal;
   font-weight: 700;
   font-size: 18px;
 }
-.socialName{
-  color: #f1f1f1;
+.socialName {
+  color: var(--text);
   font-weight: 400;
   font-size: 13px;
-margin-top: 20px;
-margin-bottom: 0px;
+  margin-top: 20px;
+  margin-bottom: 0px;
 }
-.socialInput{
+.socialInput {
   width: 60%;
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 10px;
   gap: 7px;
-  border: 1px solid #f1f1f1;
+  border: 1px solid var(--text);
   background-color: transparent !important;
   border-radius: 10px;
   flex: none;
   order: 0;
   flex-grow: 0;
-  color: #f1f1f1;
+  color: var(--text);
 }
-.social{
-padding-bottom: 20px;
+.social {
+  padding-bottom: 20px;
 }
-.socialLink{
-  padding:40px 0px;
+.socialLink {
+  padding: 40px 0px;
 }
-.submitBtn{
+.submitBtn {
   padding-top: 50px;
 }
-.event{
-max-width: 85%
+.event {
+  max-width: 85%;
 }
-.appButton{
+.appButton {
   padding-top: 50px;
 }

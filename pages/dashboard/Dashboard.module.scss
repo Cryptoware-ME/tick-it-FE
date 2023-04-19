@@ -12,10 +12,10 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
-  color: #f1f1f1;
+  color: var(--text);
 }
 .viewAll:hover {
-  color: #ffcc00;
+  color: var(--yellow1Hover);
   cursor: pointer;
 }
 .header {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./EventDate.module.scss";
 
-const EventDate = ({ date, time, fontSize = "17px" }) => {
+const EventDate = ({ date, time, fontSize = "14px" }) => {
   return (
     <>
       {date && time ? (

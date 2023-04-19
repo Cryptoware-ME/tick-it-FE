@@ -4,7 +4,7 @@ import styles from "./Counter.module.scss";
 const Counter = ({counter,setCounter}) => {
  
   return (
-    <>
+
       <div className={styles.counterDiv}>
         <div
           className={styles.arrowLeft}
@@ -22,7 +22,7 @@ const Counter = ({counter,setCounter}) => {
           }}
         />
       </div>
-    </>
+    
   );
 };
 
