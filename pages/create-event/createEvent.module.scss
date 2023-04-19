@@ -11,8 +11,7 @@
   align-items: center;
   padding: 0px 10px;
   gap: 2px;
-  border: 2px solid #ffffff;
-  background-color: transparent !important;
+  background-color: #161616 !important;
   border-radius: 10px;
   transform: matrix(-1, 0, 0, 1, 0, 0);
   color: #f1f1f1;
@@ -26,14 +25,13 @@
 }
 
 .InputDiv {
-  width:440px;
+  width: 440px;
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 10px;
   gap: 7px;
-  border: 1px solid #f1f1f1;
-  background-color: transparent !important;
+  background-color: #161616 !important;
   border-radius: 10px;
   flex: none;
   order: 0;
@@ -61,8 +59,8 @@
   margin-top: 20px;
   margin-bottom: 4px;
 }
-.event{
-  padding:20px 0px;
+.event {
+  padding: 20px 0px;
 }
 .modalDescription {
   width: 668px;
@@ -80,10 +78,9 @@
   color: #f1f1f1;
   min-height: 140px;
 }
-.appButton{
+.appButton {
   padding-top: 10px;
 }
-.eventImage{
-cursor: pointer;
+.eventImage {
+  cursor: pointer;
 }
-
