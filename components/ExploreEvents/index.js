@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./ExploreEvents.module.scss";
 import { Row } from "react-bootstrap";
 import EventCard from "../EventCard";
-import YellowButton from "../yellowButton";
+import YellowButton from "../../components/YellowButton";
 import GradientButton from "../gradientButton";
 import Link from "next/link";
 
@@ -14,6 +14,7 @@ const ExploreEvents = () => {
         <div className={styles.filtersRow}>
           {[0, 1, 2]?.map((category, index) => (
             <div
+            key={index}
               style={{
                 padding: "0px 10px",
               }}

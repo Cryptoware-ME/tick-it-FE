@@ -8,6 +8,7 @@ import YellowButton from "../../components/YellowButton";
 import { useAuth } from "../../auth/useAuth";
 import UserDropdown from "../UserDropdown";
 import AddedToCartAlert from "../AddedToCartAlert";
+import {ToastContainer,toast } from 'react-toastify';
 export default function NavBar() {
   const { setModalOpen } = useAuthModalContext();
   const { user } = useAuth();
@@ -126,7 +127,9 @@ export default function NavBar() {
               <div className={styles.rightLinks}>
                 <Image
                   onClick={() => {
-                    setAdded(true);
+                    // setAdded(true);
+                    toast('File type extension not accepted');
+                   
                   }}
                   style={{ marginRight: "15px" }}
                   width={33}
@@ -134,6 +137,7 @@ export default function NavBar() {
                   alt="icon"
                   src="/images/chart.png"
                 />
+                {/* <ToastContainer /> */}
 
                 {!user && (
                   <div>

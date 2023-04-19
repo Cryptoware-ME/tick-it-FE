@@ -4,7 +4,7 @@ import PageTitle from "../../components/pageTitle";
 import YellowButton from "../../components/yellowButton";
 import Image from "next/image";
 import { useFormik, Formik } from "formik";
-
+import Dropzone from "../../components/Dropzone";
 import React, {
   useCallback,
   useEffect,
@@ -12,7 +12,10 @@ import React, {
   useLayoutEffect,
 } from "react";
 import * as yup from "yup";
+
 const CreateEvent = () => {
+  const [filePreview, setFilePreview] = useState();
+  const [imageError, setImageError] = useState(false);
   const schema = yup.object().shape({
     Date: yup.date().required(),
     Time: yup.string().required(),
@@ -51,18 +54,12 @@ const CreateEvent = () => {
     <div className={styles.Wrapper}>
       <Container style={{ padding: "48px 0px" }}>
         <PageTitle text="Create Event" />
-        <div className={styles.uploadEvent}>
-          <Image
-            width={50}
-            height={50}
-            className={styles.eventImage}
-            alt="image"
-            src="/images/upload.png"
-          />
-        </div>
-        <div className={styles.banner}>
-          <p> Upload event banner</p>
-        </div>
+        <Dropzone filePreview={filePreview} setFilePreview={setFilePreview} />
+        {imageError ? (
+          <div className={styles.errors}>
+            <p className={styles.error}> Image is required field</p>
+          </div>
+        ) : null}
         <div className={styles.event}>
           <p className={styles.title}>Date</p>
           <div className={styles.InputDiv}>
@@ -76,7 +73,7 @@ const CreateEvent = () => {
               className={styles.Input}
               style={{ color: "#656565" }}
             />
-          </div>{" "}
+          </div>
           {errors.Date && touched.Date ? (
             <div className={styles.errors}>
               <p className={styles.error}> {errors.Date}</p>
@@ -94,7 +91,7 @@ const CreateEvent = () => {
               className={styles.Input}
               style={{ color: "#656565" }}
             />
-          </div>{" "}
+          </div>
           {errors.Time && touched.Time ? (
             <div className={styles.errors}>
               <p className={styles.error}> {errors.Time}</p>
@@ -112,7 +109,7 @@ const CreateEvent = () => {
               className={styles.Input}
               style={{ color: "#656565" }}
             />
-          </div>{" "}
+          </div>
           {errors.Location && touched.Location ? (
             <div className={styles.errors}>
               <p className={styles.error}> {errors.Location}</p>
@@ -137,7 +134,14 @@ const CreateEvent = () => {
           ) : null}
         </div>
         <div className={styles.appButton}>
-          <YellowButton text="CREATE" />
+          <YellowButton
+            onClick={() => {
+              if (!filePreview) {
+                setImageError(true);
+              }
+            }}
+            text="CREATE"
+          />
         </div>
       </Container>
     </div>

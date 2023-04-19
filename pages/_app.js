@@ -16,7 +16,8 @@ import { Inter } from "@next/font/google";
 import LoginModal from "../components/LoginModal";
 import { AuthModalProvider } from "../context/AuthModalProvider";
 import { ProSidebarProvider } from "react-pro-sidebar";
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { validate } from "../axios/auth.axios";
 
 import AuthContext from "../auth/AuthContext";
@@ -56,6 +57,18 @@ function MyApp({ Component, pageProps, session }) {
             </AuthModalProvider>
           </AuthContext.Provider>
         </SessionProvider>
+        <ToastContainer
+        position="bottom-right"
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        limit={3}
+        pauseOnHover
+        autoClose={2000}
+      />
       </MultiChainProvider>
     </div>
   );
