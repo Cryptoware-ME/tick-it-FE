@@ -12,7 +12,9 @@ export default function NavBar() {
   const { setModalOpen } = useAuthModalContext();
   const { user } = useAuth();
   const [showUserDropdown, setShowUserDropdown] = useState(false);
+
   const [added, setAdded] = useState(false);
+
 
   useEffect(() => {
     if (added) {
