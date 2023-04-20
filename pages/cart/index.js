@@ -11,7 +11,7 @@ const Cart = () => {
         <Row>
           <Col lg={8}>
             {[0, 1, 2]?.map((event, index) => (
-              <CartTicket key={index} />
+              <CartTicket inCart key={index} />
             ))}
           </Col>
           <Col lg={4}>

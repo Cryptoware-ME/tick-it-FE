@@ -8,7 +8,8 @@ import Link from "next/link";
 import EventDate from "../EventDate";
 import EventLocation from "../EventLocation";
 import RecipientsModal from "../RecipientsModal";
-const CartTicket = () => {
+import YellowButton from "../yellowButton";
+const CartTicket = ({ inCart = false }) => {
   const [counter, setCounter] = useState(1);
   const [recipientsModal, setRecipientsModal] = useState(false);
 
@@ -34,30 +35,34 @@ const CartTicket = () => {
             <div className={styles.cardDetails}>
               <div className={styles.cardHeader}>
                 <h1 className={styles.cardTitle}> Front Seat </h1>
-                <div className={styles.cardRightLinks}>
-                  <div
-                    className={styles.cardAdd}
-                    onClick={() => {
-                      setRecipientsModal(true);
-                    }}
-                  >
+                {inCart && (
+                  <div className={styles.cardRightLinks}>
+                    <div
+                      className={styles.cardAdd}
+                      onClick={() => {
+                        setRecipientsModal(true);
+                      }}
+                    >
+                      <Image
+                        width={14}
+                        height={14}
+                        style={{ marginRight: "5px" }}
+                        alt="add"
+                        src="/images/addYellow.png"
+                      />
+                      <div className={styles.cardRecipients}>
+                        Recipients (3)
+                      </div>
+                    </div>
                     <Image
                       width={14}
-                      height={14}
-                      style={{ marginRight: "5px" }}
-                      alt="add"
-                      src="/images/addYellow.png"
+                      height={18}
+                      style={{ marginLeft: "20px" }}
+                      alt="delete"
+                      src="/images/delete.png"
                     />
-                    <div className={styles.cardRecipients}>Recipients (3)</div>
                   </div>
-                  <Image
-                    width={14}
-                    height={18}
-                    style={{ marginLeft: "20px" }}
-                    alt="delete"
-                    src="/images/delete.png"
-                  />
-                </div>
+                )}
               </div>
               <p className={styles.cardDate}>Fri, Mar 10, 2023</p>
               <EventLocation location="12:00 AM UTC" />
@@ -66,14 +71,23 @@ const CartTicket = () => {
               </div>
 
               <EventDetails details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
-
-              <Row className={styles.cardCounter}>
-                <h1 className={styles.cardQuantity}>Enter Quantity</h1>
-                <div style={{ width: "fit-content" }}>
-                  <Counter counter={counter} setCounter={setCounter} />
-                </div>
-                <h1 className={styles.cardPrice}>$15</h1>
-              </Row>
+              {inCart && (
+                <Row className={styles.cardCounter}>
+                  <h1 className={styles.cardQuantity}>Enter Quantity</h1>
+                  <div style={{ width: "fit-content" }}>
+                    <Counter counter={counter} setCounter={setCounter} />
+                  </div>
+                  <h1 className={styles.cardPrice}>$15</h1>
+                </Row>
+              )}
+              {!inCart && (
+                <Row className={styles.cardCounter}>
+                  <YellowButton style2 text="SEND TICKET" />
+                  <div style={{ marginLeft: "12px", width: "fit-content" }}>
+                    <YellowButton text="ENTER EVENT" />
+                  </div>
+                </Row>
+              )}
             </div>
           </div>
         </div>
