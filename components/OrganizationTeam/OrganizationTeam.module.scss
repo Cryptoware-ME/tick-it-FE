@@ -1,0 +1,32 @@
+.organization {
+  min-height: 100vh;
+  background-color: #0c0c0c;
+}
+.teamCard {
+  border: 1px solid #404040;
+  border-radius: 10px;
+  position: absolute;
+  width: 72%;
+  height: 235px;
+  margin: 10px;
+  display: flex;
+}
+.teamTitle {
+  font-weight: 500px;
+  font-size: 28px;
+  line-height: 34px;
+  font-family: "DrukWideMedium";
+  color: var(--text);
+  padding: 10px;
+}
+.addButton {
+    margin-top:20px;
+    margin-left:30px
+}
+.addTitle {
+  color: #ffcc00;
+  font-weight: 500px;
+  font-size: 17px;
+  line-height: 21px;
+  padding: 20px 8px;
+}

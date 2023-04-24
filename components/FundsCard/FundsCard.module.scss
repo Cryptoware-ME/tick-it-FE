@@ -13,9 +13,10 @@
   background: linear-gradient(180deg, #050505 23.44%, #2d2d2d 100%);
   border-radius: 10px;
   margin: 12px;
-  margin-top: 50px;
-  display: flex;
-  justify-content: space-between;
+  padding: 10px 3px;
+}
+.tickImage {
+  margin-left: 10px;
 }
 
 .cardTitle {
@@ -26,7 +27,7 @@
   color: var(--text);
   display: flex;
   justify-content: space-between;
-  padding: 6px;
+  padding: 6px 10px;
 }
 
 .cardAdd {
@@ -78,6 +79,7 @@
   gap: 2px;
   width: 63px;
   height: 53px;
+  cursor: pointer;
 }
 .depositName {
   font-style: normal;
@@ -87,20 +89,33 @@
   color: var(--text);
   margin: 2px;
 }
-.cardButtons{
-    padding: 30px 10px;
-    display: flex;
-    justify-content: space-between;
+.cardButtons {
+  padding: 20px 10px;
+  display: flex;
 }
-.withDrawButton{
-    border: 0.5px solid #f1f1f1;
-    border-radius: 6px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2px;
-    width: 76px;
-    height: 53px;
-    margin: 0px 7px;
+.unLink {
+  padding: 30px 10px;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+.withDrawButton {
+  border: 0.5px solid #f1f1f1;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  width: 76px;
+  height: 53px;
+  margin: 0px 7px;
+  cursor: pointer;
+}
+.unLinkBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
 }
