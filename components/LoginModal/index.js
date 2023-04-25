@@ -14,6 +14,7 @@ import { login, signup } from "../../axios/auth.axios";
 import { useAuth } from "../../auth/useAuth";
 
 const LoginModal = () => {
+  
   const { logIn } = useAuth();
   const { modalOpen, setModalOpen } = useAuthModalContext();
   const { data: session } = useSession();

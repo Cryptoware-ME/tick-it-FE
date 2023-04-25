@@ -190,3 +190,14 @@ html {
   direction: ltr;
   z-index: 0;
 }
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  --bs-table-accent-bg: #161616 !important;
+
+ 
+}
+.table > :not(caption) > * > * {
+  border-bottom-width: 0px !important;
+  padding: 12px 10px!important;
+
+
+}

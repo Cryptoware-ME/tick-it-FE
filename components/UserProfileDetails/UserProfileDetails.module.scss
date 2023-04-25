@@ -4,6 +4,7 @@
   min-height: 70vh;
   align-items: center;
   display: flex;
+ 
 }
 .profile {
   display: flex;
@@ -16,8 +17,8 @@
 }
 .profileHeader {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  // align-items: center;
 }
 .profileReport {
   margin-bottom: 0;
@@ -43,4 +44,39 @@
   cursor: pointer;
   height: fit-content;
   justify-content: center;
+}
+.title {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--text);
+
+}
+.viewTitle {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: rgba(241, 241, 241, 0.5);
+  display: flex;
+  padding-left: 10px;
+  margin-bottom: 0;
+}
+.view{
+  flex-direction: row;
+  display: flex; 
+  align-items: center;
+  margin-bottom: 12px;
+  cursor: pointer;
+  width: fit-content;
+}
+.edit{
+display: flex;
+align-items: flex-end;
+justify-content: flex-end;
+
+
+}
+.editImage{
+  cursor: pointer;
 }

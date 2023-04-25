@@ -7,7 +7,7 @@ import EventCard from "../../components/EventCard";
 const Event = ({}) => {
   return (
     <div className={styles.profileWrapper}>
-      <UserProfileDetails />
+      <UserProfileDetails state={2} />
       <Container style={{ padding: "48px 0px" }}>
         <Row>
           <p className="section-title">Upcoming Events</p>
