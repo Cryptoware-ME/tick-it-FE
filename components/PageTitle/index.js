@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import styles from "./PageTitle.module.scss";
 
 const PageTitle = ({
-  text
+  text,paddingTop="50px"
 }) => {
   return (
     <>
-      {text ? (
-        <h1 className={styles.pageTitle}>{text}</h1>
+      {text ?  (
+        <h1 styles={{paddingTop:{paddingTop}}} className={styles.pageTitle}>{text}</h1>
       ) : (
         <></>
       )}
