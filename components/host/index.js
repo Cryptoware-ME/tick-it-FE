@@ -8,14 +8,12 @@ const Host = () => {
   return (
     <Container fluid className={styles.host}>
     <Row>
-      <Col lg={2} style={{ padding: "0px" }}>
-        <DashboardBar />
-      </Col>
+      
       <Col lg={10} style={{ padding: "0px" }}>
         <Container fluid>
  
       <PageTitle text=" Host" />
-            <Row>
+            <Row className={styles.hostCard}>
               {[0, 1, 2, 3, 4, 5, 6, 7, 8]?.map((event, index) => (
                 <EventCard key={index} />
               ))}

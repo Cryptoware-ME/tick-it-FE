@@ -18,12 +18,9 @@ const Settings = () => {
 
   return (
     <Container fluid className={styles.wrapper}>
-      <Row>
-        <Col lg={2} style={{ paddingRight: "0px" }}>
-          <DashboardBar />
-        </Col>
-        <Col lg={10} style={{ padding: "0px" }}>
-          <Container>
+      <Row  className={styles.setting} >
+        <Col lg={10} style={{ padding: " 0px" }}>
+          <Container >
             <Row className={styles.settingRow}>
               <p className={styles.sectionTitle}>Account Settings</p>
               <Row>
