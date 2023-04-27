@@ -7,9 +7,7 @@ import Link from "next/link";
 import { useAuthModalContext } from "../../context/AuthModalProvider";
 import YellowButton from "../YellowButton";
 import Image from "next/image";
-
 import { useSession, signIn, signOut } from "next-auth/react";
-
 import { login, signup } from "../../axios/auth.axios";
 import { useAuth } from "../../auth/useAuth";
 

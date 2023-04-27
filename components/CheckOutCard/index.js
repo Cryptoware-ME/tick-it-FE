@@ -1,8 +1,20 @@
 import React, { useState } from "react";
 import styles from "./CheckOutCard.module.scss";
-import YellowButton from "../yellowButton";
+import YellowButton from "../YellowButton";
+import PayUsdModal from "../PayUsdModal";
+import PayCrypto from "../PayCryptoModal";
+
 const CheckOutCard = () => {
+
+  const [usdmodal, setUsdModal] = useState(false);
+  const [cryptomodal, setCryptoModal] = useState(false);
+
   return (
+
+    <>
+    { usdmodal &&  <PayUsdModal  setUsdModal={setUsdModal} />  }
+   { cryptomodal && <PayCrypto    setCryptoModal={setCryptoModal}/>  } 
+   
     <div style={{ padding: "10px" }}>
       <div className={styles.checkOutCard}>
         <p className={styles.title}>Check Out</p>
@@ -27,12 +39,22 @@ const CheckOutCard = () => {
             <p>82$</p>
           </div>
         </div>
-        <YellowButton text="Pay with crypto" minWidth="90%" />
+        <YellowButton
+          onClick={() => {
+            setCryptoModal(true);
+          }}
+          text="Pay with crypto"
+          minWidth="90%"
+          />
+
         <div style={{ margin: "12px 0px", width: "90%" }}>
-          <YellowButton text="Pay in USD" visa style2={true} minWidth="100%" />
+          <YellowButton  onClick={() => {
+            setUsdModal(true);
+          }} text="Pay in USD" visa style2={true} minWidth="100%" />
         </div>
       </div>
     </div>
+            </>
   );
 };
 
