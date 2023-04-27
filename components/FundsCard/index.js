@@ -1,7 +1,16 @@
 import styles from "./FundsCard.module.scss";
 import Image from "next/image";
+import React, { useState } from "react";
+import DepositButton from "../DepositButton";
+import WithDrawButton from "../WithDrawButton";
 const FundsCard = ({ state = 1 }) => {
+  const [depositmodal, setDepositModal] = useState(false);
+  const [withDrawmodal, setWithDrawModal] = useState(false);
   return (
+    <>
+    { depositmodal && <DepositButton setDepositModal={setDepositModal} />}
+    { withDrawmodal && <WithDrawButton setWithDrawModal={setWithDrawModal} />}
+   
     <div className={styles.cardContainer}>
       <div className={styles.cardAdd}>
         <div className={styles.cardHeader}>
@@ -29,6 +38,9 @@ const FundsCard = ({ state = 1 }) => {
                 height={17}
                 alt="icon"
                 src="/images/deposit.png"
+                onClick={() => {
+                  setDepositModal(true);
+                }} 
               />
               <p className={styles.depositName}>Deposit</p>
             </div>
@@ -38,6 +50,9 @@ const FundsCard = ({ state = 1 }) => {
                 height={17}
                 alt="icon"
                 src="/images/vertical.png"
+                onClick={() => {
+                  setWithDrawModal(true);
+                }} 
               />
               <p className={styles.depositName}>Withdraw</p>
             </div>
@@ -58,6 +73,7 @@ const FundsCard = ({ state = 1 }) => {
         )}
       </div>
     </div>
+                </>
   );
 };
 export default FundsCard;

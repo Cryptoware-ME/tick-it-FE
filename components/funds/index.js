@@ -7,17 +7,14 @@ import Image from "next/image";
 const Funds = () => {
   return (
     <Container fluid className={styles.wrapper}>
-      <Row style={{marginRight:"0"}}>
-        <Col lg={2} style={{ paddingRight: "0px" }}>
-          <DashboardBar />
-        </Col>
-        <Col lg={10} style={{ padding: "14px" }}>
+      <Row>
+        <Col>
           <Container fluid>
             <Row>
               <p className={styles.title}>Funds</p>
               <Row style={{ marginTop: "50px" }}>
                 <Col>
-                   <FundsCard />
+                  <FundsCard />
                 </Col>
                 <Col>
                   <FundsCard state={2} />

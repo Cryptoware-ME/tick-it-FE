@@ -8,7 +8,7 @@ import Link from "next/link";
 import EventDate from "../EventDate";
 import EventLocation from "../EventLocation";
 import RecipientsModal from "../RecipientsModal";
-import YellowButton from "../yellowButton";
+import YellowButton from "../YellowButton";
 const CartTicket = ({ inCart = false }) => {
   const [counter, setCounter] = useState(1);
   const [recipientsModal, setRecipientsModal] = useState(false);
@@ -17,9 +17,9 @@ const CartTicket = ({ inCart = false }) => {
     <>
       {recipientsModal && (
         <RecipientsModal setRecipientsModal={setRecipientsModal} />
-      )}
+          )}
 
-      <Col xl={12} style={{ padding: "10px" }}>
+       <Col xl={12} style={{ padding: "10px" }}>
         <div className={styles.cardWrapper}>
           <div className={styles.cardContainer}>
             <div className={styles.imageDiv}>

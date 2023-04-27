@@ -11,8 +11,8 @@ const UserProfileDetails = ({ state = 1 }) => {
         {state == 2 && (
           <div className={styles.edit}>
             <Image
-              width={33}
-              height={33}
+              width={27}
+              height={27}
               alt="user"
               src="/images/edit2.png"
               className={styles.editImage}
@@ -22,10 +22,10 @@ const UserProfileDetails = ({ state = 1 }) => {
         <Row className={styles.profile}>
           <Col lg={4} className={styles.imageCol}>
             <Image
-              width={300}
-              height={300}
+              width={208}
+              height={208}
               alt="user"
-              src="/images/userPhoto.png"
+              src="/images/userPhoto2.png"
             />
           </Col>
           <Col lg={8}>
