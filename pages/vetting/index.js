@@ -6,7 +6,7 @@ import TickitButton from "../../components/tickitButton";
 import { useFormik } from "formik";
 import * as yup from "yup";
 const Vetting = () => {
-  const [submited, setSubmited] = useState(false);
+  const [submited, setSubmited] = useState(true);
   const schema = yup.object().shape({
     name: yup
       .string()
@@ -150,6 +150,7 @@ const Vetting = () => {
           </div>
           <div className={styles.appButton}>
             <TickitButton text="SEE APPLICATION" />
+            <TickitButton  style2 text="BACK TO HOME" />
           </div>
         </Container>
       )}
