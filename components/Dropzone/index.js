@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
 import styles from "./Dropzone.module.scss";
-function MyDropzone({filePreview, setFilePreview}) {
+function MyDropzone({filePreview, setFilePreview,text}) {
   
   const { getRootProps, getInputProps, open, acceptedFiles } = useDropzone({
     // Disable click and keydown behavior
@@ -43,7 +43,7 @@ function MyDropzone({filePreview, setFilePreview}) {
         {filePreview ? (
           <p className={styles.imageName}> {acceptedFiles[0].path}</p>
         ) : (
-          <p className={styles.banner}> Upload event banner</p>
+          <p className={styles.banner}> {text}</p>
         )}
       </div>
     </div>

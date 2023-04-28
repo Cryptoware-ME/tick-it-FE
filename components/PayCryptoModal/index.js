@@ -8,10 +8,6 @@ import GradientButton from "../GradientButton";
 import TickitButton from "../tickitButton";
 const PayCrypto = ({ setCryptoModal }) => {
   const [state, setState] = useState(1);
-
-  const handlePaymentMethod = (e) => {
-    console.log("handlePaymentMethod ", e);
-  };
   return (
     <Modal show onHide={() => {}} centered>
       <Modal.Header
@@ -143,22 +139,28 @@ const PayCrypto = ({ setCryptoModal }) => {
                 <p className={styles.paymentTitle}>Choose paymnet method</p>
               </div>
               <div>
-                <DropdownButton
-                  className={styles.dropDown}
-                  id="dropdown-basic-button"
-                  title="Dropdown button"
-                  onSelect={handlePaymentMethod}
-                >
-                  <Dropdown.Item className={styles.drop} eventKey="visa">
-                    Action
-                  </Dropdown.Item>
-                  <Dropdown.Item eventKey="mastecard">
-                    Another action
-                  </Dropdown.Item>
-                  <Dropdown.Item eventKey="crypto">
-                    Something else
-                  </Dropdown.Item>
-                </DropdownButton>
+
+                <Dropdown>
+                  <Dropdown.Toggle
+                    className={styles.dropDown}
+                    variant="success"
+                    id="dropdown-basic"
+               
+                  >
+                    USDC
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu className={styles.drop}>
+                    <Dropdown.Item
+                      className={styles.drop}
+              
+                      href="#/action-1"
+                    >
+                      USDT
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+
               </div>
               <p className={styles.walletBallance}>Wallet ballance: 0 USDC</p>
               <div>

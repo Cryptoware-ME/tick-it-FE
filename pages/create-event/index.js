@@ -46,8 +46,10 @@ const CreateEvent = () => {
   return (
     <div className={styles.Wrapper}>
       <Container style={{ padding: "48px 0px" }}>
+
         <p className="pageTitle">Create Event</p>
-        <Dropzone filePreview={filePreview} setFilePreview={setFilePreview} />
+        <Dropzone filePreview={filePreview} setFilePreview={setFilePreview} text="Upload event banner" />
+
         {imageError ? (
           <div className={styles.errors}>
             <p className={styles.error}> Image is required field</p>
