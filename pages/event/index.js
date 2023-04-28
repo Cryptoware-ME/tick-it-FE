@@ -5,7 +5,10 @@ import EventDate from "../../components/EventDate";
 import EventLocation from "../../components/EventLocation";
 import EventDetails from "../../components/EventDetails";
 import Tickets from "../../components/Tickets";
+import Image from "next/image";
+import YellowButton from "../../components/yellowButton";
 const Event = () => {
+  const [state, setState] = useState(1);
   return (
     <div className={styles.eventWrapper}>
       <div
@@ -26,11 +29,56 @@ const Event = () => {
       </div>
       <Container
         style={{
-          marginTop: "-50px",
+          marginTop: "-50px"
+          
         }}
       >
+    
         <Row>
-          <h1 className={styles.eventTtile}>AC/DC live in Munich</h1>
+          <div className={styles.titleButton}>
+            <h1 className={styles.eventTtile}>
+              AC/DC live in Munich
+              <Image
+                width={32}
+                height={32}
+                alt="edit"
+                src="/images/edit.png"
+                style={{ marginLeft: "20px" }}
+              />
+            </h1>
+            <div className={styles.reserveButton}>
+              <YellowButton  disabled text="RESERVE" />
+              
+            </div>
+ 
+            <div className={styles.viewButton}>
+              <YellowButton  text="VIEW ACTIVITY" />
+            </div>
+          </div>
+          {state == 1 && (
+            <div style={{ padding: "30px 10px" }}>
+              <YellowButton text="LAUNCH EVENT" />
+            </div>
+          )}
+          {state == 2 && (
+            <div className={styles.buttons}>
+              <YellowButton text="PAUSE SALE" />
+              <div style={{ marginLeft: "40px" }}>
+                <YellowButton style2 text="VIEW ACTIVITY" />
+              </div>
+            </div>
+          )}
+          {state == 3 && (
+            <div className={styles.buttons}>
+              <YellowButton text="RESUME SALES" />
+              <div style={{ marginLeft: "40px" }}>
+                <YellowButton text="CANCEL SALES" />
+              </div>
+              <div style={{ marginLeft: "40px" }}>
+                <YellowButton style2 text="VIEW ACTIVITY" />
+              </div>
+            </div>
+          )}
 
           <div style={{ marginTop: "40px" }}>
             <EventDate date="june 17" time="8pm GMT" fontSize="24px" />

@@ -1,9 +1,9 @@
 import { instance } from "./ApiAxios";
 
-export const getUsers = async (email) => {
+export const getUsers = async (filter) => {
   const data = await instance.get(`/users`, {
     params: {
-      filter: { where: { email: email } },
+      filter ,
     },
   });
   return data;
