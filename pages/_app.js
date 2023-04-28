@@ -19,7 +19,6 @@ import { ProSidebarProvider } from "react-pro-sidebar";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { validate } from "../axios/auth.axios";
-
 import AuthContext from "../auth/AuthContext";
 import { SessionProvider } from "next-auth/react";
 const inter = Inter({ subsets: ["latin"] });

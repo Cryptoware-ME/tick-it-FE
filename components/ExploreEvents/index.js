@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./ExploreEvents.module.scss";
 import { Row } from "react-bootstrap";
 import EventCard from "../EventCard";
-import YellowButton from "../../components/YellowButton";
-import GradientButton from "../gradientButton";
+import TickitButton from "../../components/tickitButton";
 import Link from "next/link";
+import TickitTag from "../TickitTag";
 
 const ExploreEvents = () => {
   return (
@@ -12,14 +12,14 @@ const ExploreEvents = () => {
       <p className="section-title">Explore Events</p>
       <Row>
         <div className={styles.filtersRow}>
-          {[0, 1, 2]?.map((category, index) => (
+          {[0, 1, 2, 3]?.map((category, index) => (
             <div
-            key={index}
+              key={index}
               style={{
                 padding: "0px 10px",
               }}
             >
-              <GradientButton text="category" />
+              <TickitTag text="category" />
             </div>
           ))}
         </div>
@@ -35,7 +35,7 @@ const ExploreEvents = () => {
         }}
       >
         <Link href="/explore" className={styles.exploreMoreButton}>
-          <YellowButton text="Explore More" />
+          <TickitButton text="Explore More" />
         </Link>
       </Row>
     </>

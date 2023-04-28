@@ -1,8 +1,8 @@
 .footerWrapper {
-  background-color:  var(--footerBackground);
-  min-height: 300px;
+  background-color: var(--footerBackground);
+  max-height: 230px;
   border-top: 1px solid;
-  border-color:   var(--yellow1Hover);
+  border-color: var(--primary-dark);
   padding: 60px 40px;
 }
 .linksWrapper {
@@ -13,42 +13,42 @@
   flex-direction: column;
 }
 .footerLink {
-  font-style: normal;
   font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
-  color: var(--text);
+font-size: 14px;
+line-height: 17px;
+  color: var(--white);
   text-decoration: none;
   margin-bottom: 20px;
   width: fit-content;
 }
 .footerLink:hover {
-  color:   var(--yellow1Hover);
+  color: var(--primary-dark);
   text-decoration: none;
 }
 
 .subscribeTitle {
-  color: var(--text);
+  color: var(--white);
   font-size: 17px;
   font-weight: Poppins;
   font-weight: 500;
 }
 
 .emailInput {
- background-color:var(--footerBackground);
- font-size: 14px;
-font-weight: 400;
+  background-color: var(--footerBackground);
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .emailInput:focus {
   background-color: var(--footerBackground);
- color: var(--text);
- border: none;
- }
+  color: var(--white);
+  border: none;
+}
 .callForSubscription {
-    color:var(--text);
-  font-size: 17px;
+  color: var(--white);
   font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
 }
 
 .socialIcons {
@@ -61,7 +61,7 @@ font-weight: 400;
   .socialIcon {
     height: 26px;
     cursor: pointer;
-    color: var(--text);
+    color: var(--white);
   }
 }
 
@@ -72,12 +72,10 @@ font-weight: 400;
 
 .mailSubmitted {
   padding-top: 8px;
-  color: var(--text);
+  color: var(--white);
 }
-.arrowRight{
+.arrowRight {
   position: absolute;
   top: 32%;
   right: 10px;
 }
-
-

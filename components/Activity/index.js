@@ -1,13 +1,12 @@
 import { Container, Col, Row, Form } from "react-bootstrap";
 import styles from "./Activity.module.scss";
-import PageTitle from "../../components/pageTitle";
 
 const Activity = () => {
   return (
     <div className={styles.Wrapper}>
       <Container fluid>
         <div className={styles.title}>
-          <PageTitle text=" Activity" />
+          <p className="pageTitle">Activity</p>
         </div>
         <Row>
           <Col>

@@ -8,7 +8,7 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  color: var(--text);
+  color: var(--white);
 }
 .checkOutDetailsDiv {
   width: 100%;
@@ -18,7 +18,7 @@
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
-  color: var(--text);
+  color: var(--white);
   font-family: "DrukWideMedium";
 }
 .roundCheckbox {
@@ -38,7 +38,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  color: var(--text);
+  color: var(--white);
   margin-left: 8px;
   margin-bottom: 8px;
 }
@@ -60,7 +60,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  color: var(--text);
+  color: var(--white);
   margin: 5px;
 }
 .dropDown {
@@ -71,8 +71,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-
 }
 .dropDown:hover {
   background-color: transparent !important;
@@ -114,8 +112,8 @@
   margin-left: 100px;
 }
 .connectText {
-  color: var(--text);
-  font-style: normal;
+  color: var(--white);
+
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
@@ -135,6 +133,6 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-  color: var(--text);
+  color: var(--white);
   margin: 0px;
 }

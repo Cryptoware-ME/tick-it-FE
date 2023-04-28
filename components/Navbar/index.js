@@ -4,18 +4,17 @@ import styles from "./Navbar.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import { useAuthModalContext } from "../../context/AuthModalProvider";
-import YellowButton from "../../components/YellowButton";
+import TickitButton from "../../components/tickitButton";
 import { useAuth } from "../../auth/useAuth";
 import UserDropdown from "../UserDropdown";
 import AddedToCartAlert from "../AddedToCartAlert";
-import {ToastContainer,toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 export default function NavBar() {
   const { setModalOpen } = useAuthModalContext();
   const { user } = useAuth();
   const [showUserDropdown, setShowUserDropdown] = useState(false);
 
   const [added, setAdded] = useState(false);
-
 
   useEffect(() => {
     if (added) {
@@ -62,12 +61,12 @@ export default function NavBar() {
               width={33}
               height={33}
               alt="icon"
-              src="/images/chart.png"
+              src="/images/cartLogo.svg"
             />
 
             {!user && (
               <div>
-                <YellowButton
+                <TickitButton
                   text="Log in"
                   padding="5px"
                   onClick={() => {
@@ -128,20 +127,19 @@ export default function NavBar() {
                 <Image
                   onClick={() => {
                     // setAdded(true);
-                    toast('File type extension not accepted');
-                   
+                    toast("File type extension not accepted");
                   }}
                   style={{ marginRight: "15px" }}
                   width={33}
                   height={33}
                   alt="icon"
-                  src="/images/chart.png"
+                  src="/images/cartLogo.svg"
                 />
                 {/* <ToastContainer /> */}
 
                 {!user && (
                   <div>
-                    <YellowButton
+                    <TickitButton
                       text="Log in"
                       onClick={() => {
                         setModalOpen(true);
@@ -153,7 +151,7 @@ export default function NavBar() {
                   <div
                     style={{
                       borderRadius: "8px ",
-                      backgroundColor: "var(--yellow1)",
+                      backgroundColor: "var(--primary)",
                       padding: "10px 20px",
                       display: "flex",
                       alignItems: "center",

@@ -5,14 +5,13 @@ import * as yup from "yup";
 import { Col, Row, Modal, Container, Alert, Form } from "react-bootstrap";
 import Link from "next/link";
 import { useAuthModalContext } from "../../context/AuthModalProvider";
-import YellowButton from "../YellowButton";
+import TickitButton from "../tickitButton";
 import Image from "next/image";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { login, signup } from "../../axios/auth.axios";
 import { useAuth } from "../../auth/useAuth";
 
 const LoginModal = () => {
-  
   const { logIn } = useAuth();
   const { modalOpen, setModalOpen } = useAuthModalContext();
   const { data: session } = useSession();
@@ -155,7 +154,7 @@ const LoginModal = () => {
                 ) : null}
 
                 <div className={styles.inputDiv}>
-                  <YellowButton
+                  <TickitButton
                     text="Sign Up"
                     onClick={async () => {
                       const response = await signup({
@@ -234,7 +233,7 @@ const LoginModal = () => {
                     </Link>
                   </div>
                   <div className={styles.inputDiv}>
-                    <YellowButton text="Log In" onClick={handleSubmit} />
+                    <TickitButton text="Log In" onClick={handleSubmit} />
                   </div>
 
                   <div className={styles.googleLoginDiv}>

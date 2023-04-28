@@ -4,8 +4,6 @@ import { Col, Row } from "react-bootstrap";
 import Image from "next/image";
 import EventDate from "../EventDate";
 import EventLocation from "../EventLocation";
-import EventOrganizer from "../EventOrganizer";
-import EventTitle from "../EventTitle";
 const EventCard = ({}) => {
   return (
     <>
@@ -24,8 +22,9 @@ const EventCard = ({}) => {
             </div>
 
             <div className={styles.cardDetails}>
-              <EventTitle title="Billie Eilish" />
-              <EventOrganizer organizer="NRJ" />
+              <p className={styles.eventTitle}>Billie Eilish</p>
+              <p className={styles.eventOrganizer}>NRJ</p>
+
               <EventDate date="june 17" time="8pm GMT" />
               <EventLocation location="Allianz Arena" />
             </div>

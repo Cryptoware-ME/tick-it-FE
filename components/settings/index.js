@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./Settings.module.scss";
 import { Container, Col, Row } from "react-bootstrap";
 import DashboardBar from "../../components/DashboardBar";
-import YellowButton from "../../components/YellowButton";
+import TickitButton from "../../components/tickitButton";
 import Link from "next/link";
 import Switch from "../../components/Switch";
 import { useAuth } from "../../auth/useAuth";
@@ -18,9 +18,9 @@ const Settings = () => {
 
   return (
     <Container fluid className={styles.wrapper}>
-      <Row  className={styles.setting} >
+      <Row className={styles.setting}>
         <Col lg={10} style={{ padding: " 0px" }}>
-          <Container >
+          <Container>
             <Row className={styles.settingRow}>
               <p className={styles.sectionTitle}>Account Settings</p>
               <Row>
@@ -44,7 +44,7 @@ const Settings = () => {
                 </Col>
                 <Col md={4} className={styles.settingCol}>
                   {!userNameEdit && (
-                    <YellowButton
+                    <TickitButton
                       text="Edit"
                       onClick={() => {
                         setUserNameEdit(true);
@@ -52,7 +52,7 @@ const Settings = () => {
                     />
                   )}
                   {userNameEdit && (
-                    <YellowButton
+                    <TickitButton
                       text="Save"
                       style2={true}
                       onClick={() => {
@@ -83,7 +83,7 @@ const Settings = () => {
                 </Col>
                 <Col md={4} className={styles.settingCol}>
                   {!emailEdit && (
-                    <YellowButton
+                    <TickitButton
                       text="Edit"
                       onClick={() => {
                         setEmailEdit(true);
@@ -91,7 +91,7 @@ const Settings = () => {
                     />
                   )}
                   {emailEdit && (
-                    <YellowButton
+                    <TickitButton
                       text="Save"
                       style2={true}
                       onClick={() => {
@@ -106,8 +106,8 @@ const Settings = () => {
                   <p className={styles.settingCategory}>Phone Number</p>
                 </Col>
                 <Col md={4} className={styles.settingCol}>
-                {!mobileEdit && (
-                   <p className={styles.settingValue}>961112233</p>
+                  {!mobileEdit && (
+                    <p className={styles.settingValue}>961112233</p>
                   )}
                   {mobileEdit && (
                     <input
@@ -121,8 +121,8 @@ const Settings = () => {
                   )}
                 </Col>
                 <Col md={4} className={styles.settingCol}>
-                {!mobileEdit && (
-                    <YellowButton
+                  {!mobileEdit && (
+                    <TickitButton
                       text="Edit"
                       onClick={() => {
                         setMobileEdit(true);
@@ -130,7 +130,7 @@ const Settings = () => {
                     />
                   )}
                   {mobileEdit && (
-                    <YellowButton
+                    <TickitButton
                       text="Save"
                       style2={true}
                       onClick={() => {

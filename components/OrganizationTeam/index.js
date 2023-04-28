@@ -4,12 +4,12 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Table } from "react-bootstrap";
 import Image from "next/image";
 import { ethers } from "ethers";
-import YellowButton from "../../components/YellowButton";
+import TickitButton from "../../components/tickitButton";
 
 const OrganizationTeam = () => {
   return (
     <Container fluid className={styles.organization}>
-      <Row style={{padding:"0px"}}>
+      <Row style={{ padding: "0px" }}>
         <div className={styles.teamCard}>
           <div style={{ display: "flex" }}>
             <p className={styles.teamTitle}>Team</p>
@@ -56,7 +56,7 @@ const OrganizationTeam = () => {
           </div>
         </div>
       </Row>
-      <Row  style={{padding:"0px"}}>
+      <Row style={{ padding: "0px" }}>
         <div className={styles.hostCard}>
           <div style={{ display: "flex" }}>
             <p className={styles.teamTitle}>Hosts</p>
@@ -108,7 +108,7 @@ const OrganizationTeam = () => {
           padding: "30px 0px 0px 25px",
         }}
       >
-        <YellowButton
+        <TickitButton
           text="TRANSFER OWNERSHIP"
           padding="15px 20px"
           fontSize="20px"
