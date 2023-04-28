@@ -1,5 +1,4 @@
 import EventCard from "../../components/EventCard";
-import PageTitle from "../../components/pageTitle";
 import styles from "./host.module.scss";
 import { Row ,Col,Container} from "react-bootstrap";
 import DashboardBar from "../../components/DashboardBar";
@@ -11,8 +10,7 @@ const Host = () => {
       
       <Col lg={10} style={{ padding: "0px" }}>
         <Container fluid>
- 
-      <PageTitle text=" Host" />
+        <p className="pageTitle">Host</p>
             <Row className={styles.hostCard}>
               {[0, 1, 2, 3, 4, 5, 6, 7, 8]?.map((event, index) => (
                 <EventCard key={index} />

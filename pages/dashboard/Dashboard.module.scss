@@ -8,14 +8,13 @@
   padding: 24px 0px;
 }
 .viewAll {
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
-  color: var(--text);
+  color: var(--white);
 }
 .viewAll:hover {
-  color: var(--yellow1Hover);
+  color: var(--primary-dark);
   cursor: pointer;
 }
 .header {

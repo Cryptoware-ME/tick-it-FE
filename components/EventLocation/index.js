@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./EventLocation.module.scss";
 
-const EventLocation = ({ location , fontSize = "17px"}) => {
+const EventLocation = ({ location , fontSize = "16px"}) => {
   return (
     <>
       {location ? (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
-import YellowButton from "../../components/YellowButton";
+import TickitButton from "../../components/tickitButton";
 import Image from "next/image";
 import styles from "./SideBar.module.scss";
 
@@ -225,7 +225,7 @@ export default function SideBar() {
             </div>
           </div>
           <div className={styles.filterButton}>
-            <YellowButton text="Filter" />
+            <TickitButton text="Filter" />
           </div>
         </Menu>
       </Sidebar>

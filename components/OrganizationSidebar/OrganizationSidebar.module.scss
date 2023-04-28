@@ -4,7 +4,6 @@
   height: 100%;
   background: linear-gradient(270deg, #1a1a1a 0%, rgba(26, 26, 26, 0) 100%);
   box-shadow: 4px 0px 20px 0px rgba(0, 0, 0, 0.25);
-
 }
 .sideBarmenu {
   padding: 0px !important;
@@ -34,7 +33,7 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
-  color: var(--text);
+  color: var(--white);
   text-decoration: none;
 }
 .dashboardLink:active {
@@ -42,7 +41,7 @@
 }
 .dashboardLink:hover {
   background-color: #050505;
-  color: var(--yellow1Hover);
+  color: var(--primary-dark);
 }
 .dropTitle {
   flex-direction: row;

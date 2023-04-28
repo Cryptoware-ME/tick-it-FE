@@ -4,9 +4,8 @@ import { Col, Row } from "react-bootstrap";
 import Image from "next/image";
 import TicketCounter from "../TicketCounter";
 import EventDetails from "../EventDetails";
-import YellowButton from "../yellowButton";
+import TickitButton from "../tickitButton";
 import Counter from "../Counter";
-
 
 const TicketCard = ({ index }) => {
   const [counter, setCounter] = useState(1);
@@ -49,13 +48,12 @@ const TicketCard = ({ index }) => {
               <EventDetails details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
               <h1 className={styles.cardPrice}>$15</h1>
               <Row>
-                <Col className={styles.cardCounter} >
+                <Col className={styles.cardCounter}>
                   <h1 className={styles.cardQuantity}>Enter Quantity</h1>
-                <Counter counter={counter} setCounter={setCounter}/>
+                  <Counter counter={counter} setCounter={setCounter} />
                 </Col>
                 <Col>
-                  <YellowButton text="ADD TO CART" />
-              
+                  <TickitButton text="ADD TO CART" />
                 </Col>
               </Row>
             </div>

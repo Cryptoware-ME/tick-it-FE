@@ -67,54 +67,50 @@
   flex-direction: row;
 }
 .dropdownText {
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
-  color: var(--text);
+  color: var(--white);
 
   margin-bottom: 0;
 }
 .dropdownLink {
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
-  color: var(--text);
+  color: var(--white);
   margin-left: 3px;
 }
 .dropdownLink:hover {
-  color: var(--yellow1Hover);
+  color: var(--primary-dark);
 }
 
-
-
-.progress{
+.progress {
   position: relative;
   height: 20px;
-  width:100%;
+  width: 100%;
 }
-.progress .color{
+.progress .color {
   position: absolute;
-  background-color:  rgba(149, 164, 57, 1);
+  background-color: rgba(149, 164, 57, 1);
   width: 0px;
   height: 4px;
   animation: splash 3.5s infinite linear;
 }
-@keyframes splash{
-  0%{
+@keyframes splash {
+  0% {
     width: 0%;
   }
-  25%{
-      width: 40%;
+  25% {
+    width: 40%;
   }
-  50%{
-      width: 65%;
+  50% {
+    width: 65%;
   }
-  75%{
-      width: 85%;
+  75% {
+    width: 85%;
   }
-  100%{
-      width: 100%;
+  100% {
+    width: 100%;
   }
-};
+}

@@ -16,7 +16,7 @@
   font-size: 28px;
   line-height: 34px;
   font-family: "DrukWideMedium";
-  color: var(--text);
+  color: var(--white);
   padding: 10px;
 }
 .addButton {
@@ -35,13 +35,13 @@
   flex-direction: column;
 }
 .tableHead {
-  color: var(--textGrey);
+  color: var(--disabled2);
   font-weight: 500;
   font-size: 13px;
   line-height: 16px;
 }
 .bodyText {
-  color: var(--text) !important;
+  color: var(--white) !important;
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;

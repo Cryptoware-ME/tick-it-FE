@@ -50,19 +50,17 @@
   opacity: 1;
 }
 .dropdownTitle {
-  font-style: normal;
   font-weight: 500;
   font-size: 28px;
   line-height: 28px;
-  color: var(--text);
+  color: var(--white);
   font-family: "DrukWideMedium";
   margin-bottom: 0;
 }
 .dropdownEmail {
-  font-style: normal;
   font-weight: 500;
   font-size: 12px;
-  color: var(--text);
+  color: var(--white);
 }
 .horline {
   height: 3px;
@@ -71,19 +69,17 @@
   margin: 0 auto;
 }
 .dropdownLink {
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
-  color: var(--text);
+  color: var(--white);
   text-decoration: none;
 }
 .dropdownLink:hover {
-  color: var(--yellow1Hover);
+  color: var(--primary-dark);
   text-decoration: none;
 }
 .dropdownBtn {
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
@@ -93,7 +89,7 @@
   background-color: transparent;
 }
 .dropdownBtn:hover {
-  color: var(--yellow1Hover);
+  color: var(--primary-dark);
   text-decoration: none;
   cursor: pointer;
   color: #ff0000;

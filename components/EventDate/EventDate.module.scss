@@ -1,11 +1,10 @@
 .eventDate {
-  font-style: normal;
   font-weight: 500;
 
   line-height: 21px;
-  color: var(--text);
+  color: var(--white);
 
   span {
-    color: var(--yellow1Hover);
+    color: var(--primary-dark);
   }
 }

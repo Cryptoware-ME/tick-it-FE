@@ -1,16 +1,9 @@
-import { Container, Col, Row, Form } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import styles from "./createEvent.module.scss";
-import PageTitle from "../../components/pageTitle";
-import YellowButton from "../../components/yellowButton";
-import Image from "next/image";
+import TickitButton from "../../components/tickitButton";
 import { useFormik, Formik } from "formik";
 import Dropzone from "../../components/Dropzone";
-import React, {
-  useCallback,
-  useEffect,
-  useState,
-  useLayoutEffect,
-} from "react";
+import React, { useState } from "react";
 import * as yup from "yup";
 
 const CreateEvent = () => {
@@ -53,7 +46,7 @@ const CreateEvent = () => {
   return (
     <div className={styles.Wrapper}>
       <Container style={{ padding: "48px 0px" }}>
-        <PageTitle text="Create Event" />
+        <p className="pageTitle">Create Event</p>
         <Dropzone filePreview={filePreview} setFilePreview={setFilePreview} />
         {imageError ? (
           <div className={styles.errors}>
@@ -134,7 +127,7 @@ const CreateEvent = () => {
           ) : null}
         </div>
         <div className={styles.appButton}>
-          <YellowButton
+          <TickitButton
             onClick={() => {
               if (!filePreview) {
                 setImageError(true);

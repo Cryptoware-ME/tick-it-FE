@@ -3,7 +3,7 @@ import styles from "./Slider.module.scss";
 import { Autoplay } from "swiper";
 
 import { Container, Col, Row } from "react-bootstrap";
-import YellowButton from "../yellowButton";
+import TickitButton from "../tickitButton";
 import { EffectFade, Navigation, Pagination, Scrollbar, A11y } from "swiper";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -65,7 +65,7 @@ export default function Slider() {
                   Reserve your ticket now!
                 </p>
                 <div>
-                  <YellowButton text="Reserve" />
+                  <TickitButton text="Reserve" />
                 </div>
               </Row>
             </Container>

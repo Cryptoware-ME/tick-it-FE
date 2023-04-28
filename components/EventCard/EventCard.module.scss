@@ -52,3 +52,16 @@
   position: relative;
   z-index: 3;
 }
+.eventTitle {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--white);
+  margin-bottom: 0;
+}
+.eventOrganizer {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--disabled2);
+}

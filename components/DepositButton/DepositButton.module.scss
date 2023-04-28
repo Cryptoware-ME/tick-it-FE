@@ -7,7 +7,7 @@
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
-  color: var(--text);
+  color: var(--white);
   font-family: "DrukWideMedium";
 }
 .checkOutDetails {
@@ -46,8 +46,8 @@
   right: 40px;
 }
 .connectText {
-  color: var(--text);
-  font-style: normal;
+  color: var(--white);
+
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
@@ -67,11 +67,11 @@
   line-height: 17px;
   color: #848484;
   display: flex;
-  width:60%;
+  width: 60%;
 }
 
-.address{
-    justify-content: center;
-    align-items: center;
-    display: flex;
+.address {
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }

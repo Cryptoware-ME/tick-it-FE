@@ -5,7 +5,7 @@ import Image from "next/image";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import GradientButton from "../GradientButton";
-import YellowButton from "../YellowButton";
+import TickitButton from "../tickitButton";
 const PayCrypto = ({ setCryptoModal }) => {
   const [state, setState] = useState(1);
 
@@ -148,7 +148,6 @@ const PayCrypto = ({ setCryptoModal }) => {
                   id="dropdown-basic-button"
                   title="Dropdown button"
                   onSelect={handlePaymentMethod}
-                  
                 >
                   <Dropdown.Item className={styles.drop} eventKey="visa">
                     Action
@@ -174,7 +173,7 @@ const PayCrypto = ({ setCryptoModal }) => {
             </div>
 
             <div style={{ marginTop: "20px" }}>
-              <YellowButton minWidth="100%" style1 text="Pay" />
+              <TickitButton minWidth="100%" style1 text="Pay" />
             </div>
           </div>
         </Container>

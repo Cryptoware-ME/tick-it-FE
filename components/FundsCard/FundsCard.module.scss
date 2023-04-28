@@ -1,9 +1,8 @@
 .title {
-  font-style: normal;
   font-weight: 500;
   font-size: 42px;
   line-height: 50px;
-  color: var(--text);
+  color: var(--white);
   padding: 30px 10px 0px 15px;
   font-family: "DrukWideMedium";
 }
@@ -16,18 +15,15 @@
   padding: 20px 10px;
 }
 .tickImage {
-
 }
 
 .cardTitle {
-  font-style: normal;
   font-weight: 700;
   font-size: 16px;
   line-height: 19px;
-  color: var(--text);
+  color: var(--white);
   display: flex;
   justify-content: space-between;
-  
 }
 
 .cardAdd {
@@ -40,31 +36,28 @@
   align-items: center;
 }
 .cardInfo {
-  padding:25px 6px;
+  padding: 25px 6px;
 }
 .amountETH {
-  font-style: normal;
   font-weight: 700;
   font-size: 16px;
   line-height: 19px;
-  color: var(--text);
+  color: var(--white);
   margin: 0px;
 }
 .amount {
-  font-style: normal;
   font-weight: 700;
   font-size: 16px;
   line-height: 19px;
-  color: var(--text);
+  color: var(--white);
   display: flex;
   margin: 0;
 }
 .tickets {
-  font-style: normal;
   font-weight: 700;
   font-size: 16px;
   line-height: 19px;
-  color: var(--text);
+  color: var(--white);
   display: flex;
   margin: 0;
 }
@@ -79,14 +72,12 @@
   width: 63px;
   height: 53px;
   cursor: pointer;
-  
 }
 .depositName {
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  color: var(--text);
+  color: var(--white);
   margin: 2px;
 }
 .cardButtons {
@@ -98,8 +89,6 @@
   display: flex;
   justify-content: flex-end;
   width: 100%;
-
-
 }
 .withDrawButton {
   border: 0.5px solid #f1f1f1;
@@ -120,6 +109,4 @@
   justify-content: center;
   flex-direction: column;
   cursor: pointer;
-
 }
-

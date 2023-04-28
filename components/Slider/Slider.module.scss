@@ -1,5 +1,5 @@
 .wrapper {
-  background-color:  var(--background);
+  background-color: var(--background);
   height: calc(65vh - 70px);
 }
 .shadow {
@@ -20,18 +20,20 @@
   justify-content: flex-start;
   align-items: center;
   text-align: left;
-  color: var(--text);
+  color: var(--white);
   h1 {
     font-weight: 500;
-    font-size: 42px;
+    font-size: 34px;
     font-family: "DrukWideMedium";
+    line-height: 40px;
   }
   p {
-    font-style: normal;
     font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
-    max-width: 50%;
+    font-size: 14px;
+    line-height: 17px;
+    @media (min-width: "991px") {
+      max-width: 50%;
+    }
   }
 }
 

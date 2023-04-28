@@ -6,7 +6,7 @@ import PageTitle from "../PageTitle";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import YellowButton from "../YellowButton";
+import TickitButton from "../tickitButton";
 
 const PayUsd = ({ setUsdModal }) => {
   const schema = yup.object().shape({
@@ -161,9 +161,9 @@ const PayUsd = ({ setUsdModal }) => {
                 <div className={styles.InputDiv}>
                   <p className={styles.paymentTitle}>Expire Date</p>
                   <input
-                      id="Date"
-                      name="Date"
-                      type="date"
+                    id="Date"
+                    name="Date"
+                    type="date"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.Date}
@@ -178,8 +178,8 @@ const PayUsd = ({ setUsdModal }) => {
                 ) : null}
               </Col>
             </Row>
-            <div  style={{marginTop:"20px"}}>
-              <YellowButton minWidth="100%" style1 text="Pay" />
+            <div style={{ marginTop: "20px" }}>
+              <TickitButton minWidth="100%" style1 text="Pay" />
             </div>
           </div>
         </Container>

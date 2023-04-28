@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./WithDrawButton.module.scss";
 import { Modal, Container } from "react-bootstrap";
 import Image from "next/image";
-import YellowButton from "../YellowButton";
+import TickitButton from "../tickitButton";
 const WithDrawButton = ({ setWithDrawModal }) => {
   return (
     <Modal show onHide={() => {}} centered>
@@ -45,9 +45,9 @@ const WithDrawButton = ({ setWithDrawModal }) => {
             <div className={styles.address}>
               <p className={styles.addressSentence}>Available: $157</p>
             </div>
-           
+
             <div className={styles.nextButton}>
-              <YellowButton style={1} text="NEXT" />
+              <TickitButton style={1} text="NEXT" />
             </div>
           </div>
         </Container>
