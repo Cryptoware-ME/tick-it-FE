@@ -11,7 +11,7 @@ export default function Home() {
 
   const getData = async () => {
     try {
-      const response = await getUsers('charbelboukhalil84@gmail.com');
+      const response = await getUsers({where: {email:'charbelboukhalil84@gmail.com'}});
       setData(response);
     } catch (e) {
       console.error(e);

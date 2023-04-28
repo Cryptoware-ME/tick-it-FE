@@ -1,6 +1,8 @@
 .eventWrapper {
   min-height: 100vh;
   background-color: #0c0c0c;
+
+
 }
 .eventTtile {
   font-style: normal;
@@ -9,4 +11,24 @@
   line-height: 50px;
   font-family: "DrukWideMedium";
   color: var(--text);
+
+}
+
+// padding: "30px 10px" 
+.buttons{
+  display: flex;
+  padding: 31px 8px;
+
+}
+.titleButton{
+  display: flex;
+  width: 100%;
+}
+.reserveButton{
+  margin-left:70px;
+  padding: 10px;
+}
+.viewButton{
+  margin-left:0px;
+  padding: 8px;
 }

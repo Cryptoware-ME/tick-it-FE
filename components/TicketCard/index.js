@@ -6,12 +6,15 @@ import TicketCounter from "../TicketCounter";
 import EventDetails from "../EventDetails";
 import YellowButton from "../yellowButton";
 import Counter from "../Counter";
+import EditTicket from "../EditTicketModal";
 
 
 const TicketCard = ({ index }) => {
   const [counter, setCounter] = useState(1);
+  const [editticket, setEditTicket] = useState(false);
   return (
     <>
+     { editticket && <EditTicket setEditTicket={setEditTicket} />}
       <Col xl={12} style={{ padding: "10px" }}>
         <div className="cardWrapper">
           <div className={styles.cardContainer}>
@@ -41,6 +44,9 @@ const TicketCard = ({ index }) => {
                     height={32}
                     alt="edit"
                     src="/images/edit.png"
+                    style={{cursor:"pointer"}}
+                    onClick={() => {
+                      setEditTicket(true); }}
                   />
                 </div>
               </div>

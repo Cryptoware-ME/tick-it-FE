@@ -73,27 +73,23 @@ const PayUsd = ({ setUsdModal }) => {
                 <p className={styles.paymentTitle}>Choose paymnet method</p>
               </div>
               <div>
-                <Dropdown>
+              <Dropdown>
                   <Dropdown.Toggle
-                    variant="success"
-                    id="dropdown-autoclose-true"
                     className={styles.dropDown}
+                    variant="success"
+                    id="dropdown-basic"
+               
                   >
-                    Master Card
+                    USDC
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu className={styles.drop}>
                     <Dropdown.Item
-                      id="dropdown-autoclose-true"
+                      className={styles.drop}
+              
                       href="#/action-1"
                     >
-                      Master Card
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      id="dropdown-autoclose-true"
-                      href="#/action-2"
-                    >
-                      Visa Card
+                      USDT
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
