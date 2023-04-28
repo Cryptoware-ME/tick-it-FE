@@ -33,6 +33,7 @@
   object-fit: contain;
   position: relative;
   z-index: 1;
+  cursor: pointer;
 }
 .cardDetails {
   background-color: #050505;
@@ -41,15 +42,15 @@
 }
 .cardTitle {
   font-family: "DrukWideMedium";
-  font-style: normal;
+
   font-weight: 500;
   font-size: 30px;
   line-height: 36px;
-  color: var(--text);
+  color: var(--white);
 }
 .cardPrice {
   font-family: "DrukWideMedium";
-  font-style: normal;
+
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
@@ -64,11 +65,11 @@
 }
 .cardQuantity {
   font-family: "DrukWideMedium";
-  font-style: normal;
+
   font-weight: 500;
   font-size: 20px;
   line-height: 36px;
-  color: var(--text);
+  color: var(--white);
 }
 .cardCounter {
   display: flex;

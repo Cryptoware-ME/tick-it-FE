@@ -1,16 +1,27 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Tickets.module.scss";
-import { Row } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import TicketCard from "../TicketCard";
+import YellowButton from "../yellowButton";
+import AddTicket from "../AddTicketModal";
 
 const Tickets = () => {
+  const [addticket, setAddTicket] = useState(false);
   return (
     <>
-      <p className="section-title">Tickets</p>
+    { addticket && <AddTicket setAddTicket={setAddTicket} />}
+        <div className={styles.launchButton}>
+     
+        <p className="section-title" style={{marginRight:"21px"}}>Tickets</p>
+
+          <YellowButton  text="ADD TICKET" onClick={() => {
+            setAddTicket(true); }} />
+        </div>
+ 
       <Row>
         <div>
           {[0, 1]?.map((category, index) => (
-            <TicketCard index={index} />
+            <TicketCard key={index} index={index} />
           ))}
         </div>
       </Row>

@@ -6,7 +6,7 @@ const Switch = ({
   handleToggle,
   name,
 
-  colorOne = "var(--yellow1Hover)",
+  colorOne = "var(--primary-dark)",
   colorTwo = "transparent",
 }) => {
   return (

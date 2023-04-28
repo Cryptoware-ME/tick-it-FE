@@ -1,10 +1,9 @@
 .wrapper {
   width: 100%;
-  background: rgba(212, 212, 212, 0.1);
+  background: rgba(207, 109, 110, 1);
   min-height: 70vh;
   align-items: center;
   display: flex;
- 
 }
 .profile {
   display: flex;
@@ -23,18 +22,18 @@
 .profileReport {
   margin-bottom: 0;
   margin-left: 5px;
-  font-style: normal;
+
   font-weight: 400;
   font-size: 9px;
   line-height: 11px;
-  color: var(--text);
+  color: var(--white);
 }
 .profileTitle {
   font-family: "DrukWideMedium";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 40px;
-  line-height: 48px;
+
+  font-weight: 500;
+  font-size: 34px;
+  line-height: 41px;
   color: #ffffff;
 }
 .reportDiv {
@@ -49,11 +48,9 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
-  color: var(--text);
-
+  color: var(--white);
 }
 .viewTitle {
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
@@ -62,21 +59,19 @@
   padding-left: 10px;
   margin-bottom: 0;
 }
-.view{
+.view {
   flex-direction: row;
-  display: flex; 
+  display: flex;
   align-items: center;
   margin-bottom: 12px;
   cursor: pointer;
   width: fit-content;
 }
-.edit{
-display: flex;
-align-items: flex-end;
-justify-content: flex-end;
-
-
+.edit {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
-.editImage{
+.editImage {
   cursor: pointer;
 }

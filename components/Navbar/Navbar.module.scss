@@ -1,8 +1,7 @@
 .navbarCon {
   height: 70px;
-  // background-color: rgba(5, 5, 5, 0.9);
   background-color: var(--footerBackground);
-  color: var(--text) !important;
+  color: var(--white) !important;
   z-index: 1000;
   backdrop-filter: blur(3px);
 }
@@ -21,7 +20,7 @@
   flex-grow: 1;
 }
 .navbarLink {
-  color: var(--text);
+  color: var(--white);
   text-align: center;
   text-transform: uppercase;
   font-weight: 400;
@@ -30,7 +29,7 @@
   transition: ease-in-out 0.4s;
 }
 .navbarLink:hover {
-  color: var(--yellow1);
+  color: var(--primary);
 }
 .rightLinks {
   display: flex;

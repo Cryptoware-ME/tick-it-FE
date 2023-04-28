@@ -7,7 +7,7 @@ import OrganizationEvents from "../../components/organizationEvents";
 import OrganizationTeam from "../../components/OrganizationTeam";
 import OrganizationSettings from "../../components/OrganizationSettings";
 const Organization = () => {
-  let menu = "payment";
+  let menu = "team";
   return (
     <Container fluid className={styles.organization}>
       <Row>

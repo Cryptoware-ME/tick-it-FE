@@ -1,6 +1,7 @@
 .filtersRow {
   display: flex;
-  overflow-x: scroll;
+  overflow-x: auto;
+  padding-bottom: 10px;
 }
 
 .exploreMoreButton {

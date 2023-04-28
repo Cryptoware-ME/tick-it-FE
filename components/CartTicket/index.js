@@ -8,7 +8,7 @@ import Link from "next/link";
 import EventDate from "../EventDate";
 import EventLocation from "../EventLocation";
 import RecipientsModal from "../RecipientsModal";
-import YellowButton from "../yellowButton";
+import TickitButton from "../tickitButton";
 const CartTicket = ({ inCart = false }) => {
   const [counter, setCounter] = useState(1);
   const [recipientsModal, setRecipientsModal] = useState(false);
@@ -82,9 +82,9 @@ const CartTicket = ({ inCart = false }) => {
               )}
               {!inCart && (
                 <Row className={styles.cardCounter}>
-                  <YellowButton style2 text="SEND TICKET" />
+                  <TickitButton style2 text="SEND TICKET" />
                   <div style={{ marginLeft: "12px", width: "fit-content" }}>
-                    <YellowButton text="ENTER EVENT" />
+                    <TickitButton text="ENTER EVENT" />
                   </div>
                 </Row>
               )}

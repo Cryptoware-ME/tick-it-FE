@@ -1,16 +1,13 @@
 import React from "react";
 import styles from "./OrganizationEvents.module.scss";
 import { Container, Row, Col } from "react-bootstrap";
-import UserProfileDetails from "../UserProfileDetails";
-import OrganizationSidebar from "../OrganizationSidebar";
-import PageTitle from "../pageTitle";
 import Image from "next/image";
 import UpcomingEventsCard from "../UpcomingEventsCard";
 const OrganizationEvents = (state = 1) => {
   return (
     <Container fluid className={styles.allEvents}>
       <div className={styles.title}>
-        <PageTitle text=" All Events" />
+      <p className="pageTitle">All Events</p>
         <div className={styles.userName}>
           <p className={styles.userTitle}>Factory People</p>
           <Image

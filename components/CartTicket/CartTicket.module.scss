@@ -1,6 +1,6 @@
 .cardWrapper {
   background: #0c0c0c;
-  border: 1px solid var(--text);
+  border: 1px solid var(--white);
   border-radius: 12px;
   position: relative;
 }
@@ -45,17 +45,17 @@
 }
 .cardTitle {
   font-family: "DrukWideMedium";
-  font-style: normal;
+
   font-weight: 500;
   font-size: 26px;
-  color: var(--text);
+  color: var(--white);
 }
 .cardPrice {
   font-family: "DrukWideMedium";
-  font-style: normal;
+
   font-weight: 500;
   font-size: 20px;
-  color: var(--text);
+  color: var(--white);
   width: fit-content;
 }
 
@@ -66,10 +66,10 @@
 }
 .cardQuantity {
   font-family: "DrukWideMedium";
-  font-style: normal;
+
   font-weight: 500;
   font-size: 16px;
-  color: var(--text);
+  color: var(--white);
   width: fit-content;
 }
 .cardCounter {
@@ -93,17 +93,16 @@
   cursor: pointer;
 }
 .cardRecipients {
-  color: var(--yellow1Hover);
+  color: var(--primary-dark);
   text-decoration: underline;
 }
 .cardRecipients:hover {
-  color: var(--yellow1Hover);
+  color: var(--primary-dark);
   text-decoration: underline;
 }
 .cardDate {
-  font-style: normal;
   font-weight: 800;
   font-size: 14px;
-  color: var(--text);
+  color: var(--white);
   margin-bottom: 6px;
 }

@@ -26,7 +26,7 @@
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
-  color: var(--text);
+  color: var(--white);
   overflow-x: hidden;
   background-color: transparent !important;
 }
@@ -43,12 +43,12 @@
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
-  color: var(--text);
+  color: var(--white);
   margin-left: 8px;
   margin-bottom: 8px;
 }
 .dateText {
-  color: var(--text);
+  color: var(--white);
   margin-bottom: 0;
 }
 
@@ -56,7 +56,7 @@
   margin-top: 30px;
 }
 .filterTitle {
-  color: var(--text);
+  color: var(--white);
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
@@ -90,7 +90,7 @@
 
 .userDetails {
   display: flex;
-  background-color: rgba(89, 89, 89, 1);
+  background-color: rgba(207, 109, 110, 1);
   height: 100px;
   justify-content: center;
   align-items: center;
@@ -98,21 +98,23 @@
 }
 .userName {
   margin-bottom: 0 !important;
-  font-size: 17px;
+  font-size: 16px;
   color: #f1f1f1;
   font-family: "DrukWideMedium";
+  font-weight: 500;
 }
 .userEmail {
   margin-bottom: 0 !important;
-  font-size: 13px;
+  font-size: 14px;
   color: #f1f1f1;
+  font-weight: 500;
 }
 
 .dashboardLink {
   display: flex;
   padding: 16px 0px 16px 40px;
 
-  color: var(--text);
+  color: var(--white);
   text-decoration: none;
 }
 .dashboardLink:active {
@@ -120,6 +122,5 @@
 }
 .dashboardLink:hover {
   background-color: #050505;
-  color: var(--yellow1Hover);
+  color: var(--primary-dark);
 }
-

@@ -1,0 +1,138 @@
+.payTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.checkOutDetails {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  color: var(--white);
+}
+.checkOutDetailsDiv {
+  width: 100%;
+  margin-top: 24px;
+}
+.title {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  color: var(--white);
+  font-family: "DrukWideMedium";
+}
+.roundCheckbox {
+  border-radius: 50% !important;
+  width: 14px;
+  height: 14px;
+  margin-bottom: 8px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 0.5px solid #ffcc00;
+  background-color: linear-gradient(0deg, #ffcc00),
+    linear-gradient(0deg, #ffcc00);
+  cursor: pointer;
+}
+
+.checkboxText {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--white);
+  margin-left: 8px;
+  margin-bottom: 8px;
+}
+.box {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  padding: 10px 40px;
+}
+.checkboxText2 {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #5c5c5c;
+  margin-left: 8px;
+  margin-bottom: 8px;
+}
+.paymentTitle {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--white);
+  margin: 5px;
+}
+.dropDown {
+  border-radius: 10px;
+  background-color: transparent !important;
+  border: 0.5px solid #737373 !important;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dropDown:hover {
+  background-color: transparent !important;
+  border: 0.5px solid #737373 !important;
+}
+.dropDown:active {
+  background-color: transparent !important;
+  border: 0.5px solid #737373 !important;
+}
+
+.drop {
+  background-color: #737373 !important;
+  border: 0.5px solid #737373 !important;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+}
+
+.walletBallance {
+  font-weight: 400;
+  font-size: 9px;
+  line-height: 11px;
+  padding: 5px;
+}
+.info {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+}
+.connectButton {
+  background: #cf6d6e;
+  border-radius: 8px;
+  width: 229px;
+  height: 46px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-left: 100px;
+}
+.connectText {
+  color: var(--white);
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  font-family: "DrukWideMedium";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+}
+.wallet {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  margin: 0px;
+}
+.walletConnected {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--white);
+  margin: 0px;
+}
