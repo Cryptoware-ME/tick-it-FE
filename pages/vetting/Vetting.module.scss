@@ -5,7 +5,7 @@
 .error {
   color: red;
   font-size: 13px;
-  margin-top: 10px;
+  margin-bottom: 0;
 }
 .modalInput {
   width: 60%;
@@ -24,7 +24,7 @@
 }
 .inputDiv {
   display: flex;
-  margin-top: 90px;
+  margin-top: 48px;
 }
 .roundCheckbox {
   border-radius: 50% !important;
@@ -104,10 +104,29 @@
 }
 .event {
   max-width: 85%;
+  @media (max-width: 991px) {
+    max-width: 100%;
+  }
 }
 .appButton {
-  padding-top: 50px;
+  padding-top: 30px;
   display: flex;
-  width: 40%;
-  justify-content: space-between;
+  justify-content: space-around;
+  width: 50%;
+  @media (max-width: 1200px) {
+    width: 60%;
+  }
+  @media (max-width: 991px) {
+    width: 100%;
+  }
+  @media (max-width: 576px) {
+    flex-direction: column;
+    justify-content: center;
+    width: 70%;
+    align-items: center;
+  }
+}
+
+.buttons {
+  margin-top: 20px;
 }
