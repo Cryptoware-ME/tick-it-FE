@@ -9,13 +9,24 @@ import {
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 
-const ProfileSocials = ({ discord, twitter, instagram, telegram }) => {
+const ProfileSocials = ({
+  discord,
+  twitter,
+  instagram,
+  telegram,
+  centered = false,
+}) => {
   return (
-    <Row>
+    <Row
+      style={{
+        display: "flex",
+        justifyContent: centered == true ? "center" : "flex-start",
+      }}
+    >
       {discord && (
         <Col xl={1}>
           <FontAwesomeIcon
-           className={styles.socialIcon}
+            className={styles.socialIcon}
             icon={faDiscord}
             onClick={() => {
               window.open(`https://discord.gg/${discord}`, "_blank");

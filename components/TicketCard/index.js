@@ -13,7 +13,7 @@ const TicketCard = ({ index }) => {
   const [editticket, setEditTicket] = useState(false);
   return (
     <>
-     { editticket && <EditTicket setEditTicket={setEditTicket} />}
+      {editticket && <EditTicket setEditTicket={setEditTicket} />}
       <Col xl={12} style={{ padding: "10px" }}>
         <div className="cardWrapper">
           <div className={styles.cardContainer}>
@@ -29,23 +29,25 @@ const TicketCard = ({ index }) => {
             </div>
             <div className={styles.cardDetails}>
               <div className={styles.cardHeader}>
-                <h1 className={styles.cardTitle}> Tier {index + 1}</h1>
+                <h1 className="section-title"> Tier {index + 1}</h1>
                 <div>
                   <Image
-                    width={28}
-                    height={32}
-                    style={{ marginRight: "40px" }}
+                    width={26}
+                    height={26}
+                    style={{ marginRight: "24px",cursor: "pointer" }}
                     alt="delete"
                     src="/images/delete.png"
+                    onClick={() => {}}
                   />
                   <Image
-                    width={32}
-                    height={32}
+                    width={24}
+                    height={24}
                     alt="edit"
                     src="/images/edit.png"
-                    style={{cursor:"pointer"}}
+                    style={{ cursor: "pointer" }}
                     onClick={() => {
-                      setEditTicket(true); }}
+                      setEditTicket(true);
+                    }}
                   />
                 </div>
               </div>
@@ -56,7 +58,10 @@ const TicketCard = ({ index }) => {
               <Row>
                 <Col className={styles.cardCounter}>
                   <h1 className={styles.cardQuantity}>Enter Quantity</h1>
+                  <div   style={{ marginLeft:"8px" }}>
+
                   <Counter counter={counter} setCounter={setCounter} />
+                  </div>
                 </Col>
                 <Col>
                   <TickitButton text="ADD TO CART" />

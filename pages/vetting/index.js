@@ -6,7 +6,7 @@ import TickitButton from "../../components/tickitButton";
 import { useFormik } from "formik";
 import * as yup from "yup";
 const Vetting = () => {
-  const [submited, setSubmited] = useState(true);
+  const [submited, setSubmited] = useState(false);
   const schema = yup.object().shape({
     name: yup
       .string()
@@ -45,7 +45,7 @@ const Vetting = () => {
   return (
     <div className={styles.wrapper}>
       {!submited && (
-        <Container style={{ padding: "50px 0px 100px 0px" }}>
+        <Container style={{ padding: "50px 10px 100px 10px" }}>
           <p className="pageTitle">Become an organizer</p>
           <EventDetails details=" Lorem ipsum dolor sit amet, consecteur adipscing elit, sed do eiusmod tempor incididunt ut labore et dolor magna aliqua" />
           <div className={styles.inputDiv} style={{ width: "35%" }}>
@@ -60,15 +60,17 @@ const Vetting = () => {
               className="modalInput"
             />
           </div>
-          {errors.name && touched.name ? (
-            <div className={styles.errors}>
-              <p className={styles.error}> {errors.name}</p>
-            </div>
-          ) : null}
+          <div style={{ minHeight: "20px" }}>
+            {errors.name && touched.name ? (
+              <div className={styles.errors}>
+                <p className={styles.error}> {errors.name}</p>
+              </div>
+            ) : null}
+          </div>
+
           <div
             style={{
               display: "flex",
-              marginTop: "20px",
               alignItems: "center",
             }}
           >
@@ -91,14 +93,15 @@ const Vetting = () => {
               onBlur={formik.handleBlur}
               value={formik.values.Description}
               className="modalInput"
-              
             />
           </div>
-          {errors.Description && touched.Description ? (
-            <div className={styles.errors}>
-              <p className={styles.error}> {errors.Description}</p>
-            </div>
-          ) : null}
+          <div style={{ minHeight: "20px" }}>
+            {errors.Description && touched.Description ? (
+              <div className={styles.errors}>
+                <p className={styles.error}> {errors.Description}</p>
+              </div>
+            ) : null}
+          </div>
 
           <div className={styles.socialLink}>
             <p className={styles.socialTitle}>Social Links</p>
@@ -124,14 +127,18 @@ const Vetting = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.EventKind}
-              className="modalInput" 
+              className="modalInput"
             />
           </div>
-          {errors.EventKind && touched.EventKind ? (
-            <div className={styles.errors}>
-              <p className={styles.error}> {errors.EventKind}</p>
-            </div>
-          ) : null}
+          <div style={{ minHeight: "20px" }}>
+            {" "}
+            {errors.EventKind && touched.EventKind ? (
+              <div className={styles.errors}>
+                <p className={styles.error}> {errors.EventKind}</p>
+              </div>
+            ) : null}
+          </div>
+
           <div className={styles.submitBtn}>
             <TickitButton
               onClick={() => {
@@ -143,14 +150,19 @@ const Vetting = () => {
         </Container>
       )}
       {submited && (
-        <Container>
+        <Container style={{ padding: "50px 10px 100px 10px" }}>
           <p className="pageTitle">Application submited</p>
           <div className={styles.event}>
             <EventDetails details="Check your inbox for the approval email. Meanwhile, you can buy tickets for the best events in your region." />
           </div>
           <div className={styles.appButton}>
-            <TickitButton text="SEE APPLICATION" />
-            <TickitButton  style2 text="BACK TO HOME" />
+            <div className={styles.buttons}>
+              <TickitButton text="SEE APPLICATION" minWidth="250px" />
+            </div>
+
+            <div className={styles.buttons}>
+              <TickitButton style2 text="BACK TO HOME" minWidth="250px" />
+            </div>
           </div>
         </Container>
       )}

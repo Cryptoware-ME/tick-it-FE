@@ -1,6 +1,6 @@
 .Wrapper {
   min-height: 100vh;
-  background-color: #0c0c0c;
+  background-color: var(--background);
 }
 .uploadEvent {
   justify-content: center;
@@ -25,20 +25,13 @@
 }
 
 .InputDiv {
-  width: 440px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 10px;
-  gap: 7px;
-
-  background-color: #161616 !important;
-
-  border-radius: 10px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  color: var(--white);
+  width: 35%;
+  @media (max-width: 991px) {
+    width: 60%;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }
 .Input:focus {
   outline: none;
@@ -51,7 +44,8 @@
 .Input {
   background-color: transparent;
   border: 0;
-  width: 440px;
+  width: 100%;
+  color: var(--white);
 }
 .title {
   color: var(--white);
@@ -61,24 +55,21 @@
   margin-top: 20px;
   margin-bottom: 4px;
 }
-.event {
-  padding: 20px 0px;
+
+.descriptionDiv {
+  width: 60%;
+  @media (max-width: 991px) {
+    width: 100%;
+  }
 }
 .modalDescription {
-  width: 668px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 10px;
-  gap: 10px;
-  border: 1px solid var(--white);
-  background-color: transparent !important;
-  border-radius: 10px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+  background-color: transparent;
+  border: 0;
+  width: 100%;
   color: var(--white);
-  min-height: 140px;
+}
+.modalDescription:focus {
+  outline: none;
 }
 .appButton {
   padding-top: 10px;

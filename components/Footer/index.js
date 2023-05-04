@@ -65,7 +65,7 @@ const Footer = () => {
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
-                className={styles.emailInput}
+                className="modalInput"
                 placeholder="Email"
               />
 

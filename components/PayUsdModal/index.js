@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./PayUsd.module.scss";
 import { Modal, Container, Row, Col } from "react-bootstrap";
-import Image from "next/image";
-import PageTitle from "../PageTitle";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useFormik } from "formik";
 import * as yup from "yup";

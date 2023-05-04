@@ -6,7 +6,9 @@ import EventLocation from "../../components/EventLocation";
 import EventDetails from "../../components/EventDetails";
 import Tickets from "../../components/Tickets";
 import Image from "next/image";
-import YellowButton from "../../components/yellowButton";
+import TickitButton from "../../components/tickitButton";
+import TickitTag from "../../components/TickitTag";
+
 const Event = () => {
   const [state, setState] = useState(1);
   return (
@@ -29,60 +31,60 @@ const Event = () => {
       </div>
       <Container
         style={{
-          marginTop: "-50px"
-          
+          marginTop: "-50px",
         }}
       >
-    
         <Row>
-          <div className={styles.titleButton}>
-            <h1 className={styles.eventTtile}>
-              AC/DC live in Munich
-              <Image
-                width={32}
-                height={32}
-                alt="edit"
-                src="/images/edit.png"
-                style={{ marginLeft: "20px" }}
-              />
-            </h1>
-            <div className={styles.reserveButton}>
-              <YellowButton  disabled text="RESERVE" />
-              
+          <Col lg={6}>
+            <div className={styles.titleDiv}>
+              <p className="pageTitle">AC/DC live in Munich</p>
+              <div style={{ marginLeft: "20px" }}>
+                <Image
+                  width={32}
+                  height={32}
+                  alt="edit"
+                  src="/images/edit.png"
+                />
+              </div>
             </div>
- 
-            <div className={styles.viewButton}>
-              <YellowButton  text="VIEW ACTIVITY" />
+          </Col>
+          <Col lg={6}>
+            <div className={styles.titleButtons}>
+              <TickitButton disabled text="RESERVE" />
+              <TickitButton text="VIEW ACTIVITY" />
             </div>
-          </div>
-          {state == 1 && (
-            <div style={{ padding: "30px 10px" }}>
-              <YellowButton text="LAUNCH EVENT" />
+          </Col>
+          <Row style={{ marginTop: "32px" }}>
+            {/* ///////state 1 /////////// */}
+            <div>
+              <TickitButton text="LAUNCH EVENT" />
             </div>
-          )}
-          {state == 2 && (
+            {/* ///////state 2 /////////// */}
             <div className={styles.buttons}>
-              <YellowButton text="PAUSE SALE" />
+              <TickitButton text="PAUSE SALE" />
               <div style={{ marginLeft: "40px" }}>
-                <YellowButton style2 text="VIEW ACTIVITY" />
+                <TickitButton style2 text="VIEW ACTIVITY" />
               </div>
             </div>
-          )}
-          {state == 3 && (
+            {/* ///////state 3 /////////// */}
             <div className={styles.buttons}>
-              <YellowButton text="RESUME SALES" />
+              <TickitButton text="RESUME SALES" />
               <div style={{ marginLeft: "40px" }}>
-                <YellowButton text="CANCEL SALES" />
+                <TickitButton text="CANCEL SALES" />
               </div>
               <div style={{ marginLeft: "40px" }}>
-                <YellowButton style2 text="VIEW ACTIVITY" />
+                <TickitButton style2 text="VIEW ACTIVITY" />
               </div>
             </div>
-          )}
-
-          <div style={{ marginTop: "40px" }}>
+          </Row>
+          <div style={{ marginTop: "32px", display:"flex", alignItems:"center" }}>
             <EventDate date="june 17" time="8pm GMT" fontSize="24px" />
+            <div style={{ marginLeft: "32px",}}>
+
+            <TickitTag text="in 2 days" />
+            </div>
           </div>
+
           <div style={{ marginTop: "14px" }}>
             <EventLocation location="Arizona" fontSize="24px" />
           </div>
