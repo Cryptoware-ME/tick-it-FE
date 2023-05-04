@@ -10,6 +10,7 @@ import Image from "next/image";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { login, signup } from "../../axios/auth.axios";
 import { useAuth } from "../../auth/useAuth";
+import { getUsers } from "../../axios/user.axios";
 
 const LoginModal = () => {
   const { logIn } = useAuth();
@@ -54,6 +55,9 @@ const LoginModal = () => {
         setModalOpen(false);
       }
     },
+    onBlur: async (value) => {
+      console.log(11);
+    },
   });
 
   const {
@@ -91,7 +95,11 @@ const LoginModal = () => {
                     type="Text"
                     placeholder="User Name"
                     value={values.username}
-                    onBlur={handleBlur}
+                    onBlur={async (e) => {
+                      handleBlur(e);
+                      const user = await getUsers({where: {username: e.target.value}})
+                      console.log(user)
+                    }}
                     onChange={handleChange}
                     required
                     className={styles.modalInput}
