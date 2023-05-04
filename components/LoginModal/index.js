@@ -16,13 +16,64 @@ const LoginModal = () => {
   const { logIn } = useAuth();
   const { modalOpen, setModalOpen } = useAuthModalContext();
   const { data: session } = useSession();
-
   const schema = yup.object().shape({
-    email: yup.string().email().required(),
-    password: yup.string().min(6).required(),
-    username: yup
+    email: yup
       .string()
-      .when("isSignup", { is: true, then: () => yup.string().required() }),
+      .email("This email is invalid")
+      .when("isSignup", {
+        is: true,
+        then: () =>
+          yup
+            .string()
+            .email()
+            .test(
+              "checkDuplicateEmail",
+              "Provided Email is not available",
+              function (value) {
+                return new Promise((resolve, reject) => {
+                  getUsers(JSON.stringify({ where: { email: value } }))
+                    .then((user) => {
+                      if (user.data.length > 0) {
+                        resolve(false);
+                      } else {
+                        resolve(true);
+                      }
+                    })
+                    .catch(() => {
+                      resolve(false);
+                    });
+                });
+              }
+            )
+            .required("Email is a required field"),
+      }),
+    password: yup.string().min(6).required("Password is a required field"),
+    username: yup.string().when("isSignup", {
+      is: true,
+      then: () =>
+        yup
+          .string()
+          .test(
+            "checkDuplicateUsername",
+            "Provided Username is not available",
+            function (value) {
+              return new Promise((resolve, reject) => {
+                getUsers(JSON.stringify({ where: { username: value } }))
+                  .then((user) => {
+                    if (user.data.length > 0) {
+                      resolve(false);
+                    } else {
+                      resolve(true);
+                    }
+                  })
+                  .catch(() => {
+                    resolve(false);
+                  });
+              });
+            }
+          )
+          .required("Username is a required field"),
+    }),
     confirmpassword: yup.string().when("isSignup", {
       is: true,
       then: () =>
@@ -54,9 +105,6 @@ const LoginModal = () => {
       if (loginRes) {
         setModalOpen(false);
       }
-    },
-    onBlur: async (value) => {
-      console.log(11);
     },
   });
 
@@ -95,11 +143,7 @@ const LoginModal = () => {
                     type="Text"
                     placeholder="User Name"
                     value={values.username}
-                    onBlur={async (e) => {
-                      handleBlur(e);
-                      const user = await getUsers({where: {username: e.target.value}})
-                      console.log(user)
-                    }}
+                    onBlur={handleBlur}
                     onChange={handleChange}
                     required
                     style={{ maxWidth: "80%" }}

@@ -6,26 +6,6 @@ import ExploreEvents from "../components/ExploreEvents";
 import { getUsers } from "../axios/user.axios";
 import { useEffect,useState } from "react";
 export default function Home() {
-
-  const [data, setData] = useState();
-
-  const getData = async () => {
-    try {
-      const response = await getUsers({where: {email:'charbelboukhalil84@gmail.com'}});
-      setData(response);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  useEffect(() => {
-   console.log(data)
-  }, [data]);
- 
   return (
 
     <main style={{ backgroundColor: " var(--background)" }}>

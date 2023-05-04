@@ -69,6 +69,7 @@ const UserProfileDetails = ({ state = 1 }) => {
             {state == 1 && (
               <div style={{ paddingTop: "55px" }}>
                 <ProfileSocials
+              
                   telegram="c"
                   instagram="c"
                   twitter="c"
