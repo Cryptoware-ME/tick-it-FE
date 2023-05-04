@@ -68,6 +68,8 @@ const UserProfileDetails = ({ state = 2 }) => {
             <div style={{ marginTop: "15px" }}>
               <EventDetails details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " />
             </div>
+
+
             {/* {state == 1 && ( */}
             <div style={{ paddingTop: "22px" }}>
               <ProfileSocials
@@ -78,6 +80,7 @@ const UserProfileDetails = ({ state = 2 }) => {
               />
             </div>
             {/* )} */}
+
           </Col>
         </Row>
       </Container>
