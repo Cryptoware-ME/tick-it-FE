@@ -40,36 +40,29 @@
   width: 70%;
   padding: 38px 24px;
 }
-.cardTitle {
-  font-family: "DrukWideMedium";
 
-  font-weight: 500;
-  font-size: 30px;
-  line-height: 36px;
-  color: var(--white);
-}
 .cardPrice {
   font-family: "DrukWideMedium";
-
   font-weight: 500;
-  font-size: 24px;
-  line-height: 29px;
+  font-size: 20px;
+  line-height: 24px;
   color: #ffffff;
-  margin-top: 30px;
+  margin-top: 16px;
 }
 
 .cardHeader {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 .cardQuantity {
   font-family: "DrukWideMedium";
-
   font-weight: 500;
-  font-size: 20px;
-  line-height: 36px;
+  font-size: 16px;
+  line-height: 22px;
   color: var(--white);
+  margin-bottom: 0;
 }
 .cardCounter {
   display: flex;

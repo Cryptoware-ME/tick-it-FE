@@ -1,33 +1,21 @@
 .eventWrapper {
   min-height: 100vh;
-  background-color: #0c0c0c;
-
-
+  background-color: var(--background);
 }
-.eventTtile {
-  font-weight: 500;
-  font-size: 42px;
-  line-height: 50px;
-  font-family: "DrukWideMedium";
-  color: var(--white);
-
-}
-
-// padding: "30px 10px" 
-.buttons{
+.titleDiv {
   display: flex;
-  padding: 31px 8px;
-
+  align-items: center;
 }
-.titleButton{
+.titleButtons{
   display: flex;
-  width: 100%;
+  align-items: center;
+  justify-content: space-around;
 }
-.reserveButton{
-  margin-left:70px;
-  padding: 10px;
+
+
+
+
+.buttons {
+  display: flex;
 }
-.viewButton{
-  margin-left:0px;
-  padding: 8px;
-}
+
