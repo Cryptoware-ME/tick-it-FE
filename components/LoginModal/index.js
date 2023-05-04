@@ -102,14 +102,23 @@ const LoginModal = () => {
                     }}
                     onChange={handleChange}
                     required
-                    className={styles.modalInput}
+                    style={{ maxWidth: "80%" }}
+                    className="modalInput"
                   />
                 </div>
-                {errors.username && touched.username ? (
-                  <div className={styles.errors}>
-                    <p className={styles.error}> {errors.username}</p>
-                  </div>
-                ) : null}
+                <div
+                  style={{
+                    minHeight: "20px",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  {errors.username && touched.username ? (
+                    <div className={styles.errors}>
+                      <p className={styles.error}> {errors.username}</p>
+                    </div>
+                  ) : null}
+                </div>
 
                 <div className={styles.inputDiv}>
                   <input
@@ -120,14 +129,23 @@ const LoginModal = () => {
                     onBlur={handleBlur}
                     onChange={handleChange}
                     required
-                    className={styles.modalInput}
+                    style={{ maxWidth: "80%" }}
+                    className="modalInput"
                   />
                 </div>
-                {errors.email && touched.email ? (
-                  <div className={styles.errors}>
-                    <p className={styles.error}> {errors.email}</p>
-                  </div>
-                ) : null}
+                <div
+                  style={{
+                    minHeight: "20px",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  {errors.email && touched.email ? (
+                    <div className={styles.errors}>
+                      <p className={styles.error}> {errors.email}</p>
+                    </div>
+                  ) : null}
+                </div>
                 <div className={styles.inputDiv}>
                   <input
                     name="password"
@@ -136,14 +154,23 @@ const LoginModal = () => {
                     placeholder="Password"
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    className={styles.modalInput}
+                    style={{ maxWidth: "80%" }}
+                    className="modalInput"
                   />
                 </div>
-                {errors.password && touched.password ? (
-                  <div className={styles.errors}>
-                    <p className={styles.error}> {errors.password}</p>
-                  </div>
-                ) : null}
+                <div
+                  style={{
+                    minHeight: "20px",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  {errors.password && touched.password ? (
+                    <div className={styles.errors}>
+                      <p className={styles.error}> {errors.password}</p>
+                    </div>
+                  ) : null}
+                </div>
                 <div className={styles.inputDiv}>
                   <input
                     name="confirmpassword"
@@ -152,14 +179,23 @@ const LoginModal = () => {
                     placeholder="Confirm Password"
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    className={styles.modalInput}
+                    style={{ maxWidth: "80%" }}
+                    className="modalInput"
                   />
                 </div>
-                {errors.confirmpassword && touched.confirmpassword ? (
-                  <div className={styles.errors}>
-                    <p className={styles.error}> {errors.confirmpassword}</p>
-                  </div>
-                ) : null}
+                <div
+                  style={{
+                    minHeight: "20px",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  {errors.confirmpassword && touched.confirmpassword ? (
+                    <div className={styles.errors}>
+                      <p className={styles.error}> {errors.confirmpassword}</p>
+                    </div>
+                  ) : null}
+                </div>
 
                 <div className={styles.inputDiv}>
                   <TickitButton
@@ -209,14 +245,23 @@ const LoginModal = () => {
                       placeholder="Email"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      className={styles.modalInput}
+                      style={{ maxWidth: "80%" }}
+                      className="modalInput"
                     />
                   </div>
-                  {errors.email && touched.email ? (
-                    <div className={styles.errors}>
-                      <p className={styles.error}> {errors.email}</p>
-                    </div>
-                  ) : null}
+                  <div
+                    style={{
+                      minHeight: "20px",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {errors.email && touched.email ? (
+                      <div className={styles.errors}>
+                        <p className={styles.error}> {errors.email}</p>
+                      </div>
+                    ) : null}
+                  </div>
 
                   <div className={styles.inputDiv}>
                     <input
@@ -226,15 +271,23 @@ const LoginModal = () => {
                       placeholder="Password"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className={styles.modalInput}
+                      style={{ maxWidth: "80%" }}
+                      className="modalInput"
                     />
                   </div>
-
-                  {errors.password && touched.password ? (
-                    <div className={styles.errors}>
-                      <p className={styles.error}> {errors.password}</p>
-                    </div>
-                  ) : null}
+                  <div
+                    style={{
+                      minHeight: "20px",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {errors.password && touched.password ? (
+                      <div className={styles.errors}>
+                        <p className={styles.error}> {errors.password}</p>
+                      </div>
+                    ) : null}
+                  </div>
                   <div className={styles.forgetpass}>
                     <Link className={styles.forgetpassword} href="#">
                       Forgot password?
