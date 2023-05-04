@@ -4,21 +4,10 @@ import { Container, Row, Col } from "react-bootstrap";
 import Image from "next/image";
 import EventDetails from "../../components/EventDetails";
 import ProfileSocials from "../ProfileSocials";
-const UserProfileDetails = ({ state = 1 }) => {
+const UserProfileDetails = ({ state = 2 }) => {
   return (
     <div className={styles.wrapper}>
       <Container>
-        {state == 2 && (
-          <div className={styles.edit}>
-            <Image
-              width={27}
-              height={27}
-              alt="user"
-              src="/images/edit2.png"
-              className={styles.editImage}
-            />
-          </div>
-        )}
         <Row className={styles.profile}>
           <Col lg={4} className={styles.imageCol}>
             <Image
@@ -29,24 +18,36 @@ const UserProfileDetails = ({ state = 1 }) => {
             />
           </Col>
           <Col lg={8}>
+            {/* {state == 2 && ( */}
+            <div className={styles.edit}>
+              <Image
+                width={27}
+                height={27}
+                alt="user"
+                src="/images/edit2.png"
+                className={styles.editImage}
+              />
+            </div>
+            {/* )} */}
             <div className={styles.profileHeader}>
-              {state == 2 && (
-                <div>
-                  <div className={styles.view}>
-                    <Image
-                      width={22}
-                      height={15}
-                      alt="user"
-                      src="/images/view.png"
-                    />
-                    <p className={styles.viewTitle}>View Public Profile</p>
-                  </div>
-
-                  <p className={styles.title}>Welcome,John Doe</p>
+              {/* {state == 2 && ( */}
+              <div>
+                <div className={styles.view}>
+                  <Image
+                    width={22}
+                    height={15}
+                    alt="user"
+                    src="/images/view.png"
+                  />
+                  <p className={styles.viewTitle}>View Public Profile</p>
                 </div>
-              )}
-              <p className={styles.profileTitle}>Factory People</p>
-              {state == 1 && (
+
+                <p className={styles.title}>Welcome,John Doe</p>
+              </div>
+              {/* )} */}
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <p className="pageTitle">Factory People</p>
+                {/* {state == 1 && ( */}
                 <div
                   onClick={() => {
                     console.log("report");
@@ -61,28 +62,25 @@ const UserProfileDetails = ({ state = 1 }) => {
                   />
                   <p className={styles.profileReport}>Report</p>
                 </div>
-              )}
+                {/* )} */}
+              </div>
             </div>
-            <div style={{ paddingTop: "15px" }}>
+            <div style={{ marginTop: "15px" }}>
               <EventDetails details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " />
             </div>
-            {state == 1 && (
-              <div style={{ paddingTop: "55px" }}>
-                <ProfileSocials
-              
-                  telegram="c"
-                  instagram="c"
-                  twitter="c"
-                  discord="c"
-                />
-              </div>
-            )}
 
-            {state == 2 && (
-              <div style={{ paddingTop: "55px" }}>
-                <ProfileSocials instagram="c" twitter="c" />
-              </div>
-            )}
+
+            {/* {state == 1 && ( */}
+            <div style={{ paddingTop: "22px" }}>
+              <ProfileSocials
+                telegram="c"
+                instagram="c"
+                twitter="c"
+                discord="c"
+              />
+            </div>
+            {/* )} */}
+
           </Col>
         </Row>
       </Container>
