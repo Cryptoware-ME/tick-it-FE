@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./EventDetails.module.scss";
 
-const EventDetails = ({ width = "100%", details, fontSize = "17px" }) => {
+const EventDetails = ({ width = "100%", details, fontSize = "16px" }) => {
   return (
     <>
       {details ? (

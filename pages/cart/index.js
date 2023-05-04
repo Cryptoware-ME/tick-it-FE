@@ -7,7 +7,7 @@ import CheckOutCard from "../../components/CheckOutCard";
 const Cart = () => {
   return (
     <div className={styles.profileWrapper}>
-      <Container style={{ padding: "48px 0px" }}>
+      <Container style={{ paddingTop: "48px", paddingBottom: "48px" }}>
         <Row>
           <Col lg={8}>
             {[0, 1, 2]?.map((event, index) => (

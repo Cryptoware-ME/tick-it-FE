@@ -7,12 +7,14 @@ import EventCard from "../../components/EventCard";
 const Event = ({}) => {
   return (
     <div className={styles.profileWrapper}>
-      <UserProfileDetails state={2} />
-      <Container style={{ padding: "48px 0px" }}>
+      <UserProfileDetails
+      //  state={2}
+      />
+      <Container style={{ paddingTop: "48px", paddingBottom: "48px" }}>
         <Row>
           <p className="section-title">Upcoming Events</p>
         </Row>
-        <Row>
+        <Row style={{ marginTop: "24px" }}>
           {[0, 1, 2]?.map((event, index) => (
             <EventCard key={index} />
           ))}
@@ -20,7 +22,7 @@ const Event = ({}) => {
         <Row style={{ marginTop: "48px" }}>
           <p className="section-title">Past Events</p>
         </Row>
-        <Row>
+        <Row style={{ paddingTop: "24px", paddingBottom: "24px" }}>
           {[0, 1, 2]?.map((event, index) => (
             <EventCard key={index} />
           ))}

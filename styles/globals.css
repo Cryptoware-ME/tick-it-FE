@@ -195,9 +195,10 @@ html {
 .pageTitle {
   font-family: "DrukWideMedium";
   font-weight: 500;
-  font-size: 35px;
+  font-size: 34px;
   line-height: 40px;
   color: var(--white);
+  margin-bottom: 0;
 }
 .section-title {
   color: var(--white);
@@ -205,6 +206,7 @@ html {
   font-size: 24px;
   line-height: 29px;
   font-family: "DrukWideMedium";
+  margin-bottom: 0;
 }
 .modalInput {
   width: 100% !important;

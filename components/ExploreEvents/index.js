@@ -10,7 +10,7 @@ const ExploreEvents = () => {
   return (
     <>
       <p className="section-title">Explore Events</p>
-      <Row>
+      <Row style={{ marginTop: "24px" }}>
         <div className={styles.filtersRow}>
           {[0, 1, 2, 3]?.map((category, index) => (
             <div
