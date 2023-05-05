@@ -41,12 +41,7 @@ a {
   background-color: var(--white) !important;
 }
 
-.cardWrapper {
-  padding: 1px;
-  position: relative;
-  background: var(--cardWrapper);
-  border-radius: 20px;
-}
+
 
 * {
   scrollbar-width: thin;
@@ -217,4 +212,10 @@ html {
   border-radius: 10px !important;
   color: var(--inputText) !important;
   padding: 5px 10px !important;
+}
+.cardWrapper {
+  padding:1px;
+  position: relative;
+  background: var(--cardWrapper);
+  border-radius: 20px;
 }
