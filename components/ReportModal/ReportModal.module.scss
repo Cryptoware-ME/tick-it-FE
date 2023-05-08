@@ -1,0 +1,44 @@
+.reportTitle{
+    justify-content: center;
+    display: flex;
+
+}
+.dropDown {
+    border-radius: 10px;
+    background-color: transparent !important;
+    border: 0.5px solid #737373 !important;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .dropDown:hover {
+    background-color: transparent !important;
+    border: 0.5px solid #737373 !important;
+  }
+  .dropDown:active {
+    background-color: transparent !important;
+    border: 0.5px solid #737373 !important;
+  }
+  
+  .drop {
+    background-color: #737373 !important;
+    border: 0.5px solid #737373 !important;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dropdown{
+    margin-bottom: 0px;
+  }
+  .container{
+    padding: 20px;
+  }
+  .reason{
+    padding: 25px 0px;
+  }
+  .messageInput{
+    padding-bottom: 0px;
+  }
