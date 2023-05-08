@@ -46,7 +46,7 @@ const PayUsd = ({ setUsdModal }) => {
         closeButton
       />
       <div className={styles.payTitle}>
-        <p className={styles.title}>Pay in USD</p>
+        <p className="section-title">Pay in USD</p>
       </div>
       <Modal.Body>
         <Container fluid>
@@ -60,7 +60,7 @@ const PayUsd = ({ setUsdModal }) => {
                 <p>Tax</p>
                 <p>+2%</p>
               </div>
-              <div className={styles.checkOutDetails}>
+              <div className={styles.checkOutDetailsTotal}>
                 <p>Total</p>
                 <p>82$</p>
               </div>
@@ -71,28 +71,27 @@ const PayUsd = ({ setUsdModal }) => {
                 <p className={styles.paymentTitle}>Choose paymnet method</p>
               </div>
               <div>
-              <Dropdown>
+                <Dropdown>
                   <Dropdown.Toggle
-                    className={styles.dropDown}
                     variant="success"
                     id="dropdown-basic"
-               
+                    className="modalInput"
+                    style={{
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
                   >
                     USDC
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu className={styles.drop}>
-                    <Dropdown.Item
-                      className={styles.drop}
-              
-                      href="#/action-1"
-                    >
+                    <Dropdown.Item className={styles.drop} href="#/action-1">
                       USDT
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </div>
-              <div className={styles.InputDiv}>
+              <div className={styles.InputDiv} style={{ marginTop: "12px" }}>
                 <p className={styles.paymentTitle}>Card Number</p>
                 <input
                   id="Description"
@@ -101,15 +100,16 @@ const PayUsd = ({ setUsdModal }) => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.Description}
-                  className={styles.Input}
-                  style={{ color: "#656565" }}
+                  className="modalInput"
                 />
               </div>
-              {errors.Description && touched.Description ? (
-                <div className={styles.errors}>
-                  <p className={styles.error}> {errors.Description}</p>
-                </div>
-              ) : null}
+              <div style={{ height: "18px" }}>
+                {errors.Description && touched.Description ? (
+                  <div className={styles.errors}>
+                    <p className={styles.error}> {errors.Description}</p>
+                  </div>
+                ) : null}
+              </div>
 
               <div className={styles.InputDiv}>
                 <p className={styles.paymentTitle}>Holder Name</p>
@@ -120,15 +120,16 @@ const PayUsd = ({ setUsdModal }) => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.Description}
-                  className={styles.Input}
-                  style={{ color: "#656565" }}
+                  className="modalInput"
                 />
               </div>
-              {errors.Description && touched.Description ? (
-                <div className={styles.errors}>
-                  <p className={styles.error}> {errors.Description}</p>
-                </div>
-              ) : null}
+              <div style={{ height: "18px" }}>
+                {errors.Description && touched.Description ? (
+                  <div className={styles.errors}>
+                    <p className={styles.error}> {errors.Description}</p>
+                  </div>
+                ) : null}
+              </div>
             </div>
             <Row className={styles.holderInput}>
               <Col>
@@ -141,15 +142,16 @@ const PayUsd = ({ setUsdModal }) => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.Description}
-                    className={styles.input2}
-                    style={{ color: "#656565" }}
+                    className="modalInput"
                   />
                 </div>
-                {errors.Description && touched.Description ? (
-                  <div className={styles.errors}>
-                    <p className={styles.error2}> {errors.Description}</p>
-                  </div>
-                ) : null}
+                <div style={{ height: "18px" }}>
+                  {errors.Description && touched.Description ? (
+                    <div className={styles.errors}>
+                      <p className={styles.error}> {errors.Description}</p>
+                    </div>
+                  ) : null}
+                </div>
               </Col>
               <Col>
                 <div className={styles.InputDiv}>
@@ -161,15 +163,16 @@ const PayUsd = ({ setUsdModal }) => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.Date}
-                    className={styles.input2}
-                    style={{ color: "#656565" }}
+                    className="modalInput"
                   />
                 </div>
-                {errors.Date && touched.Date ? (
-                  <div className={styles.errors}>
-                    <p className={styles.error2}> {errors.Date}</p>
-                  </div>
-                ) : null}
+                <div style={{ height: "18px" }}>
+                  {errors.Date && touched.Date ? (
+                    <div className={styles.errors}>
+                      <p className={styles.error}> {errors.Date}</p>
+                    </div>
+                  ) : null}
+                </div>
               </Col>
             </Row>
             <div style={{ marginTop: "20px" }}>
