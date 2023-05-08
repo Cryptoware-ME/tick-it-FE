@@ -4,8 +4,12 @@ import { Container, Row, Col } from "react-bootstrap";
 import Image from "next/image";
 import EventDetails from "../../components/EventDetails";
 import ProfileSocials from "../ProfileSocials";
+import ReportModal from "../ReportModal";
 const UserProfileDetails = ({ state = 2 }) => {
+  const [report, setReport] = useState(false);
   return (
+    <>
+     { report && <ReportModal setReport={setReport} />}
     <div className={styles.wrapper}>
       <Container>
         <Row className={styles.profile}>
@@ -59,6 +63,9 @@ const UserProfileDetails = ({ state = 2 }) => {
                     height={12}
                     alt="report"
                     src="/images/reportIcon.png"
+                      onClick={() => {
+                  setReport(true);
+                }} 
                   />
                   <p className={styles.profileReport}>Report</p>
                 </div>
@@ -85,6 +92,7 @@ const UserProfileDetails = ({ state = 2 }) => {
         </Row>
       </Container>
     </div>
+    </>
   );
 };
 

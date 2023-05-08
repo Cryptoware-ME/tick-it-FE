@@ -78,7 +78,7 @@ const PayUsd = ({ setUsdModal }) => {
                     id="dropdown-basic"
                
                   >
-                    USDC
+                  Scam
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu className={styles.drop}>
