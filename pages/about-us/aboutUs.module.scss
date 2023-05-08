@@ -12,10 +12,17 @@
   font-family: "DrukWideMedium";
 }
 .container {
-  padding: 80px 0px;
+  padding: 40px 0px;
 }
 .aboutUs {
   display: flex;
+  width: 50%;
+  @media (max-width: 1200px) {
+    width: 70%;
+  }
+  @media (max-width: 991px) {
+    width: fit-content;
+  }
 }
 
 .title {
@@ -23,18 +30,16 @@
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;
-  margin-bottom: 0;
+  margin-bottom: 8px;
 }
 
 .aboutUsInfo {
   font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
+font-size: 16px;
+line-height: 19px;
   color: var(--white);
-  margin-top: 2px;
-  width: 672px;
+ 
 }
 .aboutUsCard {
-  padding-top: 30px;
+  padding-top: 24px;
 }
-

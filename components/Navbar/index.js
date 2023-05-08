@@ -52,7 +52,7 @@ export default function NavBar() {
               height={30}
               className={styles.mainLogo}
               alt="icon"
-              src="/images/logo.png"
+              src="/images/logo.svg"
             />
           </Navbar.Brand>
           <div className={styles.mobileLinks}>

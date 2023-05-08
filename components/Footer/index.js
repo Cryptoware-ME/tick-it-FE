@@ -26,103 +26,109 @@ const Footer = () => {
     }
   }
   return (
-    <Container fluid className={styles.footerWrapper}>
-      <Row>
-        <Col md={10} className={styles.linksWrapper}>
-          <Col md={3} className={styles.linksCol}>
-            <Link href="#" className={styles.footerLink}>
-              Explore
-            </Link>
-            <Link href="#" className={styles.footerLink}>
-              Create Event
-            </Link>
-            <Link href="#" className={styles.footerLink}>
-              About
-            </Link>
-            <Link href="#" className={styles.footerLink}>
-              Support
-            </Link>
+    <div className={styles.footerWrapper}>
+      <Container className={styles.footer}>
+        <Row>
+          <Col lg={9} md={8} sm={7} className={styles.linksWrapper}>
+            <Col lg={3} md={4} sm={6} xs={6} className={styles.linksCol}>
+              <Link href="#" className={styles.footerLink}>
+                Explore
+              </Link>
+              <Link href="#" className={styles.footerLink}>
+                Create Event
+              </Link>
+              <Link href="#" className={styles.footerLink}>
+                About
+              </Link>
+              <Link href="#" className={styles.footerLink}>
+                Support
+              </Link>
+            </Col>
+            <Col lg={3} md={4} sm={6} xs={6} className={styles.linksCol}>
+              <Link href="#" className={styles.footerLink}>
+                Terms & Conditions
+              </Link>
+              <Link href="#" className={styles.footerLink}>
+                FAQ
+              </Link>
+              <Link href="#" className={styles.footerLink}>
+                Privacy
+              </Link>
+            </Col>
           </Col>
-          <Col md={3} className={styles.linksCol}>
-            <Link href="#" className={styles.footerLink}>
-              Terms & Conditions
-            </Link>
-            <Link href="#" className={styles.footerLink}>
-              FAQ
-            </Link>
-            <Link href="#" className={styles.footerLink}>
-              Privacy
-            </Link>
-          </Col>
-        </Col>
-        <Col md={2}>
-          <div className={styles.rightColFooterPart}>
-            <span className={styles.callForSubscription}>
-              Subscribe to our newsletter
-            </span>
-            <div style={{ position: "relative" }}>
-              <Form.Control
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-                className="modalInput"
-                placeholder="Email"
-              />
+          <Col
+            lg={3}
+            md={4}
+            sm={5}
+          >
+            <div className={styles.rightColFooterPart}>
+              <span className={styles.callForSubscription}>
+                Subscribe to our newsletter
+              </span>
+              <div style={{ position: "relative" }}>
+                <Form.Control
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                  className="modalInput"
+                  placeholder="Email"
+                />
 
-              <div
-                className={styles.arrowRightWrapper}
-                onClick={() => {
-                  addEmail(email);
-                }}
-              >
+                <div
+                  className={styles.arrowRightWrapper}
+                  onClick={() => {
+                    addEmail(email);
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={faArrowRight}
+                    className={styles.arrowRight}
+                    style={{ color: "white" }}
+                  />
+                </div>
+              </div>
+              {!validmail && (
+                <div className={styles.invalidMail}>Invalid email address</div>
+              )}
+              {submitted && (
+                <div className={styles.mailSubmitted}>Email submitted!</div>
+              )}
+              <div className={styles.socialIcons}>
                 <FontAwesomeIcon
-                  icon={faArrowRight}
-                  className={styles.arrowRight}
-                  style={{ color: "white" }}
+                  icon={faInstagram}
+                  className={styles.socialIcon}
+                  onClick={() => {
+                    window.open("https://www.cryptoware.me", "_blank");
+                  }}
+                />
+                <FontAwesomeIcon
+                  icon={faTwitter}
+                  className={styles.socialIcon}
+                  onClick={() => {
+                    window.open("https://www.cryptoware.me", "_blank");
+                  }}
+                />
+                <FontAwesomeIcon
+                  icon={faLinkedin}
+                  className={styles.socialIcon}
+                  onClick={() => {
+                    window.open("https://www.cryptoware.me", "_blank");
+                  }}
+                />
+
+                <FontAwesomeIcon
+                  icon={faMediumM}
+                  className={styles.socialIcon}
+                  onClick={() => {
+                    window.open("https://www.cryptoware.me", "_blank");
+                  }}
                 />
               </div>
             </div>
-            {!validmail && (
-              <div className={styles.invalidMail}>Invalid email address</div>
-            )}
-            {submitted && (
-              <div className={styles.mailSubmitted}>Email submitted!</div>
-            )}
-            <div className={styles.socialIcons}>
-              <FontAwesomeIcon
-                icon={faInstagram}
-                className={styles.socialIcon}
-                onClick={() => {
-                  window.open("https://www.cryptoware.me", "_blank");
-                }}
-              />
-              <FontAwesomeIcon
-                icon={faTwitter}
-                className={styles.socialIcon}
-                onClick={() => {
-                  window.open("https://www.cryptoware.me", "_blank");
-                }}
-              />
-              <FontAwesomeIcon
-                icon={faLinkedin}
-                className={styles.socialIcon}
-                onClick={() => {
-                  window.open("https://www.cryptoware.me", "_blank");
-                }}
-              />
-
-              <FontAwesomeIcon
-                icon={faMediumM}
-                className={styles.socialIcon}
-                onClick={() => {
-                  window.open("https://www.cryptoware.me", "_blank");
-                }}
-              />
-            </div>
-          </div>
-        </Col>
-      </Row>
-    </Container>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 };
 

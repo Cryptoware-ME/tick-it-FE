@@ -5,7 +5,7 @@ const aboutUs = () => {
     <div className={styles.Wrapper}>
       <Container className={styles.aboutUs}>
         <div className={styles.container}>
-          <p className={styles.aboutUsTitle}> About Us</p>
+          <p className="pageTitle">About Us</p>
           <Row>
             <Col>
               <div className={styles.card}>

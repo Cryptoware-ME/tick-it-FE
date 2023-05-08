@@ -11,7 +11,7 @@ import Host from "../../components/host";
 import Activity from "../../components/Activity";
 
 const Dashboard = ({}) => {
-  let menu = "funds";
+  let menu = "activity";
   return (
     <Container fluid className={styles.dashboardWrapper}>
       <Row>
@@ -23,7 +23,9 @@ const Dashboard = ({}) => {
           {menu == "dashboard" && (
             <Container fluid>
               <Row className={styles.organizationSection}>
-                <p className="section-title">Organizations</p>
+                <p style={{ marginBottom: "40px" }} className="section-title">
+                  Organizations
+                </p>
 
                 {[0, 1, 2]?.map((event, index) => (
                   <OrganizationCard key={index} />
@@ -46,7 +48,7 @@ const Dashboard = ({}) => {
 
           {menu == "funds" && <Funds />}
           {menu == "host" && <Host />}
-          {menu == "activity" && <Activity/>}
+          {menu == "activity" && <Activity />}
         </Col>
       </Row>
     </Container>
