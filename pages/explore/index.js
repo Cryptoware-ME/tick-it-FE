@@ -13,10 +13,10 @@ const Explore = () => {
           <SideBar />
         </Col>
         <Col lg={10} >
-          <Container fluid >
+          <Container  >
           <p style={{margin:"30px 0px"}} className="pageTitle">Explore</p>
             <Row>
-              {[0, 1, 2, 3, 4, 5, 6, 7, 8]?.map((event, index) => (
+              {[0, 1, 2, 3, 4, 5, 6, 7]?.map((event, index) => (
                 <EventCard key={index} />
               ))}
             </Row>

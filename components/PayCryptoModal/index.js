@@ -3,8 +3,6 @@ import styles from "./PayCrypto.module.scss";
 import { Modal, Container, Row, Col } from "react-bootstrap";
 import Image from "next/image";
 import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
-import GradientButton from "../GradientButton";
 import TickitButton from "../tickitButton";
 const PayCrypto = ({ setCryptoModal }) => {
   const [state, setState] = useState(1);
@@ -18,11 +16,17 @@ const PayCrypto = ({ setCryptoModal }) => {
         closeButton
       />
       <div className={styles.payTitle}>
-        <p className={styles.title}>Pay in USD</p>
+        <p className="section-title">Pay in Crypto</p>
       </div>
       <Modal.Body>
         <Container fluid>
-          <div className={styles.payCard}>
+          <div
+            style={{
+              justifyContent: "center",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
             <div className={styles.checkOutDetailsDiv}>
               <div className={styles.checkOutDetails}>
                 <p>Discount</p>
@@ -32,135 +36,144 @@ const PayCrypto = ({ setCryptoModal }) => {
                 <p>Tax</p>
                 <p>+2%</p>
               </div>
-              <div className={styles.checkOutDetails}>
+              <div className={styles.checkOutDetailsTotal}>
                 <p>Total</p>
                 <p>82$</p>
               </div>
             </div>
             {state == 1 && (
               <Row className={styles.box}>
-                <Col>
-                  <div
-                    style={{
-                      display: "flex",
-                      marginTop: "10px",
-                      alignItems: "center",
-                    }}
-                  >
-                    <input
-                      className={styles.roundCheckbox}
-                      type="checkbox"
-                      onclick="myFunction()"
-                    />
-                    <p className={styles.checkboxText}>Tick-It wallet</p>
-                  </div>
-                </Col>
-                <Col>
-                  <div
-                    style={{
-                      display: "flex",
-                      marginTop: "10px",
-                      alignItems: "center",
-                    }}
-                  >
-                    <input
-                      className={styles.roundCheckbox}
-                      type="checkbox"
-                      onclick={() => {
-                        setState(2);
+                <div style={{ width: "80%", display: "flex" }}>
+                  <Col>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
                       }}
-                    />
-                    <p className={styles.checkboxText2}>Connect wallet</p>
-                  </div>
-                </Col>
+                    >
+                      <input
+                        className={styles.roundCheckbox}
+                        type="checkbox"
+                        onclick="myFunction()"
+                      />
+                      <p className={styles.checkboxText}>Tick-It wallet</p>
+                    </div>
+                  </Col>
+                  <Col>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <input
+                        className={styles.roundCheckbox}
+                        type="checkbox"
+                        onclick={() => {
+                          setState(2);
+                        }}
+                      />
+                      <p className={styles.checkboxText}>Connect wallet</p>
+                    </div>
+                  </Col>
+                </div>
               </Row>
             )}
             {state == 3 && (
               <Row className={styles.box}>
-                <Col>
+                <div style={{ width: "80%", display: "flex" }}>
+                  <Col>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <input
+                        className={styles.roundCheckbox}
+                        type="checkbox"
+                        onclick="myFunction()"
+                      />
+                      <p className={styles.checkboxText}>Tick-It wallet</p>
+                    </div>
+                  </Col>
+                  <Col>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <input
+                        className={styles.roundCheckbox}
+                        type="checkbox"
+                        onclick="myFunction()"
+                      />
+                      <p className={styles.checkboxText}>Connect wallet</p>
+                    </div>
+                  </Col>
+                </div>
+                <div
+                  style={{
+                    marginTop: "16px",
+                  }}
+                >
                   <div
                     style={{
                       display: "flex",
-                      marginTop: "10px",
-                      alignItems: "center",
+                      marginBottom: "8px",
                     }}
                   >
-                    <input
-                      className={styles.roundCheckbox}
-                      type="checkbox"
-                      onclick="myFunction()"
+                    <p className={styles.walletConnected}>Wallet connected: </p>
+                    <Image
+                      width={15}
+                      height={17}
+                      alt="icon"
+                      src="/images/icon6.svg"
+                      style={{
+                        marginLeft: "8px",
+                      }}
                     />
-                    <p className={styles.checkboxText2}>Tick-It wallet</p>
                   </div>
-                </Col>
-                <Col>
-                  <div
-                    style={{
-                      display: "flex",
-                      marginTop: "10px",
-                      alignItems: "center",
-                    }}
-                  >
-                    <input
-                      className={styles.roundCheckbox}
-                      type="checkbox"
-                      onclick="myFunction()"
-                    />
-                    <p className={styles.checkboxText}>Connect wallet</p>
-                  </div>
-                </Col>
+
+                  <p className={styles.wallet}>
+                    0x6802707eE12CE3d91CA4294740dcFa1CAf931B4f
+                  </p>
+                </div>
               </Row>
             )}
             {state == 2 && (
-              <div>
-                <button className={styles.connectButton}>
-                  <p className={styles.connectText}> Connect wallet </p>
-                </button>
+              <div
+                style={{
+                  justifyContent: "center",
+                  display: "flex",
+                }}
+              >
+                <TickitButton style2 style1 text="Connect wallet" />
               </div>
             )}
-            {state == 3 && (
-              <div>
-                <p className={styles.walletConnected}>
-                  Wallet connected: {""}
-                  <Image
-                    width={15}
-                    height={17}
-                    alt="icon"
-                    src="/images/icon6.svg"
-                  />
-                </p>
-                <p className={styles.wallet}>
-                  0x6802707eE12CE3d91CA4294740dcFa1CAf931B4f
-                </p>
-              </div>
-            )}
+
             <div className={styles.checkOutDetailsDiv}>
               <div className={styles.checkOutDetails}>
                 <p className={styles.paymentTitle}>Choose paymnet method</p>
               </div>
               <div>
-
                 <Dropdown>
                   <Dropdown.Toggle
-                    className={styles.dropDown}
+                     className="modalInput"
+                     style={{justifyContent:"space-between",alignItems:"center"}}
                     variant="success"
                     id="dropdown-basic"
-               
                   >
                     USDC
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu className={styles.drop}>
-                    <Dropdown.Item
-                      className={styles.drop}
-              
-                      href="#/action-1"
-                    >
+                    <Dropdown.Item className={styles.drop} href="#/action-1">
                       USDT
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
-
               </div>
               <p className={styles.walletBallance}>Wallet ballance: 0 USDC</p>
               <div>
@@ -174,9 +187,7 @@ const PayCrypto = ({ setCryptoModal }) => {
               </div>
             </div>
 
-            <div style={{ marginTop: "20px" }}>
-              <TickitButton minWidth="100%" style1 text="Pay" />
-            </div>
+            <TickitButton minWidth="100%" style1 text="Pay" />
           </div>
         </Container>
       </Modal.Body>
