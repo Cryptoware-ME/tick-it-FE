@@ -22,7 +22,9 @@ const Settings = () => {
         <Col lg={10} style={{ padding: " 0px" }}>
           <Container>
             <Row className={styles.settingRow}>
-              <p className={styles.sectionTitle}>Account Settings</p>
+              <p  className="section-title">
+                Account Settings
+              </p>
               <Row>
                 <Col md={4} className={styles.settingCol}>
                   <p className={styles.settingCategory}>Username</p>
@@ -142,7 +144,9 @@ const Settings = () => {
               </Row>
             </Row>
             <Row className={styles.settingRow}>
-              <p className={styles.sectionTitle}>Notification Settings</p>
+              <p  className="section-title">
+                Notification Settings
+              </p>
 
               <div className={styles.switchDiv}>
                 <Switch
@@ -191,7 +195,9 @@ const Settings = () => {
               </div>
             </Row>
             <Row className={styles.settingRow}>
-              <p className={styles.sectionTitle}>Security settings</p>
+              <p  className="section-title">
+                Security settings
+              </p>
               <div className={styles.settingLinkDiv}>
                 <Link href="#" className={styles.settingLink}>
                   Password

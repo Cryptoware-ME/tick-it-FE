@@ -1,13 +1,13 @@
 .cardWrapper {
   background: #0c0c0c;
   border: 1px solid var(--white);
-  border-radius: 12px;
+  border-radius: 20px;
   position: relative;
 }
 .cardContainer {
   display: flex;
   flex-direction: row;
-  border-radius: 12px;
+  border-radius: 20px;
   overflow: hidden;
 }
 
@@ -29,7 +29,7 @@
 }
 .imageDiv {
   width: 30%;
-  background-color: #050505;
+  background-color: var(--background);
 }
 .cardImage {
   width: 100%;
@@ -39,9 +39,12 @@
   z-index: 1;
 }
 .cardDetails {
-  background-color: #050505;
+  background-color: var(--background);
   width: 70%;
   padding: 12px 24px;
+  display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 .cardTitle {
   font-family: "DrukWideMedium";
@@ -80,6 +83,7 @@
   width: fit-content;
 }
 .cardRightLinks {
+  margin-top: 8px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -93,7 +97,10 @@
   cursor: pointer;
 }
 .cardRecipients {
-  color: var(--primary-dark);
+  color: var(--primary);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
   text-decoration: underline;
 }
 .cardRecipients:hover {
@@ -101,8 +108,9 @@
   text-decoration: underline;
 }
 .cardDate {
-  font-weight: 800;
-  font-size: 14px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
   color: var(--white);
-  margin-bottom: 6px;
+  margin: 6px 0px;
 }

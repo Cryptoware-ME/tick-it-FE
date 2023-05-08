@@ -14,6 +14,8 @@ const CheckOutCard = () => {
       {cryptomodal && <PayCrypto setCryptoModal={setCryptoModal} />}
 
       <div style={{ padding: "10px" }}>
+      <div className="cardWrapper">
+
         <div className={styles.checkOutCard}>
           <p className={styles.title}>Check Out</p>
           <input
@@ -21,22 +23,23 @@ const CheckOutCard = () => {
             // value={}
             placeholder="Enter Promo Code"
             onChange={(e) => {}}
-            className={styles.input}
+            className="modalInput"
+            style={{maxWidth:"90%"}}
           />
           <div className={styles.checkOutDetailsDiv}>
-            <div className={styles.checkOutDetails}>
-              <p>Discount</p>
-              <p>-10%</p>
+              <div className={styles.checkOutDetails}>
+                <p>Discount</p>
+                <p>-10%</p>
+              </div>
+              <div className={styles.checkOutDetails}>
+                <p>Tax</p>
+                <p>+2%</p>
+              </div>
+              <div className={styles.checkOutDetailsTotal}>
+                <p>Total</p>
+                <p>82$</p>
+              </div>
             </div>
-            <div className={styles.checkOutDetails}>
-              <p>Tax</p>
-              <p>+2%</p>
-            </div>
-            <div className={styles.checkOutDetails}>
-              <p>Total</p>
-              <p>82$</p>
-            </div>
-          </div>
           <TickitButton
             onClick={() => {
               setCryptoModal(true);
@@ -57,6 +60,7 @@ const CheckOutCard = () => {
             />
           </div>
         </div>
+      </div>
       </div>
     </>
   );

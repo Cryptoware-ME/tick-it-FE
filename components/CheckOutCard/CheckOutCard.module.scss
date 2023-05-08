@@ -1,6 +1,6 @@
 .checkOutCard {
-  border: 1px solid var(--white);
-  border-radius: 12px;
+  background-color: var(--background);
+  border-radius: 20px;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -26,7 +26,17 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--white);
+}
+.checkOutDetailsTotal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
   color: var(--white);
 }
 .checkOutDetailsDiv {

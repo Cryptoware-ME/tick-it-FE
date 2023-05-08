@@ -41,8 +41,6 @@ a {
   background-color: var(--white) !important;
 }
 
-
-
 * {
   scrollbar-width: thin;
 }
@@ -214,7 +212,7 @@ html {
   padding: 5px 10px !important;
 }
 .cardWrapper {
-  padding:1px;
+  padding: 1px;
   position: relative;
   background: var(--cardWrapper);
   border-radius: 20px;

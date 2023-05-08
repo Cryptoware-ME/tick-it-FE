@@ -23,7 +23,7 @@ const RecipientsModal = ({ setRecipientsModal }) => {
 
             <div className={styles.checkOutDetailsDiv}>
               <div className={styles.checkOutDetails}>
-                <p>JohnDoe@gmail.com</p>
+                <p className={styles.details}>JohnDoe@gmail.com</p>
                 <Image
                   width={14}
                   height={18}
@@ -32,7 +32,7 @@ const RecipientsModal = ({ setRecipientsModal }) => {
                 />
               </div>
               <div className={styles.checkOutDetails}>
-                <p>0x6802...1B4f</p>
+                <p className={styles.details}>0x6802...1B4f</p>
                 <Image
                   width={14}
                   height={18}
@@ -41,7 +41,7 @@ const RecipientsModal = ({ setRecipientsModal }) => {
                 />
               </div>
               <div className={styles.checkOutDetails}>
-                <p>JaneDoe@gmail.com</p>
+                <p className={styles.details}>JaneDoe@gmail.com</p>
               </div>
             </div>
             <div className={styles.addRecipientsDiv}>
@@ -50,13 +50,14 @@ const RecipientsModal = ({ setRecipientsModal }) => {
                 // value={}
                 placeholder="Enter recipient email or wallet address"
                 onChange={(e) => {}}
-                className={styles.input}
+                className="modalInput"
               />
               <Image
                 width={20}
                 height={20}
                 alt="add"
-                src="/images/addYellow.png"
+                src="/images/addYellow.svg"
+                style={{ marginLeft: "12px", cursor: "pointer" }}
               />
             </div>
           </div>

@@ -1,9 +1,11 @@
 .footerWrapper {
   background-color: var(--footerBackground);
+}
+.footerWrapper {
   min-height: 230px;
   border-top: 1px solid;
   border-color: var(--primary-dark);
-  padding: 60px 40px;
+  padding: 60px 10px;
 }
 .linksWrapper {
   display: flex;
@@ -14,8 +16,8 @@
 }
 .footerLink {
   font-weight: 500;
-font-size: 14px;
-line-height: 17px;
+  font-size: 14px;
+  line-height: 17px;
   color: var(--white);
   text-decoration: none;
   margin-bottom: 20px;
@@ -78,4 +80,7 @@ line-height: 17px;
   position: absolute;
   top: 32%;
   right: 10px;
+}
+.rightColFooterPart {
+  width: 100%;
 }

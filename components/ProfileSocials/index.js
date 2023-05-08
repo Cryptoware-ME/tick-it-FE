@@ -18,13 +18,13 @@ const ProfileSocials = ({
 }) => {
   return (
     <Row
+      className={styles.socials}
       style={{
-        display: "flex",
         justifyContent: centered == true ? "center" : "flex-start",
       }}
     >
       {discord && (
-        <Col xl={1}>
+        <Col xs={1} style={{ margin: "0px 10px" }}>
           <FontAwesomeIcon
             className={styles.socialIcon}
             icon={faDiscord}
@@ -35,7 +35,7 @@ const ProfileSocials = ({
         </Col>
       )}
       {twitter && (
-        <Col xl={1}>
+        <Col xs={1} style={{ margin: "0px 10px" }}>
           <FontAwesomeIcon
             icon={faTwitter}
             className={styles.socialIcon}
@@ -46,7 +46,7 @@ const ProfileSocials = ({
         </Col>
       )}
       {telegram && (
-        <Col xl={1}>
+        <Col xs={1} style={{ margin: "0px 10px" }}>
           <FontAwesomeIcon
             icon={faTelegramPlane}
             className={styles.socialIcon}
@@ -57,7 +57,7 @@ const ProfileSocials = ({
         </Col>
       )}
       {instagram && (
-        <Col xl={1}>
+        <Col xs={1} style={{ margin: "0px 10px" }}>
           <FontAwesomeIcon
             icon={faInstagram}
             className={styles.socialIcon}
