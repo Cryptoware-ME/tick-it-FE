@@ -14,7 +14,7 @@ const TickitTag = ({
       {text ? (
         <button
           className={styles.btn}
-          onClick={ onClick}
+          onClick={onClick}
           disabled={disabled}
           onMouseOver={(e) =>
             (e.target.style.backgroundColor = "var(--secondary-dark)")
@@ -26,9 +26,9 @@ const TickitTag = ({
             fontSize: fontSize,
             padding: isSmall ? "6px 20px " : padding,
             minWidth: minWidth,
-            color:  "var(--white)",
+            color: "var(--white)",
             backgroundColor: "var(--secondary)",
-            cursor : disabled ? "default" :"pointer",
+            cursor: disabled ? "default" : "pointer",
           }}
         >
           {text}

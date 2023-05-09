@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import styles from "./UpcomingEventsCard.module.scss";
 import { Col, Row } from "react-bootstrap";
 
-const UpcomingEventsCard = ({columns=3}) => {
+const UpcomingEventsCard = ({ columns = 3 }) => {
   return (
     <>
-      <Col  md={columns} className={styles.cardWrapper}>
+      <Col md={columns} className={styles.cardWrapper}>
         <div
           style={{
             backgroundImage: `url("/images/photo.png")`,
@@ -17,7 +17,6 @@ const UpcomingEventsCard = ({columns=3}) => {
           <p className={styles.eventTime}>Grand Factory</p>
         </div>
       </Col>
-      
     </>
   );
 };

@@ -55,7 +55,6 @@ const OrganizationSidebar = () => {
             <Link href="#" className={styles.dashboardLink}>
               Payment Settings
             </Link>
-           
           </div>
         </Menu>
       </Sidebar>

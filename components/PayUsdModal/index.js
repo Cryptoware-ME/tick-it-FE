@@ -81,7 +81,7 @@ const PayUsd = ({ setUsdModal }) => {
                       alignItems: "center",
                     }}
                   >
-                  Scam
+                    Scam
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu className={styles.drop}>

@@ -56,11 +56,7 @@ const Footer = () => {
               </Link>
             </Col>
           </Col>
-          <Col
-            lg={3}
-            md={4}
-            sm={5}
-          >
+          <Col lg={3} md={4} sm={5}>
             <div className={styles.rightColFooterPart}>
               <span className={styles.callForSubscription}>
                 Subscribe to our newsletter

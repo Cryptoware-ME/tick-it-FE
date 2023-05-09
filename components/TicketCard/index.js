@@ -34,7 +34,7 @@ const TicketCard = ({ index }) => {
                   <Image
                     width={26}
                     height={26}
-                    style={{ marginRight: "24px",cursor: "pointer" }}
+                    style={{ marginRight: "24px", cursor: "pointer" }}
                     alt="delete"
                     src="/images/delete.png"
                     onClick={() => {}}
@@ -58,9 +58,8 @@ const TicketCard = ({ index }) => {
               <Row>
                 <Col className={styles.cardCounter}>
                   <h1 className={styles.cardQuantity}>Enter Quantity</h1>
-                  <div   style={{ marginLeft:"8px" }}>
-
-                  <Counter counter={counter} setCounter={setCounter} />
+                  <div style={{ marginLeft: "8px" }}>
+                    <Counter counter={counter} setCounter={setCounter} />
                   </div>
                 </Col>
                 <Col>

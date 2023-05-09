@@ -160,8 +160,11 @@ const PayCrypto = ({ setCryptoModal }) => {
               <div>
                 <Dropdown>
                   <Dropdown.Toggle
-                     className="modalInput"
-                     style={{justifyContent:"space-between",alignItems:"center"}}
+                    className="modalInput"
+                    style={{
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
                     variant="success"
                     id="dropdown-basic"
                   >

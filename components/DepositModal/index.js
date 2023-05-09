@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import styles from "./DepositButton.module.scss";
+import styles from "./DepositModal.module.scss";
 import { Modal, Container } from "react-bootstrap";
 import Image from "next/image";
-const DepositButton = ({ setDepositModal }) => {
+import TickitButton from "../tickitButton";
+
+const DepositModal = ({ setDepositModal }) => {
   return (
     <Modal show onHide={() => {}} centered>
       <Modal.Header
@@ -14,7 +16,7 @@ const DepositButton = ({ setDepositModal }) => {
       />
       <Modal.Body>
         <div className={styles.payTitle}>
-          <p className={styles.title}>Deposit Funds</p>
+          <p className="section-title">Deposit Funds</p>
         </div>
         <Container>
           <div className={styles.checkOutCard}>
@@ -31,16 +33,16 @@ const DepositButton = ({ setDepositModal }) => {
             <div className={styles.addRecipientsDiv}>
               <input
                 type="text"
-                // value={}
                 placeholder="Wallet 1"
                 onChange={(e) => {}}
-                className={styles.input}
+                className="modalInput"
+                style={{ height: "50px" }}
               />
-              <button className={styles.connectButton}>
-                <p className={styles.connectText}> COPY </p>
-              </button>
+              <div className={styles.btnDiv}>
+                <TickitButton text="copy" style2 isSmall />
+              </div>
             </div>
-            <div className={styles.address}> 
+            <div className={styles.address}>
               <p className={styles.addressSentence}>
                 This address can only be used to receive compatible tokens
               </p>
@@ -51,4 +53,4 @@ const DepositButton = ({ setDepositModal }) => {
     </Modal>
   );
 };
-export default DepositButton;
+export default DepositModal;

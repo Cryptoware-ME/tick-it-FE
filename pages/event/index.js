@@ -77,11 +77,12 @@ const Event = () => {
               </div>
             </div>
           </Row>
-          <div style={{ marginTop: "32px", display:"flex", alignItems:"center" }}>
+          <div
+            style={{ marginTop: "32px", display: "flex", alignItems: "center" }}
+          >
             <EventDate date="june 17" time="8pm GMT" fontSize="24px" />
-            <div style={{ marginLeft: "32px",}}>
-
-            <TickitTag text="in 2 days" />
+            <div style={{ marginLeft: "32px" }}>
+              <TickitTag text="in 2 days" />
             </div>
           </div>
 

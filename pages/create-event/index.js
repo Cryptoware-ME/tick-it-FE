@@ -60,7 +60,7 @@ const CreateEvent = () => {
             <p className={styles.error}> Image is required field</p>
           </div>
         ) : null}
-        <div >
+        <div>
           <p className={styles.title}>Date</p>
           <div className={styles.InputDiv}>
             <div className="modalInput">

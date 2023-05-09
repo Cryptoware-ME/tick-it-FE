@@ -18,7 +18,7 @@ export default function Home() {
             ))}
           </Row>
         </Row>
-        <Row  id="explore" style={{ marginTop: "65px" }}>
+        <Row id="explore" style={{ marginTop: "65px" }}>
           <ExploreEvents />
         </Row>
         {/* <Row style={{ marginTop: "65px" }}>

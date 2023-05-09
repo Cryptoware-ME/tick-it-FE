@@ -1,18 +1,17 @@
 import styles from "./FundsCard.module.scss";
 import Image from "next/image";
 import React, { useState } from "react";
-import DepositButton from "../DepositButton";
-import WithDrawButton from "../WithDrawButton";
+import DepositModal from "../DepositModal";
+import WithDrawModal from "../WithDrawModal";
 const FundsCard = ({ state = 1 }) => {
   const [depositmodal, setDepositModal] = useState(false);
   const [withDrawmodal, setWithDrawModal] = useState(false);
   return (
     <>
-    { depositmodal && <DepositButton setDepositModal={setDepositModal} />}
-    { withDrawmodal && <WithDrawButton setWithDrawModal={setWithDrawModal} />}
-   
-    <div className={styles.cardContainer}>
-      <div className={styles.cardAdd}>
+      {depositmodal && <DepositModal setDepositModal={setDepositModal} />}
+      {withDrawmodal && <WithDrawModal setWithDrawModal={setWithDrawModal} />}
+
+      <div className={styles.cardContainer}>
         <div className={styles.cardHeader}>
           {state == 1 && (
             <Image
@@ -26,35 +25,41 @@ const FundsCard = ({ state = 1 }) => {
           <div className={styles.cardTitle}>0xJo6g...007</div>
         </div>
         <div className={styles.cardInfo}>
-          <p className={styles.amountETH}>0.15 ETH</p>
-          <p className={styles.amount}>$270</p>
-          <p className={styles.tickets}>Tickets</p>
+          <p className={styles.cardDetails}>0.15 ETH</p>
+          <p className={styles.cardDetails}>$270</p>
+          <p className={styles.cardDetails}>Tickets</p>
         </div>
         {state == 1 && (
           <div className={styles.cardButtons}>
-            <div className={styles.depositButton}>
+            <div
+              className={styles.buttonDiv}
+              onClick={() => {
+                setDepositModal(true);
+              }}
+            >
               <Image
                 width={15}
                 height={17}
                 alt="icon"
-                src="/images/deposit.png"
-                onClick={() => {
-                  setDepositModal(true);
-                }} 
+                src="/images/deposit.svg"
               />
-              <p className={styles.depositName}>Deposit</p>
+              <p className={styles.buttonText}>Deposit</p>
             </div>
-            <div className={styles.withDrawButton}>
-              <Image
-                width={15}
-                height={17}
-                alt="icon"
-                src="/images/vertical.png"
+            <div style={{ marginLeft: "10px" }}>
+              <div
+                className={styles.buttonDiv}
                 onClick={() => {
                   setWithDrawModal(true);
-                }} 
-              />
-              <p className={styles.depositName}>Withdraw</p>
+                }}
+              >
+                <Image
+                  width={15}
+                  height={17}
+                  alt="icon"
+                  src="/images/withdraw.svg"
+                />
+                <p className={styles.buttonText}>Withdraw</p>
+              </div>
             </div>
           </div>
         )}
@@ -65,15 +70,14 @@ const FundsCard = ({ state = 1 }) => {
                 width={13}
                 height={17}
                 alt="icon"
-                src="/images/delete2.png"
+                src="/images/delete.svg"
               />
-              <p className={styles.depositName}>Unlink</p>
+              <p className={styles.buttonText}>Unlink</p>
             </div>
           </div>
         )}
       </div>
-    </div>
-                </>
+    </>
   );
 };
 export default FundsCard;
