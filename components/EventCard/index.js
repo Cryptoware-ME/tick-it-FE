@@ -4,33 +4,46 @@ import { Col, Row } from "react-bootstrap";
 import Image from "next/image";
 import EventDate from "../EventDate";
 import EventLocation from "../EventLocation";
-const EventCard = ({}) => {
+import Link from "next/link";
+
+const EventCard = ({ eventData }) => {
   return (
     <>
-      <Col md={4} style={{ padding: "10px" }}>
-        <div className="cardWrapper">
-          <div className={styles.cardContainer}>
-            <div>
-              <Image
-                width={512}
-                height={512}
-                className={styles.cardImage}
-                alt="card-image"
-                src="/images/belle.png"
-              />
-              <div className={styles.cardGradient}></div>
-            </div>
+      {eventData && (
+        <Col md={4} style={{ padding: "10px" }}>
+          <Link
+            href={{
+              pathname: `/event/${eventData.slug}`,
+            }}
+            className={styles.link}
+          >
+            <div className="cardWrapper">
+              <div className={styles.cardContainer}>
+                <div>
+                  <Image
+                    width={512}
+                    height={512}
+                    className={styles.cardImage}
+                    alt="card-image"
+                    src={eventData.banner}
+                  />
+                  <div className={styles.cardGradient}></div>
+                </div>
 
-            <div className={styles.cardDetails}>
-              <p className={styles.eventTitle}>Billie Eilish</p>
-              <p className={styles.eventOrganizer}>NRJ</p>
+                <div className={styles.cardDetails}>
+                  <p className={styles.eventTitle}>{eventData.name} </p>
+                  <p className={styles.eventOrganizer}>
+                    {eventData.organization.name}
+                  </p>
 
-              <EventDate date="june 17" time="8pm GMT" />
-              <EventLocation location="Allianz Arena" />
+                  <EventDate data={eventData.eventDate} />
+                  <EventLocation location={eventData.location} />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </Col>
+          </Link>
+        </Col>
+      )}
     </>
   );
 };

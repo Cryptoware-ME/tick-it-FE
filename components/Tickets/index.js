@@ -4,8 +4,25 @@ import { Row, Col } from "react-bootstrap";
 import TicketCard from "../TicketCard";
 import TickitButton from "../tickitButton";
 import AddTicket from "../AddTicketModal";
+import { getEventTicketType } from "../../axios/eventTicketType.axios";
 
-const Tickets = () => {
+const Tickets = ({ evntId }) => {
+  const [eventTickets, setEventTickets] = useState();
+
+  const Tickets = async () => {
+    let tickets = await getEventTicketType(
+      JSON.stringify({
+        where: { evntId: evntId },
+      })
+    );
+    setEventTickets(tickets.data);
+  };
+  useEffect(() => {
+    Tickets();
+  }, [evntId]);
+
+
+
   const [addticket, setAddTicket] = useState(false);
   return (
     <>
@@ -25,8 +42,8 @@ const Tickets = () => {
 
       <Row>
         <div>
-          {[0, 1]?.map((category, index) => (
-            <TicketCard key={index} index={index} />
+          {eventTickets?.map((ticket, index) => (
+            <TicketCard key={index} ticket={ticket} />
           ))}
         </div>
       </Row>

@@ -8,7 +8,7 @@ import TickitButton from "../tickitButton";
 import Counter from "../Counter";
 import EditTicket from "../EditTicketModal";
 
-const TicketCard = ({ index }) => {
+const TicketCard = ({ ticket }) => {
   const [counter, setCounter] = useState(1);
   const [editticket, setEditTicket] = useState(false);
   return (
@@ -23,13 +23,13 @@ const TicketCard = ({ index }) => {
                 height={512}
                 className={styles.cardImage}
                 alt="card-image"
-                src="/images/ticket.png"
+                src={ticket.image}
               />
               <div className={styles.imageGradient} />
             </div>
             <div className={styles.cardDetails}>
               <div className={styles.cardHeader}>
-                <h1 className="section-title"> Tier {index + 1}</h1>
+                <h1 className="section-title">{ticket.name}</h1>
                 <div>
                   <Image
                     width={26}
@@ -52,9 +52,9 @@ const TicketCard = ({ index }) => {
                 </div>
               </div>
 
-              <TicketCounter sold={286} total={900} />
+              <TicketCounter sold={286} total={ticket.supply} />
               <EventDetails details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
-              <h1 className={styles.cardPrice}>$15</h1>
+              <h1 className={styles.cardPrice}>{ticket.price} $</h1>
               <Row>
                 <Col className={styles.cardCounter}>
                   <h1 className={styles.cardQuantity}>Enter Quantity</h1>
