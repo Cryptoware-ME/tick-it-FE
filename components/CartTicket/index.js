@@ -5,7 +5,6 @@ import Image from "next/image";
 import EventDetails from "../EventDetails";
 import Counter from "../Counter";
 import EventDate from "../EventDate";
-import EventLocation from "../EventLocation";
 import RecipientsModal from "../RecipientsModal";
 import TickitButton from "../tickitButton";
 const CartTicket = ({ inCart = false }) => {

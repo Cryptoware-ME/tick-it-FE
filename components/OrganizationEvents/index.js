@@ -7,7 +7,7 @@ const OrganizationEvents = (state = 1) => {
   return (
     <Container fluid className={styles.allEvents}>
       <div className={styles.title}>
-      <p className="pageTitle">All Events</p>
+        <p className="pageTitle">All Events</p>
         <div className={styles.userName}>
           <p className={styles.userTitle}>Factory People</p>
           <Image

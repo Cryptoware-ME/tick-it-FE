@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import styles from "./WithDrawButton.module.scss";
+import styles from "./WithDrawModal.module.scss";
 import { Modal, Container } from "react-bootstrap";
 import Image from "next/image";
 import TickitButton from "../tickitButton";
-const WithDrawButton = ({ setWithDrawModal }) => {
+const WithDrawModal = ({ setWithDrawModal }) => {
   return (
     <Modal show onHide={() => {}} centered>
       <Modal.Header
@@ -15,17 +15,17 @@ const WithDrawButton = ({ setWithDrawModal }) => {
       />
       <Modal.Body>
         <div className={styles.payTitle}>
-          <p className={styles.title}>Withdraw Funds</p>
+          <p className="section-title">Withdraw Funds</p>
         </div>
         <Container>
-          <div className={styles.checkOutCard}>
+          <div>
             <div className={styles.withDrawDiv}>
               <input
                 type="text"
                 // value={}
                 placeholder="Recipient's ETH address"
                 onChange={(e) => {}}
-                className={styles.input}
+                className="modalInput"
               />
             </div>
             <div className={styles.withDrawDiv}>
@@ -34,11 +34,19 @@ const WithDrawButton = ({ setWithDrawModal }) => {
                 // value={}
                 placeholder="Amount"
                 onChange={(e) => {}}
-                className={styles.input}
+                className="modalInput"
               />
               <div className={styles.amount}>
-                <p>
-                  <span style={{ color: " #848484" }}>USD</span> Max{" "}
+                <p style={{ marginBottom: "0", color: " #848484" }}>USD</p>
+                <p
+                  onClick={() => {}}
+                  style={{
+                    marginBottom: "0",
+                    marginLeft: "5px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Max
                 </p>
               </div>
             </div>
@@ -55,4 +63,4 @@ const WithDrawButton = ({ setWithDrawModal }) => {
     </Modal>
   );
 };
-export default WithDrawButton;
+export default WithDrawModal;

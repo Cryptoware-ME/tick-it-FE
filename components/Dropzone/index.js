@@ -2,8 +2,7 @@ import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
 import styles from "./Dropzone.module.scss";
-function MyDropzone({filePreview, setFilePreview,text}) {
-  
+function MyDropzone({ filePreview, setFilePreview, text }) {
   const { getRootProps, getInputProps, open, acceptedFiles } = useDropzone({
     // Disable click and keydown behavior
     noClick: true,
@@ -13,8 +12,6 @@ function MyDropzone({filePreview, setFilePreview,text}) {
       setFilePreview(URL.createObjectURL(acceptedFiles[0]));
     },
   });
-
- 
 
   return (
     <div {...getRootProps({ className: "dropzone" })}>

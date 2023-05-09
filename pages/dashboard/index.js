@@ -11,7 +11,7 @@ import Host from "../../components/host";
 import Activity from "../../components/Activity";
 
 const Dashboard = ({}) => {
-  let menu = "activity";
+  let menu = "funds";
   return (
     <Container fluid className={styles.dashboardWrapper}>
       <Row>

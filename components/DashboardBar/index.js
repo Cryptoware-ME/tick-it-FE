@@ -40,14 +40,23 @@ export default function DashboardBar() {
               <p className={styles.userEmail}>johndoe@gmail.com</p>
             </div>
           </div>
-         <div className={styles.dashboardBar}>
-
-            <Link href="#" className={styles.dashboardLink}>Dashboard</Link>
-            <Link href="#" className={styles.dashboardLink}>All Tickets</Link>
-            <Link href="#" className={styles.dashboardLink}>Funds</Link>
-            <Link href="#"className={styles.dashboardLink}>Activity</Link>
-            <Link href="#" className={styles.dashboardLink}>Settings</Link>
-         </div>
+          <div className={styles.dashboardBar}>
+            <Link href="#" className={styles.dashboardLink}>
+              Dashboard
+            </Link>
+            <Link href="#" className={styles.dashboardLink}>
+              All Tickets
+            </Link>
+            <Link href="#" className={styles.dashboardLink}>
+              Funds
+            </Link>
+            <Link href="#" className={styles.dashboardLink}>
+              Activity
+            </Link>
+            <Link href="#" className={styles.dashboardLink}>
+              Settings
+            </Link>
+          </div>
         </Menu>
       </Sidebar>
     </div>

@@ -43,10 +43,7 @@ const ReportModal = ({ setReportModal }) => {
           </div>
           <div className={styles.reason}>
             <p className={styles.title}>Aditional reasons (optional)</p>
-            <textarea
-              className="modalInput"
-              style={{ minHeight: "150px" }}
-            />
+            <textarea className="modalInput" style={{ minHeight: "150px" }} />
           </div>
           <div
             style={{
