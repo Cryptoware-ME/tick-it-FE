@@ -25,42 +25,25 @@
 }
 
 .InputDiv {
-  width: 35%;
-  @media (max-width: 991px) {
-    width: 60%;
-  }
-  @media (max-width: 768px) {
-    width: 100%;
-  }
+  width: 100%;
 }
-.Input:focus {
-  outline: none;
-}
+
 .error {
   color: red;
   font-size: 13px;
-  margin-top: 10px;
+
 }
-.Input {
-  background-color: transparent;
-  border: 0;
-  width: 100%;
-  color: var(--white);
-}
+
 .title {
   color: var(--white);
 
   font-weight: 400;
   font-size: 13px;
-  margin-top: 20px;
   margin-bottom: 4px;
 }
 
 .descriptionDiv {
-  width: 60%;
-  @media (max-width: 991px) {
-    width: 100%;
-  }
+  width: 100%;
 }
 .modalDescription {
   background-color: transparent;
@@ -72,7 +55,9 @@
   outline: none;
 }
 .appButton {
-  padding-top: 10px;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 .eventImage {
   cursor: pointer;

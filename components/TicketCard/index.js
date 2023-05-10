@@ -54,7 +54,18 @@ const TicketCard = ({ ticket }) => {
 
               <TicketCounter sold={286} total={ticket.supply} />
               <EventDetails details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
-              <h1 className={styles.cardPrice}>{ticket.price} $</h1>
+              <div
+                style={{
+                  marginTop: "16px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <h1 className={styles.priceCurrency}>$ </h1>
+                <h1 style={{ marginLeft: "5px" }} className={styles.cardPrice}>
+                  {ticket.price}
+                </h1>
+              </div>
               <Row>
                 <Col className={styles.cardCounter}>
                   <h1 className={styles.cardQuantity}>Enter Quantity</h1>
