@@ -10,9 +10,7 @@ export const useCreateEventContext = () => {
 export const CreateEventProvider = ({ children }) => {
   const [eventValues, setEventValues] = useState();
 
-  useEffect(() => {
-    console.log("eventValues: ", eventValues);
-  }, [eventValues]);
+
   return (
     <CreateEventContext.Provider
       value={{

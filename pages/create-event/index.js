@@ -7,23 +7,24 @@ import React, { useState } from "react";
 import * as yup from "yup";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useCreateEventContext } from "../../context/CreateEventProvider";
-
+import { useRouter } from "next/router";
 const CreateEvent = () => {
   const [filePreview, setFilePreview] = useState();
   const [imageError, setImageError] = useState(false);
   const [categoryError, setCategoryError] = useState(false);
-  const [eventImage, setEventImage] = useState();
+  const [image, setImage] = useState();
   const [selectedValue, setSelectedValue] = useState();
-  const { setEventValues } = useCreateEventContext();
 
+  const { setEventValues } = useCreateEventContext();
+  const router = useRouter();
   const handleDropdownSelect = (eventKey) => {
     setSelectedValue(eventKey);
   };
   const schema = yup.object().shape({
-    Name: yup.string().required(),
-    Date: yup.date().required(),
-    Location: yup.string().required(),
-    Description: yup.string().required(),
+    name: yup.string().required(),
+    date: yup.date().required(),
+    location: yup.string().required(),
+    description: yup.string().required(),
   });
   const formik = useFormik({
     initialValues: {
@@ -36,23 +37,18 @@ const CreateEvent = () => {
     },
     validationSchema: schema,
     onSubmit: async () => {
-      console.log("1");
-      if (eventImage) {
-        console.log("2");
+      if (image) {
         setImageError(false);
-        values.banner = eventImage;
+        values.banner = image;
         if (selectedValue) {
-          console.log("3");
           setCategoryError(false);
           values.category = selectedValue;
           setEventValues(values);
-          window.location.href = "/create-event/edit";
+          router.push("/create-event/edit");
         } else {
-          console.log("4");
           setCategoryError(true);
         }
       } else {
-        console.log("5");
         setImageError(true);
       }
     },
@@ -79,13 +75,13 @@ const CreateEvent = () => {
         <Container style={{ paddingTop: "24px", paddingBottom: "48px" }}>
           <p className="pageTitle">Create Event</p>
 
-          <div style={{ marginTop: "48px", minHeight: "80vh" }}>
+          <div style={{ marginTop: "48px"}}>
             <p className="section-title">Event Details</p>
-            <div style={{ margin: "48px 0px" }}>
+            <div style={{ marginTop: "24px " }}>
               <Dropzone
                 filePreview={filePreview}
                 setFilePreview={setFilePreview}
-                setEventImage={setEventImage}
+                setImage={setImage}
                 text="Upload event banner"
               />
               <div style={{ height: "20px" }}>
