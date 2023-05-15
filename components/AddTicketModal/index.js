@@ -1,26 +1,48 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AddTicketModal.module.scss";
-import { Modal, Container, Row, Col } from "react-bootstrap";
+import { Modal, Container, Row, Col, Form } from "react-bootstrap";
 import Dropzone from "../../components/Dropzone";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import TickitButton from "../tickitButton";
 
-const AddTicket = ({ setAddTicket }) => {
+const AddTicket = ({ setAddTicket, setTickets, tickets }) => {
   const [imageError, setImageError] = useState(false);
+  const [nameError, setNameError] = useState(false);
   const [filePreview, setFilePreview] = useState();
+  const [image, setImage] = useState();
   const schema = yup.object().shape({
-    Description: yup.string().required("This field is required"),
-    Date: yup.date().required("Date is required"),
+    name: yup.string().required(),
+    price: yup.date().required(),
+    supply: yup.string().required(),
+    description: yup.string().required(),
   });
   const formik = useFormik({
     initialValues: {
-      Description: "",
-      Date: "",
+      name: "",
+      price: "",
+      supply: "",
+      description: "",
+      image: "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      console.log(values);
+      if (image) {
+        setImageError(false);
+        values.image = image;
+        let found = tickets.find(
+          (ticket) => ticket.name.toLowerCase() == values.name.toLowerCase()
+        );
+        if (found) {
+          setNameError(true);
+        } else {
+          setNameError(false);
+          setTickets([...tickets, values]);
+          setAddTicket(false);
+        }
+      } else {
+        setImageError(true);
+      }
     },
   });
   const {
@@ -39,128 +61,143 @@ const AddTicket = ({ setAddTicket }) => {
     setValues,
   } = formik;
   return (
-    <Modal show onHide={() => {}} centered>
-      <Modal.Header
-        onClick={() => {
-          setAddTicket(false);
-        }}
-        className={styles.closeButton}
-        closeButton
-      />
+    <Form>
+      <Modal show onHide={() => {}} centered>
+        <Modal.Header
+          onClick={() => {
+            setAddTicket(false);
+          }}
+          className={styles.closeButton}
+          closeButton
+        />
 
-      <Modal.Body>
-        <Container>
-          <p className={styles.title}>Add Ticket</p>
+        <Modal.Body>
+          <Container>
+            <p className={styles.title}>Add Ticket</p>
 
-          <Row>
-            <Col md={4}>
-              <div className={styles.drop}>
-                <Dropzone
-                  filePreview={filePreview}
-                  setFilePreview={setFilePreview}
-                  text="Upload ticket image"
-                />
-                {imageError ? (
-                  <div className={styles.errors}>
-                    <p className={styles.error}> Image is required field</p>
+            <Row>
+              <Col md={4}>
+                <div
+                  className={styles.drop}
+                  style={{ display: "flex", flexDirection: "column" }}
+                >
+                  <Dropzone
+                    filePreview={filePreview}
+                    setFilePreview={setFilePreview}
+                    setImage={setImage}
+                    text="Upload ticket image"
+                  />
+                  <div style={{ height: "20px" }}>
+                    {imageError ? (
+                      <div className={styles.errors}>
+                        <p className={styles.error2}>Image is required field</p>
+                      </div>
+                    ) : null}
                   </div>
-                ) : null}
-              </div>
-            </Col>
-            <Col md={8}>
-              <div className={styles.InputDiv}>
-                <p className={styles.detailsTitle}>Ticket title</p>
-                <input
-                  id="Description"
-                  name="Description"
-                  type="text"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.Description}
-                  className="modalInput"
-                  style={{ color: "#656565" }}
-                />
-              </div>
-              <div style={{ minHeight: "20px" }}>
-                {errors.Description && touched.Description ? (
-                  <div className={styles.errors}>
-                    <p className={styles.error2}> {errors.Description}</p>
-                  </div>
-                ) : null}
-              </div>
-
-              <div className={styles.InputDiv}>
-                <p className={styles.detailsTitle}>Number of tickets</p>
-                <input
-                  id="Description"
-                  name="Description"
-                  type="Description"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.Description}
-                  className="modalInput"
-                  style={{ color: "#656565" }}
-                />
-              </div>
-              <div style={{ minHeight: "20px" }}>
-                {errors.Description && touched.Description ? (
-                  <div className={styles.errors}>
-                    <p className={styles.error2}> {errors.Description}</p>
-                  </div>
-                ) : null}
-              </div>
-
-              <div className={styles.InputDiv}>
-                <p className={styles.detailsTitle}>Set price (USD)</p>
-                <input
-                  id="Description"
-                  name="Description"
-                  type="Description"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.Description}
-                  className="modalInput"
-                  style={{ color: "#656565" }}
-                />
-              </div>
-              <div style={{ minHeight: "20px" }}>
-                {errors.Description && touched.Description ? (
-                  <div className={styles.errors}>
-                    <p className={styles.error2}> {errors.Description}</p>
-                  </div>
-                ) : null}
-              </div>
-            </Col>
-          </Row>
-
-          <Row className={styles.holderInput}>
-            <div className={styles.InputDiv}>
-              <p className={styles.detailsTitle}>Description</p>
-              <textarea
-                id="Description"
-                name="Description"
-                type="Description"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.Description}
-                className="modalInput"
-                style={{ color: "#656565" }}
-              />
-            </div>
-            <div style={{ minHeight: "20px" }}>
-              {errors.Description && touched.Description ? (
-                <div className={styles.errors}>
-                  <p className={styles.error2}> {errors.Description}</p>
                 </div>
-              ) : null}
+              </Col>
+              <Col md={8}>
+                <div className={styles.InputDiv}>
+                  <p className={styles.detailsTitle}>Ticket title</p>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.name}
+                    className="modalInput"
+                    style={{ color: "#656565" }}
+                  />
+                </div>
+                <div style={{ minHeight: "20px" }}>
+                  {errors.name && touched.name ? (
+                    <div className={styles.errors}>
+                      <p className={styles.error2}> {errors.name}</p>
+                    </div>
+                  ) : null}
+                  {nameError && (
+                    <div className={styles.errors}>
+                      <p className={styles.error2}>
+                        You already have a ticket with this name
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                <div className={styles.InputDiv}>
+                  <p className={styles.detailsTitle}>Number of tickets</p>
+                  <input
+                    id="supply"
+                    name="supply"
+                    type="number"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.supply}
+                    className="modalInput"
+                    style={{ color: "#656565" }}
+                  />
+                </div>
+                <div style={{ minHeight: "20px" }}>
+                  {errors.supply && touched.supply ? (
+                    <div className={styles.errors}>
+                      <p className={styles.error2}> {errors.supply}</p>
+                    </div>
+                  ) : null}
+                </div>
+
+                <div className={styles.InputDiv}>
+                  <p className={styles.detailsTitle}>Set price (USD)</p>
+                  <input
+                    id="price"
+                    name="price"
+                    type="number"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.price}
+                    className="modalInput"
+                    style={{ color: "#656565" }}
+                  />
+                </div>
+                <div style={{ minHeight: "20px" }}>
+                  {errors.price && touched.price ? (
+                    <div className={styles.errors}>
+                      <p className={styles.error2}> {errors.price}</p>
+                    </div>
+                  ) : null}
+                </div>
+              </Col>
+            </Row>
+
+            <Row className={styles.holderInput}>
+              <div className={styles.InputDiv}>
+                <p className={styles.detailsTitle}>Description</p>
+                <textarea
+                  id="description"
+                  name="description"
+                  type="text"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.description}
+                  className="modalInput"
+                  style={{ color: "#656565" }}
+                />
+              </div>
+              <div style={{ minHeight: "20px" }}>
+                {errors.description && touched.description ? (
+                  <div className={styles.errors}>
+                    <p className={styles.error2}> {errors.description}</p>
+                  </div>
+                ) : null}
+              </div>
+            </Row>
+            <div className={styles.buttonAdd}>
+              <TickitButton onClick={handleSubmit} text="ADD TICKET" />
             </div>
-          </Row>
-          <div className={styles.buttonAdd}>
-            <TickitButton style1 text="ADD TICKET" />
-          </div>
-        </Container>
-      </Modal.Body>
-    </Modal>
+          </Container>
+        </Modal.Body>
+      </Modal>
+    </Form>
   );
 };
 export default AddTicket;

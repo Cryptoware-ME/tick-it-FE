@@ -25,7 +25,27 @@
 }
 
 .InputDiv {
-  width: 100%;
+  width: 30%;
+  @media (max-width:"1200px") {
+     width: 40%;
+  }
+   @media (max-width:"991px") {
+     width: 70%;
+  }
+   @media (max-width:"768px") {
+     width: 100%;
+  }
+}
+
+.descriptionDiv {
+
+  width: 60%;
+    @media (max-width:"1200px") {
+     width: 70%;
+  }
+   @media (max-width:"991px") {
+     width: 100%;
+  }
 }
 
 .error {
@@ -42,9 +62,7 @@
   margin-bottom: 4px;
 }
 
-.descriptionDiv {
-  width: 100%;
-}
+
 .modalDescription {
   background-color: transparent;
   border: 0;
@@ -57,7 +75,7 @@
 .appButton {
   padding-top: 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 .eventImage {
   cursor: pointer;
