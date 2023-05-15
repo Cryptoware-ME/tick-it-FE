@@ -7,6 +7,7 @@ import TickitButton from "../../components/tickitButton";
 import { getEvents } from "../../axios/event.axios";
 
 const Explore = () => {
+  
   const [filteredEvents, setFilteredEvents] = useState();
 
   const Events = async () => {
