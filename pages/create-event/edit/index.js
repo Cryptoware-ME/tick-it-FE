@@ -11,12 +11,29 @@ import AddTicket from "../../../components/AddTicketModal";
 import { useCreateEventContext } from "../../../context/CreateEventProvider";
 import TicketCardPreview from "../../../components/TicketCardPreview";
 import { useRouter } from "next/router";
+import { useAuth } from "../../../auth/useAuth";
+import { useAuthModalContext } from "../../../context/AuthModalProvider";
+// import { createEvent } from "../../../hooks/useLaunchpad";
+import {
+  useEthereum,
+  writeContractCall,
+  useNetworkInfo,
+} from "@cryptogate/react-providers";
+import { ConnectWalletComponent } from "@cryptogate/react-ui";
 const Edit = () => {
+  const { user } = useAuth();
+  const { gasPrice } = useNetworkInfo();
+  const { account } = useEthereum();
+  const { setModalOpen } = useAuthModalContext();
   const [eventData, setEventData] = useState();
   const [tickets, setTickets] = useState([]);
   const [addticket, setAddTicket] = useState(false);
   const { eventValues } = useCreateEventContext();
   const router = useRouter();
+  const createEvent = writeContractCall({
+    contract: "NFTixLaunchpad",
+    method: "createERC721",
+  });
   useEffect(() => {
     if (eventValues) {
       setEventData(eventValues);
@@ -29,11 +46,16 @@ const Edit = () => {
     const tmpTickets = tickets.slice();
 
     const updatedTickets = tmpTickets.filter(
-      (tkt) => tkt.name.toLowerCase() !== ticketName.toLowerCase()
+      (tkt) => tkt?.name?.toLowerCase() !== ticketName?.toLowerCase()
     );
 
     setTickets(updatedTickets);
   };
+  useEffect(() => {
+    if (!user) {
+      setModalOpen(true);
+    }
+  }, [user]);
 
   return (
     <div className={styles.eventWrapper}>
@@ -45,6 +67,7 @@ const Edit = () => {
         />
       )}
       <div>
+        <ConnectWalletComponent />
         <div
           style={{
             backgroundImage: `url(${eventData?.banner})`,
@@ -86,6 +109,29 @@ const Edit = () => {
                 <TickitButton
                   disabled={tickets.length == 0}
                   text="LAUNCH EVENT"
+                  onClick={() => {
+                    // console.log("gasPrice:", gasPrice?.toString());
+                    console.log(
+                      "NEXT_PUBLIC_GAS_LIMIT: ",
+                      Number(process.env.NEXT_PUBLIC_GAS_LIMIT)
+                    );
+                    createEvent.send(
+                      [
+                        "event1",
+                        "",
+                        "",
+                        [100000000000000],
+                        [1000],
+                        ["0xb2EE260a1347487D156Ede50a788D00695b7C1c2"],
+                        [100],
+                        "0xd4453790033a2bd762f526409b7f358023773723d9e9bc42487e4996869162b6",
+                      ],
+                      {
+                        gasPrice: "80",
+                        gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
+                      }
+                    );
+                  }}
                 />
               </div>
             </Row>

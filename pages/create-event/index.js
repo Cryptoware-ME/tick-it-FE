@@ -3,12 +3,17 @@ import styles from "./createEvent.module.scss";
 import TickitButton from "../../components/tickitButton";
 import { useFormik, Formik } from "formik";
 import Dropzone from "../../components/Dropzone";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useCreateEventContext } from "../../context/CreateEventProvider";
 import { useRouter } from "next/router";
+import { useAuth } from "../../auth/useAuth";
+import { useAuthModalContext } from "../../context/AuthModalProvider";
+
 const CreateEvent = () => {
+  const { user } = useAuth();
+  const { setModalOpen } = useAuthModalContext();
   const [filePreview, setFilePreview] = useState();
   const [imageError, setImageError] = useState(false);
   const [categoryError, setCategoryError] = useState(false);
@@ -20,6 +25,7 @@ const CreateEvent = () => {
   const handleDropdownSelect = (eventKey) => {
     setSelectedValue(eventKey);
   };
+  console.log("asdasd, ", router);
   const schema = yup.object().shape({
     name: yup.string().required(),
     date: yup.date().required(),
@@ -69,13 +75,19 @@ const CreateEvent = () => {
     setValues,
   } = formik;
 
+  useEffect(() => {
+    if (!user) {
+      setModalOpen(true);
+    }
+  }, [user]);
+
   return (
     <div className={styles.Wrapper}>
       <Form>
         <Container style={{ paddingTop: "24px", paddingBottom: "48px" }}>
           <p className="pageTitle">Create Event</p>
 
-          <div style={{ marginTop: "48px"}}>
+          <div style={{ marginTop: "48px" }}>
             <p className="section-title">Event Details</p>
             <div style={{ marginTop: "24px " }}>
               <Dropzone
