@@ -4,8 +4,22 @@ import { Modal, Container, Row, Col } from "react-bootstrap";
 import Image from "next/image";
 import Dropdown from "react-bootstrap/Dropdown";
 import TickitButton from "../tickitButton";
+import { ConnectWalletComponent } from "@cryptogate/react-ui";
+import { useEthereum } from "@cryptogate/react-providers";
+import { writeContractCall } from "@cryptogate/react-providers";
+
 const PayCrypto = ({ setCryptoModal }) => {
+  const {account} = useEthereum()
   const [state, setState] = useState(1);
+
+  const mint = writeContractCall({
+    contract: "NFTix721",
+    method: "mint",
+  });
+
+
+
+
   return (
     <Modal show onHide={() => {}} centered>
       <Modal.Header
@@ -54,7 +68,7 @@ const PayCrypto = ({ setCryptoModal }) => {
                       <input
                         className={styles.roundCheckbox}
                         type="checkbox"
-                        onclick="myFunction()"
+                        onClick="myFunction()"
                       />
                       <p className={styles.checkboxText}>Tick-It wallet</p>
                     </div>
@@ -69,7 +83,7 @@ const PayCrypto = ({ setCryptoModal }) => {
                       <input
                         className={styles.roundCheckbox}
                         type="checkbox"
-                        onclick={() => {
+                        onClick={() => {
                           setState(2);
                         }}
                       />
@@ -149,7 +163,7 @@ const PayCrypto = ({ setCryptoModal }) => {
                   display: "flex",
                 }}
               >
-                <TickitButton style2 style1 text="Connect wallet" />
+                <ConnectWalletComponent ActiveComponent={<TickitButton style2 text="Connect wallet" />}/>
               </div>
             )}
 
@@ -190,7 +204,7 @@ const PayCrypto = ({ setCryptoModal }) => {
               </div>
             </div>
 
-            <TickitButton minWidth="100%" style1 text="Pay" />
+            <TickitButton minWidth="100%" style1 text="Pay" disabled={!account} onClick={() => {mint.send([])}}/>
           </div>
         </Container>
       </Modal.Body>

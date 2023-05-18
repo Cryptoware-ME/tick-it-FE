@@ -34,7 +34,7 @@ const FundsCard = ({ state = 1 }) => {
             <div
               className={styles.buttonDiv}
               onClick={() => {
-                setDepositModal(true);
+                setModal(true);
               }}
             >
               <Image

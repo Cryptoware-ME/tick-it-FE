@@ -13,6 +13,7 @@ import TicketCardPreview from "../../../components/TicketCardPreview";
 import { useRouter } from "next/router";
 import { useAuth } from "../../../auth/useAuth";
 import { useAuthModalContext } from "../../../context/AuthModalProvider";
+import { ethers } from 'ethers'
 // import { createEvent } from "../../../hooks/useLaunchpad";
 import {
   useEthereum,
@@ -117,14 +118,15 @@ const Edit = () => {
                     );
                     createEvent.send(
                       [
-                        "event1",
+                        eventData?.name,
                         "",
                         "",
                         [100000000000000],
                         [1000],
                         ["0xb2EE260a1347487D156Ede50a788D00695b7C1c2"],
                         [100],
-                        "0xd4453790033a2bd762f526409b7f358023773723d9e9bc42487e4996869162b6",
+                        10,
+                        ethers.constants.HashZero,
                       ],
                       {
                         gasPrice: "80",
