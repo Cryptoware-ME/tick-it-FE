@@ -31,7 +31,7 @@ const AddTicket = ({ setAddTicket, setTickets, tickets }) => {
         setImageError(false);
         values.image = image;
         let found = tickets.find(
-          (ticket) => ticket.name.toLowerCase() == values.name.toLowerCase()
+          (ticket) => ticket?.name?.toLowerCase() == values?.name?.toLowerCase()
         );
         if (found) {
           setNameError(true);
