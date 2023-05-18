@@ -11,11 +11,13 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { login, signup } from "../../axios/auth.axios";
 import { useAuth } from "../../auth/useAuth";
 import { getUsers } from "../../axios/user.axios";
-
+import { useRouter } from "next/router";
 const LoginModal = () => {
-  const { logIn } = useAuth();
+  const router = useRouter();
+  const { logIn, user } = useAuth();
   const { modalOpen, setModalOpen } = useAuthModalContext();
   const { data: session } = useSession();
+  const [loginUser, setLoginUser] = useState("");
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -88,18 +90,29 @@ const LoginModal = () => {
   //Formik
   const formik = useFormik({
     initialValues: {
+      username: "",
       email: "",
       password: "",
-      username: "",
       confirmpassword: "",
       isSignup: false,
     },
     validationSchema: schema,
     onSubmit: async (values) => {
-      const loginRes = await login({
-        email: values.email,
-        password: values.password,
-      });
+      const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+      let loginRes;
+      if (emailRegex.test(loginUser)) {
+        console.log("email");
+        loginRes = await login({
+          email: loginUser,
+          password: values.password,
+        });
+      } else {
+        console.log("username");
+        loginRes = await login({
+          username: loginUser,
+          password: values.password,
+        });
+      }
 
       logIn(loginRes);
       if (loginRes) {
@@ -129,7 +142,12 @@ const LoginModal = () => {
         <Modal show onHide={() => {}} centered className={styles.wrapper}>
           <Modal.Header
             onClick={() => {
-              setModalOpen(false);
+              if (!user) {
+                router.push("/");
+                setModalOpen(false);
+              } else {
+                setModalOpen(false);
+              }
             }}
             className={styles.closeButton}
             closeButton
@@ -285,10 +303,12 @@ const LoginModal = () => {
                     <input
                       name="email"
                       type="email"
-                      value={values.email}
-                      placeholder="Email"
+                      value={loginUser}
+                      placeholder="Email or Username"
                       onBlur={handleBlur}
-                      onChange={handleChange}
+                      onChange={(e) => {
+                        setLoginUser(e.target.value);
+                      }}
                       style={{ maxWidth: "80%" }}
                       className="modalInput"
                     />
