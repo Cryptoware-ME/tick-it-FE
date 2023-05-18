@@ -116,6 +116,7 @@ const Edit = () => {
                       "NEXT_PUBLIC_GAS_LIMIT: ",
                       Number(process.env.NEXT_PUBLIC_GAS_LIMIT)
                     );
+                    console.log(eventData?.name);
                     createEvent.send(
                       [
                         eventData?.name,
@@ -126,10 +127,10 @@ const Edit = () => {
                         ["0xb2EE260a1347487D156Ede50a788D00695b7C1c2"],
                         [100],
                         10,
-                        ethers.constants.HashZero,
+                        '0x815ae514cff4150ec895809ae516283047f6dff8e679158b151a8495f70fc929',
                       ],
                       {
-                        gasPrice: "80",
+                        gasPrice: "80000000000",
                         gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
                       }
                     );
