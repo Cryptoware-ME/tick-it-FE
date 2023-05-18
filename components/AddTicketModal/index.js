@@ -13,8 +13,8 @@ const AddTicket = ({ setAddTicket, setTickets, tickets }) => {
   const [image, setImage] = useState();
   const schema = yup.object().shape({
     name: yup.string().required(),
-    price: yup.date().required(),
-    supply: yup.string().required(),
+    price: yup.number().required(),
+    supply: yup.number().required(),
     description: yup.string().required(),
   });
   const formik = useFormik({

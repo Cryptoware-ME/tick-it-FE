@@ -5,6 +5,7 @@ const TickitButton = ({
   text,
   onClick,
   disabled,
+  disabledText,
   padding = "10px 20px",
   fontSize = "14px",
   minWidth = "130px",
@@ -46,6 +47,7 @@ const TickitButton = ({
               : "var(--primary)",
           }}
         >
+       
           {add && (
             <Image
               width={18}
@@ -55,8 +57,8 @@ const TickitButton = ({
               src="/images/add.png"
             />
           )}
-
-          {text}
+{disabled && disabledText ? disabledText : text}
+        
           {visa && (
             <Image
               width={80}
