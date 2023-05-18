@@ -159,6 +159,7 @@ const Edit = () => {
 
             <Row style={{ marginTop: "32px" }}>
               <div>
+
                 {tickets.length > 0 && (
                   <TickitButton
                     disabled={!account}
@@ -169,6 +170,7 @@ const Edit = () => {
                     }}
                   />
                 )}
+
               </div>
             </Row>
             <div
