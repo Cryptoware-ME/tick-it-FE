@@ -25,7 +25,7 @@ const CreateEvent = () => {
   const handleDropdownSelect = (eventKey) => {
     setSelectedValue(eventKey);
   };
-  console.log("asdasd, ", router);
+
   const schema = yup.object().shape({
     name: yup.string().required(),
     date: yup.date().required(),

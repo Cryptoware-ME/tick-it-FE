@@ -13,8 +13,8 @@ import TicketCardPreview from "../../../components/TicketCardPreview";
 import { useRouter } from "next/router";
 import { useAuth } from "../../../auth/useAuth";
 import { useAuthModalContext } from "../../../context/AuthModalProvider";
-import { ethers } from 'ethers'
-// import { createEvent } from "../../../hooks/useLaunchpad";
+import { ethers } from "ethers";
+import { useLaunpad } from "../../../hooks/useLaunchpad";
 import {
   useEthereum,
   writeContractCall,
@@ -28,13 +28,49 @@ const Edit = () => {
   const { setModalOpen } = useAuthModalContext();
   const [eventData, setEventData] = useState();
   const [tickets, setTickets] = useState([]);
+  const [ticketPrices, setTicketPrices] = useState([]);
+  const [ticketSupply, setTicketSupply] = useState([]);
   const [addticket, setAddTicket] = useState(false);
   const { eventValues } = useCreateEventContext();
   const router = useRouter();
-  const createEvent = writeContractCall({
-    contract: "NFTixLaunchpad",
-    method: "createERC721",
-  });
+  const { createEvent } = useLaunpad();
+
+  const handleLaunch = async () => {
+    createEvent.send(
+      [
+        eventData?.name,
+        "",
+        "",
+        ticketPrices,
+        ticketSupply,
+        [
+          "0xdBeF99c50CE30Ac21b71FAE4A0691b95E0e6E41B",
+          "0xb2EE260a1347487D156Ede50a788D00695b7C1c2",
+        ],
+        [10, 90],
+        10,
+        ethers.constants.HashZero,
+      ],
+      {
+        gasPrice: "80000000000",
+        gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
+      }
+    );
+  };
+  const launchRes = async () => {
+    const res = await createEvent.response.wait();
+    console.log("response: ", res);
+  };
+  useEffect(() => {
+    console.log("createEvent.response: ", createEvent.response);
+    console.log("createEvent.loading: ", createEvent.loading);
+    console.log("createEvent.error: ", createEvent.error);
+    if (createEvent.response) {
+      console.log("response111111111111111: ");
+      launchRes();
+    }
+  }, [createEvent]);
+
   useEffect(() => {
     if (eventValues) {
       setEventData(eventValues);
@@ -49,7 +85,6 @@ const Edit = () => {
     const updatedTickets = tmpTickets.filter(
       (tkt) => tkt?.name?.toLowerCase() !== ticketName?.toLowerCase()
     );
-
     setTickets(updatedTickets);
   };
   useEffect(() => {
@@ -57,6 +92,23 @@ const Edit = () => {
       setModalOpen(true);
     }
   }, [user]);
+
+  useEffect(() => {
+    setTicketPrices(tickets.map((ticket) => ticket.price));
+    let supplyAccumulated = tickets.reduce((acc, ticket) => {
+      let lastSupply = acc[acc.length - 1] || 0;
+      let currentSupply = ticket.supply + lastSupply;
+      acc.push(currentSupply);
+      return acc;
+    }, []);
+    setTicketSupply(supplyAccumulated);
+  }, [tickets]);
+  useEffect(() => {
+    console.log("prices: ", ticketPrices);
+  }, [ticketPrices]);
+  useEffect(() => {
+    console.log("ticketSupply: ", ticketSupply);
+  }, [ticketSupply]);
 
   return (
     <div className={styles.eventWrapper}>
@@ -107,35 +159,18 @@ const Edit = () => {
 
             <Row style={{ marginTop: "32px" }}>
               <div>
-                <TickitButton
-                  disabled={tickets.length == 0}
-                  text="LAUNCH EVENT"
-                  onClick={() => {
-                    // console.log("gasPrice:", gasPrice?.toString());
-                    console.log(
-                      "NEXT_PUBLIC_GAS_LIMIT: ",
-                      Number(process.env.NEXT_PUBLIC_GAS_LIMIT)
-                    );
-                    console.log(eventData?.name);
-                    createEvent.send(
-                      [
-                        eventData?.name,
-                        "",
-                        "",
-                        [100000000000000],
-                        [1000],
-                        ["0xb2EE260a1347487D156Ede50a788D00695b7C1c2"],
-                        [100],
-                        10,
-                        '0x815ae514cff4150ec895809ae516283047f6dff8e679158b151a8495f70fc929',
-                      ],
-                      {
-                        gasPrice: "80000000000",
-                        gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
-                      }
-                    );
-                  }}
-                />
+
+                {tickets.length > 0 && (
+                  <TickitButton
+                    disabled={!account}
+                    text="LAUNCH EVENT"
+                    disabledText="Connect wallet to launch"
+                    onClick={async () => {
+                      handleLaunch();
+                    }}
+                  />
+                )}
+
               </div>
             </Row>
             <div
