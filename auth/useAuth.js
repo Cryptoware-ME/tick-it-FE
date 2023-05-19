@@ -1,9 +1,5 @@
-import { useContext } from "react";
-
-import AuthContext from "./AuthContext";
-
 export const useAuth = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const [user, setUser] = React.State([]);
 
   const logIn = (user) => {
     setUser(user);
