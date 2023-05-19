@@ -36,6 +36,9 @@ const Edit = () => {
   const { createEvent } = useLaunpad();
 
   const handleLaunch = async () => {
+    console.log("price: ", ticketPrices);
+    console.log("supply: ", ticketSupply);
+    console.log(" eventData?.name: ", eventData?.name);
     createEvent.send(
       [
         eventData?.name,
@@ -49,7 +52,7 @@ const Edit = () => {
         ],
         [10, 90],
         10,
-        ethers.constants.HashZero,
+        "0x815ae514cff4150ec895809ae516283047f6dff8e679158b151a8495f70fc929",
       ],
       {
         gasPrice: "80000000000",
@@ -59,14 +62,9 @@ const Edit = () => {
   };
   const launchRes = async () => {
     const res = await createEvent.response.wait();
-    console.log("response: ", res);
   };
   useEffect(() => {
-    console.log("createEvent.response: ", createEvent.response);
-    console.log("createEvent.loading: ", createEvent.loading);
-    console.log("createEvent.error: ", createEvent.error);
     if (createEvent.response) {
-      console.log("response111111111111111: ");
       launchRes();
     }
   }, [createEvent]);
@@ -159,7 +157,6 @@ const Edit = () => {
 
             <Row style={{ marginTop: "32px" }}>
               <div>
-
                 {tickets.length > 0 && (
                   <TickitButton
                     disabled={!account}
@@ -170,7 +167,6 @@ const Edit = () => {
                     }}
                   />
                 )}
-
               </div>
             </Row>
             <div
