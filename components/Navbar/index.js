@@ -14,7 +14,6 @@ import LoginModal from "../LoginModal";
 export default function NavBar() {
   const { setModalOpen } = useAuthModalContext();
   const { logIn, logOut, user } = useAuth();
-  console.log("UUUUUUUUUU:", user);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
 
   const [added, setAdded] = useState(false);

@@ -61,7 +61,6 @@ const Edit = ({ data, setAddTickets }) => {
   useEffect(() => {
     if (data) {
       setEventData(data);
-      console.log("eventData: ", data);
     } else {
       setAddTickets(false);
     }
