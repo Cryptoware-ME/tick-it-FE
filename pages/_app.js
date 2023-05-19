@@ -46,7 +46,7 @@ function MyApp({ Component, pageProps, session }) {
     <div className={inter.className}>
       <MultiChainProvider config={config}>
         <SessionProvider session={session}>
-          <AuthContext.Provider value={{ user, setUser }}>
+          <AuthProvider>
             <AuthModalProvider>
               <CreateEventProvider>
                 <ProSidebarProvider>
@@ -57,7 +57,7 @@ function MyApp({ Component, pageProps, session }) {
                 </ProSidebarProvider>
               </CreateEventProvider>
             </AuthModalProvider>
-          </AuthContext.Provider>
+          </AuthProvider>
         </SessionProvider>
         <ToastContainer
           position="bottom-right"
