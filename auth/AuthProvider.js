@@ -1,14 +1,12 @@
-import { Children, useContext } from "react";
-
-import AuthContext from "./AuthContext";
+import { AuthContext } from "./AuthContext";
 import { useAuth } from "./useAuth";
 
-export const AuthProvider = () => {
+export const AuthProvider = ({ children }) => {
   const { user, logOut, login } = useAuth();
 
   return (
     <AuthContext.Provider value={{ user, logOut, login }}>
-      {Children}
+      {children}
     </AuthContext.Provider>
   );
 };

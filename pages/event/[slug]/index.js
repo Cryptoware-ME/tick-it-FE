@@ -75,11 +75,7 @@ const Event = () => {
                   <TickitButton text="VIEW ACTIVITY" />
                 </div>
               </Col>
-              {/* <Row style={{ marginTop: "32px" }}>
-               
-                <div>
-                  <TickitButton text="LAUNCH EVENT" />
-                </div>
+              <Row style={{ marginTop: "32px" }}>
              
                 <div className={styles.buttons}>
                   <TickitButton text="PAUSE SALE" />
@@ -97,7 +93,7 @@ const Event = () => {
                     <TickitButton style2 text="VIEW ACTIVITY" />
                   </div>
                 </div>
-              </Row> */}
+              </Row>
               <div
                 style={{
                   marginTop: "32px",
