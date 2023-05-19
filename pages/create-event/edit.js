@@ -1,29 +1,22 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Edit.module.scss";
 import { Container, Col, Row } from "react-bootstrap";
-import EventDate from "../../../components/EventDate";
-import EventLocation from "../../../components/EventLocation";
-import EventDetails from "../../../components/EventDetails";
+import EventDate from "../../components/EventDate";
+import EventLocation from "../../components/EventLocation";
+import EventDetails from "../../components/EventDetails";
 import Image from "next/image";
-import TickitButton from "../../../components/tickitButton";
-import TickitTag from "../../../components/TickitTag";
-import AddTicket from "../../../components/AddTicketModal";
-import { useCreateEventContext } from "../../../context/CreateEventProvider";
-import TicketCardPreview from "../../../components/TicketCardPreview";
-import { useRouter } from "next/router";
-import { useAuth } from "../../../auth/useAuth";
-import { useAuthModalContext } from "../../../context/AuthModalProvider";
-import { ethers } from "ethers";
-import { useLaunpad } from "../../../hooks/useLaunchpad";
-import {
-  useEthereum,
-  writeContractCall,
-  useNetworkInfo,
-} from "@cryptogate/react-providers";
+import TickitButton from "../../components/tickitButton";
+import TickitTag from "../../components/TickitTag";
+import AddTicket from "../../components/AddTicketModal";
+
+import TicketCardPreview from "../../components/TicketCardPreview";
+import { useAuth } from "../../auth/useAuth";
+import { useAuthModalContext } from "../../context/AuthModalProvider";
+import { useLaunpad } from "../../hooks/useLaunchpad";
+import { useEthereum } from "@cryptogate/react-providers";
 import { ConnectWalletComponent } from "@cryptogate/react-ui";
-const Edit = () => {
+const Edit = ({ data, setAddTickets }) => {
   const { user } = useAuth();
-  const { gasPrice } = useNetworkInfo();
   const { account } = useEthereum();
   const { setModalOpen } = useAuthModalContext();
   const [eventData, setEventData] = useState();
@@ -31,14 +24,10 @@ const Edit = () => {
   const [ticketPrices, setTicketPrices] = useState([]);
   const [ticketSupply, setTicketSupply] = useState([]);
   const [addticket, setAddTicket] = useState(false);
-  const { eventValues } = useCreateEventContext();
-  const router = useRouter();
+
   const { createEvent } = useLaunpad();
 
   const handleLaunch = async () => {
-    console.log("price: ", ticketPrices);
-    console.log("supply: ", ticketSupply);
-    console.log(" eventData?.name: ", eventData?.name);
     createEvent.send(
       [
         eventData?.name,
@@ -70,12 +59,13 @@ const Edit = () => {
   }, [createEvent]);
 
   useEffect(() => {
-    if (eventValues) {
-      setEventData(eventValues);
+    if (data) {
+      setEventData(data);
+      console.log("eventData: ", data);
     } else {
-      router.push("/create-event");
+      setAddTickets(false);
     }
-  }, [eventValues]);
+  }, [data]);
 
   const handleRemoveTicket = (ticketName) => {
     const tmpTickets = tickets.slice();
@@ -101,12 +91,6 @@ const Edit = () => {
     }, []);
     setTicketSupply(supplyAccumulated);
   }, [tickets]);
-  useEffect(() => {
-    console.log("prices: ", ticketPrices);
-  }, [ticketPrices]);
-  useEffect(() => {
-    console.log("ticketSupply: ", ticketSupply);
-  }, [ticketSupply]);
 
   return (
     <div className={styles.eventWrapper}>

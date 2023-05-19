@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./UserDropdown.module.scss";
-import { useAuth } from "../../auth/useAuth";
 import Link from "next/link";
-const UserDropdown = ({ isOpen, onClose }) => {
-  const { logOut, user } = useAuth();
+const UserDropdown = ({ isOpen, onClose,logOut,user }) => {
+ 
   return (
     <div className={`${styles.menu} ${isOpen && styles.show} `}>
       <div className={styles.overlay} onClick={onClose}></div>

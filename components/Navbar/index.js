@@ -9,9 +9,12 @@ import { useAuth } from "../../auth/useAuth";
 import UserDropdown from "../UserDropdown";
 import AddedToCartAlert from "../AddedToCartAlert";
 import { ToastContainer, toast } from "react-toastify";
+import LoginModal from "../LoginModal";
+
 export default function NavBar() {
   const { setModalOpen } = useAuthModalContext();
-  const { user } = useAuth();
+  const { logIn, logOut, user } = useAuth();
+  console.log("UUUUUUUUUU:", user);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
 
   const [added, setAdded] = useState(false);
@@ -25,11 +28,14 @@ export default function NavBar() {
   }, [added]);
   return (
     <>
+      <LoginModal logIn={logIn} user={user} />
       <UserDropdown
         onClose={() => {
           setShowUserDropdown(false);
         }}
         isOpen={showUserDropdown}
+        logOut={logOut}
+        user={user}
       />
       <AddedToCartAlert
         onClose={() => {

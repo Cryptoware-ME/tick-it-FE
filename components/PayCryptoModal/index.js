@@ -20,10 +20,7 @@ const PayCrypto = ({ setCryptoModal }) => {
     method: 'mint',
   })
 
-  useEffect(() => {
-    console.log(errors);
-  }, [errors])
-  
+
 
   return (
     <Modal show onHide={() => {}} centered>
@@ -219,9 +216,7 @@ const PayCrypto = ({ setCryptoModal }) => {
               text="Pay"
               disabled={!account}
               onClick={() => {
-                console.log(errors)
-                console.log(account)
-                console.log(Number(process.env.NEXT_PUBLIC_GAS_LIMIT))
+              
                 mint.send([account, [1]], {
                   value: 100000000000000,
                   gasPrice: "80000000000",
