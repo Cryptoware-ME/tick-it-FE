@@ -1,4 +1,4 @@
-import { Col, Row, Modal, Container, Alert, Form } from "react-bootstrap";
+import { Col, Row, Container} from "react-bootstrap";
 import styles from "./aboutUs.module.scss";
 const aboutUs = () => {
   return (

@@ -1,7 +1,6 @@
 import Slider from "../components/Slider";
 import EventCard from "../components/EventCard";
 import { Container, Row } from "react-bootstrap";
-import Stats from "../components/Stats";
 import ExploreEvents from "../components/ExploreEvents";
 import React, { useEffect, useState } from "react";
 import { getEvents } from "../axios/event.axios";
@@ -36,9 +35,6 @@ export default function Home() {
         <Row id="explore" style={{ marginTop: "65px" }}>
           <ExploreEvents />
         </Row>
-        {/* <Row style={{ marginTop: "65px" }}>
-          <Stats />
-        </Row> */}
       </Container>
     </main>
   );

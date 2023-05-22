@@ -3,7 +3,7 @@ import styles from "./Tickets.module.scss";
 import { Container, Col, Row } from "react-bootstrap";
 import DashboardBar from "../../components/DashboardBar";
 import CartTicket from "../../components/CartTicket";
-const Tickets = ({}) => {
+const Tickets = () => {
   return (
     <Container fluid className={styles.wrapper}>
       <Row>

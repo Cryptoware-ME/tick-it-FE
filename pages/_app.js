@@ -15,7 +15,6 @@ import Footer from "../components/Footer";
 import { Inter } from "@next/font/google";
 import { AuthModalProvider } from "../context/AuthModalProvider";
 import { ProSidebarProvider } from "react-pro-sidebar";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "../auth/AuthProvider";
 import { SessionProvider } from "next-auth/react";
@@ -36,18 +35,6 @@ function MyApp({ Component, pageProps, session }) {
             </AuthModalProvider>
           </AuthProvider>
         </SessionProvider>
-        <ToastContainer
-          position="bottom-right"
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          limit={3}
-          pauseOnHover
-          autoClose={2000}
-        />
       </MultiChainProvider>
     </div>
   );

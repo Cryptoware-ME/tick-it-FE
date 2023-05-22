@@ -4,11 +4,11 @@ import { Container, Col, Row } from "react-bootstrap";
 import UserProfileDetails from "../../components/UserProfileDetails";
 import EventCard from "../../components/EventCard";
 
-const Event = ({}) => {
+const Event = () => {
   return (
     <div className={styles.profileWrapper}>
       <UserProfileDetails
-      //  state={2}
+    
       />
       <Container style={{ paddingTop: "48px", paddingBottom: "48px" }}>
         <Row>
