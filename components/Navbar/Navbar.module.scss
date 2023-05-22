@@ -45,3 +45,16 @@
     display: none;
   }
 }
+.userDetails {
+  border-radius: 8px;
+  background-color: transparent;
+  padding: 8px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid var(--white);
+}
+.userDetails:hover {
+  background-color: var(--primary);
+}

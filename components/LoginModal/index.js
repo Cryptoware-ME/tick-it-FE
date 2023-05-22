@@ -12,9 +12,10 @@ import { login, signup } from "../../axios/auth.axios";
 import { useAuth } from "../../auth/useAuth";
 import { getUsers } from "../../axios/user.axios";
 import { useRouter } from "next/router";
-const LoginModal = ({ logIn, user }) => {
+
+const LoginModal = () => {
   const router = useRouter();
-  // const { logIn, user } = useAuth();
+  const { logIn, user } = useAuth();
   const { modalOpen, setModalOpen } = useAuthModalContext();
   const [loginUser, setLoginUser] = useState("");
   const schema = yup.object().shape({
@@ -97,20 +98,10 @@ const LoginModal = ({ logIn, user }) => {
     },
     validationSchema: schema,
     onSubmit: async (values) => {
-      const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-      let loginRes;
-      if (emailRegex.test(loginUser)) {
-        loginRes = await login({
-          email: loginUser,
-          password: values.password,
-        });
-      } else {
-        loginRes = await login({
-          username: loginUser,
-          password: values.password,
-        });
-      }
-
+      const loginRes = await login({
+        username: loginUser,
+        password: values.password,
+      });
       logIn(loginRes);
       if (loginRes) {
         setModalOpen(false);
@@ -299,7 +290,7 @@ const LoginModal = ({ logIn, user }) => {
                   <div className={styles.inputDiv}>
                     <input
                       name="email"
-                      type="email"
+                      type="text"
                       value={loginUser}
                       placeholder="Email or Username"
                       onBlur={handleBlur}

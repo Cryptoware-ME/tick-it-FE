@@ -13,7 +13,7 @@ import LoginModal from "../LoginModal";
 
 export default function NavBar() {
   const { setModalOpen } = useAuthModalContext();
-  const { logIn, logOut, user } = useAuth();
+  const { logOut, user } = useAuth();
   const [showUserDropdown, setShowUserDropdown] = useState(false);
 
   const [added, setAdded] = useState(false);
@@ -27,7 +27,7 @@ export default function NavBar() {
   }, [added]);
   return (
     <>
-      <LoginModal logIn={logIn} user={user} />
+      <LoginModal />
       <UserDropdown
         onClose={() => {
           setShowUserDropdown(false);
@@ -154,14 +154,7 @@ export default function NavBar() {
                 )}
                 {user && (
                   <div
-                    style={{
-                      borderRadius: "8px ",
-                      backgroundColor: "var(--primary)",
-                      padding: "10px 20px",
-                      display: "flex",
-                      alignItems: "center",
-                      cursor: "pointer",
-                    }}
+                    className={styles.userDetails}
                     onClick={() => {
                       setShowUserDropdown(true);
                     }}
@@ -172,7 +165,7 @@ export default function NavBar() {
                     alt="icon"
                     src="/images/user.png"
                   /> */}
-                    Hello {user?.username}
+                    {user?.username.toUpperCase()}
                   </div>
                 )}
               </div>
