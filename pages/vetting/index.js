@@ -68,7 +68,7 @@ const Vetting = () => {
             ) : null}
           </div>
 
-          <div
+          {/* <div
             style={{
               display: "flex",
               alignItems: "center",
@@ -82,7 +82,7 @@ const Vetting = () => {
             <p className={styles.checkboxText}>
               I want to create events in my own name
             </p>
-          </div>
+          </div> */}
           <div className={styles.descriptionDiv} style={{ width: "60%" }}>
             <textarea
               id="Description"
@@ -103,7 +103,7 @@ const Vetting = () => {
             ) : null}
           </div>
 
-          <div className={styles.socialLink}>
+          {/* <div className={styles.socialLink}>
             <p className={styles.socialTitle}>Social Links</p>
             <div className={styles.social} style={{ width: "35%" }}>
               <p className={styles.socialName}>Telegram</p>
@@ -117,7 +117,7 @@ const Vetting = () => {
               <p className={styles.socialName}>Website</p>
               <input className="modalInput" />
             </div>
-          </div>
+          </div> */}
           <div className={styles.descriptionDiv} style={{ width: "60%" }}>
             <textarea
               id="EventKind"

@@ -10,15 +10,16 @@ import AddedToCartAlert from "../AddedToCartAlert";
 import { ToastContainer, toast } from "react-toastify";
 import LoginModal from "../LoginModal";
 import { useAuth } from "../../auth/useAuth";
+import { useRouter } from "next/router";
 
 export default function NavBar() {
   const { setModalOpen } = useAuthModalContext();
   const { logOut, user } = useAuth();
 
   const [showUserDropdown, setShowUserDropdown] = useState(false);
-  const [logedIn, setLogedIn] = useState(false);
+  const [vetted, setVetted] = useState(false);
   const [added, setAdded] = useState(false);
-
+  const router = useRouter();
   useEffect(() => {
     if (added) {
       setTimeout(() => {
@@ -26,6 +27,25 @@ export default function NavBar() {
       }, 3000);
     }
   }, [added]);
+  const handleRouting = async () => {
+    if (user) {
+      if (vetted) {
+        router.push("/create-event");
+      } else {
+        router.push("/vetting");
+      }
+    } else {
+      setModalOpen(true);
+      let userDetails = await user;
+      if (userDetails) {
+        if (vetted) {
+          router.push("/create-event");
+        } else {
+          router.push("/vetting");
+        }
+      }
+    }
+  };
 
   return (
     <>
@@ -101,9 +121,9 @@ export default function NavBar() {
               <Link href="/explore" scroll className={styles.navbarLink}>
                 Explore
               </Link>
-              <Link href="/create-event" className={styles.navbarLink}>
+              <div onClick={handleRouting} className={styles.navbarLink}>
                 Create Event
-              </Link>
+              </div>
 
               <Link href="/support" className={styles.navbarLink}>
                 Support
@@ -167,7 +187,7 @@ export default function NavBar() {
                     alt="icon"
                     src="/images/user.png"
                   /> */}
-                    {user?.username?.toUpperCase()}
+                    {user?.user.username?.toUpperCase()}
                   </div>
                 )}
               </div>
