@@ -9,6 +9,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { useAuth } from "../../auth/useAuth";
 import { useAuthModalContext } from "../../context/AuthModalProvider";
 import Edit from "./edit";
+import { getCategories } from "../../axios/event.axios";
 
 const CreateEvent = () => {
   const { user } = useAuth();
@@ -19,6 +20,7 @@ const CreateEvent = () => {
   const [categoryError, setCategoryError] = useState(false);
   const [image, setImage] = useState();
   const [selectedValue, setSelectedValue] = useState();
+  const [categories, setCategories] = useState([]);
 
   const handleDropdownSelect = (eventKey) => {
     setSelectedValue(eventKey);
@@ -26,6 +28,7 @@ const CreateEvent = () => {
 
   const schema = yup.object().shape({
     name: yup.string().required(),
+    symbol: yup.string().required(),
     date: yup.date().required(),
     location: yup.string().required(),
     description: yup.string().required(),
@@ -33,6 +36,7 @@ const CreateEvent = () => {
   const formik = useFormik({
     initialValues: {
       name: "",
+      symbol: "",
       date: "",
       location: "",
       description: "",
@@ -76,6 +80,7 @@ const CreateEvent = () => {
     if (!user) {
       setModalOpen(true);
     }
+    getCategories().then((data) => {console.log(data), setCategories(data)})
   }, [user]);
 
   return (
@@ -120,6 +125,27 @@ const CreateEvent = () => {
                 {errors.name && touched.name ? (
                   <div className={styles.errors}>
                     <p className={styles.error}> {errors.name}</p>
+                  </div>
+                ) : null}
+              </div>
+
+              <p className={styles.title}>Symbol</p>
+              <div className={styles.InputDiv}>
+                <input
+                  id="symbol"
+                  name="symbol"
+                  type="text"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.symbol}
+                  className="modalInput"
+                  style={{ color: "#656565" }}
+                />
+              </div>
+              <div style={{ height: "20px" }}>
+                {errors.symbol && touched.symbol ? (
+                  <div className={styles.errors}>
+                    <p className={styles.error}> {errors.symbol}</p>
                   </div>
                 ) : null}
               </div>
