@@ -5,18 +5,57 @@ import Link from "next/link";
 import Image from "next/image";
 import { useAuthModalContext } from "../../context/AuthModalProvider";
 import TickitButton from "../../components/tickitButton";
-import { useAuth } from "../../auth/useAuth";
 import UserDropdown from "../UserDropdown";
 import AddedToCartAlert from "../AddedToCartAlert";
 import { ToastContainer, toast } from "react-toastify";
 import LoginModal from "../LoginModal";
+import { useAuth } from "../../auth/useAuth";
+import { useRouter } from "next/router";
+import { getOrganization } from "../../axios/organization.axios";
 
 export default function NavBar() {
   const { setModalOpen } = useAuthModalContext();
   const { logOut, user } = useAuth();
-  const [showUserDropdown, setShowUserDropdown] = useState(false);
 
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const [vetted, setVetted] = useState(true);
   const [added, setAdded] = useState(false);
+  const router = useRouter();
+  const handleRouting = async () => {
+    if (user) {
+      checkVettingDetails();
+    } else {
+      setModalOpen(true);
+      let userDetails = await user;
+      if (userDetails) {
+        checkVettingDetails();
+      }
+    }
+  };
+  const checkVettingDetails = async () => {
+    if (user?.user) {
+      getOrganizationDetails(user?.user.id);
+    } else {
+      getOrganizationDetails(user?.id);
+    }
+  };
+  const getOrganizationDetails = async (id) => {
+    let organization = await getOrganization(
+      JSON.stringify({
+        where: { ownerId: id },
+      })
+    );
+    console.log("org: ", organization.data[0]);
+    if (organization.data[0]) {
+      if (organization.data[0].isVetted) {
+        router.push("/create-event");
+      } else {
+        router.push("/explore");
+      }
+    } else {
+      router.push("/vetting");
+    }
+  };
 
   useEffect(() => {
     if (added) {
@@ -25,6 +64,15 @@ export default function NavBar() {
       }, 3000);
     }
   }, [added]);
+
+  // useEffect(() => {
+  //   if (user?.user) {
+  //     getOrganizationDetails(user?.user.id);
+  //   } else {
+  //     getOrganizationDetails(user?.id);
+  //   }
+  // }, [user]);
+
   return (
     <>
       <LoginModal />
@@ -99,9 +147,9 @@ export default function NavBar() {
               <Link href="/explore" scroll className={styles.navbarLink}>
                 Explore
               </Link>
-              <Link href="/create-event" className={styles.navbarLink}>
+              <div onClick={handleRouting} className={styles.navbarLink}>
                 Create Event
-              </Link>
+              </div>
 
               <Link href="/support" className={styles.navbarLink}>
                 Support
@@ -165,7 +213,9 @@ export default function NavBar() {
                     alt="icon"
                     src="/images/user.png"
                   /> */}
-                    {user?.username.toUpperCase()}
+                    {user.user
+                      ? user?.user.username?.toUpperCase()
+                      : user?.username?.toUpperCase()}
                   </div>
                 )}
               </div>

@@ -9,17 +9,18 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { useAuth } from "../../auth/useAuth";
 import { useAuthModalContext } from "../../context/AuthModalProvider";
 import Edit from "./edit";
+import { useRouter } from "next/router";
 import { getCategories } from "../../axios/event.axios";
 
 const CreateEvent = () => {
   const { user } = useAuth();
-  const { setModalOpen } = useAuthModalContext();
   const [filePreview, setFilePreview] = useState();
   const [addTickets, setAddTickets] = useState(false);
   const [imageError, setImageError] = useState(false);
   const [categoryError, setCategoryError] = useState(false);
   const [image, setImage] = useState();
   const [selectedValue, setSelectedValue] = useState();
+  const router = useRouter();
   const [categories, setCategories] = useState([]);
 
   const handleDropdownSelect = (eventKey) => {
@@ -78,7 +79,7 @@ const CreateEvent = () => {
 
   useEffect(() => {
     if (!user) {
-      setModalOpen(true);
+      router.push("/");
     }
     getCategories().then((data) => {console.log(data), setCategories(data)})
   }, [user]);

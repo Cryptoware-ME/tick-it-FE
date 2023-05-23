@@ -1,14 +1,10 @@
-import { useState, useEffect } from "react";
-import { validate } from "../axios/auth.axios";
-export const useAuth = () => {
-  const [user, setUser] = useState(null);
+import React, { useContext, useState, useEffect } from "react";
+import { AuthContext } from "./AuthContext";
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      restoreUser(token);
-    }
-  }, []);
+import { validate } from "../axios/auth.axios";
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState();
 
   const restoreUser = async (token) => {
     const response = await validate(token);
@@ -17,9 +13,28 @@ export const useAuth = () => {
     }
   };
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      restoreUser(token);
+    }
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ user, setUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => {
+  const { user, setUser } = useContext(AuthContext);
+
+  useEffect(() => {
+  }, [user]);
+
   const logIn = (user) => {
     setUser(user);
-    console.log("user: ",user)
     localStorage.setItem("token", "Bearer " + user?.token);
   };
 
