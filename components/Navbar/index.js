@@ -5,18 +5,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { useAuthModalContext } from "../../context/AuthModalProvider";
 import TickitButton from "../../components/tickitButton";
-import { useAuth } from "../../auth/useAuth";
 import UserDropdown from "../UserDropdown";
 import AddedToCartAlert from "../AddedToCartAlert";
 import { ToastContainer, toast } from "react-toastify";
 import LoginModal from "../LoginModal";
-import { AuthContext } from "../../auth/AuthContext";
-import { useContext } from "react";
+import { useAuth } from "../../auth/useAuth";
 
 export default function NavBar() {
   const { setModalOpen } = useAuthModalContext();
-  // const { logOut, user } = useAuth();
-  const { logOut, user } = useContext(AuthContext);
+  const { logOut, user } = useAuth();
+
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [logedIn, setLogedIn] = useState(false);
   const [added, setAdded] = useState(false);
@@ -169,7 +167,7 @@ export default function NavBar() {
                     alt="icon"
                     src="/images/user.png"
                   /> */}
-                    {user?.username.toUpperCase()}
+                    {user?.username?.toUpperCase()}
                   </div>
                 )}
               </div>

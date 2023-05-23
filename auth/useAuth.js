@@ -1,9 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { validate } from "../axios/auth.axios";
-import { useRouter } from "next/router";
+import React, { useContext, useState, useEffect } from "react";
+import { AuthContext } from "./AuthContext";
 
-export const useAuth = () => {
+import { validate } from "../axios/auth.axios";
+
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
+
+  const restoreUser = async (token) => {
+    const response = await validate(token);
+    if (response) {
+      setUser(response);
+    }
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -12,16 +20,19 @@ export const useAuth = () => {
     }
   }, []);
 
+  return (
+    <AuthContext.Provider value={{ user, setUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => {
+  const { user, setUser } = useContext(AuthContext);
+
   useEffect(() => {
     console.log("auth hook", user);
   }, [user]);
-
-  const restoreUser = async (token) => {
-    const response = await validate(token);
-    if (response) {
-      setUser(response);
-    }
-  };
 
   const logIn = (user) => {
     setUser(user);
