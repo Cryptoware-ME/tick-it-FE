@@ -31,7 +31,6 @@ export const useAuth = () => {
   const { user, setUser } = useContext(AuthContext);
 
   useEffect(() => {
-    console.log("auth hook", user);
   }, [user]);
 
   const logIn = (user) => {

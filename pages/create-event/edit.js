@@ -8,23 +8,21 @@ import Image from "next/image";
 import TickitButton from "../../components/tickitButton";
 import TickitTag from "../../components/TickitTag";
 import AddTicket from "../../components/AddTicketModal";
-
+import { useRouter } from "next/router";
 import TicketCardPreview from "../../components/TicketCardPreview";
 import { useAuth } from "../../auth/useAuth";
-import { useAuthModalContext } from "../../context/AuthModalProvider";
 import { useLaunpad } from "../../hooks/useLaunchpad";
 import { useEthereum } from "@cryptogate/react-providers";
 import { ConnectWalletComponent } from "@cryptogate/react-ui";
 const Edit = ({ data, setAddTickets }) => {
   const { user } = useAuth();
   const { account } = useEthereum();
-  const { setModalOpen } = useAuthModalContext();
   const [eventData, setEventData] = useState();
   const [tickets, setTickets] = useState([]);
   const [ticketPrices, setTicketPrices] = useState([]);
   const [ticketSupply, setTicketSupply] = useState([]);
   const [addticket, setAddTicket] = useState(false);
-
+  const router = useRouter();
   const { createEvent } = useLaunpad();
 
   const handleLaunch = async () => {
@@ -76,7 +74,7 @@ const Edit = ({ data, setAddTickets }) => {
   };
   useEffect(() => {
     if (!user) {
-      setModalOpen(true);
+      router.push("/");
     }
   }, [user]);
 

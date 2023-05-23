@@ -17,7 +17,6 @@ export const AuthModalProvider = ({ children }) => {
     !user ? setModalOpen(toggle) : (() => null)();
 
   useEffect(() => {
-    console.log("modal", user);
   }, [user]);
 
   return (

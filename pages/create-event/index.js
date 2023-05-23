@@ -9,17 +9,16 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { useAuth } from "../../auth/useAuth";
 import { useAuthModalContext } from "../../context/AuthModalProvider";
 import Edit from "./edit";
-
+import { useRouter } from "next/router";
 const CreateEvent = () => {
   const { user } = useAuth();
-  const { setModalOpen } = useAuthModalContext();
   const [filePreview, setFilePreview] = useState();
   const [addTickets, setAddTickets] = useState(false);
   const [imageError, setImageError] = useState(false);
   const [categoryError, setCategoryError] = useState(false);
   const [image, setImage] = useState();
   const [selectedValue, setSelectedValue] = useState();
-
+  const router = useRouter();
   const handleDropdownSelect = (eventKey) => {
     setSelectedValue(eventKey);
   };
@@ -73,14 +72,8 @@ const CreateEvent = () => {
   } = formik;
 
   useEffect(() => {
-    setModalOpen(false);
-  }, []);
-
-  useEffect(() => {
-    if (user) {
-      setModalOpen(false);
-    } else {
-      setModalOpen(true);
+    if (!user) {
+      router.push("/");
     }
   }, [user]);
 

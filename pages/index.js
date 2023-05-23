@@ -21,7 +21,7 @@ export default function Home() {
     Events();
   }, []);
 
-  useEffect(() => console.log("landing user ", user), [user]);
+ 
 
   return (
     <main style={{ backgroundColor: " var(--background)" }}>
