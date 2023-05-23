@@ -19,7 +19,8 @@ export const useAuth = () => {
 
   const logIn = (user) => {
     setUser(user);
-    localStorage.setItem("token", "Bearer " + user.token);
+    console.log("user: ",user)
+    localStorage.setItem("token", "Bearer " + user?.token);
   };
 
   const logOut = () => {
