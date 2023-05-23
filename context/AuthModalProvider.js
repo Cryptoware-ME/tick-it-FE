@@ -1,5 +1,6 @@
 import { createContext, useContext } from "react";
 import React, { useState, useEffect } from "react";
+import { useAuth } from "../auth/useAuth";
 const AuthModalContext = createContext();
 
 export const useAuthModalContext = () => {
@@ -8,12 +9,22 @@ export const useAuthModalContext = () => {
 };
 
 export const AuthModalProvider = ({ children }) => {
+  const { user } = useAuth();
+
   const [modalOpen, setModalOpen] = useState(false);
+
+  const changeModalMode = (toggle) =>
+    !user ? setModalOpen(toggle) : (() => null)();
+
+  useEffect(() => {
+    console.log("modal", user);
+  }, [user]);
+
   return (
     <AuthModalContext.Provider
       value={{
         modalOpen,
-        setModalOpen,
+        setModalOpen: changeModalMode,
       }}
     >
       {children}

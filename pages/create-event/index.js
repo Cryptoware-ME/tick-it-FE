@@ -73,7 +73,13 @@ const CreateEvent = () => {
   } = formik;
 
   useEffect(() => {
-    if (!user) {
+    setModalOpen(false);
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      setModalOpen(false);
+    } else {
       setModalOpen(true);
     }
   }, [user]);

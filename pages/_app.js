@@ -18,6 +18,7 @@ import { ProSidebarProvider } from "react-pro-sidebar";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "../auth/AuthProvider";
 import { SessionProvider } from "next-auth/react";
+import LoginModal from "../components/LoginModal";
 const inter = Inter({ subsets: ["latin"] });
 
 function MyApp({ Component, pageProps, session }) {
@@ -29,6 +30,7 @@ function MyApp({ Component, pageProps, session }) {
             <AuthModalProvider>
               <ProSidebarProvider>
                 <NavBar />
+
                 <Component {...pageProps} />
                 <Footer />
               </ProSidebarProvider>

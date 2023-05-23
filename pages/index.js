@@ -4,9 +4,11 @@ import { Container, Row } from "react-bootstrap";
 import ExploreEvents from "../components/ExploreEvents";
 import React, { useEffect, useState } from "react";
 import { getEvents } from "../axios/event.axios";
+import { useAuth } from "../auth/useAuth";
 
 export default function Home() {
   const [allEvents, setAllEvents] = useState();
+  const { user } = useAuth();
 
   const Events = async () => {
     let events = await getEvents(
@@ -14,9 +16,12 @@ export default function Home() {
     );
     setAllEvents(events?.data);
   };
+
   useEffect(() => {
     Events();
   }, []);
+
+  useEffect(() => console.log("landing user ", user), [user]);
 
   return (
     <main style={{ backgroundColor: " var(--background)" }}>

@@ -10,12 +10,15 @@ import UserDropdown from "../UserDropdown";
 import AddedToCartAlert from "../AddedToCartAlert";
 import { ToastContainer, toast } from "react-toastify";
 import LoginModal from "../LoginModal";
+import { AuthContext } from "../../auth/AuthContext";
+import { useContext } from "react";
 
 export default function NavBar() {
   const { setModalOpen } = useAuthModalContext();
-  const { logOut, user } = useAuth();
+  // const { logOut, user } = useAuth();
+  const { logOut, user } = useContext(AuthContext);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
-
+  const [logedIn, setLogedIn] = useState(false);
   const [added, setAdded] = useState(false);
 
   useEffect(() => {
@@ -25,6 +28,7 @@ export default function NavBar() {
       }, 3000);
     }
   }, [added]);
+
   return (
     <>
       <LoginModal />
