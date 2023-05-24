@@ -17,8 +17,10 @@ import { useEthereum } from '@cryptogate/react-providers'
 import { ConnectWalletComponent } from '@cryptogate/react-ui'
 import { useRouter } from 'next/router'
 import { postEvent } from '../../axios/event.axios'
+import { getOrganization } from "../../axios/organization.axios";
 
-const Edit = ({ data, setAddTickets }) => {
+const Edit = ({ data, setAddTickets, categoryId }) => {
+  console.log(categoryId)
   const { user } = useAuth()
   const { account } = useEthereum()
   const { setModalOpen } = useAuthModalContext()
@@ -28,6 +30,7 @@ const Edit = ({ data, setAddTickets }) => {
   const [ticketSupply, setTicketSupply] = useState([])
   const router = useRouter()
   const [addticket, setAddTicket] = useState(false)
+  const [organization, setOrganization] = useState("")
 
   const { createEvent } = useLaunchpad()
 
@@ -54,7 +57,15 @@ const Edit = ({ data, setAddTickets }) => {
     )
   }
 
-  console.log(tickets)
+  const getOrganizationDetails = async (id) => {
+    let organization = await getOrganization(
+      JSON.stringify({
+        where: { ownerId: id },
+      })
+    );
+    setOrganization(organization.data[0]);
+    console.log("org: ", organization.data[0]);
+  };
 
   const launchRes = async () => {
     const res = await createEvent.response.wait()
@@ -68,11 +79,11 @@ const Edit = ({ data, setAddTickets }) => {
       media: '',
       urls: '',
       contractAddress: res.events[0].address,
-      tokenSupply: ticketSupply.reduce((accumulator, currentValue) => {
+      totalSupply: ticketSupply.reduce((accumulator, currentValue) => {
         return accumulator + currentValue;
       }, 0),
-      // categoryId:
-      // organizationId:
+      categoryId: categoryId,
+      organizationId: organization.id,
     }).then((data) => {
       console.log(data), router.push(`/event/${res.events[0].address}`)
     })
@@ -106,6 +117,10 @@ const Edit = ({ data, setAddTickets }) => {
   useEffect(() => {
     if (!user) {
       setModalOpen(true)
+    }else if (user?.user) {
+      getOrganizationDetails(user?.user.id);
+    } else {
+      getOrganizationDetails(user?.id);
     }
   }, [user])
 

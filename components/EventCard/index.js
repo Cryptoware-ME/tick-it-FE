@@ -20,13 +20,13 @@ const EventCard = ({ eventData }) => {
             <div className="cardWrapper">
               <div className={styles.cardContainer}>
                 <div>
-                  <Image
+                  {/* <Image
                     width={512}
                     height={512}
                     className={styles.cardImage}
                     alt="card-image"
                     src={eventData.banner}
-                  />
+                  /> */}
                   <div className={styles.cardGradient}></div>
                 </div>
 
