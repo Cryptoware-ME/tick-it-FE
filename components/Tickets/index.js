@@ -6,22 +6,20 @@ import TickitButton from "../tickitButton";
 import AddTicket from "../AddTicketModal";
 import { getEventTicketType } from "../../axios/eventTicketType.axios";
 
-const Tickets = ({ evntId }) => {
+const Tickets = ({ eventId, isOwner }) => {
   const [eventTickets, setEventTickets] = useState();
-
+console.log("eventId: ",eventId)
   const Tickets = async () => {
     let tickets = await getEventTicketType(
       JSON.stringify({
-        where: { evntId: evntId },
+        where: { eventId: eventId },
       })
     );
     setEventTickets(tickets.data);
   };
   useEffect(() => {
     Tickets();
-  }, [evntId]);
-
-
+  }, [eventId]);
 
   const [addticket, setAddTicket] = useState(false);
   return (
@@ -31,19 +29,20 @@ const Tickets = ({ evntId }) => {
         <p className="section-title" style={{ marginRight: "24px" }}>
           Tickets
         </p>
-
-        <TickitButton
-          text="ADD TICKET"
-          onClick={() => {
-            setAddTicket(true);
-          }}
-        />
+        {isOwner && (
+          <TickitButton
+            text="ADD TICKET"
+            onClick={() => {
+              setAddTicket(true);
+            }}
+          />
+        )}
       </div>
 
       <Row>
         <div>
           {eventTickets?.map((ticket, index) => (
-            <TicketCard key={index} ticket={ticket} />
+            <TicketCard isOwner={isOwner} key={index} ticket={ticket} />
           ))}
         </div>
       </Row>
