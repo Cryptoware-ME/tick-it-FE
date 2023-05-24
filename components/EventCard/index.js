@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./EventCard.module.scss";
-import { Col, Row } from "react-bootstrap";
+import { Col} from "react-bootstrap";
 import Image from "next/image";
 import EventDate from "../EventDate";
 import EventLocation from "../EventLocation";
@@ -20,13 +20,15 @@ const EventCard = ({ eventData }) => {
             <div className="cardWrapper">
               <div className={styles.cardContainer}>
                 <div>
-                  {/* <Image
-                    width={512}
-                    height={512}
-                    className={styles.cardImage}
-                    alt="card-image"
-                    src={eventData.banner}
-                  /> */}
+               
+                    <Image
+                      width={512}
+                      height={512}
+                      className={styles.cardImage}
+                      alt="card-image"
+                      src={eventData?.banner}
+                    />
+                
                   <div className={styles.cardGradient}></div>
                 </div>
 
