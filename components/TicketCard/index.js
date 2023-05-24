@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from "react";
-import styles from "./TicketCard.module.scss";
-import { Col, Row } from "react-bootstrap";
-import Image from "next/image";
-import TicketCounter from "../TicketCounter";
-import EventDetails from "../EventDetails";
-import TickitButton from "../tickitButton";
-import Counter from "../Counter";
-import EditTicket from "../EditTicketModal";
+import React, { useEffect, useState } from 'react'
+import styles from './TicketCard.module.scss'
+import { Col, Row } from 'react-bootstrap'
+import Image from 'next/image'
+import TicketCounter from '../TicketCounter'
+import EventDetails from '../EventDetails'
+import TickitButton from '../tickitButton'
+import Counter from '../Counter'
+import EditTicket from '../EditTicketModal'
 
-const TicketCard = ({ ticket }) => {
-  const [counter, setCounter] = useState(1);
-  const [editticket, setEditTicket] = useState(false);
+const TicketCard = ({ ticket, ticketFromContract }) => {
+  const [counter, setCounter] = useState(1)
+  const [editTicket, setEditTicket] = useState(false)
+
   return (
     <>
-      {editticket && <EditTicket setEditTicket={setEditTicket} />}
-      <Col xl={12} style={{ padding: "10px" }}>
+      {editTicket && <EditTicket setEditTicket={setEditTicket} />}
+      <Col xl={12} style={{ padding: '10px' }}>
         <div className="cardWrapper">
           <div className={styles.cardContainer}>
             <div className={styles.imageDiv}>
@@ -34,7 +35,7 @@ const TicketCard = ({ ticket }) => {
                   <Image
                     width={26}
                     height={26}
-                    style={{ marginRight: "24px", cursor: "pointer" }}
+                    style={{ marginRight: '24px', cursor: 'pointer' }}
                     alt="delete"
                     src="/images/delete.png"
                     onClick={() => {}}
@@ -44,32 +45,34 @@ const TicketCard = ({ ticket }) => {
                     height={24}
                     alt="edit"
                     src="/images/edit.png"
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: 'pointer' }}
                     onClick={() => {
-                      setEditTicket(true);
+                      setEditTicket(true)
                     }}
                   />
                 </div>
               </div>
-
-              <TicketCounter sold={286} total={ticket.supply} />
-              <EventDetails details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+              <TicketCounter
+                sold={`${Number(ticketFromContract?.currentTokenId)-1}`}
+                total={ticket.supply}
+              />
+              <EventDetails details={ticket.description} />
               <div
                 style={{
-                  marginTop: "16px",
-                  display: "flex",
-                  alignItems: "center",
+                  marginTop: '16px',
+                  display: 'flex',
+                  alignItems: 'center',
                 }}
               >
                 <h1 className={styles.priceCurrency}>$ </h1>
-                <h1 style={{ marginLeft: "5px" }} className={styles.cardPrice}>
+                <h1 style={{ marginLeft: '5px' }} className={styles.cardPrice}>
                   {ticket.price}
                 </h1>
               </div>
               <Row>
                 <Col className={styles.cardCounter}>
                   <h1 className={styles.cardQuantity}>Enter Quantity</h1>
-                  <div style={{ marginLeft: "8px" }}>
+                  <div style={{ marginLeft: '8px' }}>
                     <Counter counter={counter} setCounter={setCounter} />
                   </div>
                 </Col>
@@ -82,7 +85,7 @@ const TicketCard = ({ ticket }) => {
         </div>
       </Col>
     </>
-  );
-};
+  )
+}
 
-export default TicketCard;
+export default TicketCard

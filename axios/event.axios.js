@@ -19,7 +19,6 @@ export const getCategories = async (filter) => {
 };
 
 export const postEvent = async (payload) => {
-  console.log(payload);
   const data = await instance.post("/events", payload);
   return data.data;
 };

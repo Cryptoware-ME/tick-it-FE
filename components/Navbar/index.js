@@ -45,7 +45,6 @@ export default function NavBar() {
         where: { ownerId: id },
       })
     );
-    console.log("org: ", organization.data[0]);
     if (organization.data[0]) {
       if (organization.data[0].isVetted) {
         router.push("/create-event");

@@ -18,9 +18,9 @@ import { ConnectWalletComponent } from '@cryptogate/react-ui'
 import { useRouter } from 'next/router'
 import { postEvent } from '../../axios/event.axios'
 import { getOrganization } from "../../axios/organization.axios";
+import { postEventTicketType } from '../../axios/eventTicketType.axios'
 
 const Edit = ({ data, setAddTickets, categoryId }) => {
-  console.log(categoryId)
   const { user } = useAuth()
   const { account } = useEthereum()
   const { setModalOpen } = useAuthModalContext()
@@ -64,7 +64,6 @@ const Edit = ({ data, setAddTickets, categoryId }) => {
       })
     );
     setOrganization(organization.data[0]);
-    console.log("org: ", organization.data[0]);
   };
 
   const launchRes = async () => {
@@ -85,7 +84,16 @@ const Edit = ({ data, setAddTickets, categoryId }) => {
       categoryId: categoryId,
       organizationId: organization.id,
     }).then((data) => {
-      console.log(data), router.push(`/event/${res.events[0].address}`)
+      postEventTicketType({
+        eventId: data.id,
+        name: tickets[0].name,
+        description: tickets[0].description,
+        supply: tickets[0].supply,
+        price: tickets[0].price,
+        image: tickets[0].image
+      }).then(() => {
+        router.push(`/event/${data.slug}`)
+      })
     })
   }
 
@@ -99,9 +107,7 @@ const Edit = ({ data, setAddTickets, categoryId }) => {
   }
 
   useEffect(() => {
-    console.log(1)
     if (createEvent.response) {
-      console.log(2)
       launchRes()
     }
   }, [createEvent.response])

@@ -10,12 +10,15 @@ import TickitButton from "../../../components/tickitButton";
 import TickitTag from "../../../components/TickitTag";
 import { useRouter } from "next/router";
 import { getEvents } from "../../../axios/event.axios";
+import { readContractCalls } from '@cryptogate/react-providers'
+import NFTix721 from '../../../abis/NFTix721.json'
+
 const Event = () => {
   const router = useRouter();
   const { slug } = router.query;
   const [eventData, setEventData] = useState();
 
-  const Event = async () => {
+  const getEvent = async () => {
     let event = await getEvents(
       JSON.stringify({
         relations: ["organization", "category"],
@@ -24,11 +27,10 @@ const Event = () => {
     );
     setEventData(event?.data[0]);
   };
+
   useEffect(() => {
-    Event();
+    getEvent();
   }, [slug]);
-
-
 
   return (
     <div className={styles.eventWrapper}>
@@ -122,7 +124,7 @@ const Event = () => {
                 padding: "80px 0px",
               }}
             >
-              <Tickets eventId={eventData.id} />
+              <Tickets eventId={eventData.id} contractAddress={eventData.contractAddress}/>
             </Row>
           </Container>
         </div>
