@@ -18,6 +18,7 @@ import NFTix721 from "../../../abis/NFTix721.json";
 import { useAuth } from "../../../auth/useAuth";
 import { useEthereum } from "@cryptogate/react-providers";
 import { ConnectWalletComponent } from "@cryptogate/react-ui";
+
 const Event = () => {
   const router = useRouter();
   const { slug } = router.query;
@@ -27,7 +28,7 @@ const Event = () => {
   const [eventData, setEventData] = useState();
   const [isOwner, setIsOwner] = useState(false);
 
-  const Event = async () => {
+  const getEvent = async () => {
     let event = await getEvents(
       JSON.stringify({
         relations: ["organization", "category"],
@@ -36,6 +37,7 @@ const Event = () => {
     );
     setEventData(event?.data[0]);
   };
+  
   const pause = writeContractCall({
     address: contractAddress,
     abi: NFTix721.abi,
@@ -53,7 +55,7 @@ const Event = () => {
     method: "paused",
   });
   useEffect(() => {
-    Event();
+    getEvent();
   }, [slug]);
   useEffect(() => {
     setContractAddress(eventData?.contractAddress);
@@ -194,7 +196,8 @@ const Event = () => {
                 padding: "80px 0px",
               }}
             >
-              <Tickets isOwner={account && isOwner} eventId={eventData.id} />
+              <Tickets eventId={eventData.id} contractAddress={eventData.contractAddress} isOwner={account && isOwner}/>
+
             </Row>
           </Container>
         </div>

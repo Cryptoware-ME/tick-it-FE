@@ -83,7 +83,7 @@ const CreateEvent = () => {
       router.push('/')
     }
     getCategories().then((data) => {
-      console.log(data.data), setCategories(data.data)
+      setCategories(data.data)
     })
   }, [user])
 
