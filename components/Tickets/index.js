@@ -6,20 +6,20 @@ import TickitButton from "../tickitButton";
 import AddTicket from "../AddTicketModal";
 import { getEventTicketType } from "../../axios/eventTicketType.axios";
 
-const Tickets = ({ evntId, isOwner }) => {
+const Tickets = ({ eventId, isOwner }) => {
   const [eventTickets, setEventTickets] = useState();
-
+console.log("eventId: ",eventId)
   const Tickets = async () => {
     let tickets = await getEventTicketType(
       JSON.stringify({
-        where: { evntId: evntId },
+        where: { eventId: eventId },
       })
     );
     setEventTickets(tickets.data);
   };
   useEffect(() => {
     Tickets();
-  }, [evntId]);
+  }, [eventId]);
 
   const [addticket, setAddTicket] = useState(false);
   return (

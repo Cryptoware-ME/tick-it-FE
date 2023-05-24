@@ -12,12 +12,12 @@ import LoginModal from "../LoginModal";
 import { useAuth } from "../../auth/useAuth";
 import { useRouter } from "next/router";
 import { getOrganization } from "../../axios/organization.axios";
-import { ConnectWalletComponent } from "@cryptogate/react-ui";
-
+import { ConnectWalletComponent, Identicon } from "@cryptogate/react-ui";
+import { useEthereum } from "@cryptogate/react-providers";
 export default function NavBar() {
   const { setModalOpen } = useAuthModalContext();
   const { logOut, user } = useAuth();
-
+  const { account } = useEthereum();
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [vetted, setVetted] = useState(true);
   const [added, setAdded] = useState(false);
@@ -178,7 +178,15 @@ export default function NavBar() {
               />
             </div> */}
               <div className={styles.rightLinks}>
-              <ConnectWalletComponent />
+             <div      style={{ width:"40px"}}>
+
+                  <ConnectWalletComponent
+                    DisabledComponent={<></>}
+                    ActiveComponent={<></>}
+                  />
+             </div>
+             
+
                 <Image
                   onClick={() => {
                     // setAdded(true);

@@ -17,13 +17,12 @@ import {
 import NFTix721 from "../../../abis/NFTix721.json";
 import { useAuth } from "../../../auth/useAuth";
 import { useEthereum } from "@cryptogate/react-providers";
-
+import { ConnectWalletComponent } from "@cryptogate/react-ui";
 const Event = () => {
   const router = useRouter();
   const { slug } = router.query;
   const { user } = useAuth();
   const { account } = useEthereum();
-  console.log("acc: ", account);
   const [contractAddress, setContractAddress] = useState();
   const [eventData, setEventData] = useState();
   const [isOwner, setIsOwner] = useState(false);
@@ -48,19 +47,20 @@ const Event = () => {
     method: "unpause",
   });
 
-  // const owner = readContractCall({
-  //   address: contractAddress,
-  //   abi: NFTix721.abi,
-  //   method: "owner",
-  // });
-
+  const paused = readContractCall({
+    address: contractAddress,
+    abi: NFTix721.abi,
+    method: "paused",
+  });
   useEffect(() => {
     Event();
   }, [slug]);
   useEffect(() => {
-    console.log("eventData: ", eventData?.contractAddress);
     setContractAddress(eventData?.contractAddress);
   }, [eventData]);
+  useEffect(() => {
+    console.log("contractAddress: ", contractAddress);
+  }, [contractAddress]);
 
   useEffect(() => {
     if (eventData && user) {
@@ -101,7 +101,7 @@ const Event = () => {
               <Col lg={6}>
                 <div className={styles.titleDiv}>
                   <p className="pageTitle">{eventData.name}</p>
-                  {isOwner && (
+                  {isOwner && account && (
                     <div style={{ marginLeft: "20px" }}>
                       <Image
                         width={32}
@@ -113,47 +113,57 @@ const Event = () => {
                   )}
                 </div>
               </Col>
-              {/* <Col lg={6}>
+              <Col lg={6}>
                 <div className={styles.titleButtons}>
-                  <TickitButton disabled text="RESERVE" />
-                  <TickitButton text="VIEW ACTIVITY" />
-                </div>
-              </Col> */}
-              {isOwner && (
-                <Row style={{ marginTop: "32px" }}>
-                 
-                  <div className={styles.buttons}>
-                    <TickitButton
-                      text="PAUSE SALE"
-                      onClick={() => {
-                        pause.send([], {
-                          gasPrice: "80000000000",
-                          gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
-                        });
-                      }}
+                  {isOwner && (
+                    <ConnectWalletComponent
+                      ConnectedComponent={<></>}
+                      ActiveComponent={
+                        <TickitButton style2 text="connect wallet to edit" />
+                      }
                     />
-                    {/* <div style={{ marginLeft: "40px" }}>
+                  )}
+                  {/* <TickitButton disabled text="RESERVE" />
+                  <TickitButton text="VIEW ACTIVITY" /> */}
+                </div>
+              </Col>
+              {isOwner && account && (
+                <Row style={{ marginTop: "32px" }}>
+                  {paused?.response == "false" && (
+                    <div className={styles.buttons}>
+                      <TickitButton
+                        text="PAUSE SALE"
+                        onClick={() => {
+                          pause.send([], {
+                            gasPrice: "80000000000",
+                            gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
+                          });
+                        }}
+                      />
+                      {/* <div style={{ marginLeft: "40px" }}>
                     <TickitButton style2 text="VIEW ACTIVITY" />
                   </div> */}
-                  </div>
-
-                  <div className={styles.buttons}>
-                    <TickitButton
-                      text="RESUME SALES"
-                      onClick={() => {
-                        unpause.send([], {
-                          gasPrice: "80000000000",
-                          gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
-                        });
-                      }}
-                    />
-                    {/* <div style={{ marginLeft: "40px" }}>
+                    </div>
+                  )}
+                  {paused?.response == "true" && (
+                    <div className={styles.buttons}>
+                      <TickitButton
+                        text="RESUME SALES"
+                        onClick={() => {
+                          unpause.send([], {
+                            gasPrice: "80000000000",
+                            gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
+                          });
+                        }}
+                      />
+                      {/* <div style={{ marginLeft: "40px" }}>
                     <TickitButton text="CANCEL SALES" />
                   </div> */}
-                    {/* <div style={{ marginLeft: "40px" }}>
+                      {/* <div style={{ marginLeft: "40px" }}>
                     <TickitButton style2 text="VIEW ACTIVITY" />
                   </div> */}
-                  </div>
+                    </div>
+                  )}
                 </Row>
               )}
               <div
@@ -184,7 +194,7 @@ const Event = () => {
                 padding: "80px 0px",
               }}
             >
-              <Tickets isOwner={isOwner} eventId={eventData.id} />
+              <Tickets isOwner={account && isOwner} eventId={eventData.id} />
             </Row>
           </Container>
         </div>
