@@ -8,7 +8,7 @@ import { getEventTicketType } from '../../axios/eventTicketType.axios'
 import { readContractCall, readContractCalls } from '@cryptogate/react-providers'
 import NFTix721 from '../../abis/NFTix721.json'
 
-const Tickets = ({ eventId, contractAddress }) => {
+const Tickets = ({ eventId, contractAddress, isOwner }) => {
   const [eventTickets, setEventTickets] = useState([])
   const [addticket, setAddTicket] = useState(false)
   const [ticketsCallData, setTicketsCallData] = useState([])
@@ -56,6 +56,7 @@ const Tickets = ({ eventId, contractAddress }) => {
     }
   }, [eventTickets])
 
+
   return (
     <>
       {addticket && <AddTicket setAddTicket={setAddTicket} />}
@@ -64,18 +65,20 @@ const Tickets = ({ eventId, contractAddress }) => {
           Tickets
         </p>
 
-        <TickitButton
-          text="ADD TICKET"
-          onClick={() => {
-            setAddTicket(true)
-          }}
-        />
+        {isOwner && (
+          <TickitButton
+            text="ADD TICKET"
+            onClick={() => {
+              setAddTicket(true);
+            }}
+          />
+        )}
       </div>
 
       <Row>
         <div>
           {eventTickets?.map((ticket, index) => (
-            <TicketCard key={index} ticket={ticket} ticketFromContract={ticketType[index]}/>
+            <TicketCard key={index} ticket={ticket} ticketFromContract={ticketType[index]} isOwner={isOwner}/>
           ))}
         </div>
       </Row>

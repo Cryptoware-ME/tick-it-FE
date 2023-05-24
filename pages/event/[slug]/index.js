@@ -10,13 +10,23 @@ import TickitButton from "../../../components/tickitButton";
 import TickitTag from "../../../components/TickitTag";
 import { useRouter } from "next/router";
 import { getEvents } from "../../../axios/event.axios";
-import { readContractCalls } from '@cryptogate/react-providers'
-import NFTix721 from '../../../abis/NFTix721.json'
+import {
+  writeContractCall,
+  readContractCall,
+} from "@cryptogate/react-providers";
+import NFTix721 from "../../../abis/NFTix721.json";
+import { useAuth } from "../../../auth/useAuth";
+import { useEthereum } from "@cryptogate/react-providers";
+import { ConnectWalletComponent } from "@cryptogate/react-ui";
 
 const Event = () => {
   const router = useRouter();
   const { slug } = router.query;
+  const { user } = useAuth();
+  const { account } = useEthereum();
+  const [contractAddress, setContractAddress] = useState();
   const [eventData, setEventData] = useState();
+  const [isOwner, setIsOwner] = useState(false);
 
   const getEvent = async () => {
     let event = await getEvents(
@@ -27,10 +37,42 @@ const Event = () => {
     );
     setEventData(event?.data[0]);
   };
+  
+  const pause = writeContractCall({
+    address: contractAddress,
+    abi: NFTix721.abi,
+    method: "pause",
+  });
+  const unpause = writeContractCall({
+    address: contractAddress,
+    abi: NFTix721.abi,
+    method: "unpause",
+  });
 
+  const paused = readContractCall({
+    address: contractAddress,
+    abi: NFTix721.abi,
+    method: "paused",
+  });
   useEffect(() => {
     getEvent();
   }, [slug]);
+  useEffect(() => {
+    setContractAddress(eventData?.contractAddress);
+  }, [eventData]);
+  useEffect(() => {
+    console.log("contractAddress: ", contractAddress);
+  }, [contractAddress]);
+
+  useEffect(() => {
+    if (eventData && user) {
+      let userId = user.id;
+      let eventId = eventData.organization.ownerId;
+      if (userId === eventId) {
+        setIsOwner(true);
+      }
+    }
+  }, [eventData && user]);
 
   return (
     <div className={styles.eventWrapper}>
@@ -61,41 +103,71 @@ const Event = () => {
               <Col lg={6}>
                 <div className={styles.titleDiv}>
                   <p className="pageTitle">{eventData.name}</p>
-                  <div style={{ marginLeft: "20px" }}>
-                    <Image
-                      width={32}
-                      height={32}
-                      alt="edit"
-                      src="/images/edit.png"
-                    />
-                  </div>
+                  {isOwner && account && (
+                    <div style={{ marginLeft: "20px" }}>
+                      <Image
+                        width={32}
+                        height={32}
+                        alt="edit"
+                        src="/images/edit.png"
+                      />
+                    </div>
+                  )}
                 </div>
               </Col>
               <Col lg={6}>
                 <div className={styles.titleButtons}>
-                  <TickitButton disabled text="RESERVE" />
-                  <TickitButton text="VIEW ACTIVITY" />
+                  {isOwner && (
+                    <ConnectWalletComponent
+                      ConnectedComponent={<></>}
+                      ActiveComponent={
+                        <TickitButton style2 text="connect wallet to edit" />
+                      }
+                    />
+                  )}
+                  {/* <TickitButton disabled text="RESERVE" />
+                  <TickitButton text="VIEW ACTIVITY" /> */}
                 </div>
               </Col>
-              <Row style={{ marginTop: "32px" }}>
-             
-                <div className={styles.buttons}>
-                  <TickitButton text="PAUSE SALE" />
-                  <div style={{ marginLeft: "40px" }}>
+              {isOwner && account && (
+                <Row style={{ marginTop: "32px" }}>
+                  {paused?.response == "false" && (
+                    <div className={styles.buttons}>
+                      <TickitButton
+                        text="PAUSE SALE"
+                        onClick={() => {
+                          pause.send([], {
+                            gasPrice: "80000000000",
+                            gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
+                          });
+                        }}
+                      />
+                      {/* <div style={{ marginLeft: "40px" }}>
                     <TickitButton style2 text="VIEW ACTIVITY" />
-                  </div>
-                </div>
-             
-                <div className={styles.buttons}>
-                  <TickitButton text="RESUME SALES" />
-                  <div style={{ marginLeft: "40px" }}>
+                  </div> */}
+                    </div>
+                  )}
+                  {paused?.response == "true" && (
+                    <div className={styles.buttons}>
+                      <TickitButton
+                        text="RESUME SALES"
+                        onClick={() => {
+                          unpause.send([], {
+                            gasPrice: "80000000000",
+                            gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
+                          });
+                        }}
+                      />
+                      {/* <div style={{ marginLeft: "40px" }}>
                     <TickitButton text="CANCEL SALES" />
-                  </div>
-                  <div style={{ marginLeft: "40px" }}>
+                  </div> */}
+                      {/* <div style={{ marginLeft: "40px" }}>
                     <TickitButton style2 text="VIEW ACTIVITY" />
-                  </div>
-                </div>
-              </Row>
+                  </div> */}
+                    </div>
+                  )}
+                </Row>
+              )}
               <div
                 style={{
                   marginTop: "32px",
@@ -124,7 +196,8 @@ const Event = () => {
                 padding: "80px 0px",
               }}
             >
-              <Tickets eventId={eventData.id} contractAddress={eventData.contractAddress}/>
+              <Tickets eventId={eventData.id} contractAddress={eventData.contractAddress} isOwner={account && isOwner}/>
+
             </Row>
           </Container>
         </div>
