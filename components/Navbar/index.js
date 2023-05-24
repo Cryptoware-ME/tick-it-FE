@@ -12,6 +12,7 @@ import LoginModal from "../LoginModal";
 import { useAuth } from "../../auth/useAuth";
 import { useRouter } from "next/router";
 import { getOrganization } from "../../axios/organization.axios";
+import { ConnectWalletComponent } from "@cryptogate/react-ui";
 
 export default function NavBar() {
   const { setModalOpen } = useAuthModalContext();
@@ -177,6 +178,7 @@ export default function NavBar() {
               />
             </div> */}
               <div className={styles.rightLinks}>
+              <ConnectWalletComponent />
                 <Image
                   onClick={() => {
                     // setAdded(true);

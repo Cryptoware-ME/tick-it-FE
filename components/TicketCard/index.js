@@ -8,7 +8,7 @@ import TickitButton from "../tickitButton";
 import Counter from "../Counter";
 import EditTicket from "../EditTicketModal";
 
-const TicketCard = ({ ticket }) => {
+const TicketCard = ({ ticket, isOwner }) => {
   const [counter, setCounter] = useState(1);
   const [editticket, setEditTicket] = useState(false);
   return (
@@ -30,26 +30,28 @@ const TicketCard = ({ ticket }) => {
             <div className={styles.cardDetails}>
               <div className={styles.cardHeader}>
                 <h1 className="section-title">{ticket.name}</h1>
-                <div>
-                  <Image
-                    width={26}
-                    height={26}
-                    style={{ marginRight: "24px", cursor: "pointer" }}
-                    alt="delete"
-                    src="/images/delete.png"
-                    onClick={() => {}}
-                  />
-                  <Image
-                    width={24}
-                    height={24}
-                    alt="edit"
-                    src="/images/edit.png"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      setEditTicket(true);
-                    }}
-                  />
-                </div>
+                {isOwner && (
+                  <div>
+                    <Image
+                      width={26}
+                      height={26}
+                      style={{ marginRight: "24px", cursor: "pointer" }}
+                      alt="delete"
+                      src="/images/delete.png"
+                      onClick={() => {}}
+                    />
+                    <Image
+                      width={24}
+                      height={24}
+                      alt="edit"
+                      src="/images/edit.png"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        setEditTicket(true);
+                      }}
+                    />
+                  </div>
+                )}
               </div>
 
               <TicketCounter sold={286} total={ticket.supply} />

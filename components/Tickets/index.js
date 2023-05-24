@@ -6,7 +6,7 @@ import TickitButton from "../tickitButton";
 import AddTicket from "../AddTicketModal";
 import { getEventTicketType } from "../../axios/eventTicketType.axios";
 
-const Tickets = ({ evntId }) => {
+const Tickets = ({ evntId, isOwner }) => {
   const [eventTickets, setEventTickets] = useState();
 
   const Tickets = async () => {
@@ -21,8 +21,6 @@ const Tickets = ({ evntId }) => {
     Tickets();
   }, [evntId]);
 
-
-
   const [addticket, setAddTicket] = useState(false);
   return (
     <>
@@ -31,19 +29,20 @@ const Tickets = ({ evntId }) => {
         <p className="section-title" style={{ marginRight: "24px" }}>
           Tickets
         </p>
-
-        <TickitButton
-          text="ADD TICKET"
-          onClick={() => {
-            setAddTicket(true);
-          }}
-        />
+        {isOwner && (
+          <TickitButton
+            text="ADD TICKET"
+            onClick={() => {
+              setAddTicket(true);
+            }}
+          />
+        )}
       </div>
 
       <Row>
         <div>
           {eventTickets?.map((ticket, index) => (
-            <TicketCard key={index} ticket={ticket} />
+            <TicketCard isOwner={isOwner} key={index} ticket={ticket} />
           ))}
         </div>
       </Row>
