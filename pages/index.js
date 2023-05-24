@@ -1,13 +1,14 @@
 import Slider from "../components/Slider";
 import EventCard from "../components/EventCard";
 import { Container, Row } from "react-bootstrap";
-import Stats from "../components/Stats";
 import ExploreEvents from "../components/ExploreEvents";
 import React, { useEffect, useState } from "react";
 import { getEvents } from "../axios/event.axios";
+import { useAuth } from "../auth/useAuth";
 
 export default function Home() {
   const [allEvents, setAllEvents] = useState();
+  const { user } = useAuth();
 
   const Events = async () => {
     let events = await getEvents(
@@ -15,9 +16,12 @@ export default function Home() {
     );
     setAllEvents(events?.data);
   };
+
   useEffect(() => {
     Events();
   }, []);
+
+ 
 
   return (
     <main style={{ backgroundColor: " var(--background)" }}>
@@ -36,9 +40,6 @@ export default function Home() {
         <Row id="explore" style={{ marginTop: "65px" }}>
           <ExploreEvents />
         </Row>
-        {/* <Row style={{ marginTop: "65px" }}>
-          <Stats />
-        </Row> */}
       </Container>
     </main>
   );

@@ -7,16 +7,16 @@ import Link from "next/link";
 import { useAuthModalContext } from "../../context/AuthModalProvider";
 import TickitButton from "../tickitButton";
 import Image from "next/image";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { login, signup } from "../../axios/auth.axios";
 import { useAuth } from "../../auth/useAuth";
 import { getUsers } from "../../axios/user.axios";
 import { useRouter } from "next/router";
+
 const LoginModal = () => {
   const router = useRouter();
   const { logIn, user } = useAuth();
   const { modalOpen, setModalOpen } = useAuthModalContext();
-  const { data: session } = useSession();
   const [loginUser, setLoginUser] = useState("");
   const schema = yup.object().shape({
     email: yup
@@ -98,22 +98,10 @@ const LoginModal = () => {
     },
     validationSchema: schema,
     onSubmit: async (values) => {
-      const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-      let loginRes;
-      if (emailRegex.test(loginUser)) {
-        console.log("email");
-        loginRes = await login({
-          email: loginUser,
-          password: values.password,
-        });
-      } else {
-        console.log("username");
-        loginRes = await login({
-          username: loginUser,
-          password: values.password,
-        });
-      }
-
+      const loginRes = await login({
+        username: loginUser,
+        password: values.password,
+      });
       logIn(loginRes);
       if (loginRes) {
         setModalOpen(false);
@@ -302,7 +290,7 @@ const LoginModal = () => {
                   <div className={styles.inputDiv}>
                     <input
                       name="email"
-                      type="email"
+                      type="text"
                       value={loginUser}
                       placeholder="Email or Username"
                       onBlur={handleBlur}

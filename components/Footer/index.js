@@ -10,6 +10,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ToastContainer } from "react-toastify";
 
 const Footer = () => {
   const [email, setEmail] = useState(null);
@@ -27,6 +28,18 @@ const Footer = () => {
   }
   return (
     <div className={styles.footerWrapper}>
+      <ToastContainer
+        position="bottom-right"
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        limit={3}
+        pauseOnHover
+        autoClose={2000}
+      />
       <Container className={styles.footer}>
         <Row>
           <Col lg={9} md={8} sm={7} className={styles.linksWrapper}>
