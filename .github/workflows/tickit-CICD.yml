@@ -1,8 +1,8 @@
-name: Tickit-dev-CICD
+name: Tickit-main-CICD
 
 on:
   push:
-    branches: ["dev"]
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
