@@ -10,6 +10,7 @@ import {
   readContractCalls,
 } from "@cryptogate/react-providers";
 import NFTix721 from "../../abis/NFTix721.json";
+import { postEventTicketTypeBatch } from "../../axios/eventTicketType.axios";
 
 const Tickets = ({ eventId, contractAddress, isOwner }) => {
   const [eventTickets, setEventTickets] = useState([]);
@@ -43,6 +44,20 @@ const Tickets = ({ eventId, contractAddress, isOwner }) => {
     ).then((data) => {
       setEventTickets(data.data);
     });
+  };
+  const handlePause = async (index) => {
+    let tmpEvents = eventTickets;
+
+    tmpEvents[index].isSoldout = true;
+    postEventTicketTypeBatch(tmpEvents);
+    setEventTickets(tmpEvents);
+  };
+  const handleResume = async (index) => {
+    let tmpEvents = eventTickets;
+
+    tmpEvents[index].isSoldout = false;
+    postEventTicketTypeBatch(tmpEvents);
+    setEventTickets(tmpEvents);
   };
 
   useEffect(() => {
@@ -78,13 +93,15 @@ const Tickets = ({ eventId, contractAddress, isOwner }) => {
       <Row>
         <div>
           {eventTickets?.map((ticket, index) => (
-            <TicketCard
-              key={index}
-              ticket={ticket}
-              ticketFromContract={ticketType[index]}
-              isOwner={isOwner}
-            />
-          ))}
+              <TicketCard
+                key={index}
+                ticket={ticket}
+                ticketFromContract={ticketType[index]}
+                isOwner={isOwner}
+                handlePause={() => handlePause(index)}
+                handleResume={() => handleResume(index)}
+              />
+            ))}
         </div>
       </Row>
     </>

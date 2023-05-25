@@ -7,19 +7,17 @@ import { useAuthModalContext } from "../../context/AuthModalProvider";
 import TickitButton from "../../components/tickitButton";
 import UserDropdown from "../UserDropdown";
 import AddedToCartAlert from "../AddedToCartAlert";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import LoginModal from "../LoginModal";
 import { useAuth } from "../../auth/useAuth";
 import { useRouter } from "next/router";
 import { getOrganization } from "../../axios/organization.axios";
-import { ConnectWalletComponent, Identicon } from "@cryptogate/react-ui";
-import { useEthereum } from "@cryptogate/react-providers";
+import { ConnectWalletComponent } from "@cryptogate/react-ui";
+
 export default function NavBar() {
   const { setModalOpen } = useAuthModalContext();
   const { logOut, user } = useAuth();
-  const { account } = useEthereum();
   const [showUserDropdown, setShowUserDropdown] = useState(false);
-  const [vetted, setVetted] = useState(true);
   const [added, setAdded] = useState(false);
   const router = useRouter();
   const handleRouting = async () => {
@@ -64,15 +62,6 @@ export default function NavBar() {
       }, 3000);
     }
   }, [added]);
-
-  // useEffect(() => {
-  //   if (user?.user) {
-  //     getOrganizationDetails(user?.user.id);
-  //   } else {
-  //     getOrganizationDetails(user?.id);
-  //   }
-  // }, [user]);
-
   return (
     <>
       <LoginModal />
@@ -99,15 +88,17 @@ export default function NavBar() {
         className={styles.navbarCon}
       >
         <Container>
-          <Navbar.Brand href="/">
-            <Image
-              width={180}
-              height={30}
-              className={styles.mainLogo}
-              alt="icon"
-              src="/images/logo.svg"
-            />
-          </Navbar.Brand>
+          <Link href="/">
+            <Navbar.Brand>
+              <Image
+                width={180}
+                height={30}
+                className={styles.mainLogo}
+                alt="icon"
+                src="/images/logo.svg"
+              />
+            </Navbar.Brand>
+          </Link>
           <div className={styles.mobileLinks}>
             <Image
               style={{ marginRight: "15px" }}
@@ -144,38 +135,22 @@ export default function NavBar() {
 
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className={styles.navbarRoutes}>
-              <Link href="/explore" scroll className={styles.navbarLink}>
+              <div
+                onClick={() => {
+                  router.push("/explore");
+                }}
+                className={styles.navbarLink}
+              >
                 Explore
-              </Link>
+              </div>
+
               <div onClick={handleRouting} className={styles.navbarLink}>
                 Create Event
               </div>
 
-              <Link href="/support" className={styles.navbarLink}>
-                Support
-              </Link>
+              <div className={styles.navbarLink}>Support</div>
             </Nav>
             <Nav>
-              {/* <div
-              onClick={() => {
-                setIsOpen(false);
-              }}
-              style={{ marginRight: "15px" }}
-            >
-              <ConnectWalletComponent
-                NetworkChainIds={[1, 5]}
-                ConnectedMenuChosen={ConnectedMenuOptions.NOMENU}
-                onSign={(key) => {}}
-                ActiveComponent={
-                  <Image
-                    width={35}
-                    height={35}
-                    alt="icon"
-                    src="/images/user.png"
-                  />
-                }
-              />
-            </div> */}
               <div className={styles.rightLinks}>
                 <div style={{ width: "40px" }}>
                   <ConnectWalletComponent
@@ -183,7 +158,7 @@ export default function NavBar() {
                     ActiveComponent={<></>}
                   />
                 </div>
-
+                                       
                 <Link href="/cart" scroll className={styles.navbarLink}>
                   <Image
                     style={{ marginRight: "15px" }}
@@ -193,8 +168,6 @@ export default function NavBar() {
                     src="/images/cartLogo.svg"
                   />
                 </Link>
-
-                {/* <ToastContainer /> */}
 
                 {!user && (
                   <div>
