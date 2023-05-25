@@ -147,7 +147,7 @@ const AddTicket = ({ setAddTicket, setTickets, tickets }) => {
                 </div>
 
                 <div className={styles.InputDiv}>
-                  <p className={styles.detailsTitle}>Set price (USD)</p>
+                  <p className={styles.detailsTitle}>Set price (ETH)</p>
                   <input
                     id="price"
                     name="price"

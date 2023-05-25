@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./Counter.module.scss";
 
 const Counter = ({ counter, setCounter }) => {
@@ -8,7 +8,7 @@ const Counter = ({ counter, setCounter }) => {
         className={styles.arrowLeft}
         onClick={() => {
           if (counter > 1) {
-            setCounter(counter - 1);
+            setCounter(-1);
           }
         }}
       />
@@ -16,7 +16,7 @@ const Counter = ({ counter, setCounter }) => {
       <div
         className={styles.arrowRight}
         onClick={() => {
-          setCounter(counter + 1);
+          setCounter(1);
         }}
       />
     </div>

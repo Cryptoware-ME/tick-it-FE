@@ -47,7 +47,6 @@ const TickitButton = ({
               : "var(--primary)",
           }}
         >
-       
           {add && (
             <Image
               width={18}
@@ -57,8 +56,8 @@ const TickitButton = ({
               src="/images/add.png"
             />
           )}
-{disabled && disabledText ? disabledText : text}
-        
+          {disabled && disabledText ? disabledText : text}
+
           {visa && (
             <Image
               width={80}
