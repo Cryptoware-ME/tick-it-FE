@@ -124,6 +124,7 @@ const LoginModal = () => {
     status,
     setValues,
   } = formik;
+
   return (
     <>
       {modalOpen ? (
@@ -131,7 +132,6 @@ const LoginModal = () => {
           <Modal.Header
             onClick={() => {
               if (!user) {
-                router.push("/");
                 setModalOpen(false);
               } else {
                 setModalOpen(false);
@@ -251,12 +251,18 @@ const LoginModal = () => {
                   <TickitButton
                     text="Sign Up"
                     onClick={async () => {
-                      const response = await signup({
-                        email: values.email,
-                        username: values.username,
-                        password: values.password,
-                      });
-                      localStorage.setItem("token", "bearer " + response.token);
+                
+                        const response = await signup({
+                          email: values.email,
+                          username: values.username,
+                          password: values.password,
+                        });
+                        localStorage.setItem(
+                          "token",
+                          "bearer " + response.token
+                        );
+                        setModalOpen(false);
+                      
                     }}
                   />
                 </div>
