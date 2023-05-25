@@ -177,26 +177,23 @@ export default function NavBar() {
               />
             </div> */}
               <div className={styles.rightLinks}>
-             <div      style={{ width:"40px"}}>
-
+                <div style={{ width: "40px" }}>
                   <ConnectWalletComponent
                     DisabledComponent={<></>}
                     ActiveComponent={<></>}
                   />
-             </div>
-             
+                </div>
 
-                <Image
-                  onClick={() => {
-                    // setAdded(true);
-                    toast("File type extension not accepted");
-                  }}
-                  style={{ marginRight: "15px" }}
-                  width={33}
-                  height={33}
-                  alt="icon"
-                  src="/images/cartLogo.svg"
-                />
+                <Link href="/cart" scroll className={styles.navbarLink}>
+                  <Image
+                    style={{ marginRight: "15px" }}
+                    width={33}
+                    height={33}
+                    alt="icon"
+                    src="/images/cartLogo.svg"
+                  />
+                </Link>
+
                 {/* <ToastContainer /> */}
 
                 {!user && (

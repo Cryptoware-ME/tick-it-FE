@@ -3,10 +3,13 @@ import styles from "./CheckOutCard.module.scss";
 import TickitButton from "../tickitButton";
 import PayUsdModal from "../PayUsdModal";
 import PayCrypto from "../PayCryptoModal";
+import { useCartContext } from "../../cart/cart-context";
+import { useEffect } from "react";
 
 const CheckOutCard = () => {
   const [usdmodal, setUsdModal] = useState(false);
   const [cryptomodal, setCryptoModal] = useState(false);
+  const { cartTotal } = useCartContext();
 
   return (
     <>
@@ -36,7 +39,7 @@ const CheckOutCard = () => {
               </div>
               <div className={styles.checkOutDetailsTotal}>
                 <p>Total</p>
-                <p>82$</p>
+                <p>{cartTotal}$</p>
               </div>
             </div>
             <TickitButton

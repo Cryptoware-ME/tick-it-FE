@@ -1,21 +1,37 @@
-import React, { useEffect, useState } from 'react'
-import styles from './TicketCard.module.scss'
-import { Col, Row } from 'react-bootstrap'
-import Image from 'next/image'
-import TicketCounter from '../TicketCounter'
-import EventDetails from '../EventDetails'
-import TickitButton from '../tickitButton'
-import Counter from '../Counter'
-import EditTicket from '../EditTicketModal'
+import React, { useEffect, useState } from "react";
+import styles from "./TicketCard.module.scss";
+import { Col, Row } from "react-bootstrap";
+import Image from "next/image";
+import TicketCounter from "../TicketCounter";
+import EventDetails from "../EventDetails";
+import TickitButton from "../tickitButton";
+import Counter from "../Counter";
+import EditTicket from "../EditTicketModal";
+import { useCartContext } from "../../cart/cart-context";
+import { toast } from "react-toastify";
 
 const TicketCard = ({ ticket, ticketFromContract, isOwner }) => {
-  const [counter, setCounter] = useState(1)
-  const [editTicket, setEditTicket] = useState(false)
-  
+  const [counter, setCounter] = useState(1);
+  const [editTicket, setEditTicket] = useState(false);
+  const { cartItems, setCartItems } = useCartContext();
+
+  const handleAddToCart = () => {
+    const foundItem = cartItems.filter((item) => item.ticketId == ticket.id);
+    if (foundItem?.length) {
+      let tmp = [...cartItems];
+      const index = tmp.indexOf(foundItem[0]);
+      tmp[index].quantity += counter;
+      setCartItems([...tmp]);
+    } else
+      setCartItems([...cartItems, { ticketId: ticket.id, quantity: counter }]);
+    setCounter(1);
+    toast("Item Added To Cart");
+  };
+
   return (
     <>
       {editTicket && <EditTicket setEditTicket={setEditTicket} />}
-      <Col xl={12} style={{ padding: '10px' }}>
+      <Col xl={12} style={{ padding: "10px" }}>
         <div className="cardWrapper">
           <div className={styles.cardContainer}>
             <div className={styles.imageDiv}>
@@ -58,31 +74,34 @@ const TicketCard = ({ ticket, ticketFromContract, isOwner }) => {
               </div>
 
               <TicketCounter
-                sold={`${Number(ticketFromContract?.currentTokenId)-1}`}
+                sold={`${Number(ticketFromContract?.currentTokenId) - 1}`}
                 total={ticket.supply}
               />
               <EventDetails details={ticket.description} />
               <div
                 style={{
-                  marginTop: '16px',
-                  display: 'flex',
-                  alignItems: 'center',
+                  marginTop: "16px",
+                  display: "flex",
+                  alignItems: "center",
                 }}
               >
                 <h1 className={styles.priceCurrency}>$ </h1>
-                <h1 style={{ marginLeft: '5px' }} className={styles.cardPrice}>
+                <h1 style={{ marginLeft: "5px" }} className={styles.cardPrice}>
                   {ticket.price}
                 </h1>
               </div>
               <Row>
                 <Col className={styles.cardCounter}>
                   <h1 className={styles.cardQuantity}>Enter Quantity</h1>
-                  <div style={{ marginLeft: '8px' }}>
-                    <Counter counter={counter} setCounter={setCounter} />
+                  <div style={{ marginLeft: "8px" }}>
+                    <Counter
+                      counter={counter}
+                      setCounter={(value) => setCounter(counter + value)}
+                    />
                   </div>
                 </Col>
                 <Col>
-                  <TickitButton text="ADD TO CART" />
+                  <TickitButton text="ADD TO CART" onClick={handleAddToCart} />
                 </Col>
               </Row>
             </div>
@@ -90,7 +109,7 @@ const TicketCard = ({ ticket, ticketFromContract, isOwner }) => {
         </div>
       </Col>
     </>
-  )
-}
+  );
+};
 
-export default TicketCard
+export default TicketCard;

@@ -37,7 +37,7 @@ const Event = () => {
     );
     setEventData(event?.data[0]);
   };
-  
+
   const pause = writeContractCall({
     address: contractAddress,
     abi: NFTix721.abi,
@@ -60,9 +60,6 @@ const Event = () => {
   useEffect(() => {
     setContractAddress(eventData?.contractAddress);
   }, [eventData]);
-  useEffect(() => {
-    console.log("contractAddress: ", contractAddress);
-  }, [contractAddress]);
 
   useEffect(() => {
     if (eventData && user) {
@@ -196,8 +193,11 @@ const Event = () => {
                 padding: "80px 0px",
               }}
             >
-              <Tickets eventId={eventData.id} contractAddress={eventData.contractAddress} isOwner={account && isOwner}/>
-
+              <Tickets
+                eventId={eventData.id}
+                contractAddress={eventData.contractAddress}
+                isOwner={account && isOwner}
+              />
             </Row>
           </Container>
         </div>
