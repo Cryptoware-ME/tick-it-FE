@@ -20,5 +20,5 @@ jobs:
             sudo git stash
             sudo git pull
             sudo yarn
-            sudo yarn build
+            sudo yarn dev
             sudo pm2 restart 'tick-it-fe'
