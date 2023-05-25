@@ -80,7 +80,7 @@ const CartTicket = ({ inCart = false, item, itemData }) => {
                       />
                     </div>
                     <h1 className={styles.cardPrice}>
-                      {Number(itemData.price) * item.quantity} $
+                      {Number(itemData.price / 10 ** 18) * item.quantity} ETH
                     </h1>
                   </Row>
                 )}
