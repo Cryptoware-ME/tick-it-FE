@@ -54,7 +54,7 @@ const TicketCardPreview = ({ticket, handleRemoveTicket }) => {
                   alignItems: "center",
                 }}
               >
-                <h1 className={styles.priceCurrency}>$ </h1>
+                <h1 className={styles.priceCurrency}>ETH </h1>
                 <h1 style={{ marginLeft: "5px" }} className={styles.cardPrice}>
                 {ticket?.price}
                 </h1>

@@ -6,11 +6,11 @@ import TickitButton from "../../components/tickitButton";
 import Link from "next/link";
 import TickitTag from "../TickitTag";
 
-const ExploreEvents = () => {
+const ExploreEvents = ({ events }) => {
   return (
     <>
       <p className="section-title">Explore Events</p>
-      <Row style={{ marginTop: "24px" }}>
+      {/* <Row style={{ marginTop: "24px" }}>
         <div className={styles.filtersRow}>
           {[0, 1, 2, 3]?.map((category, index) => (
             <div
@@ -23,10 +23,10 @@ const ExploreEvents = () => {
             </div>
           ))}
         </div>
-      </Row>
+      </Row> */}
       <Row style={{ marginTop: "25px" }}>
-        {[0, 1, 2]?.map((event, index) => (
-          <EventCard key={index} />
+        {events?.reverse().slice(0, 4).map((event, index) => (
+          <EventCard eventData={event} key={index} />
         ))}
       </Row>
       <Row

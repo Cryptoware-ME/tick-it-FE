@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react'
-import styles from './TicketCard.module.scss'
-import { Col, Row } from 'react-bootstrap'
-import Image from 'next/image'
-import TicketCounter from '../TicketCounter'
-import EventDetails from '../EventDetails'
-import TickitButton from '../tickitButton'
-import Counter from '../Counter'
-import EditTicket from '../EditTicketModal'
+import React, { useEffect, useState } from "react";
+import styles from "./TicketCard.module.scss";
+import { Col, Row } from "react-bootstrap";
+import Image from "next/image";
+import TicketCounter from "../TicketCounter";
+import EventDetails from "../EventDetails";
+import TickitButton from "../tickitButton";
+import Counter from "../Counter";
+import EditTicket from "../EditTicketModal";
 
-const TicketCard = ({ ticket, ticketFromContract, isOwner }) => {
-  const [counter, setCounter] = useState(1)
-  const [editTicket, setEditTicket] = useState(false)
-  
+const TicketCard = ({ ticket, ticketFromContract, isOwner, handlePause,handleResume }) => {
+  const [counter, setCounter] = useState(1);
+  const [editTicket, setEditTicket] = useState(false);
+
   return (
     <>
       {editTicket && <EditTicket setEditTicket={setEditTicket} />}
-      <Col xl={12} style={{ padding: '10px' }}>
+      <Col xl={12} style={{ padding: "10px" }}>
         <div className="cardWrapper">
           <div className={styles.cardContainer}>
             <div className={styles.imageDiv}>
@@ -35,15 +35,27 @@ const TicketCard = ({ ticket, ticketFromContract, isOwner }) => {
 
                 {isOwner && (
                   <div>
-                    <Image
-                      width={26}
-                      height={26}
-                      style={{ marginRight: "24px", cursor: "pointer" }}
-                      alt="delete"
-                      src="/images/delete.png"
-                      onClick={() => {}}
-                    />
-                    <Image
+                    {ticket.isSoldout ? (
+                      <Image
+                        width={26}
+                        height={26}
+                        style={{ marginRight: "24px", cursor: "pointer" }}
+                        alt="resumesales"
+                        src="/images/resumesales.png"
+                        onClick={handleResume}
+                      />
+                    ) : (
+                      <Image
+                        width={26}
+                        height={26}
+                        style={{ marginRight: "24px", cursor: "pointer" }}
+                        alt="pausesales"
+                        src="/images/pausesales.png"
+                        onClick={handlePause}
+                      />
+                    )}
+
+                    {/* <Image
                       width={24}
                       height={24}
                       alt="edit"
@@ -52,32 +64,32 @@ const TicketCard = ({ ticket, ticketFromContract, isOwner }) => {
                       onClick={() => {
                         setEditTicket(true);
                       }}
-                    />
+                    /> */}
                   </div>
                 )}
               </div>
 
               <TicketCounter
-                sold={`${Number(ticketFromContract?.currentTokenId)-1}`}
+                sold={`${Number(ticketFromContract?.currentTokenId) - 1}`}
                 total={ticket.supply}
               />
               <EventDetails details={ticket.description} />
               <div
                 style={{
-                  marginTop: '16px',
-                  display: 'flex',
-                  alignItems: 'center',
+                  marginTop: "16px",
+                  display: "flex",
+                  alignItems: "center",
                 }}
               >
-                <h1 className={styles.priceCurrency}>$ </h1>
-                <h1 style={{ marginLeft: '5px' }} className={styles.cardPrice}>
-                  {ticket.price}
+                <h1 className={styles.priceCurrency}>ETH </h1>
+                <h1 style={{ marginLeft: "5px" }} className={styles.cardPrice}>
+                  {ticket.price / 10 ** 18}
                 </h1>
               </div>
               <Row>
                 <Col className={styles.cardCounter}>
                   <h1 className={styles.cardQuantity}>Enter Quantity</h1>
-                  <div style={{ marginLeft: '8px' }}>
+                  <div style={{ marginLeft: "8px" }}>
                     <Counter counter={counter} setCounter={setCounter} />
                   </div>
                 </Col>
@@ -90,7 +102,7 @@ const TicketCard = ({ ticket, ticketFromContract, isOwner }) => {
         </div>
       </Col>
     </>
-  )
-}
+  );
+};
 
-export default TicketCard
+export default TicketCard;

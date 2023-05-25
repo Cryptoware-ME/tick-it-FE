@@ -5,7 +5,6 @@ import EventDate from "../../../components/EventDate";
 import EventLocation from "../../../components/EventLocation";
 import EventDetails from "../../../components/EventDetails";
 import Tickets from "../../../components/Tickets";
-import Image from "next/image";
 import TickitButton from "../../../components/tickitButton";
 import TickitTag from "../../../components/TickitTag";
 import { useRouter } from "next/router";
@@ -27,7 +26,6 @@ const Event = () => {
   const [contractAddress, setContractAddress] = useState();
   const [eventData, setEventData] = useState();
   const [isOwner, setIsOwner] = useState(false);
-
   const getEvent = async () => {
     let event = await getEvents(
       JSON.stringify({
@@ -60,19 +58,17 @@ const Event = () => {
   useEffect(() => {
     setContractAddress(eventData?.contractAddress);
   }, [eventData]);
-  useEffect(() => {
-    console.log("contractAddress: ", contractAddress);
-  }, [contractAddress]);
 
   useEffect(() => {
     if (eventData && user) {
       let userId = user.id;
       let eventId = eventData.organization.ownerId;
       if (userId === eventId) {
+
         setIsOwner(true);
       }
     }
-  }, [eventData && user]);
+  }, [eventData || user]);
 
   return (
     <div className={styles.eventWrapper}>
@@ -103,7 +99,7 @@ const Event = () => {
               <Col lg={6}>
                 <div className={styles.titleDiv}>
                   <p className="pageTitle">{eventData.name}</p>
-                  {isOwner && account && (
+                  {/* {isOwner && account && (
                     <div style={{ marginLeft: "20px" }}>
                       <Image
                         width={32}
@@ -112,7 +108,7 @@ const Event = () => {
                         src="/images/edit.png"
                       />
                     </div>
-                  )}
+                  )} */}
                 </div>
               </Col>
               <Col lg={6}>
