@@ -15,10 +15,10 @@ import { postEventTicketTypeBatch } from "../../axios/eventTicketType.axios";
 const Tickets = ({ eventId, contractAddress, isOwner }) => {
   const [eventTickets, setEventTickets] = useState([]);
   const [addticket, setAddTicket] = useState(false);
+  const [addTicketModal, setAddTicketModal] = useState(false);
   const [ticketsCallData, setTicketsCallData] = useState([]);
 
   const ticketType = readContractCalls(ticketsCallData);
-
 
   const setupTicketArray = async () => {
     let ticketTypesArray = [];
@@ -75,7 +75,13 @@ const Tickets = ({ eventId, contractAddress, isOwner }) => {
 
   return (
     <>
-      {addTicketModal && <AddExtraTicket setAddTicket={setAddTicketModal} tickets={eventTickets} contractAddress={contractAddress}/>}
+      {addTicketModal && (
+        <AddExtraTicket
+          setAddTicket={setAddTicketModal}
+          tickets={eventTickets}
+          contractAddress={contractAddress}
+        />
+      )}
       <div className={styles.launchButton}>
         <p className="section-title" style={{ marginRight: "24px" }}>
           Tickets
@@ -94,15 +100,15 @@ const Tickets = ({ eventId, contractAddress, isOwner }) => {
       <Row>
         <div>
           {eventTickets?.map((ticket, index) => (
-              <TicketCard
-                key={index}
-                ticket={ticket}
-                ticketFromContract={ticketType[index]}
-                isOwner={isOwner}
-                handlePause={() => handlePause(index)}
-                handleResume={() => handleResume(index)}
-              />
-            ))}
+            <TicketCard
+              key={index}
+              ticket={ticket}
+              ticketFromContract={ticketType[index]}
+              isOwner={isOwner}
+              handlePause={() => handlePause(index)}
+              handleResume={() => handleResume(index)}
+            />
+          ))}
         </div>
       </Row>
     </>

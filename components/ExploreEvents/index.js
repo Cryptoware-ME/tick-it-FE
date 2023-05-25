@@ -24,10 +24,19 @@ const ExploreEvents = ({ events }) => {
           ))}
         </div>
       </Row> */}
-      <Row style={{ marginTop: "25px" }}>
-        {events?.reverse().slice(0, 4).map((event, index) => (
-          <EventCard eventData={event} key={index} />
-        ))}
+      <Row
+        style={{
+          marginTop: "25px",
+          display: "flex",
+          justifyContent: "space-around",
+        }}
+      >
+        {events
+          ?.reverse()
+          .slice(0, 4)
+          .map((event, index) => (
+            <EventCard eventData={event} key={index} />
+          ))}
       </Row>
       <Row
         style={{

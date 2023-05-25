@@ -21,24 +21,31 @@ export default function Home() {
     Events();
   }, []);
 
- 
-
   return (
     <main style={{ backgroundColor: " var(--background)" }}>
-      <Slider events={allEvents}/>
+      <Slider events={allEvents} />
       <Container style={{ paddingBottom: "65px" }}>
         {allEvents && (
           <Row style={{ marginTop: "65px" }}>
             <p className="section-title">Hot Events</p>
-            <Row style={{ marginTop: "24px" }}>
-              {allEvents?.reverse().slice(0,4).map((event, index) => (
-                <EventCard key={index} eventData={event} />
-              ))}
+            <Row
+              style={{
+                marginTop: "24px",
+                display: "flex",
+                justifyContent: "space-around",
+              }}
+            >
+              {allEvents
+                ?.reverse()
+                .slice(0, 4)
+                .map((event, index) => (
+                  <EventCard key={index} eventData={event} />
+                ))}
             </Row>
           </Row>
         )}
         <Row id="explore" style={{ marginTop: "65px" }}>
-          <ExploreEvents  events={allEvents} />
+          <ExploreEvents events={allEvents} />
         </Row>
       </Container>
     </main>
