@@ -5,25 +5,17 @@ import styles from "./Dropzone.module.scss";
 import { uploadImage } from "../../axios/media.axios";
 
 function MyDropzone({ filePreview, setFilePreview, setImage, text }) {
-  
-
   const { getRootProps, getInputProps, open, acceptedFiles } = useDropzone({
     noClick: true,
     noKeyboard: true,
     accept: "image/*",
-    
 
     onDropAccepted: async (acceptedFiles) => {
       let formData = new FormData();
-     
-      formData.append('image', acceptedFiles[0]);
-
+      formData.append("image", acceptedFiles[0]);
       let url = await uploadImage(formData);
-
       setFilePreview(url);
       setImage(url);
-
-      console.log(url);
     },
   });
 
