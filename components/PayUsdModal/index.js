@@ -17,9 +17,7 @@ const PayUsd = ({ setUsdModal }) => {
       Date: "",
     },
     validationSchema: schema,
-    onSubmit: (values) => {
-      console.log(values);
-    },
+    onSubmit: (values) => {},
   });
   const {
     handleSubmit,
