@@ -158,14 +158,16 @@ export default function NavBar() {
                     ActiveComponent={<></>}
                   />
                 </div>
-
-                <Image
-                  style={{ marginRight: "15px", cursor: "pointer" }}
-                  width={33}
-                  height={33}
-                  alt="icon"
-                  src="/images/cartLogo.svg"
-                />
+                                       
+                <Link href="/cart" scroll className={styles.navbarLink}>
+                  <Image
+                    style={{ marginRight: "15px" }}
+                    width={33}
+                    height={33}
+                    alt="icon"
+                    src="/images/cartLogo.svg"
+                  />
+                </Link>
 
                 {!user && (
                   <div>

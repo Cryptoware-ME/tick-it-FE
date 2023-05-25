@@ -11,6 +11,7 @@ import {
 } from "@cryptogate/react-providers";
 import NFTix721 from "../../abis/NFTix721.json";
 import { postEventTicketTypeBatch } from "../../axios/eventTicketType.axios";
+
 const Tickets = ({ eventId, contractAddress, isOwner }) => {
   const [eventTickets, setEventTickets] = useState([]);
   const [addticket, setAddTicket] = useState(false);
@@ -91,8 +92,7 @@ const Tickets = ({ eventId, contractAddress, isOwner }) => {
 
       <Row>
         <div>
-          {eventTickets &&
-            eventTickets?.map((ticket, index) => (
+          {eventTickets?.map((ticket, index) => (
               <TicketCard
                 key={index}
                 ticket={ticket}

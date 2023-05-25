@@ -8,9 +8,26 @@ import TickitButton from "../tickitButton";
 import Counter from "../Counter";
 import EditTicket from "../EditTicketModal";
 
-const TicketCard = ({ ticket, ticketFromContract, isOwner, handlePause,handleResume }) => {
+import { useCartContext } from "../../cart/cart-context";
+import { toast } from "react-toastify";
+
+const TicketCard = ({ ticket, ticketFromContract, isOwner ,handlePause,handleResume }) => {
   const [counter, setCounter] = useState(1);
   const [editTicket, setEditTicket] = useState(false);
+  const { cartItems, setCartItems } = useCartContext();
+
+  const handleAddToCart = () => {
+    const foundItem = cartItems.filter((item) => item.ticketId == ticket.id);
+    if (foundItem?.length) {
+      let tmp = [...cartItems];
+      const index = tmp.indexOf(foundItem[0]);
+      tmp[index].quantity += counter;
+      setCartItems([...tmp]);
+    } else
+      setCartItems([...cartItems, { ticketId: ticket.id, quantity: counter }]);
+    setCounter(1);
+    toast("Item Added To Cart");
+  };
 
   return (
     <>
@@ -90,11 +107,14 @@ const TicketCard = ({ ticket, ticketFromContract, isOwner, handlePause,handleRes
                 <Col className={styles.cardCounter}>
                   <h1 className={styles.cardQuantity}>Enter Quantity</h1>
                   <div style={{ marginLeft: "8px" }}>
-                    <Counter counter={counter} setCounter={setCounter} />
+                    <Counter
+                      counter={counter}
+                      setCounter={(value) => setCounter(counter + value)}
+                    />
                   </div>
                 </Col>
                 <Col>
-                  <TickitButton text="ADD TO CART" />
+                  <TickitButton text="ADD TO CART" onClick={handleAddToCart} />
                 </Col>
               </Row>
             </div>

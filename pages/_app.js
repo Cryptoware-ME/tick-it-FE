@@ -20,6 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { SessionProvider } from "next-auth/react";
 import LoginModal from "../components/LoginModal";
 import { AuthProvider } from "../auth/useAuth";
+import { CartProvider } from "../cart/cart-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 function MyApp({ Component, pageProps, session }) {
@@ -29,12 +30,13 @@ function MyApp({ Component, pageProps, session }) {
         <SessionProvider session={session}>
           <AuthProvider>
             <AuthModalProvider>
-              <ProSidebarProvider>
-                <NavBar />
-
-                <Component {...pageProps} />
-                <Footer />
-              </ProSidebarProvider>
+              <CartProvider>
+                <ProSidebarProvider>
+                  <NavBar />
+                  <Component {...pageProps} />
+                  <Footer />
+                </ProSidebarProvider>
+              </CartProvider>
             </AuthModalProvider>
           </AuthProvider>
         </SessionProvider>
