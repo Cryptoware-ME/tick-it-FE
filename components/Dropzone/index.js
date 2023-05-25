@@ -2,25 +2,20 @@ import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
 import styles from "./Dropzone.module.scss";
-function MyDropzone({ filePreview, setFilePreview, setImage, text }) {
-  const toBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
+import { uploadImage } from "../../axios/media.axios";
 
+function MyDropzone({ filePreview, setFilePreview, setImage, text }) {
   const { getRootProps, getInputProps, open, acceptedFiles } = useDropzone({
     noClick: true,
     noKeyboard: true,
     accept: "image/*",
-    
 
     onDropAccepted: async (acceptedFiles) => {
-      const tempProfilePicture = await toBase64(acceptedFiles[0]);
-      setFilePreview(URL.createObjectURL(acceptedFiles[0]));
-      setImage(tempProfilePicture);
+      let formData = new FormData();
+      formData.append("image", acceptedFiles[0]);
+      let url = await uploadImage(formData);
+      setFilePreview(url);
+      setImage(url);
     },
   });
 

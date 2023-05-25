@@ -48,6 +48,7 @@ const Vetting = () => {
         if (profileImage) {
           setProfileImageError(false);
           values.profile = profileImage;
+          
           postOrganization({
             ownerId: values.ownerId,
             name: values.name,
