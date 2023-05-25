@@ -19,6 +19,7 @@ const Tickets = ({ eventId, contractAddress, isOwner }) => {
 
   const ticketType = readContractCalls(ticketsCallData);
 
+
   const setupTicketArray = async () => {
     let ticketTypesArray = [];
 
@@ -74,7 +75,7 @@ const Tickets = ({ eventId, contractAddress, isOwner }) => {
 
   return (
     <>
-      {addticket && <AddTicket setAddTicket={setAddTicket} />}
+      {addTicketModal && <AddExtraTicket setAddTicket={setAddTicketModal} tickets={eventTickets} contractAddress={contractAddress}/>}
       <div className={styles.launchButton}>
         <p className="section-title" style={{ marginRight: "24px" }}>
           Tickets
@@ -84,7 +85,7 @@ const Tickets = ({ eventId, contractAddress, isOwner }) => {
           <TickitButton
             text="ADD TICKET"
             onClick={() => {
-              setAddTicket(true);
+              setAddTicketModal(true);
             }}
           />
         )}
