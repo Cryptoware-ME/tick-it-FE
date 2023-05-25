@@ -60,9 +60,6 @@ const Event = () => {
   useEffect(() => {
     setContractAddress(eventData?.contractAddress);
   }, [eventData]);
-  useEffect(() => {
-    console.log("contractAddress: ", contractAddress);
-  }, [contractAddress]);
 
   useEffect(() => {
     if (eventData && user) {

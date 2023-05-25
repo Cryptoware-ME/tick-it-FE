@@ -11,6 +11,7 @@ import EditTicket from '../EditTicketModal'
 const TicketCard = ({ ticket, ticketFromContract, isOwner }) => {
   const [counter, setCounter] = useState(1)
   const [editTicket, setEditTicket] = useState(false)
+  console.log(ticketFromContract);
   
   return (
     <>

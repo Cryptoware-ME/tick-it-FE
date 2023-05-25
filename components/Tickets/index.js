@@ -3,18 +3,18 @@ import styles from './Tickets.module.scss'
 import { Row, Col } from 'react-bootstrap'
 import TicketCard from '../TicketCard'
 import TickitButton from '../tickitButton'
-import AddTicket from '../AddTicketModal'
+import AddExtraTicket from '../AddExtraTicketModal'
 import { getEventTicketType } from '../../axios/eventTicketType.axios'
 import { readContractCall, readContractCalls } from '@cryptogate/react-providers'
 import NFTix721 from '../../abis/NFTix721.json'
 
 const Tickets = ({ eventId, contractAddress, isOwner }) => {
   const [eventTickets, setEventTickets] = useState([])
-  const [addticket, setAddTicket] = useState(false)
+  
+  const [addTicketModal, setAddTicketModal] = useState(false)
   const [ticketsCallData, setTicketsCallData] = useState([])
 
   const ticketType = readContractCalls(ticketsCallData)
-  console.log(ticketType);
 
   const setupTicketArray = async () => {
     let ticketTypesArray = []
@@ -32,9 +32,6 @@ const Tickets = ({ eventId, contractAddress, isOwner }) => {
   }
 
   const getTickets = async () => {
-    console.log(
-      '//////////////////////entered getTickets function////////////////////',
-    )
     getEventTicketType(
       JSON.stringify({
         where: { eventId: eventId },
@@ -59,7 +56,7 @@ const Tickets = ({ eventId, contractAddress, isOwner }) => {
 
   return (
     <>
-      {addticket && <AddTicket setAddTicket={setAddTicket} />}
+      {addTicketModal && <AddExtraTicket setAddTicket={setAddTicketModal} tickets={eventTickets} contractAddress={contractAddress}/>}
       <div className={styles.launchButton}>
         <p className="section-title" style={{ marginRight: '24px' }}>
           Tickets
@@ -69,7 +66,7 @@ const Tickets = ({ eventId, contractAddress, isOwner }) => {
           <TickitButton
             text="ADD TICKET"
             onClick={() => {
-              setAddTicket(true);
+              setAddTicketModal(true);
             }}
           />
         )}
