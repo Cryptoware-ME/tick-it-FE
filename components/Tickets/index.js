@@ -3,7 +3,7 @@ import styles from "./Tickets.module.scss";
 import { Row, Col } from "react-bootstrap";
 import TicketCard from "../TicketCard";
 import TickitButton from "../tickitButton";
-import AddTicket from "../AddTicketModal";
+import AddExtraTicket from "../AddExtraTicketModal";
 import { getEventTicketType } from "../../axios/eventTicketType.axios";
 import {
   readContractCall,
@@ -49,14 +49,14 @@ const Tickets = ({ eventId, contractAddress, isOwner }) => {
   const handlePause = async (index) => {
     let tmpEvents = eventTickets;
 
-    tmpEvents[index].isSoldout = true;
+    tmpEvents[index].isActive = true;
     postEventTicketTypeBatch(tmpEvents);
     setEventTickets(tmpEvents);
   };
   const handleResume = async (index) => {
     let tmpEvents = eventTickets;
 
-    tmpEvents[index].isSoldout = false;
+    tmpEvents[index].isActive = false;
     postEventTicketTypeBatch(tmpEvents);
     setEventTickets(tmpEvents);
   };
