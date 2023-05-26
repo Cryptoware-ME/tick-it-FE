@@ -17,8 +17,8 @@ jobs:
           key: ${{secrets.SSH_KEY}}
           script: |
             cd tick-it-FE
-            sudo git stash
-            sudo git pull
-            sudo yarn
-            sudo yarn dev
-            sudo pm2 restart 'tick-it-fe'
+            git stash
+            git pull
+            yarn
+            yarn build 
+            pm2 restart 'tick-it-fe'
