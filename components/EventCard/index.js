@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./EventCard.module.scss";
-import { Col} from "react-bootstrap";
+import { Col } from "react-bootstrap";
 import Image from "next/image";
 import EventDate from "../EventDate";
 import EventLocation from "../EventLocation";
@@ -10,7 +10,7 @@ const EventCard = ({ eventData }) => {
   return (
     <>
       {eventData && (
-        <Col md={4} style={{ padding: "10px" }}>
+        <Col md={3} style={{ padding: "10px" }}>
           <Link
             href={{
               pathname: `/event/${eventData.slug}`,
@@ -19,16 +19,15 @@ const EventCard = ({ eventData }) => {
           >
             <div className="cardWrapper">
               <div className={styles.cardContainer}>
-                <div>
-               
-                    <Image
-                      width={512}
-                      height={512}
-                      className={styles.cardImage}
-                      alt="card-image"
-                      src={eventData?.banner}
-                    />
-                
+                <div style={{ minHeight: "215px" }}>
+                  <Image
+                    width={512}
+                    height={512}
+                    className={styles.cardImage}
+                    alt="card-image"
+                    src={eventData?.banner}
+                  />
+
                   <div className={styles.cardGradient}></div>
                 </div>
 

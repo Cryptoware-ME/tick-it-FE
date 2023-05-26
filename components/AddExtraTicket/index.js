@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AddTicketModal.module.scss";
 import { Modal, Container, Row, Col, Form } from "react-bootstrap";
-import Dropzone from "../../components/Dropzone";
+import Dropzone from "../Dropzone";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import TickitButton from "../tickitButton";
@@ -147,7 +147,7 @@ const AddTicket = ({ setAddTicket, setTickets, tickets }) => {
                 </div>
 
                 <div className={styles.InputDiv}>
-                  <p className={styles.detailsTitle}>Set price (ETH)</p>
+                  <p className={styles.detailsTitle}>Set price (USD)</p>
                   <input
                     id="price"
                     name="price"

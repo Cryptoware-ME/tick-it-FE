@@ -1,16 +1,62 @@
 import React, { useEffect, useState } from "react";
-import styles from "./AddTicketModal.module.scss";
+import styles from "./AddExtraTicketModal.module.scss";
 import { Modal, Container, Row, Col, Form } from "react-bootstrap";
-import Dropzone from "../../components/Dropzone";
+import Dropzone from "../Dropzone";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import TickitButton from "../tickitButton";
+import { writeContractCall } from "@cryptogate/react-providers";
+import NFTix721 from '../../abis/NFTix721.json'
+import { postEventTicketType } from '../../axios/eventTicketType.axios'
 
-const AddTicket = ({ setAddTicket, setTickets, tickets }) => {
+const AddExtraTicket = ({ setAddTicket, setTickets, tickets, contractAddress }) => {
   const [imageError, setImageError] = useState(false);
   const [nameError, setNameError] = useState(false);
   const [filePreview, setFilePreview] = useState();
   const [image, setImage] = useState();
+
+  const addTicketTypes = writeContractCall({
+    address: contractAddress,
+    abi: NFTix721.abi,
+    // contract: "NFTix721",
+    method: "addTicketTypes",
+
+  })
+
+  const addExtraTicket = () => {
+    let ticketSupply = 0;
+    for(let i = 0; i < tickets.length; i++){
+      console.log("Tickets Already found", tickets[0].supply);
+      console.log("To see if the for loop workd ", ticketSupply + tickets[0].supply)
+      console.log("Values from form: ", values.supply)
+      ticketSupply = ticketSupply + tickets[0].supply;
+      console.log("Added values: ", values.supply+ticketSupply);
+    }
+    console.log(1111111111111)
+    console.log(values.supply+ticketSupply, values.price);
+
+    addTicketTypes.send([[values.supply+ticketSupply], [values.price]], {
+      gasPrice: "80000000000",
+      gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
+    })
+
+    console.log(444444444444)
+
+    // setAddTicket(false);
+
+    // postEventTicketType({
+    //   eventId: data.id,
+    //   name: tickets[0].name,
+    //   description: tickets[0].description,
+    //   supply: tickets[0].supply,
+    //   price: tickets[0].price,
+    //   image: tickets[0].image
+    // }).then(() => {
+    //   setAddTicket(false);
+    // })
+
+  }
+
   const schema = yup.object().shape({
     name: yup.string().required(),
     price: yup.number().required(),
@@ -36,15 +82,17 @@ const AddTicket = ({ setAddTicket, setTickets, tickets }) => {
         if (found) {
           setNameError(true);
         } else {
+          console.log(values.supply, "Supply submitted from form");
+          console.log(values.price, "Price submitted from form")
           setNameError(false);
-          setTickets([...tickets, values]);
-          setAddTicket(false);
+          addExtraTicket();
         }
       } else {
         setImageError(true);
       }
     },
   });
+  
   const {
     handleSubmit,
     handleChange,
@@ -147,7 +195,7 @@ const AddTicket = ({ setAddTicket, setTickets, tickets }) => {
                 </div>
 
                 <div className={styles.InputDiv}>
-                  <p className={styles.detailsTitle}>Set price (ETH)</p>
+                  <p className={styles.detailsTitle}>Set price (USD)</p>
                   <input
                     id="price"
                     name="price"
@@ -200,4 +248,4 @@ const AddTicket = ({ setAddTicket, setTickets, tickets }) => {
     </Form>
   );
 };
-export default AddTicket;
+export default AddExtraTicket;

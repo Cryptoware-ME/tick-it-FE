@@ -8,3 +8,13 @@ export const getEventTicketType = async (filter) => {
   });
   return data;
 };
+
+export const postEventTicketType = async (payload) => {
+  const data = await instance.post(`/eventTicketTypes`, payload);
+  return data;
+};
+
+export const postEventTicketTypeBatch = async (payload) => {
+  const data = await instance.post(`/eventTicketTypes/batch`, payload);
+  return data;
+};

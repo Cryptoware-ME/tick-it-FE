@@ -8,12 +8,36 @@ import TickitButton from "../tickitButton";
 import Counter from "../Counter";
 import EditTicket from "../EditTicketModal";
 
-const TicketCard = ({ ticket }) => {
+import { useCartContext } from "../../cart/cart-context";
+import { toast } from "react-toastify";
+
+const TicketCard = ({
+  ticket,
+  ticketFromContract,
+  isOwner,
+  handlePause,
+  handleResume,
+}) => {
   const [counter, setCounter] = useState(1);
-  const [editticket, setEditTicket] = useState(false);
+  const [editTicket, setEditTicket] = useState(false);
+  const { cartItems, setCartItems } = useCartContext();
+
+  const handleAddToCart = () => {
+    const foundItem = cartItems.filter((item) => item.ticketId == ticket.id);
+    if (foundItem?.length) {
+      let tmp = [...cartItems];
+      const index = tmp.indexOf(foundItem[0]);
+      tmp[index].quantity += counter;
+      setCartItems([...tmp]);
+    } else
+      setCartItems([...cartItems, { ticketId: ticket.id, quantity: counter }]);
+    setCounter(1);
+    toast("Item Added To Cart");
+  };
+
   return (
     <>
-      {editticket && <EditTicket setEditTicket={setEditTicket} />}
+      {editTicket && <EditTicket setEditTicket={setEditTicket} />}
       <Col xl={12} style={{ padding: "10px" }}>
         <div className="cardWrapper">
           <div className={styles.cardContainer}>
@@ -27,33 +51,52 @@ const TicketCard = ({ ticket }) => {
               />
               <div className={styles.imageGradient} />
             </div>
+
             <div className={styles.cardDetails}>
               <div className={styles.cardHeader}>
                 <h1 className="section-title">{ticket.name}</h1>
-                <div>
-                  <Image
-                    width={26}
-                    height={26}
-                    style={{ marginRight: "24px", cursor: "pointer" }}
-                    alt="delete"
-                    src="/images/delete.png"
-                    onClick={() => {}}
-                  />
-                  <Image
-                    width={24}
-                    height={24}
-                    alt="edit"
-                    src="/images/edit.png"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      setEditTicket(true);
-                    }}
-                  />
-                </div>
+
+                {isOwner && (
+                  <div>
+                    {ticket.isActive ? (
+                      <Image
+                        width={26}
+                        height={26}
+                        style={{ marginRight: "24px", cursor: "pointer" }}
+                        alt="resumesales"
+                        src="/images/resumesales.png"
+                        onClick={handleResume}
+                      />
+                    ) : (
+                      <Image
+                        width={26}
+                        height={26}
+                        style={{ marginRight: "24px", cursor: "pointer" }}
+                        alt="pausesales"
+                        src="/images/pausesales.png"
+                        onClick={handlePause}
+                      />
+                    )}
+
+                    {/* <Image
+                      width={24}
+                      height={24}
+                      alt="edit"
+                      src="/images/edit.png"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        setEditTicket(true);
+                      }}
+                    /> */}
+                  </div>
+                )}
               </div>
 
-              <TicketCounter sold={286} total={ticket.supply} />
-              <EventDetails details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+              <TicketCounter
+                sold={`${Number(ticketFromContract?.currentTokenId) - 1}`}
+                total={ticket.supply}
+              />
+              <EventDetails details={ticket.description} />
               <div
                 style={{
                   marginTop: "16px",
@@ -61,20 +104,35 @@ const TicketCard = ({ ticket }) => {
                   alignItems: "center",
                 }}
               >
-                <h1 className={styles.priceCurrency}>$ </h1>
+                <h1 className={styles.priceCurrency}>ETH </h1>
                 <h1 style={{ marginLeft: "5px" }} className={styles.cardPrice}>
-                  {ticket.price}
+                  {ticket.price / 10 ** 18}
                 </h1>
               </div>
+
               <Row>
                 <Col className={styles.cardCounter}>
-                  <h1 className={styles.cardQuantity}>Enter Quantity</h1>
-                  <div style={{ marginLeft: "8px" }}>
-                    <Counter counter={counter} setCounter={setCounter} />
-                  </div>
+                  {!ticket.isSoldout && (
+                    <>
+                      <h1 className={styles.cardQuantity}>Enter Quantity</h1>
+                      <div style={{ marginLeft: "8px" }}>
+                        <Counter
+                          counter={counter}
+                          setCounter={(value) => setCounter(counter + value)}
+                        />
+                      </div>
+                    </>
+                  )}
                 </Col>
                 <Col>
-                  <TickitButton text="ADD TO CART" />
+                  {ticket.isSoldout ? (
+                    <TickitButton text="sold out" disabled />
+                  ) : (
+                    <TickitButton
+                      text="ADD TO CART"
+                      onClick={handleAddToCart}
+                    />
+                  )}
                 </Col>
               </Row>
             </div>
