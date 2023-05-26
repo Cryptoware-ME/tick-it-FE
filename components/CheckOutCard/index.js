@@ -15,7 +15,7 @@ const CheckOutCard = ({cartItemData}) => {
 
   return (
     <>
-      {usdmodal && <PayUsdModal setUsdModal={setUsdModal} />}
+      {usdmodal && <PayUsdModal setUsdModal={setUsdModal} cartItemData={cartItemData} cartItemsCount={cartItems}  total={(cartTotal / 10 ** 18).toFixed(4)}/>}
 
       {cryptomodal && <PayCrypto setCryptoModal={setCryptoModal} cartItemData={cartItemData} cartItemsCount={cartItems}  total={(cartTotal / 10 ** 18).toFixed(4)}/>}
 
