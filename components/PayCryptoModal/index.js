@@ -16,6 +16,7 @@ const PayCrypto = ({
   cartItemsCount,
   cartTotal,
 }) => {
+  console.log("cartItemData:",cartItemData)
   const { account, errors } = useEthereum();
   const [state, setState] = useState(1);
   const [payWithCustodial, setPayWithCustodial] = useState(false);
@@ -23,7 +24,7 @@ const PayCrypto = ({
   const [eventTickets, setEventTickets] = useState();
 
   const mint = writeContractCall({
-    address: cartItemData.cartItemData[0].event.contractAddress,
+    address: cartItemData[0]?.event.contractAddress,
     abi: NFTix721.abi,
     // contract: "NFTix721",
     method: "mint",
@@ -39,9 +40,7 @@ const PayCrypto = ({
     });
   };
 
-  useEffect(() => {
-    console.log("cartItemData: ", cartItemData.cartItemData[0]);
-  }, [cartItemData]);
+  
 
   const getTickets = async () => {
     getEventTicketType(
@@ -65,7 +64,7 @@ const PayCrypto = ({
   }, [eventTickets]);
   useEffect(() => {
     if (cartItemData) {
-      setEventId(cartItemData.cartItemData[0].eventId);
+      setEventId(cartItemData[0].eventId);
     }
   }, [cartItemData]);
 
@@ -268,10 +267,12 @@ const PayCrypto = ({
               text="Pay"
               disabled={!payWithCustodial && !account}
               onClick={() => {
+
+                console.log("payWithCustodial",payWithCustodial)
                 payWithCustodial
                   ? custodialWallet()
                   : mint.send([account, [1]], {
-                      value: cartItemData.cartItemData[0].price,
+                      value: cartItemData[0].price,
                       gasPrice: "80000000000",
                       gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
                     });

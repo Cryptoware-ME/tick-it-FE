@@ -4,7 +4,6 @@ import TickitButton from "../tickitButton";
 import PayUsdModal from "../PayUsdModal";
 import PayCrypto from "../PayCryptoModal";
 import { useCartContext } from "../../cart/cart-context";
-import { useEffect } from "react";
 
 
 const CheckOutCard = ({cartItemData}) => {
