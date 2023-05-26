@@ -1,23 +1,26 @@
-
-import React, { useEffect, useState } from 'react'
-import styles from './PayCrypto.module.scss'
-import { Modal, Container, Row, Col } from 'react-bootstrap'
-import Image from 'next/image'
-import Dropdown from 'react-bootstrap/Dropdown'
-import TickitButton from '../tickitButton'
-import { ConnectWalletComponent } from '@cryptogate/react-ui'
-import { useEthereum } from '@cryptogate/react-providers'
-import { writeContractCall } from '@cryptogate/react-providers'
-import NFTix721 from '../../abis/NFTix721.json'
-import { postCustodialMint } from '../../axios/ticket.axios'
+import React, { useEffect, useState } from "react";
+import styles from "./PayCrypto.module.scss";
+import { Modal, Container, Row, Col } from "react-bootstrap";
+import Image from "next/image";
+import Dropdown from "react-bootstrap/Dropdown";
+import TickitButton from "../tickitButton";
+import { ConnectWalletComponent } from "@cryptogate/react-ui";
+import { useEthereum } from "@cryptogate/react-providers";
+import { writeContractCall } from "@cryptogate/react-providers";
+import NFTix721 from "../../abis/NFTix721.json";
+import { postCustodialMint } from "../../axios/ticket.axios";
 import { getEventTicketType } from "../../axios/eventTicketType.axios";
-const PayCrypto = ({ cartItemData, setCryptoModal, cartItemsCount, cartTotal }) => {
-  const { account, errors } = useEthereum()
-  const [state, setState] = useState(1)
+const PayCrypto = ({
+  cartItemData,
+  setCryptoModal,
+  cartItemsCount,
+  cartTotal,
+}) => {
+  const { account, errors } = useEthereum();
+  const [state, setState] = useState(1);
   const [payWithCustodial, setPayWithCustodial] = useState(false);
-    const [eventId, setEventId] = useState();
+  const [eventId, setEventId] = useState();
   const [eventTickets, setEventTickets] = useState();
-
 
   const mint = writeContractCall({
     address: cartItemData.cartItemData[0].event.contractAddress,
@@ -26,12 +29,15 @@ const PayCrypto = ({ cartItemData, setCryptoModal, cartItemsCount, cartTotal }) 
     method: "mint",
   });
 
-
   const custodialWallet = () => {
     console.log(cartItemData);
-    console.log(cartItemsCount)
-    postCustodialMint({eventId: cartItemData[0].eventId, ticketTypeCounts: [1], proof:""})
-  }
+    console.log(cartItemsCount);
+    postCustodialMint({
+      eventId: cartItemData[0].eventId,
+      ticketTypeCounts: [1],
+      proof: "",
+    });
+  };
 
   useEffect(() => {
     console.log("cartItemData: ", cartItemData.cartItemData[0]);
@@ -62,7 +68,6 @@ const PayCrypto = ({ cartItemData, setCryptoModal, cartItemsCount, cartTotal }) 
       setEventId(cartItemData.cartItemData[0].eventId);
     }
   }, [cartItemData]);
-
 
   return (
     <Modal show onHide={() => {}} centered>
@@ -98,7 +103,6 @@ const PayCrypto = ({ cartItemData, setCryptoModal, cartItemsCount, cartTotal }) 
                 <p>Total</p>
 
                 <p>{cartTotal}</p>
-
               </div>
             </div>
             {state == 1 && (
@@ -114,7 +118,9 @@ const PayCrypto = ({ cartItemData, setCryptoModal, cartItemsCount, cartTotal }) 
                       <input
                         className={styles.roundCheckbox}
                         type="checkbox"
-                        onClick={() => {setPayWithCustodial(!payWithCustodial)}}
+                        onClick={() => {
+                          setPayWithCustodial(!payWithCustodial);
+                        }}
                       />
                       <p className={styles.checkboxText}>Tick-It wallet</p>
                     </div>
@@ -262,21 +268,13 @@ const PayCrypto = ({ cartItemData, setCryptoModal, cartItemsCount, cartTotal }) 
               text="Pay"
               disabled={!payWithCustodial && !account}
               onClick={() => {
-
                 payWithCustodial
                   ? custodialWallet()
                   : mint.send([account, [1]], {
-                      value: 100000000000000,
-                      gasPrice: '80000000000',
+                      value: cartItemData.cartItemData[0].price,
+                      gasPrice: "80000000000",
                       gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
-                    })
-
-             //   mint.send([account, [1, 0]], {
-            //      value: cartItemData.cartItemData[0].price,
-              //    gasPrice: "80000000000",
-             //     gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
-           //     });
-
+                    });
               }}
             />
           </div>
