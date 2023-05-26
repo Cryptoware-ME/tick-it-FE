@@ -6,21 +6,20 @@ import PayCrypto from "../PayCryptoModal";
 import { useCartContext } from "../../cart/cart-context";
 import { useEffect } from "react";
 
-const CheckOutCard = (cartItemData) => {
+
+const CheckOutCard = ({cartItemData}) => {
+
+
   const [usdmodal, setUsdModal] = useState(false);
   const [cryptomodal, setCryptoModal] = useState(false);
-  const { cartTotal } = useCartContext();
+  const { cartTotal, cartItems } = useCartContext();
 
   return (
     <>
       {usdmodal && <PayUsdModal setUsdModal={setUsdModal} />}
-      {cryptomodal && (
-        <PayCrypto
-          cartItemData={cartItemData}
-          setCryptoModal={setCryptoModal}
-          total={(cartTotal / 10 ** 18).toFixed(4)}
-        />
-      )}
+
+      {cryptomodal && <PayCrypto setCryptoModal={setCryptoModal} cartItemData={cartItemData} cartItemsCount={cartItems}  total={(cartTotal / 10 ** 18).toFixed(4)}/>}
+
 
       <div style={{ padding: "10px" }}>
         <div className="cardWrapper">
