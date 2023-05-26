@@ -35,9 +35,7 @@ export default function Home() {
                 justifyContent: "space-around",
               }}
             >
-              {allEvents
-                ?.reverse()
-                .slice(0, 4)
+              {allEvents.slice(0, 4)
                 .map((event, index) => (
                   <EventCard key={index} eventData={event} />
                 ))}

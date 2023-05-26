@@ -170,7 +170,18 @@ export default function NavBar() {
                   />
                 </div>
 
-                <Link href="/cart" scroll className={styles.navbarLink}>
+
+                <div
+                  onClick={() => {
+                    if (user) {
+                     router.push("/cart")
+                    } else {
+                      setModalOpen(true);
+                    }
+                  }}
+                  className={styles.navbarLink}
+                >
+
                   <Image
                     style={{ marginRight: "15px" }}
                     width={33}
@@ -178,12 +189,15 @@ export default function NavBar() {
                     alt="icon"
                     src="/images/cartLogo.svg"
                   />
+
                   {totalCartItems ? (
                     <div className={styles.cartCount}>{totalCartItems}</div>
                   ) : (
                     <></>
                   )}
-                </Link>
+
+                </div>
+
 
                 {!user && (
                   <div>

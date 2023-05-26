@@ -7,6 +7,8 @@ import Link from "next/link";
 import TickitTag from "../TickitTag";
 
 const ExploreEvents = ({ events }) => {
+  
+
   return (
     <>
       <p className="section-title">Explore Events</p>
@@ -31,10 +33,8 @@ const ExploreEvents = ({ events }) => {
           justifyContent: "space-around",
         }}
       >
-        {events
-          ?.reverse()
-          .slice(0, 4)
-          .map((event, index) => (
+        {events &&
+          events.map((event, index) => (
             <EventCard eventData={event} key={index} />
           ))}
       </Row>

@@ -28,9 +28,7 @@ export default function Slider({ events }) {
       }}
       speed={1000}
     >
-      {events
-        ?.reverse()
-        .slice(0, 4)
+      {events?.slice(0, 4)
         .map((item, k) => (
           <SwiperSlide
             key={k}

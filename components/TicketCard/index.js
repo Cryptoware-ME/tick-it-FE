@@ -11,7 +11,13 @@ import EditTicket from "../EditTicketModal";
 import { useCartContext } from "../../cart/cart-context";
 import { toast } from "react-toastify";
 
-const TicketCard = ({ ticket, ticketFromContract, isOwner ,handlePause,handleResume }) => {
+const TicketCard = ({
+  ticket,
+  ticketFromContract,
+  isOwner,
+  handlePause,
+  handleResume,
+}) => {
   const [counter, setCounter] = useState(1);
   const [editTicket, setEditTicket] = useState(false);
   const { cartItems, setCartItems } = useCartContext();
@@ -52,7 +58,7 @@ const TicketCard = ({ ticket, ticketFromContract, isOwner ,handlePause,handleRes
 
                 {isOwner && (
                   <div>
-                    {ticket.isSoldout ? (
+                    {ticket.isActive ? (
                       <Image
                         width={26}
                         height={26}
@@ -103,18 +109,30 @@ const TicketCard = ({ ticket, ticketFromContract, isOwner ,handlePause,handleRes
                   {ticket.price / 10 ** 18}
                 </h1>
               </div>
+
               <Row>
                 <Col className={styles.cardCounter}>
-                  <h1 className={styles.cardQuantity}>Enter Quantity</h1>
-                  <div style={{ marginLeft: "8px" }}>
-                    <Counter
-                      counter={counter}
-                      setCounter={(value) => setCounter(counter + value)}
-                    />
-                  </div>
+                  {!ticket.isSoldout && (
+                    <>
+                      <h1 className={styles.cardQuantity}>Enter Quantity</h1>
+                      <div style={{ marginLeft: "8px" }}>
+                        <Counter
+                          counter={counter}
+                          setCounter={(value) => setCounter(counter + value)}
+                        />
+                      </div>
+                    </>
+                  )}
                 </Col>
                 <Col>
-                  <TickitButton text="ADD TO CART" onClick={handleAddToCart} />
+                  {ticket.isSoldout ? (
+                    <TickitButton text="sold out" disabled />
+                  ) : (
+                    <TickitButton
+                      text="ADD TO CART"
+                      onClick={handleAddToCart}
+                    />
+                  )}
                 </Col>
               </Row>
             </div>
