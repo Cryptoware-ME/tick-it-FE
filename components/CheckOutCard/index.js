@@ -18,7 +18,7 @@ const CheckOutCard = (cartItemData) => {
         <PayCrypto
           cartItemData={cartItemData}
           setCryptoModal={setCryptoModal}
-          total={cartTotal / 10 ** 18}
+          total={(cartTotal / 10 ** 18).toFixed(4)}
         />
       )}
 
@@ -45,7 +45,7 @@ const CheckOutCard = (cartItemData) => {
               </div> */}
               <div className={styles.checkOutDetailsTotal}>
                 <p>Total</p>
-                <p>{cartTotal / 10 ** 18} ETH</p>
+                <p>{(cartTotal / 10 ** 18).toFixed(4)} ETH</p>
               </div>
             </div>
             <TickitButton
