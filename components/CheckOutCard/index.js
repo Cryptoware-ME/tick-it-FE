@@ -6,7 +6,10 @@ import PayCrypto from "../PayCryptoModal";
 import { useCartContext } from "../../cart/cart-context";
 import { useEffect } from "react";
 
+
 const CheckOutCard = ({cartItemData}) => {
+
+
   const [usdmodal, setUsdModal] = useState(false);
   const [cryptomodal, setCryptoModal] = useState(false);
   const { cartTotal, cartItems } = useCartContext();
@@ -14,7 +17,9 @@ const CheckOutCard = ({cartItemData}) => {
   return (
     <>
       {usdmodal && <PayUsdModal setUsdModal={setUsdModal} />}
-      {cryptomodal && <PayCrypto setCryptoModal={setCryptoModal} cartItemData={cartItemData} cartItemsCount={cartItems} cartTotal={cartTotal}/>}
+
+      {cryptomodal && <PayCrypto setCryptoModal={setCryptoModal} cartItemData={cartItemData} cartItemsCount={cartItems}  total={(cartTotal / 10 ** 18).toFixed(4)}/>}
+
 
       <div style={{ padding: "10px" }}>
         <div className="cardWrapper">
@@ -29,17 +34,17 @@ const CheckOutCard = ({cartItemData}) => {
               style={{ maxWidth: "90%" }}
             />
             <div className={styles.checkOutDetailsDiv}>
-              <div className={styles.checkOutDetails}>
+              {/* <div className={styles.checkOutDetails}>
                 <p>Discount</p>
                 <p>-10%</p>
               </div>
               <div className={styles.checkOutDetails}>
                 <p>Tax</p>
                 <p>+2%</p>
-              </div>
+              </div> */}
               <div className={styles.checkOutDetailsTotal}>
                 <p>Total</p>
-                <p>{cartTotal}$</p>
+                <p>{(cartTotal / 10 ** 18).toFixed(4)} ETH</p>
               </div>
             </div>
             <TickitButton

@@ -16,11 +16,10 @@ import { Inter } from "@next/font/google";
 import { AuthModalProvider } from "../context/AuthModalProvider";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import "react-toastify/dist/ReactToastify.css";
-
 import { SessionProvider } from "next-auth/react";
-import LoginModal from "../components/LoginModal";
 import { AuthProvider } from "../auth/useAuth";
 import { CartProvider } from "../cart/cart-provider";
+
 const inter = Inter({ subsets: ["latin"] });
 
 function MyApp({ Component, pageProps, session }) {

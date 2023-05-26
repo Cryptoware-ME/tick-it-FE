@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useAuthModalContext } from "../../context/AuthModalProvider";
 import TickitButton from "../tickitButton";
 import Image from "next/image";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { login, signup } from "../../axios/auth.axios";
 import { useAuth } from "../../auth/useAuth";
 import { getUsers } from "../../axios/user.axios";
@@ -18,6 +18,52 @@ const LoginModal = () => {
   const { logIn, user } = useAuth();
   const { modalOpen, setModalOpen } = useAuthModalContext();
   const [loginUser, setLoginUser] = useState("");
+  const { data: session } = useSession();
+  const [userEmail, setUserEmail] = useState();
+  const [googleUser, setGoogleUser] = useState();
+
+  useEffect(() => {
+    if (session?.user) {
+      setUserEmail(session.user.email);
+      setGoogleUser(session.user.name);
+    }
+  }, [session]);
+
+  const handleSignIn = () => {
+    signIn("google");
+  };
+  useEffect(() => {
+    if (userEmail && googleUser) {
+      handleGoogleLogIn();
+    }
+  }, [userEmail && googleUser]);
+
+  const handleGoogleLogIn = async () => {
+    let response = await getUsers(
+      JSON.stringify({ where: { email: userEmail } })
+    );
+    if (response?.data.length > 0) {
+      console.log("hellow")
+      const loginRes = await login({
+        username: userEmail,
+        password: "password123",
+      });
+      logIn(loginRes);
+      if (loginRes) {
+        setModalOpen(false);
+      }
+    } else {
+      console.log("byeeee")
+      const response = await signup({
+        email: userEmail,
+        username: googleUser,
+        password: "password123",
+      });
+      localStorage.setItem("token", "bearer " + response.token);
+      setModalOpen(false);
+    }
+  };
+
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -124,6 +170,7 @@ const LoginModal = () => {
     status,
     setValues,
   } = formik;
+
   return (
     <>
       {modalOpen ? (
@@ -131,7 +178,6 @@ const LoginModal = () => {
           <Modal.Header
             onClick={() => {
               if (!user) {
-                router.push("/");
                 setModalOpen(false);
               } else {
                 setModalOpen(false);
@@ -257,11 +303,12 @@ const LoginModal = () => {
                         password: values.password,
                       });
                       localStorage.setItem("token", "bearer " + response.token);
+                      setModalOpen(false);
                     }}
                   />
                 </div>
                 <div className={styles.googleLoginDiv}>
-                  <div className={styles.googleLogin}>
+                  <div onClick={handleSignIn} className={styles.googleLogin}>
                     <Image
                       width={26}
                       height={26}
@@ -275,7 +322,7 @@ const LoginModal = () => {
                     <p className={styles.signup}>If you have an account,</p>
                     <div
                       onClick={() => {
-                        setFieldValue("isSignup", false);
+                        setFieldValue("isSignup", true);
                       }}
                       className={styles.signuplink}
                     >
@@ -350,12 +397,7 @@ const LoginModal = () => {
                   </div>
 
                   <div className={styles.googleLoginDiv}>
-                    <div
-                      onClick={() => {
-                        signIn("google");
-                      }}
-                      className={styles.googleLogin}
-                    >
+                    <div onClick={handleSignIn} className={styles.googleLogin}>
                       <Image
                         width={26}
                         height={26}

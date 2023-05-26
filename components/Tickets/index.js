@@ -49,14 +49,14 @@ const Tickets = ({ eventId, contractAddress, isOwner }) => {
   const handlePause = async (index) => {
     let tmpEvents = eventTickets;
 
-    tmpEvents[index].isSoldout = true;
+    tmpEvents[index].isActive = true;
     postEventTicketTypeBatch(tmpEvents);
     setEventTickets(tmpEvents);
   };
   const handleResume = async (index) => {
     let tmpEvents = eventTickets;
 
-    tmpEvents[index].isSoldout = false;
+    tmpEvents[index].isActive = false;
     postEventTicketTypeBatch(tmpEvents);
     setEventTickets(tmpEvents);
   };

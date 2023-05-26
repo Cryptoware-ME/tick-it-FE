@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react'
 import styles from './PayCrypto.module.scss'
 import { Modal, Container, Row, Col } from 'react-bootstrap'
@@ -9,18 +10,22 @@ import { useEthereum } from '@cryptogate/react-providers'
 import { writeContractCall } from '@cryptogate/react-providers'
 import NFTix721 from '../../abis/NFTix721.json'
 import { postCustodialMint } from '../../axios/ticket.axios'
-
+import { getEventTicketType } from "../../axios/eventTicketType.axios";
 const PayCrypto = ({ cartItemData, setCryptoModal, cartItemsCount, cartTotal }) => {
   const { account, errors } = useEthereum()
   const [state, setState] = useState(1)
   const [payWithCustodial, setPayWithCustodial] = useState(false);
+    const [eventId, setEventId] = useState();
+  const [eventTickets, setEventTickets] = useState();
+
 
   const mint = writeContractCall({
-    address: '0x758E5E99bFa5Fc2191F0382A2BcCaE3DD02A2F28',
+    address: cartItemData.cartItemData[0].event.contractAddress,
     abi: NFTix721.abi,
     // contract: "NFTix721",
-    method: 'mint',
-  })
+    method: "mint",
+  });
+
 
   const custodialWallet = () => {
     console.log(cartItemData);
@@ -28,11 +33,42 @@ const PayCrypto = ({ cartItemData, setCryptoModal, cartItemsCount, cartTotal }) 
     postCustodialMint({eventId: cartItemData[0].eventId, ticketTypeCounts: [1], proof:""})
   }
 
+  useEffect(() => {
+    console.log("cartItemData: ", cartItemData.cartItemData[0]);
+  }, [cartItemData]);
+
+  const getTickets = async () => {
+    getEventTicketType(
+      JSON.stringify({
+        where: { eventId: eventId },
+      })
+    ).then((data) => {
+      setEventTickets(data.data);
+    });
+  };
+
+  useEffect(() => {
+    if (eventId) {
+      getTickets();
+    }
+  }, [eventId]);
+  useEffect(() => {
+    if (eventTickets) {
+      console.log("eventTickets: ", eventTickets);
+    }
+  }, [eventTickets]);
+  useEffect(() => {
+    if (cartItemData) {
+      setEventId(cartItemData.cartItemData[0].eventId);
+    }
+  }, [cartItemData]);
+
+
   return (
     <Modal show onHide={() => {}} centered>
       <Modal.Header
         onClick={() => {
-          setCryptoModal(false)
+          setCryptoModal(false);
         }}
         className={styles.closeButton}
         closeButton
@@ -44,33 +80,35 @@ const PayCrypto = ({ cartItemData, setCryptoModal, cartItemsCount, cartTotal }) 
         <Container fluid>
           <div
             style={{
-              justifyContent: 'center',
-              display: 'flex',
-              flexDirection: 'column',
+              justifyContent: "center",
+              display: "flex",
+              flexDirection: "column",
             }}
           >
             <div className={styles.checkOutDetailsDiv}>
-              <div className={styles.checkOutDetails}>
+              {/* <div className={styles.checkOutDetails}>
                 <p>Discount</p>
                 <p>-10%</p>
               </div>
               <div className={styles.checkOutDetails}>
                 <p>Tax</p>
                 <p>+2%</p>
-              </div>
+              </div> */}
               <div className={styles.checkOutDetailsTotal}>
                 <p>Total</p>
+
                 <p>{cartTotal}</p>
+
               </div>
             </div>
             {state == 1 && (
               <Row className={styles.box}>
-                <div style={{ width: '80%', display: 'flex' }}>
+                <div style={{ width: "80%", display: "flex" }}>
                   <Col>
                     <div
                       style={{
-                        display: 'flex',
-                        alignItems: 'center',
+                        display: "flex",
+                        alignItems: "center",
                       }}
                     >
                       <input
@@ -84,15 +122,15 @@ const PayCrypto = ({ cartItemData, setCryptoModal, cartItemsCount, cartTotal }) 
                   <Col>
                     <div
                       style={{
-                        display: 'flex',
-                        alignItems: 'center',
+                        display: "flex",
+                        alignItems: "center",
                       }}
                     >
                       <input
                         className={styles.roundCheckbox}
                         type="checkbox"
                         onClick={() => {
-                          setState(2)
+                          setState(2);
                         }}
                       />
                       <p className={styles.checkboxText}>Connect wallet</p>
@@ -103,12 +141,12 @@ const PayCrypto = ({ cartItemData, setCryptoModal, cartItemsCount, cartTotal }) 
             )}
             {state == 3 && (
               <Row className={styles.box}>
-                <div style={{ width: '80%', display: 'flex' }}>
+                <div style={{ width: "80%", display: "flex" }}>
                   <Col>
                     <div
                       style={{
-                        display: 'flex',
-                        alignItems: 'center',
+                        display: "flex",
+                        alignItems: "center",
                       }}
                     >
                       <input
@@ -122,8 +160,8 @@ const PayCrypto = ({ cartItemData, setCryptoModal, cartItemsCount, cartTotal }) 
                   <Col>
                     <div
                       style={{
-                        display: 'flex',
-                        alignItems: 'center',
+                        display: "flex",
+                        alignItems: "center",
                       }}
                     >
                       <input
@@ -137,13 +175,13 @@ const PayCrypto = ({ cartItemData, setCryptoModal, cartItemsCount, cartTotal }) 
                 </div>
                 <div
                   style={{
-                    marginTop: '16px',
+                    marginTop: "16px",
                   }}
                 >
                   <div
                     style={{
-                      display: 'flex',
-                      marginBottom: '8px',
+                      display: "flex",
+                      marginBottom: "8px",
                     }}
                   >
                     <p className={styles.walletConnected}>Wallet connected: </p>
@@ -153,7 +191,7 @@ const PayCrypto = ({ cartItemData, setCryptoModal, cartItemsCount, cartTotal }) 
                       alt="icon"
                       src="/images/icon6.svg"
                       style={{
-                        marginLeft: '8px',
+                        marginLeft: "8px",
                       }}
                     />
                   </div>
@@ -167,14 +205,15 @@ const PayCrypto = ({ cartItemData, setCryptoModal, cartItemsCount, cartTotal }) 
             {state == 2 && (
               <div
                 style={{
-                  justifyContent: 'center',
-                  display: 'flex',
+                  justifyContent: "center",
+                  display: "flex",
                 }}
               >
                 <ConnectWalletComponent
                   ActiveComponent={
                     <TickitButton style2 text="Connect wallet" />
                   }
+                  // ConnectedComponent={<></>}
                 />
               </div>
             )}
@@ -184,12 +223,13 @@ const PayCrypto = ({ cartItemData, setCryptoModal, cartItemsCount, cartTotal }) 
                 <p className={styles.paymentTitle}>Choose paymnet method</p>
               </div>
               <div>
-                <Dropdown>
+                <input className="modalInput" value={"ETH"} />
+                {/* <Dropdown>
                   <Dropdown.Toggle
                     className="modalInput"
                     style={{
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
+                      justifyContent: "space-between",
+                      alignItems: "center",
                     }}
                     variant="success"
                     id="dropdown-basic"
@@ -202,9 +242,9 @@ const PayCrypto = ({ cartItemData, setCryptoModal, cartItemsCount, cartTotal }) 
                       USDT
                     </Dropdown.Item>
                   </Dropdown.Menu>
-                </Dropdown>
+                </Dropdown> */}
               </div>
-              <p className={styles.walletBallance}>Wallet ballance: 0 USDC</p>
+              <p className={styles.walletBallance}>Wallet ballance: 0 ETH</p>
               <div>
                 {state == 1 && (
                   <p className={styles.info}>
@@ -222,6 +262,7 @@ const PayCrypto = ({ cartItemData, setCryptoModal, cartItemsCount, cartTotal }) 
               text="Pay"
               disabled={!payWithCustodial && !account}
               onClick={() => {
+
                 payWithCustodial
                   ? custodialWallet()
                   : mint.send([account, [1]], {
@@ -229,12 +270,19 @@ const PayCrypto = ({ cartItemData, setCryptoModal, cartItemsCount, cartTotal }) 
                       gasPrice: '80000000000',
                       gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
                     })
+
+             //   mint.send([account, [1, 0]], {
+            //      value: cartItemData.cartItemData[0].price,
+              //    gasPrice: "80000000000",
+             //     gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
+           //     });
+
               }}
             />
           </div>
         </Container>
       </Modal.Body>
     </Modal>
-  )
-}
-export default PayCrypto
+  );
+};
+export default PayCrypto;
