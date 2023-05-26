@@ -27,6 +27,7 @@
   font-size: 16px;
   text-decoration: none;
   transition: ease-in-out 0.4s;
+  position: relative;
 }
 .navbarLink:hover {
   color: var(--primary);
@@ -58,4 +59,20 @@
 }
 .userDetails:hover {
   background-color: var(--primary);
+}
+
+.cartCount {
+  background-color: var(--primary);
+  border-radius: 50%;
+  width: 0.8vw;
+  height: 0.8vw;
+  font-size: 12px;
+  text-align: center;
+  position: absolute;
+  right: 25%;
+  bottom: 0;
+
+  &:hover {
+    color: var(--white);
+  }
 }
