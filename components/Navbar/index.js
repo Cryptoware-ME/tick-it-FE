@@ -219,7 +219,7 @@ export default function NavBar() {
                     {/* <Image
                     width={35}
                     height={35}
-                    alt="icon"
+                    alt="icons"
                     src="/images/user.png"
                   /> */}
                     {user.user
