@@ -31,7 +31,6 @@ const Edit = ({ data, setAddTickets, categoryId }) => {
   const router = useRouter();
   const [addticket, setAddTicket] = useState(false);
   const [organization, setOrganization] = useState("");
-
   const { createEvent } = useLaunchpad();
 
   const handleLaunch = async () => {
@@ -42,10 +41,7 @@ const Edit = ({ data, setAddTickets, categoryId }) => {
         "",
         ticketPrices,
         ticketSupply,
-        [
-          "0xdBeF99c50CE30Ac21b71FAE4A0691b95E0e6E41B",
-          "0xb2EE260a1347487D156Ede50a788D00695b7C1c2",
-        ],
+        [process.env.NEXT_PUBLIC_ADMIN_ADDRESS, account],
         [10, 90],
         10,
         "0x815ae514cff4150ec895809ae516283047f6dff8e679158b151a8495f70fc929",
