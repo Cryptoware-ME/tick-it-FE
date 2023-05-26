@@ -31,9 +31,7 @@ const ExploreEvents = ({ events }) => {
           justifyContent: "space-around",
         }}
       >
-        {events
-          ?.reverse()
-          .slice(0, 4)
+        {events?.slice(0, 4)
           .map((event, index) => (
             <EventCard eventData={event} key={index} />
           ))}
