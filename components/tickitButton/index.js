@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./TickitButton.module.scss";
+import styles from "./tickit-button.module.scss";
 import Image from "next/image";
 const TickitButton = ({
   text,
