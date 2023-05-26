@@ -26,21 +26,14 @@ const AddExtraTicket = ({ setAddTicket, setTickets, tickets, contractAddress }) 
   const addExtraTicket = () => {
     let ticketSupply = 0;
     for(let i = 0; i < tickets.length; i++){
-      console.log("Tickets Already found", tickets[0].supply);
-      console.log("To see if the for loop workd ", ticketSupply + tickets[0].supply)
-      console.log("Values from form: ", values.supply)
       ticketSupply = ticketSupply + tickets[0].supply;
-      console.log("Added values: ", values.supply+ticketSupply);
     }
-    console.log(1111111111111)
-    console.log(values.supply+ticketSupply, values.price);
 
     addTicketTypes.send([[values.supply+ticketSupply], [values.price]], {
       gasPrice: "80000000000",
       gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
     })
 
-    console.log(444444444444)
 
     // setAddTicket(false);
 
@@ -82,8 +75,6 @@ const AddExtraTicket = ({ setAddTicket, setTickets, tickets, contractAddress }) 
         if (found) {
           setNameError(true);
         } else {
-          console.log(values.supply, "Supply submitted from form");
-          console.log(values.price, "Price submitted from form")
           setNameError(false);
           addExtraTicket();
         }

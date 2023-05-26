@@ -43,7 +43,6 @@ const LoginModal = () => {
       JSON.stringify({ where: { email: userEmail } })
     );
     if (response?.data.length > 0) {
-      console.log("hellow")
       const loginRes = await login({
         username: userEmail,
         password: "password123",
@@ -53,7 +52,6 @@ const LoginModal = () => {
         setModalOpen(false);
       }
     } else {
-      console.log("byeeee")
       const response = await signup({
         email: userEmail,
         username: googleUser,

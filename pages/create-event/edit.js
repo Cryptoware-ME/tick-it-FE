@@ -35,7 +35,6 @@ const Edit = ({ data, setAddTickets, categoryId }) => {
   const { createEvent } = useLaunchpad();
 
   const handleLaunch = async () => {
-    console.log(eventData?.name, eventData?.symbol, ticketPrices, ticketSupply)
     createEvent.send(
       [
         eventData?.name,

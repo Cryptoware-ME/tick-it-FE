@@ -16,7 +16,6 @@ const PayCrypto = ({
   cartItemsCount,
   cartTotal,
 }) => {
-  console.log("cartItemData:",cartItemData)
   const { account, errors } = useEthereum();
   const [state, setState] = useState(1);
   const [payWithCustodial, setPayWithCustodial] = useState(false);
@@ -31,8 +30,6 @@ const PayCrypto = ({
   });
 
   const custodialWallet = () => {
-    console.log(cartItemData);
-    console.log(cartItemsCount);
     postCustodialMint({
       eventId: cartItemData[0].eventId,
       ticketTypeCounts: [1],
@@ -59,7 +56,6 @@ const PayCrypto = ({
   }, [eventId]);
   useEffect(() => {
     if (eventTickets) {
-      console.log("eventTickets: ", eventTickets);
     }
   }, [eventTickets]);
   useEffect(() => {
@@ -268,7 +264,6 @@ const PayCrypto = ({
               disabled={!payWithCustodial && !account}
               onClick={() => {
 
-                console.log("payWithCustodial",payWithCustodial)
                 payWithCustodial
                   ? custodialWallet()
                   : mint.send([account, [1]], {
