@@ -13,12 +13,15 @@ import { useAuth } from "../../auth/useAuth";
 import { useRouter } from "next/router";
 import { getOrganization } from "../../axios/organization.axios";
 import { ConnectWalletComponent } from "@cryptogate/react-ui";
+import { useCartContext } from "../../cart/cart-context";
 
 export default function NavBar() {
   const { setModalOpen } = useAuthModalContext();
+  const { cartItems } = useCartContext();
   const { logOut, user } = useAuth();
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [added, setAdded] = useState(false);
+  const [totalCartItems, setTotalCartItems] = useState(0);
   const router = useRouter();
   const handleRouting = async () => {
     if (user) {
@@ -62,6 +65,14 @@ export default function NavBar() {
       }, 3000);
     }
   }, [added]);
+
+  useEffect(() => {
+    setTotalCartItems(
+      cartItems.reduce((count, item) => {
+        return count + item.quantity;
+      }, 0)
+    );
+  }, [cartItems]);
   return (
     <>
       <LoginModal />
@@ -159,6 +170,7 @@ export default function NavBar() {
                   />
                 </div>
 
+
                 <div
                   onClick={() => {
                     if (user) {
@@ -169,6 +181,7 @@ export default function NavBar() {
                   }}
                   className={styles.navbarLink}
                 >
+
                   <Image
                     style={{ marginRight: "15px" }}
                     width={33}
@@ -176,7 +189,15 @@ export default function NavBar() {
                     alt="icon"
                     src="/images/cartLogo.svg"
                   />
+
+                  {totalCartItems ? (
+                    <div className={styles.cartCount}>{totalCartItems}</div>
+                  ) : (
+                    <></>
+                  )}
+
                 </div>
+
 
                 {!user && (
                   <div>
