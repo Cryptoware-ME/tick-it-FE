@@ -8,24 +8,36 @@ import { ConnectWalletComponent } from "@cryptogate/react-ui";
 import { useEthereum } from "@cryptogate/react-providers";
 import { writeContractCall } from "@cryptogate/react-providers";
 import NFTix721 from "../../abis/NFTix721.json";
+import { postCustodialMint } from "../../axios/ticket.axios";
 import { getEventTicketType } from "../../axios/eventTicketType.axios";
-
-const PayCrypto = ({ setCryptoModal, cartItemData, total }) => {
+const PayCrypto = ({
+  cartItemData,
+  setCryptoModal,
+  cartItemsCount,
+  cartTotal,
+}) => {
   const { account, errors } = useEthereum();
   const [state, setState] = useState(1);
+  const [payWithCustodial, setPayWithCustodial] = useState(false);
   const [eventId, setEventId] = useState();
   const [eventTickets, setEventTickets] = useState();
 
   const mint = writeContractCall({
-    address: cartItemData.cartItemData[0].event.contractAddress,
+    address: cartItemData[0]?.event.contractAddress,
     abi: NFTix721.abi,
     // contract: "NFTix721",
     method: "mint",
   });
 
-  useEffect(() => {
-    console.log("cartItemData: ", cartItemData.cartItemData[0]);
-  }, [cartItemData]);
+  const custodialWallet = () => {
+    postCustodialMint({
+      eventId: cartItemData[0].eventId,
+      ticketTypeCounts: [1],
+      proof: "",
+    });
+  };
+
+  
 
   const getTickets = async () => {
     getEventTicketType(
@@ -44,12 +56,11 @@ const PayCrypto = ({ setCryptoModal, cartItemData, total }) => {
   }, [eventId]);
   useEffect(() => {
     if (eventTickets) {
-      console.log("eventTickets: ", eventTickets);
     }
   }, [eventTickets]);
   useEffect(() => {
     if (cartItemData) {
-      setEventId(cartItemData.cartItemData[0].eventId);
+      setEventId(cartItemData[0].eventId);
     }
   }, [cartItemData]);
 
@@ -85,7 +96,8 @@ const PayCrypto = ({ setCryptoModal, cartItemData, total }) => {
               </div> */}
               <div className={styles.checkOutDetailsTotal}>
                 <p>Total</p>
-                <p>{total} ETH</p>
+
+                <p>{cartTotal}</p>
               </div>
             </div>
             {state == 1 && (
@@ -101,7 +113,9 @@ const PayCrypto = ({ setCryptoModal, cartItemData, total }) => {
                       <input
                         className={styles.roundCheckbox}
                         type="checkbox"
-                        onClick="myFunction()"
+                        onClick={() => {
+                          setPayWithCustodial(!payWithCustodial);
+                        }}
                       />
                       <p className={styles.checkboxText}>Tick-It wallet</p>
                     </div>
@@ -235,7 +249,7 @@ const PayCrypto = ({ setCryptoModal, cartItemData, total }) => {
               <div>
                 {state == 1 && (
                   <p className={styles.info}>
-                    *Not enough funds in wallet. Please send 82 USDC to
+                    *Not enough funds in wallet. Please send {cartTotal} eth to
                     0x6802707eE12CE3d91CA4294740dcFa1CAf931B4f on Polygon
                     network
                   </p>
@@ -247,13 +261,16 @@ const PayCrypto = ({ setCryptoModal, cartItemData, total }) => {
               minWidth="100%"
               style1
               text="Pay"
-              disabled={!account}
+              disabled={!payWithCustodial && !account}
               onClick={() => {
-                mint.send([account, [1, 0]], {
-                  value: cartItemData.cartItemData[0].price,
-                  gasPrice: "80000000000",
-                  gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
-                });
+
+                payWithCustodial
+                  ? custodialWallet()
+                  : mint.send([account, [1]], {
+                      value: cartItemData[0].price,
+                      gasPrice: "80000000000",
+                      gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
+                    });
               }}
             />
           </div>

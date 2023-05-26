@@ -4,23 +4,21 @@ import TickitButton from "../tickitButton";
 import PayUsdModal from "../PayUsdModal";
 import PayCrypto from "../PayCryptoModal";
 import { useCartContext } from "../../cart/cart-context";
-import { useEffect } from "react";
 
-const CheckOutCard = (cartItemData) => {
+
+const CheckOutCard = ({cartItemData}) => {
+
+
   const [usdmodal, setUsdModal] = useState(false);
   const [cryptomodal, setCryptoModal] = useState(false);
-  const { cartTotal } = useCartContext();
+  const { cartTotal, cartItems } = useCartContext();
 
   return (
     <>
       {usdmodal && <PayUsdModal setUsdModal={setUsdModal} />}
-      {cryptomodal && (
-        <PayCrypto
-          cartItemData={cartItemData}
-          setCryptoModal={setCryptoModal}
-          total={cartTotal / 10 ** 18}
-        />
-      )}
+
+      {cryptomodal && <PayCrypto setCryptoModal={setCryptoModal} cartItemData={cartItemData} cartItemsCount={cartItems}  total={(cartTotal / 10 ** 18).toFixed(4)}/>}
+
 
       <div style={{ padding: "10px" }}>
         <div className="cardWrapper">
@@ -45,7 +43,7 @@ const CheckOutCard = (cartItemData) => {
               </div> */}
               <div className={styles.checkOutDetailsTotal}>
                 <p>Total</p>
-                <p>{cartTotal / 10 ** 18} ETH</p>
+                <p>{(cartTotal / 10 ** 18).toFixed(4)} ETH</p>
               </div>
             </div>
             <TickitButton

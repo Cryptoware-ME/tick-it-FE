@@ -8,7 +8,7 @@ import "swiper/scss";
 import "swiper/scss/navigation";
 import "swiper/scss/pagination";
 import "swiper/scss/scrollbar";
-import "swiper/css/effect-fade";
+import "swiper/scss/effect-fade";
 import { useRouter } from "next/router";
 export default function Slider({ events }) {
   const router = useRouter();

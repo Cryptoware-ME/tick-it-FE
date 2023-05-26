@@ -106,7 +106,7 @@ const TicketCard = ({
               >
                 <h1 className={styles.priceCurrency}>ETH </h1>
                 <h1 style={{ marginLeft: "5px" }} className={styles.cardPrice}>
-                  {ticket.price / 10 ** 18}
+                  {(ticket.price / 10 ** 18).toFixed(4)}
                 </h1>
               </div>
 
