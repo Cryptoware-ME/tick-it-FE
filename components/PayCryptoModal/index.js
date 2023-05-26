@@ -8,10 +8,12 @@ import { ConnectWalletComponent } from '@cryptogate/react-ui'
 import { useEthereum } from '@cryptogate/react-providers'
 import { writeContractCall } from '@cryptogate/react-providers'
 import NFTix721 from '../../abis/NFTix721.json'
+import { postCustodialMint } from '../../axios/ticket.axios'
 
-const PayCrypto = ({ setCryptoModal }) => {
+const PayCrypto = ({ cartItemData, setCryptoModal, cartItemsCount, cartTotal }) => {
   const { account, errors } = useEthereum()
   const [state, setState] = useState(1)
+  const [payWithCustodial, setPayWithCustodial] = useState(false);
 
   const mint = writeContractCall({
     address: '0x758E5E99bFa5Fc2191F0382A2BcCaE3DD02A2F28',
@@ -20,7 +22,11 @@ const PayCrypto = ({ setCryptoModal }) => {
     method: 'mint',
   })
 
-
+  const custodialWallet = () => {
+    console.log(cartItemData);
+    console.log(cartItemsCount)
+    postCustodialMint({eventId: cartItemData[0].eventId, ticketTypeCounts: [1], proof:""})
+  }
 
   return (
     <Modal show onHide={() => {}} centered>
@@ -54,7 +60,7 @@ const PayCrypto = ({ setCryptoModal }) => {
               </div>
               <div className={styles.checkOutDetailsTotal}>
                 <p>Total</p>
-                <p>82$</p>
+                <p>{cartTotal}</p>
               </div>
             </div>
             {state == 1 && (
@@ -70,7 +76,7 @@ const PayCrypto = ({ setCryptoModal }) => {
                       <input
                         className={styles.roundCheckbox}
                         type="checkbox"
-                        onClick="myFunction()"
+                        onClick={() => {setPayWithCustodial(!payWithCustodial)}}
                       />
                       <p className={styles.checkboxText}>Tick-It wallet</p>
                     </div>
@@ -202,7 +208,7 @@ const PayCrypto = ({ setCryptoModal }) => {
               <div>
                 {state == 1 && (
                   <p className={styles.info}>
-                    *Not enough funds in wallet. Please send 82 USDC to
+                    *Not enough funds in wallet. Please send {cartTotal} eth to
                     0x6802707eE12CE3d91CA4294740dcFa1CAf931B4f on Polygon
                     network
                   </p>
@@ -214,14 +220,15 @@ const PayCrypto = ({ setCryptoModal }) => {
               minWidth="100%"
               style1
               text="Pay"
-              disabled={!account}
+              disabled={!payWithCustodial && !account}
               onClick={() => {
-              
-                mint.send([account, [1]], {
-                  value: 100000000000000,
-                  gasPrice: "80000000000",
-                  gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
-                })
+                payWithCustodial
+                  ? custodialWallet()
+                  : mint.send([account, [1]], {
+                      value: 100000000000000,
+                      gasPrice: '80000000000',
+                      gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
+                    })
               }}
             />
           </div>

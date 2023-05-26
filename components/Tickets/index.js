@@ -3,7 +3,7 @@ import styles from "./Tickets.module.scss";
 import { Row, Col } from "react-bootstrap";
 import TicketCard from "../TicketCard";
 import TickitButton from "../tickitButton";
-import AddTicket from "../AddTicketModal";
+import AddExtraTicket from "../AddExtraTicketModal";
 import { getEventTicketType } from "../../axios/eventTicketType.axios";
 import {
   readContractCall,

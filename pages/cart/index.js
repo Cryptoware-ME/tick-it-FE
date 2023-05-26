@@ -55,8 +55,9 @@ const Cart = () => {
               />
             ))}
           </Col>
+          {console.log(cartItemsData)}
           <Col lg={4}>
-            <CheckOutCard />
+            <CheckOutCard cartItemData={cartItemsData}/>
           </Col>
         </Row>
       </Container>
