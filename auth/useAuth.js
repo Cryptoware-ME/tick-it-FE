@@ -30,8 +30,7 @@ export const AuthProvider = ({ children }) => {
 export const useAuth = () => {
   const { user, setUser } = useContext(AuthContext);
 
-  useEffect(() => {
-  }, [user]);
+  useEffect(() => {}, [user]);
 
   const logIn = (user) => {
     setUser(user);

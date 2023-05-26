@@ -300,8 +300,10 @@ const LoginModal = () => {
                         username: values.username,
                         password: values.password,
                       });
-                      localStorage.setItem("token", "bearer " + response.token);
-                      setModalOpen(false);
+                      logIn(response);
+                      if (response) {
+                        setModalOpen(false);
+                      }
                     }}
                   />
                 </div>
