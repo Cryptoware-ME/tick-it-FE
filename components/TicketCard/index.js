@@ -58,7 +58,7 @@ const TicketCard = ({
 
                 {isOwner && (
                   <div>
-                    {ticket.isActive ? (
+                    {!ticket.isActive ? (
                       <Image
                         width={26}
                         height={26}

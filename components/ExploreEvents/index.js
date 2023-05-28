@@ -38,15 +38,17 @@ const ExploreEvents = ({ events }) => {
             <EventCard eventData={event} key={index} />
           ))}
       </Row>
-      <Row
+      <div
         style={{
           paddingTop: "65px",
+          display:"flex",
+          justifyContent:"center"
         }}
       >
         <Link href="/explore" className={styles.exploreMoreButton}>
-          <TickitButton text="Explore More" />
+          <TickitButton  text="Explore More" />
         </Link>
-      </Row>
+      </div>
     </>
   );
 };

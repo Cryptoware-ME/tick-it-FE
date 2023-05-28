@@ -11,10 +11,8 @@ import { signIn, useSession } from "next-auth/react";
 import { login, signup } from "../../axios/auth.axios";
 import { useAuth } from "../../auth/useAuth";
 import { getUsers } from "../../axios/user.axios";
-import { useRouter } from "next/router";
 
 const LoginModal = () => {
-  const router = useRouter();
   const { logIn, user } = useAuth();
   const { modalOpen, setModalOpen } = useAuthModalContext();
   const [loginUser, setLoginUser] = useState("");
@@ -322,7 +320,7 @@ const LoginModal = () => {
                     <p className={styles.signup}>If you have an account,</p>
                     <div
                       onClick={() => {
-                        setFieldValue("isSignup", true);
+                        setFieldValue("isSignup", false);
                       }}
                       className={styles.signuplink}
                     >

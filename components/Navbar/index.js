@@ -7,7 +7,6 @@ import { useAuthModalContext } from "../../context/AuthModalProvider";
 import TickitButton from "../../components/tickitButton";
 import UserDropdown from "../UserDropdown";
 import AddedToCartAlert from "../AddedToCartAlert";
-import { toast } from "react-toastify";
 import LoginModal from "../LoginModal";
 import { useAuth } from "../../auth/useAuth";
 import { useRouter } from "next/router";
@@ -109,6 +108,7 @@ export default function NavBar() {
                 src="/images/logo.svg"
               />
             </Navbar.Brand>
+           
           </Link>
           <div className={styles.mobileLinks}>
             <Image
