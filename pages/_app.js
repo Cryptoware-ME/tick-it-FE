@@ -19,12 +19,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { SessionProvider } from "next-auth/react";
 import { AuthProvider } from "../auth/useAuth";
 import { CartProvider } from "../cart/cart-provider";
-
+import { GoogleOAuthProvider } from '@react-oauth/google';
 const inter = Inter({ subsets: ["latin"] });
 
 function MyApp({ Component, pageProps, session }) {
   return (
     <div className={inter.className}>
+       <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
       <MultiChainProvider config={config}>
         <SessionProvider session={session}>
           <AuthProvider>
@@ -40,6 +41,7 @@ function MyApp({ Component, pageProps, session }) {
           </AuthProvider>
         </SessionProvider>
       </MultiChainProvider>
+      </GoogleOAuthProvider>
     </div>
   );
 }
