@@ -220,3 +220,11 @@ html {
 .Dropzone_uploadEvent___sxse {
   transform: none !important;
 }
+.sidebarbtn {
+  @media (min-width: 991px) {
+    display: none;
+  }
+}
+.sidebar-col {
+  padding: 0 !important;
+}

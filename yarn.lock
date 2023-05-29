@@ -204,10 +204,10 @@
     "@solana/web3.js" "^1.39.1"
     tweetnacl "^1.0.3"
 
-"@cryptogate/react-providers@^2.0.14":
-  version "2.0.14"
-  resolved "https://registry.yarnpkg.com/@cryptogate/react-providers/-/react-providers-2.0.14.tgz#b08a93fb759a500c292b3fd1bfae007d9407d91e"
-  integrity sha512-KDeANmSyXCr1Ux9EoP4bHapnMqH7H+lDZps3LkOEHqYp63RkH9J7m2WmZMHEn0ffxaP6HC5utcgk1OXMQ0HYYQ==
+"@cryptogate/react-providers@^2.0.18":
+  version "2.0.18"
+  resolved "https://registry.yarnpkg.com/@cryptogate/react-providers/-/react-providers-2.0.18.tgz#00bd4a837bff2bcd675fb7e7860b7adcf45881d2"
+  integrity sha512-EiJaVUZGpbH7y798InDf3diq5NazNy2rendbM/ig+RH+iPUoJoeX570pGIVgZuroQtQyHqnk85LMMGPSeOKDkQ==
   dependencies:
     "@coinbase/wallet-sdk" "^3.5.3"
     "@metaplex-foundation/js" "^0.18.1"
@@ -220,13 +220,13 @@
     "@walletconnect/web3-provider" "^1.8.0"
     ethers "^5.7.1"
 
-"@cryptogate/react-ui@^2.0.54":
-  version "2.0.54"
-  resolved "https://registry.yarnpkg.com/@cryptogate/react-ui/-/react-ui-2.0.54.tgz#01782c8129c997d9db0b6476c7d0d828690cc34b"
-  integrity sha512-77TUobPKIVJPBCtfsdQTs669cgWjHVAcgwQnozjIPu5gjAf71smop4Jo/X1tKrdakAq63qh/Ab6OOXyVdqabRQ==
+"@cryptogate/react-ui@^2.0.62":
+  version "2.0.62"
+  resolved "https://registry.yarnpkg.com/@cryptogate/react-ui/-/react-ui-2.0.62.tgz#a5f146aaea11ddd18755a18432577914dd9e973a"
+  integrity sha512-C/pIw75CkVLT/ZWRJgOhrZU+j7aRy9KOkzrdz/Ubpah0zVPas6FtJIzlNc9LZP8JZrzexvFilmOfsowkpzw+2Q==
   dependencies:
     "@cryptogate/core" "*"
-    "@cryptogate/react-providers" "^2.0.14"
+    "@cryptogate/react-providers" "^2.0.18"
     bignumber.js "*"
     react-device-detect "^2.2.2"
     react-jazzicon "^1.0.3"
@@ -6491,10 +6491,10 @@ near-seed-phrase@^0.2.0:
     near-hd-key "^1.2.1"
     tweetnacl "^1.0.2"
 
-next-auth@^4.22.0:
-  version "4.22.0"
-  resolved "https://registry.yarnpkg.com/next-auth/-/next-auth-4.22.0.tgz#325982b8efaaa55f505ee104a382c3118fec9d96"
-  integrity sha512-08+kjnDoE7aQ52O996x6cwA3ffc2CbHIkrCgLYhbE+aDIJBKI0oA9UbIEIe19/+ODYJgpAHHOtJx4izmsgaVag==
+next-auth@^4.22.1:
+  version "4.22.1"
+  resolved "https://registry.yarnpkg.com/next-auth/-/next-auth-4.22.1.tgz#1ea5084e38867966dc6492a71c6729c8f5cfa96b"
+  integrity sha512-NTR3f6W7/AWXKw8GSsgSyQcDW6jkslZLH8AiZa5PQ09w1kR8uHtR9rez/E9gAq/o17+p0JYHE8QjF3RoniiObA==
   dependencies:
     "@babel/runtime" "^7.20.13"
     "@panva/hkdf" "^1.0.2"

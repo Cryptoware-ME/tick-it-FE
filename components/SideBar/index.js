@@ -22,10 +22,10 @@ export default function SideBar() {
     <div className={styles.sideBar}>
       <Sidebar
         breakPoint="lg"
-        backgroundColor
+        backgroundColor={width > 991 ? "transparent" : "var(--background)"}
         width={width > 991 ? "100%" : "80%"}
       >
-        <Menu>
+        <Menu className={styles.sidebarMenu}>
           <div className={styles.sideBarInputDiv}>
             <Image
               width={18}
@@ -229,6 +229,21 @@ export default function SideBar() {
           </div>
         </Menu>
       </Sidebar>
+      <main style={{ display: "flex", padding: 10 }}>
+        <div
+          onClick={() => {
+            toggleSidebar();
+          }}
+          className={`d-lg-none mx-auto mb-2`}
+        >
+          <Image
+            alt="openmodal"
+            src="/images/rightarrow.png"
+            width="40"
+            height="30"
+          />
+        </div>
+      </main>
     </div>
   );
 }

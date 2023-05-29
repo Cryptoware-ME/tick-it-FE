@@ -68,7 +68,7 @@ const PayCrypto = ({
         onClick={() => {
           setCryptoModal(false)
         }}
-        className={styles.closeButton}
+        className={styles.modalContainer}
         closeButton
       />
       <div className={styles.payTitle}>

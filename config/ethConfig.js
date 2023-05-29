@@ -3,7 +3,10 @@ import NFTix721 from "../abis/NFTix721.json";
 import NFTixLaunchpad from "../abis/NFTixLaunchpad.json";
 const ethConfig = {
   defaultNetwork: getChainById(ChainId.Sepolia),
-  allowedNetworks: [getChainById(ChainId.Sepolia), getChainById(ChainId.Apothem)],
+  allowedNetworks: [
+    getChainById(ChainId.Sepolia),
+    getChainById(ChainId.Apothem),
+  ],
   contractList: [
     {
       name: "NFTix721",
@@ -12,7 +15,7 @@ const ethConfig = {
         [ChainId.Sepolia]:
           process.env.NEXT_PUBLIC_SEPOLIA_NFTIX721_CONTRACT_ADDRESS,
         [ChainId.Apothem]:
-          process.env.NEXT_PUBLIC_APOTHEM_NFTIX721_CONTRACT_ADDRESS
+          process.env.NEXT_PUBLIC_APOTHEM_NFTIX721_CONTRACT_ADDRESS,
       },
     },
     {
@@ -30,6 +33,11 @@ const ethConfig = {
     [ChainId.Sepolia]: `https://sepolia.infura.io/v3/98d5cf1c763f4224afa492b70366effa`,
     [ChainId.Apothem]: `https://erpc.apothem.network`,
   },
-  wallets: EvmWallets.ALL,
+  wallets: [
+    EvmWallets.METAMASK,
+    EvmWallets.BRAVEWALLET,
+    EvmWallets.WALLETCONNECT,
+    EvmWallets.COINBASE,
+  ],
 };
 export default ethConfig;

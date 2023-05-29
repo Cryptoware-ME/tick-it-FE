@@ -1,9 +1,22 @@
 .sideBar {
   display: flex;
   min-height: 100vh;
-  height: 100%;
+
   background: var(--sidebar);
   box-shadow: var(--sideBarShadow);
+  @media (max-width: 991px) {
+    min-height: 35px;
+    height: fit-content;
+    background: var(--background);
+   
+  }
+}
+.sidebarMenu{
+    @media (max-width: 991px) {
+   margin-top: 60px;
+  padding: 20px;
+  }
+ 
 }
 .sideBarInputDiv {
   display: flex;
