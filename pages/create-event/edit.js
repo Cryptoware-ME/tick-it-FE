@@ -32,6 +32,8 @@ const Edit = ({ data, setAddTickets, categoryId }) => {
   const [addticket, setAddTicket] = useState(false);
   const [organization, setOrganization] = useState("");
   const { createEvent } = useLaunchpad();
+  const [loading, setLoading] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   const handleLaunch = async () => {
     createEvent.send(
@@ -63,6 +65,8 @@ const Edit = ({ data, setAddTickets, categoryId }) => {
   };
 
   const launchRes = async () => {
+    setLoading(true);
+    setDisabled(true);
     const res = await createEvent.response.wait();
     postEvent({
       name: data.name,
@@ -196,6 +200,8 @@ const Edit = ({ data, setAddTickets, categoryId }) => {
                   {account ? (
                     <TickitButton
                       text="LAUNCH EVENT"
+                      isLoading={loading}
+                      disabled={disabled}
                       onClick={async () => {
                         handleLaunch();
                       }}

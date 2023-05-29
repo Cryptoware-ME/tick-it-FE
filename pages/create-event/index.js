@@ -30,7 +30,7 @@ const CreateEvent = () => {
 
   const schema = yup.object().shape({
     name: yup.string().required(),
-    symbol: yup.string().required(),
+    symbol: yup.string().max(3).required(),
     date: yup.date().required(),
     location: yup.string().required(),
     description: yup.string().required(),

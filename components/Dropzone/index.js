@@ -22,7 +22,7 @@ function MyDropzone({ filePreview, setFilePreview, setImage, text }) {
   });
 
   return (
-    <div {...getRootProps({ className: "dropzone" })}>
+    <div {...getRootProps({ className: "dropzone" })} onClick={open}>
       <input className={styles.uploadEvent} {...getInputProps()} />
       <div className={styles.uploadEvent}>
         {filePreview ? (
@@ -32,16 +32,9 @@ function MyDropzone({ filePreview, setFilePreview, setImage, text }) {
             className={styles.eventImage}
             alt="image"
             src={filePreview}
-            onClick={open}
           />
         ) : (
-          <Image
-            width={50}
-            height={50}
-            alt="image"
-            src="/images/upload.png"
-            onClick={open}
-          />
+          <Image width={50} height={50} alt="image" src="/images/upload.png" />
         )}
       </div>
       <div>
