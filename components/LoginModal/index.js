@@ -306,7 +306,7 @@ const LoginModal = () => {
                   />
                 </div>
                 <div className={styles.googleLoginDiv}>
-                  <div onClick={handleSignIn} className={styles.googleLogin}>
+                  {/* <div onClick={handleSignIn} className={styles.googleLogin}>
                     <Image
                       width={26}
                       height={26}
@@ -315,7 +315,7 @@ const LoginModal = () => {
                       src="/images/googleicon.svg"
                     />
                     <p className={styles.googleinput}>Log In with Google</p>
-                  </div>
+                  </div> */}
                   <div className={styles.signupdiv}>
                     <p className={styles.signup}>If you have an account,</p>
                     <div
@@ -395,7 +395,7 @@ const LoginModal = () => {
                   </div>
 
                   <div className={styles.googleLoginDiv}>
-                    <div onClick={handleSignIn} className={styles.googleLogin}>
+                    {/* <div onClick={handleSignIn} className={styles.googleLogin}>
                       <Image
                         width={26}
                         height={26}
@@ -404,7 +404,7 @@ const LoginModal = () => {
                         src="/images/googleicon.svg"
                       />
                       <p className={styles.googleinput}>Log In with Google</p>
-                    </div>
+                    </div> */}
 
                     <div className={styles.signupdiv}>
                       <p className={styles.signup}>
