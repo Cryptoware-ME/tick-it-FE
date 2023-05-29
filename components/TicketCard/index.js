@@ -7,7 +7,6 @@ import EventDetails from "../EventDetails";
 import TickitButton from "../tickitButton";
 import Counter from "../Counter";
 import EditTicket from "../EditTicketModal";
-
 import { useCartContext } from "../../cart/cart-context";
 import { toast } from "react-toastify";
 
@@ -20,17 +19,10 @@ const TicketCard = ({
 }) => {
   const [counter, setCounter] = useState(1);
   const [editTicket, setEditTicket] = useState(false);
-  const { cartItems, setCartItems } = useCartContext();
+  const { addToCart } = useCartContext();
 
   const handleAddToCart = () => {
-    const foundItem = cartItems.filter((item) => item.ticketId == ticket.id);
-    if (foundItem?.length) {
-      let tmp = [...cartItems];
-      const index = tmp.indexOf(foundItem[0]);
-      tmp[index].quantity += counter;
-      setCartItems([...tmp]);
-    } else
-      setCartItems([...cartItems, { ticketId: ticket.id, quantity: counter }]);
+    addToCart(ticket, counter);
     setCounter(1);
     toast("Item Added To Cart");
   };

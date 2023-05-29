@@ -9,6 +9,8 @@ function MyDropzone({ filePreview, setFilePreview, setImage, text }) {
     noClick: true,
     noKeyboard: true,
     accept: "image/*",
+    maxFiles: 1,
+    maxSize: 1048576,
 
     onDropAccepted: async (acceptedFiles) => {
       let formData = new FormData();

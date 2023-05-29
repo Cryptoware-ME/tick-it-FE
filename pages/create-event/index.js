@@ -101,7 +101,7 @@ const CreateEvent = () => {
                   filePreview={filePreview}
                   setFilePreview={setFilePreview}
                   setImage={setImage}
-                  text="Upload event banner"
+                  text="Banner (max 1MB)"
                 />
                 <div style={{ height: '20px' }}>
                   {imageError ? (
