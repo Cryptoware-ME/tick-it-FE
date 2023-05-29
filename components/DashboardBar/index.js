@@ -26,7 +26,7 @@ export default function DashboardBar() {
     <div className={styles.sideBar}>
       <Sidebar
         breakPoint="lg"
-        backgroundColor
+        backgroundColor={width > 991 ? "transparent" : "var(--background)"}
         width={width > 991 ? "100%" : "80%"}
         className={styles.sideBarmenu}
       >
@@ -66,6 +66,7 @@ export default function DashboardBar() {
           </div>
         </Menu>
       </Sidebar>
+ 
     </div>
   );
 }
