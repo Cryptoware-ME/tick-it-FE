@@ -6,25 +6,15 @@ import EventDetails from "../EventDetails";
 import Counter from "../Counter";
 import EventDate from "../EventDate";
 import TickitButton from "../tickitButton";
-import { getEventTicketType } from "../../axios/eventTicketType.axios";
 import { useCartContext } from "../../cart/cart-context";
-import { useRouter } from "next/router";
 import Link from "next/link";
 
 const CartTicket = ({ inCart = false, item, itemData }) => {
-  const router = useRouter();
-  const { cartItems, setCartItems, cartTotal, setCartTotal } = useCartContext();
+  const { deleteFromCart, addToCart } =
+    useCartContext();
 
   const setCounter = (value) => {
-    let tmp = [...cartItems];
-    const index = tmp.indexOf(item);
-    tmp[index].quantity += value;
-    setCartItems([...tmp]);
-  };
-
-  const handleDeleteItem = () => {
-    let tmp = cartItems.filter((item) => item.ticketId != itemData.id);
-    setCartItems(tmp);
+    addToCart(itemData, value);
   };
 
   return (
@@ -49,7 +39,7 @@ const CartTicket = ({ inCart = false, item, itemData }) => {
                   {inCart && (
                     <div className={styles.cardRightLinks}>
                       <Image
-                        onClick={handleDeleteItem}
+                        onClick={() => deleteFromCart(itemData)}
                         width={14}
                         height={18}
                         style={{ marginLeft: "20px", cursor: "pointer" }}

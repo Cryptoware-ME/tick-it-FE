@@ -124,7 +124,7 @@ const AddExtraTicket = ({ setAddTicket, setTickets, tickets, contractAddress }) 
                     filePreview={filePreview}
                     setFilePreview={setFilePreview}
                     setImage={setImage}
-                    text="Upload ticket image"
+                    text="Image (max 1MB)"
                   />
                   <div style={{ height: "20px" }}>
                     {imageError ? (

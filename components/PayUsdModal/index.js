@@ -8,11 +8,13 @@ import TickitButton from "../tickitButton";
 import { postCustodialMint } from "../../axios/ticket.axios";
 import { useRouter } from "next/router";
 import Loader from "../loader/loader";
+import { useCartContext } from "../../cart/cart-context";
 const PayUsd = ({ setUsdModal, cartItemData, cartItemsCount, total }) => {
   const [mintModal, setMintModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const [disabled, setDisabled] = useState(true);
   const router = useRouter();
+  const { emptyCart } = useCartContext();
   const schema = yup.object().shape({
     holder: yup.string().required("This field is required"),
     ccv: yup.number().required("This field is required"),
@@ -133,16 +135,16 @@ const PayUsd = ({ setUsdModal, cartItemData, cartItemsCount, total }) => {
                       id="CardNumber"
                       name="CardNumber"
                       type="text"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.CardNumber}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.cardNumber}
                       className="modalInput"
                     />
                   </div>
                   <div style={{ height: "18px" }}>
-                    {errors.CardName && touched.CardNumber ? (
+                    {errors.cardNumber && touched.cardNumber ? (
                       <div className={styles.errors}>
-                        <p className={styles.error}> {errors.CardName}</p>
+                        <p className={styles.error}> {errors.cardNumber}</p>
                       </div>
                     ) : null}
                   </div>
@@ -153,16 +155,16 @@ const PayUsd = ({ setUsdModal, cartItemData, cartItemsCount, total }) => {
                       id="HolderName"
                       name="HolderName"
                       type="text"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.HolderName}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.holderName}
                       className="modalInput"
                     />
                   </div>
                   <div style={{ height: "18px" }}>
-                    {errors.HolderName && touched.HolderName ? (
+                    {errors.holderName && touched.holderName ? (
                       <div className={styles.errors}>
-                        <p className={styles.error}> {errors.HolderName}</p>
+                        <p className={styles.error}> {errors.holderName}</p>
                       </div>
                     ) : null}
                   </div>
@@ -175,16 +177,16 @@ const PayUsd = ({ setUsdModal, cartItemData, cartItemsCount, total }) => {
                         id="Cvv"
                         name="Cvv"
                         type="text"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.Cvv}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.cvv}
                         className="modalInput"
                       />
                     </div>
                     <div style={{ height: "18px" }}>
-                      {errors.Cvv && touched.Cvv ? (
+                      {errors.cvv && touched.cvv ? (
                         <div className={styles.errors}>
-                          <p className={styles.error}> {errors.Cvv}</p>
+                          <p className={styles.error}> {errors.cvv}</p>
                         </div>
                       ) : null}
                     </div>
@@ -196,16 +198,16 @@ const PayUsd = ({ setUsdModal, cartItemData, cartItemsCount, total }) => {
                         id="Date"
                         name="Date"
                         type="date"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.Date}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.date}
                         className="modalInput"
                       />
                     </div>
                     <div style={{ height: "18px" }}>
-                      {errors.Date && touched.Date ? (
+                      {errors.date && touched.date ? (
                         <div className={styles.errors}>
-                          <p className={styles.error}> {errors.Date}</p>
+                          <p className={styles.error}> {errors.date}</p>
                         </div>
                       ) : null}
                     </div>
@@ -240,7 +242,8 @@ const PayUsd = ({ setUsdModal, cartItemData, cartItemsCount, total }) => {
                   isLoading={loading}
                   text="Back to Home"
                   onClick={() => {
-                    router.push("/explore");
+                    emptyCart();
+                    router.push("/");
                   }}
                 />
               </>
