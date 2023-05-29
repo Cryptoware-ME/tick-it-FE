@@ -34,7 +34,7 @@ const ExploreEvents = ({ events }) => {
         }}
       >
         {events &&
-          events.map((event, index) => (
+          events.slice(0,4).map((event, index) => (
             <EventCard eventData={event} key={index} />
           ))}
       </Row>
