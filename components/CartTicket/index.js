@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import styles from "./CartTicket.module.scss";
 import { Col, Row } from "react-bootstrap";
 import Image from "next/image";
@@ -8,17 +8,17 @@ import EventDate from "../EventDate";
 import TickitButton from "../tickitButton";
 import { useCartContext } from "../../cart/cart-context";
 import Link from "next/link";
-
+import QrCodeModal from "../qrcode-modal";
 const CartTicket = ({ inCart = false, item, itemData }) => {
-  const { deleteFromCart, addToCart } =
-    useCartContext();
-
+  const { deleteFromCart, addToCart } = useCartContext();
+  const [qrCodeModal, setQrCodeModal] = useState(false);
   const setCounter = (value) => {
     addToCart(itemData, value);
   };
 
   return (
     <>
+      {qrCodeModal && <QrCodeModal setQrCodeModal={setQrCodeModal} />}
       {itemData ? (
         <Col xl={12} style={{ padding: "10px" }}>
           <div className="cardWrapper">
@@ -81,7 +81,12 @@ const CartTicket = ({ inCart = false, item, itemData }) => {
                   <Row className={styles.cardCounter}>
                     <TickitButton style2 text="SEND TICKET" />
                     <div style={{ marginLeft: "12px", width: "fit-content" }}>
-                      <TickitButton text="ENTER EVENT" />
+                      <TickitButton
+                        text="ENTER EVENT"
+                        onClick={() => {
+                          setQrCodeModal(true);
+                        }}
+                      />
                     </div>
                   </Row>
                 )}

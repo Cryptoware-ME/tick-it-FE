@@ -9,7 +9,7 @@ import { postCustodialMint } from "../../axios/ticket.axios";
 import { useRouter } from "next/router";
 import Loader from "../loader/loader";
 import { useCartContext } from "../../cart/cart-context";
-const PayUsd = ({ setUsdModal, cartItemData, cartItemsCount, total }) => {
+const PayUsd = ({ setUsdModal, cartItemData, total }) => {
   const [mintModal, setMintModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const [disabled, setDisabled] = useState(true);
@@ -221,6 +221,10 @@ const PayUsd = ({ setUsdModal, cartItemData, cartItemsCount, total }) => {
                     text="Pay"
                     onClick={() => {
                       custodialWallet();
+                      localStorage.setItem(
+                        "tickets",
+                        JSON.stringify(cartItemData)
+                      );
                     }}
                   />
                 </div>

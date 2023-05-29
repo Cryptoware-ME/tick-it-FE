@@ -13,24 +13,24 @@ const UserDropdown = ({ isOpen, onClose, logOut, user }) => {
           {" "}
           {user?.user ? user?.user.email : user?.email}
         </p>
-        <Link href="#" className={styles.dropdownLink}>
+        <Link href="/tickets" className={styles.dropdownLink}>
           Dashboard
         </Link>
 
-        <Link href="#" className={styles.dropdownLink}>
+        <Link href="/tickets" className={styles.dropdownLink}>
           Tickets
         </Link>
-        <Link href="#" className={styles.dropdownLink}>
+        <Link href="/tickets"className={styles.dropdownLink}>
           Funds
         </Link>
-        <Link href="#" className={styles.dropdownLink}>
+        <Link href="/tickets"className={styles.dropdownLink}>
           Hosting
         </Link>
-        <Link href="#" className={styles.dropdownLink}>
+        <Link href="/tickets"className={styles.dropdownLink}>
           Activity
         </Link>
         <hr className={styles.horline} />
-        <Link href="#" className={styles.dropdownLink}>
+        <Link href="/tickets" className={styles.dropdownLink}>
           Settings
         </Link>
         <div

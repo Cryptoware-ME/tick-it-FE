@@ -4,10 +4,13 @@ import Link from "next/link";
 import styles from "./DashboardBar.module.scss";
 import { Container } from "react-bootstrap";
 import Image from "next/image";
+import { useAuth } from "../../auth/useAuth";
 
 export default function DashboardBar() {
   const [width, setWidth] = useState();
   const { toggleSidebar } = useProSidebar();
+  const { user } = useAuth();
+
   useEffect(() => {
     getWidth();
   }, []);
@@ -36,8 +39,12 @@ export default function DashboardBar() {
               src="/images/iconuser.png"
             />
             <div style={{ marginLeft: "5px" }}>
-              <p className={styles.userName}>John Doe</p>
-              <p className={styles.userEmail}>johndoe@gmail.com</p>
+              <p className={styles.userName}>
+                {user?.user ? user?.user.username : user?.username}
+              </p>
+              <p className={styles.userEmail}>
+                {user?.user ? user?.user.email : user?.email}
+              </p>
             </div>
           </div>
           <div className={styles.dashboardBar}>

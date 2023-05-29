@@ -34,7 +34,9 @@ const Edit = ({ data, setAddTickets, categoryId }) => {
   const { createEvent } = useLaunchpad();
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
-
+  useEffect(() => {
+    console.log("tickets: ", tickets[0]?.price * 10 ** 18);
+  }, [tickets]);
   const handleLaunch = async () => {
     createEvent.send(
       [

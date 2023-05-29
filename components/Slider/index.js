@@ -12,24 +12,31 @@ import "swiper/scss/effect-fade";
 import { useRouter } from "next/router";
 export default function Slider({ events }) {
   const router = useRouter();
-  return (
-    <Swiper
-      modules={[EffectFade, Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-      spaceBetween={0}
-      slidesPerView={1}
-      effect={"fade"}
-      className={styles.wrapper}
-      pagination={{ clickable: true }}
-      loop={true}
-      centeredSlides={true}
-      autoplay={{
-        delay: 3000,
-        disableOnInteraction: false,
-      }}
-      speed={1000}
-    >
-      {events?.slice(0, 4)
-        .map((item, k) => (
+  if (events)
+    return (
+      <Swiper
+        modules={[
+          EffectFade,
+          Navigation,
+          Pagination,
+          Scrollbar,
+          A11y,
+          Autoplay,
+        ]}
+        spaceBetween={0}
+        slidesPerView={1}
+        effect={"fade"}
+        className={styles.wrapper}
+        pagination={{ clickable: true }}
+        loop={true}
+        centeredSlides={true}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
+        speed={1000}
+      >
+        {events?.slice(0, 4).map((item, k) => (
           <SwiperSlide
             key={k}
             style={{
@@ -56,6 +63,6 @@ export default function Slider({ events }) {
             </div>
           </SwiperSlide>
         ))}
-    </Swiper>
-  );
+      </Swiper>
+    );else return <div className={styles.wrapper}></div>;
 }
