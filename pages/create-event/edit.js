@@ -34,9 +34,11 @@ const Edit = ({ data, setAddTickets, categoryId }) => {
   const { createEvent } = useLaunchpad();
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
+
   useEffect(() => {
     console.log("tickets: ", tickets[0]?.price * 10 ** 18);
   }, [tickets]);
+  
   const handleLaunch = async () => {
     createEvent.send(
       [
@@ -47,6 +49,7 @@ const Edit = ({ data, setAddTickets, categoryId }) => {
         ticketSupply,
         [process.env.NEXT_PUBLIC_ADMIN_ADDRESS, account],
         [10, 90],
+        account,
         10,
         "0x815ae514cff4150ec895809ae516283047f6dff8e679158b151a8495f70fc929",
       ],
