@@ -1,74 +1,85 @@
-import React, { useEffect, useState } from "react";
-import styles from "./Event.module.scss";
-import { Container, Col, Row } from "react-bootstrap";
-import EventDate from "../../../components/EventDate";
-import EventLocation from "../../../components/EventLocation";
-import EventDetails from "../../../components/EventDetails";
-import Tickets from "../../../components/Tickets";
-import TickitButton from "../../../components/tickitButton";
-import TickitTag from "../../../components/TickitTag";
-import { useRouter } from "next/router";
-import { getEvents } from "../../../axios/event.axios";
+import React, { useEffect, useState } from 'react'
+import styles from './Event.module.scss'
+import { Container, Col, Row } from 'react-bootstrap'
+import EventDate from '../../../components/EventDate'
+import EventLocation from '../../../components/EventLocation'
+import EventDetails from '../../../components/EventDetails'
+import Tickets from '../../../components/Tickets'
+import TickitButton from '../../../components/tickitButton'
+import TickitTag from '../../../components/TickitTag'
+import { useRouter } from 'next/router'
+import { getEvents } from '../../../axios/event.axios'
 import {
   writeContractCall,
   readContractCall,
-} from "@cryptogate/react-providers";
-import NFTix721 from "../../../abis/NFTix721.json";
-import { useAuth } from "../../../auth/useAuth";
-import { useEthereum } from "@cryptogate/react-providers";
-import { ConnectWalletComponent } from "@cryptogate/react-ui";
+} from '@cryptogate/react-providers'
+import NFTix721 from '../../../abis/NFTix721.json'
+import { useAuth } from '../../../auth/useAuth'
+import { useEthereum } from '@cryptogate/react-providers'
+import { ConnectWalletComponent } from '@cryptogate/react-ui'
+import Image from 'next/image'
 
 const Event = () => {
-  const router = useRouter();
-  const { slug } = router.query;
-  const { user } = useAuth();
-  const { account } = useEthereum();
-  const [contractAddress, setContractAddress] = useState();
-  const [eventData, setEventData] = useState();
-  const [isOwner, setIsOwner] = useState(false);
-  const getEvent = async () => {
-    let event = await getEvents(
-      JSON.stringify({
-        relations: ["organization", "category"],
-        where: { slug: slug },
-      })
-    );
-    setEventData(event?.data[0]);
-  };
+  // Hooks
+  const router = useRouter()
+  const { slug } = router.query
+  const { user } = useAuth()
+  const { account } = useEthereum()
 
+  // States
+  const [contractAddress, setContractAddress] = useState()
+  const [eventData, setEventData] = useState()
+  const [isOwner, setIsOwner] = useState(false)
+
+  // Contract Calls
   const pause = writeContractCall({
     address: contractAddress,
     abi: NFTix721.abi,
-    method: "pause",
-  });
+    method: 'pause',
+  })
+
   const unpause = writeContractCall({
     address: contractAddress,
     abi: NFTix721.abi,
-    method: "unpause",
-  });
+    method: 'unpause',
+  })
 
   const paused = readContractCall({
     address: contractAddress,
     abi: NFTix721.abi,
-    method: "paused",
-  });
+    method: 'paused',
+  })
+
+  // Functions
+  // Gets the event details with the category and organization included
+  const getEvent = async () => {
+    await getEvents(
+      JSON.stringify({
+        relations: ['organization', 'category'],
+        where: { slug: slug },
+      }),
+    ).then((data) => {
+      setEventData(data?.data[0])
+      setContractAddress(data?.data[0]?.contractAddress)
+    })
+  }
+
+  // Use Effects
   useEffect(() => {
-    getEvent();
-  }, [slug]);
-  useEffect(() => {
-    setContractAddress(eventData?.contractAddress);
-  }, [eventData]);
+    if (slug) {
+      getEvent()
+    }
+  }, [slug])
 
   useEffect(() => {
     if (eventData && user) {
-      let userId = user.id;
-      let eventId = eventData.organization.ownerId;
-      if (userId === eventId) {
-
-        setIsOwner(true);
+      let userId = user.id
+      let eventUserId = eventData.organization.ownerId
+      if (userId === eventUserId) {
+        setIsOwner(true)
       }
     }
-  }, [eventData || user]);
+  }, [eventData, user])
 
   return (
     <div className={styles.eventWrapper}>
@@ -77,30 +88,31 @@ const Event = () => {
           <div
             style={{
               backgroundImage: `url(${eventData.banner})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              height: "calc(65vh - 70px)",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              height: 'calc(65vh - 70px)',
             }}
           >
             <div
               style={{
-                height: "100%",
+                height: '100%',
                 background:
-                  " linear-gradient(0deg,rgba(15,10,10, 1) 0%, rgba(15,10,10, 0.55) 25%, rgba(255, 204, 0, 0.31) 65%,rgba(255, 204, 0, 0.11) 100%)",
+                  ' linear-gradient(0deg,rgba(15,10,10, 1) 0%, rgba(15,10,10, 0.55) 25%, rgba(255, 204, 0, 0.31) 65%,rgba(255, 204, 0, 0.11) 100%)',
               }}
             />
           </div>
           <Container
             style={{
-              marginTop: "-50px",
+              marginTop: '-50px',
             }}
           >
             <Row>
               <Col lg={6}>
                 <div className={styles.titleDiv}>
                   <p className="pageTitle">{eventData.name}</p>
+                  {/* Lets user edit teh name of the event */}
                   {/* {isOwner && account && (
-                    <div style={{ marginLeft: "20px" }}>
+                    <div style={{ marginLeft: '20px' }}>
                       <Image
                         width={32}
                         height={32}
@@ -121,37 +133,38 @@ const Event = () => {
                       }
                     />
                   )}
+                  {/* Reserve and View Activity button */}
                   {/* <TickitButton disabled text="RESERVE" />
                   <TickitButton text="VIEW ACTIVITY" /> */}
                 </div>
               </Col>
               {isOwner && account && (
-                <Row style={{ marginTop: "32px" }}>
-                  {paused?.response == "false" && (
+                <Row style={{ marginTop: '32px' }}>
+                  {paused?.response == 'false' && (
                     <div className={styles.buttons}>
                       <TickitButton
                         text="PAUSE SALE"
                         onClick={() => {
                           pause.send([], {
-                            gasPrice: "80000000000",
+                            gasPrice: '80000000000',
                             gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
-                          });
+                          })
                         }}
                       />
                       {/* <div style={{ marginLeft: "40px" }}>
-                    <TickitButton style2 text="VIEW ACTIVITY" />
-                  </div> */}
+                      <TickitButton style2 text="VIEW ACTIVITY" />
+                      </div> */}
                     </div>
                   )}
-                  {paused?.response == "true" && (
+                  {paused?.response == 'true' && (
                     <div className={styles.buttons}>
                       <TickitButton
                         text="RESUME SALES"
                         onClick={() => {
                           unpause.send([], {
-                            gasPrice: "80000000000",
+                            gasPrice: '80000000000',
                             gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
-                          });
+                          })
                         }}
                       />
                       {/* <div style={{ marginLeft: "40px" }}>
@@ -166,13 +179,13 @@ const Event = () => {
               )}
               <div
                 style={{
-                  marginTop: "32px",
-                  display: "flex",
-                  alignItems: "center",
+                  marginTop: '32px',
+                  display: 'flex',
+                  alignItems: 'center',
                 }}
               >
                 <EventDate data={eventData.eventDate} />
-                <div style={{ marginLeft: "32px", display: "flex" }}>
+                <div style={{ marginLeft: '32px', display: 'flex' }}>
                   <TickitTag disabled text={eventData.category.name} />
                   {/* <div style={{ marginLeft: "12px" }}>
                     <TickitTag disabled text="in 2 days" />
@@ -180,16 +193,16 @@ const Event = () => {
                 </div>
               </div>
 
-              <div style={{ marginTop: "14px" }}>
+              <div style={{ marginTop: '14px' }}>
                 <EventLocation location={eventData.location} fontSize="24px" />
               </div>
-              <div style={{ marginTop: "14px" }}>
+              <div style={{ marginTop: '14px' }}>
                 <EventDetails width="60%" details={eventData.description} />
               </div>
             </Row>
             <Row
               style={{
-                padding: "80px 0px",
+                padding: '80px 0px',
               }}
             >
               <Tickets
@@ -202,7 +215,7 @@ const Event = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Event;
+export default Event

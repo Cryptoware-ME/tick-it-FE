@@ -5,12 +5,10 @@ import Dropzone from '../Dropzone'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 import TickitButton from '../tickitButton'
-import { writeContractCall } from '@cryptogate/react-providers'
-import NFTix721 from '../../abis/NFTix721.json'
 import { postEventTicketTypeBatch } from '../../axios/eventTicketType.axios'
 import { use721 } from '../../hooks/use721'
 
-const AddExtraTicket = ({
+const AddExtraTicketModal = ({
   setAddTicket,
   setTickets,
   tickets,
@@ -27,12 +25,9 @@ const AddExtraTicket = ({
   const addExtraTicket = () => {
     let ticketSupply = 0
     for (let i = 0; i < tickets.length; i++) {
-      console.log(tickets)
       ticketSupply = ticketSupply + tickets[i].supply
     }
-    console.log(111111)
-    console.log(values.supply + ticketSupply)
-    console.log(values.price)
+
     addTicket.send(
       [[values.supply + ticketSupply], [values.price * 10 ** 18]],
       {
@@ -41,25 +36,10 @@ const AddExtraTicket = ({
       },
     )
 
-    console.log(22222)
     setTicketSupply(values.supply)
-
-    // setAddTicket(false);
-
-    // postEventTicketType({
-    //   eventId: data.id,
-    //   name: tickets[0].name,
-    //   description: tickets[0].description,
-    //   supply: tickets[0].supply,
-    //   price: tickets[0].price,
-    //   image: tickets[0].image
-    // }).then(() => {
-    //   setAddTicket(false);
-    // })
   }
 
   const launchRes = async () => {
-    console.log('Entered add ticket')
     // setLoading(true);
     // setDisabled(true);
     await addTicket.response.wait()
@@ -72,7 +52,6 @@ const AddExtraTicket = ({
       price: values.price * 10 ** 18,
       image: image,
     }
-    console.log(ticketsData)
     postEventTicketTypeBatch(ticketsData).then(() => {
       setAddTicket(false);
     })
@@ -80,7 +59,6 @@ const AddExtraTicket = ({
 
   useEffect(() => {
     if (addTicket.response) {
-      console.log('Good response')
       launchRes()
     }
   }, [addTicket.response])
@@ -91,6 +69,7 @@ const AddExtraTicket = ({
     supply: yup.number().required(),
     description: yup.string().required(),
   })
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -275,4 +254,4 @@ const AddExtraTicket = ({
     </Form>
   )
 }
-export default AddExtraTicket
+export default AddExtraTicketModal

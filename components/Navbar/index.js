@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useAuthModalContext } from "../../context/AuthModalProvider";
 import TickitButton from "../../components/tickitButton";
 import UserDropdown from "../UserDropdown";
-import AddedToCartAlert from "../AddedToCartAlert";
 import LoginModal from "../LoginModal";
 import { useAuth } from "../../auth/useAuth";
 import { useRouter } from "next/router";
@@ -82,12 +81,6 @@ export default function NavBar() {
         isOpen={showUserDropdown}
         logOut={logOut}
         user={user}
-      />
-      <AddedToCartAlert
-        onClose={() => {
-          setAdded(false);
-        }}
-        isOpen={added}
       />
 
       <Navbar

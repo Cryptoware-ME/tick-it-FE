@@ -3,7 +3,6 @@ import styles from "./Tickets.module.scss";
 import { Row, Col } from "react-bootstrap";
 import TicketCard from "../TicketCard";
 import TickitButton from "../tickitButton";
-import AddExtraTicket from "../AddExtraTicketModal";
 import { getEventTicketType } from "../../axios/eventTicketType.axios";
 import {
   readContractCall,
@@ -11,6 +10,7 @@ import {
 } from "@cryptogate/react-providers";
 import NFTix721 from "../../abis/NFTix721.json";
 import { postEventTicketTypeBatch } from "../../axios/eventTicketType.axios";
+import AddExtraTicketModal from "../AddExtraTicketModal";
 
 const Tickets = ({ eventId, contractAddress, isOwner }) => {
   const [eventTickets, setEventTickets] = useState([]);
@@ -76,7 +76,7 @@ const Tickets = ({ eventId, contractAddress, isOwner }) => {
   return (
     <>
       {addTicketModal && (
-        <AddExtraTicket
+        <AddExtraTicketModal
           setAddTicket={setAddTicketModal}
           tickets={eventTickets}
           contractAddress={contractAddress}
