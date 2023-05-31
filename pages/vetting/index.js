@@ -48,7 +48,7 @@ const Vetting = () => {
         if (profileImage) {
           setProfileImageError(false);
           values.profile = profileImage;
-          
+
           postOrganization({
             ownerId: values.ownerId,
             name: values.name,
@@ -104,7 +104,7 @@ const Vetting = () => {
                   filePreview={bannerPreview}
                   setFilePreview={setBannerPreview}
                   setImage={setBannerImage}
-                  text="Organization banner"
+                  text="Banner (max 1MB)"
                 />
                 <div style={{ height: "20px" }}>
                   {bannerImageError ? (
@@ -121,7 +121,7 @@ const Vetting = () => {
                   filePreview={profilePreview}
                   setFilePreview={setProfilePreview}
                   setImage={setProfileImage}
-                  text="Profile picture"
+                  text="Profile (max 1MB)"
                 />
                 <div style={{ height: "20px" }}>
                   {profileImageError ? (

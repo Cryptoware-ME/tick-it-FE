@@ -9,6 +9,8 @@ function MyDropzone({ filePreview, setFilePreview, setImage, text }) {
     noClick: true,
     noKeyboard: true,
     accept: "image/*",
+    maxFiles: 1,
+    maxSize: 1048576,
 
     onDropAccepted: async (acceptedFiles) => {
       let formData = new FormData();
@@ -20,7 +22,7 @@ function MyDropzone({ filePreview, setFilePreview, setImage, text }) {
   });
 
   return (
-    <div {...getRootProps({ className: "dropzone" })}>
+    <div {...getRootProps({ className: "dropzone" })} onClick={open}>
       <input className={styles.uploadEvent} {...getInputProps()} />
       <div className={styles.uploadEvent}>
         {filePreview ? (
@@ -30,16 +32,9 @@ function MyDropzone({ filePreview, setFilePreview, setImage, text }) {
             className={styles.eventImage}
             alt="image"
             src={filePreview}
-            onClick={open}
           />
         ) : (
-          <Image
-            width={50}
-            height={50}
-            alt="image"
-            src="/images/upload.png"
-            onClick={open}
-          />
+          <Image width={50} height={50} alt="image" src="/images/upload.png" />
         )}
       </div>
       <div>

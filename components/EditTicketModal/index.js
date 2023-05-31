@@ -56,7 +56,7 @@ const EditTicket = ({ setEditTicket }) => {
                 <Dropzone
                   filePreview={filePreview}
                   setFilePreview={setFilePreview}
-                  text="Upload ticket image"
+                  text="Image (max 1MB)"
                 />
                 {imageError ? (
                   <div className={styles.errors}>

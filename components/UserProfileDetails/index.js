@@ -10,6 +10,7 @@ import EditOrganizationModal from "../EditOrganizationModal";
 const UserProfileDetails = ({ state = 2 }) => {
   const [reportModal, setReportModal] = useState(false);
   const [editOrganizationModal, setEditOrganizationModal] = useState(false);
+  
   return (
     <>
       {reportModal && <ReportModal setReportModal={setReportModal} />}
@@ -21,12 +22,14 @@ const UserProfileDetails = ({ state = 2 }) => {
       <div className={styles.wrapper}>
         <Container>
           <Row className={styles.profile}>
+
             <Col lg={4} className={styles.imageCol}>
               <Image
                 width={208}
                 height={208}
                 alt="user"
                 src="/images/userPhoto2.png"
+                className={styles.profileImage}
               />
             </Col>
             <Col lg={8}>
@@ -61,7 +64,7 @@ const UserProfileDetails = ({ state = 2 }) => {
                 </div>
                 {/* )} */}
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  <p className="pageTitle">Factory People</p>
+                  <p className={styles.titlePage}>Factory People</p>
                   {/* {state == 1 && ( */}
                   <div
                     onClick={() => {

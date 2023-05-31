@@ -30,7 +30,7 @@ const CreateEvent = () => {
 
   const schema = yup.object().shape({
     name: yup.string().required(),
-    symbol: yup.string().required(),
+    symbol: yup.string().max(3).required(),
     date: yup.date().required(),
     location: yup.string().required(),
     description: yup.string().required(),
@@ -101,7 +101,7 @@ const CreateEvent = () => {
                   filePreview={filePreview}
                   setFilePreview={setFilePreview}
                   setImage={setImage}
-                  text="Upload event banner"
+                  text="Banner (max 1MB)"
                 />
                 <div style={{ height: '20px' }}>
                   {imageError ? (

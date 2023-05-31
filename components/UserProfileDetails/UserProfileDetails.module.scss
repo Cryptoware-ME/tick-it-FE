@@ -4,6 +4,10 @@
   min-height: 45vh;
   align-items: center;
   display: flex;
+  @media (max-width: 991px) {
+    padding-top: 20px;
+    padding-bottom:10px;
+  }
 }
 .profile {
   display: flex;
@@ -38,12 +42,20 @@
   height: fit-content;
   width: fit-content;
   justify-content: center;
+  @media (max-width: 991px) {
+   margin-bottom: 10px;
+  }
 }
 .title {
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
   color: var(--white);
+  @media (max-width: 991px) {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+  }
 }
 .viewTitle {
   font-weight: 400;
@@ -53,6 +65,11 @@
   display: flex;
   padding-left: 10px;
   margin-bottom: 0;
+  @media (max-width: 991px) {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 14px;
+  }
 }
 .view {
   flex-direction: row;
@@ -66,7 +83,28 @@
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
+  @media (max-width: 991px) {
+  }
 }
 .editImage {
   cursor: pointer;
+}
+.profileImage {
+  @media (max-width: 991px) {
+    width: 100px;
+    height: 100px;
+  }
+}
+.titlePage {
+  font-family: "DrukWideMedium";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 34px;
+  line-height: 41px;
+  color: #FFFFFF;
+  @media (max-width: 991px) {
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 21px;
+  }
 }

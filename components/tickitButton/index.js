@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./tickit-button.module.scss";
 import Image from "next/image";
+import Loader from "../loader/loader";
 const TickitButton = ({
   text,
   onClick,
@@ -13,6 +14,7 @@ const TickitButton = ({
   isSmall = false,
   add = false,
   visa = false,
+  isLoading = false,
 }) => {
   return (
     <>
@@ -20,7 +22,7 @@ const TickitButton = ({
         <button
           className={styles.btn}
           onClick={onClick}
-          disabled={disabled}
+          disabled={disabled || isLoading}
           onMouseOver={(e) =>
             (e.target.style.backgroundColor = disabled
               ? "var(--disabled1)"
@@ -47,26 +49,31 @@ const TickitButton = ({
               : "var(--primary)",
           }}
         >
-          {add && (
-            <Image
-              width={18}
-              height={18}
-              className={styles.btnImage}
-              alt="card-image"
-              src="/images/add.png"
-            />
-          )}
-          {disabled && disabledText ? disabledText : text}
+          {!isLoading && (
+            <>
+              {add && (
+                <Image
+                  width={18}
+                  height={18}
+                  className={styles.btnImage}
+                  alt="card-image"
+                  src="/images/add.png"
+                />
+              )}
+              {disabled && disabledText ? disabledText : text}
 
-          {visa && (
-            <Image
-              width={80}
-              height={20}
-              className={styles.visaImage}
-              alt="card-image"
-              src="/images/visa2.svg"
-            />
+              {visa && (
+                <Image
+                  width={80}
+                  height={20}
+                  className={styles.visaImage}
+                  alt="card-image"
+                  src="/images/visa2.svg"
+                />
+              )}
+            </>
           )}
+          {isLoading && <Loader />}
         </button>
       ) : (
         <></>

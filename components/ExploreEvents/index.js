@@ -7,6 +7,8 @@ import Link from "next/link";
 import TickitTag from "../TickitTag";
 
 const ExploreEvents = ({ events }) => {
+  
+
   return (
     <>
       <p className="section-title">Explore Events</p>
@@ -31,20 +33,22 @@ const ExploreEvents = ({ events }) => {
           justifyContent: "space-around",
         }}
       >
-        {events?.slice(0, 4)
-          .map((event, index) => (
+        {events &&
+          events.slice(0,4).map((event, index) => (
             <EventCard eventData={event} key={index} />
           ))}
       </Row>
-      <Row
+      <div
         style={{
           paddingTop: "65px",
+          display:"flex",
+          justifyContent:"center"
         }}
       >
         <Link href="/explore" className={styles.exploreMoreButton}>
-          <TickitButton text="Explore More" />
+          <TickitButton  text="Explore More" />
         </Link>
-      </Row>
+      </div>
     </>
   );
 };

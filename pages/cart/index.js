@@ -56,7 +56,9 @@ const Cart = () => {
             ))}
           </Col>
           <Col lg={4}>
-            <CheckOutCard cartItemData={cartItemsData} />
+
+            <CheckOutCard cartItemData={cartItemsData}/>
+
           </Col>
         </Row>
       </Container>

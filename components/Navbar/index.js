@@ -7,18 +7,20 @@ import { useAuthModalContext } from "../../context/AuthModalProvider";
 import TickitButton from "../../components/tickitButton";
 import UserDropdown from "../UserDropdown";
 import AddedToCartAlert from "../AddedToCartAlert";
-import { toast } from "react-toastify";
 import LoginModal from "../LoginModal";
 import { useAuth } from "../../auth/useAuth";
 import { useRouter } from "next/router";
 import { getOrganization } from "../../axios/organization.axios";
 import { ConnectWalletComponent } from "@cryptogate/react-ui";
+import { useCartContext } from "../../cart/cart-context";
 
 export default function NavBar() {
   const { setModalOpen } = useAuthModalContext();
+  const { cartItems } = useCartContext();
   const { logOut, user } = useAuth();
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [added, setAdded] = useState(false);
+  const [totalCartItems, setTotalCartItems] = useState(0);
   const router = useRouter();
   const handleRouting = async () => {
     if (user) {
@@ -62,6 +64,14 @@ export default function NavBar() {
       }, 3000);
     }
   }, [added]);
+
+  useEffect(() => {
+    setTotalCartItems(
+      cartItems.reduce((count, item) => {
+        return count + item.quantity;
+      }, 0)
+    );
+  }, [cartItems]);
   return (
     <>
       <LoginModal />
@@ -98,6 +108,7 @@ export default function NavBar() {
                 src="/images/logo.svg"
               />
             </Navbar.Brand>
+           
           </Link>
           <div className={styles.mobileLinks}>
             <Image
@@ -158,8 +169,19 @@ export default function NavBar() {
                     ActiveComponent={<></>}
                   />
                 </div>
-                                       
-                <Link href="/cart" scroll className={styles.navbarLink}>
+
+
+                <div
+                  onClick={() => {
+                    if (user) {
+                     router.push("/cart")
+                    } else {
+                      setModalOpen(true);
+                    }
+                  }}
+                  className={styles.navbarLink}
+                >
+
                   <Image
                     style={{ marginRight: "15px" }}
                     width={33}
@@ -167,7 +189,15 @@ export default function NavBar() {
                     alt="icon"
                     src="/images/cartLogo.svg"
                   />
-                </Link>
+
+                  {totalCartItems ? (
+                    <div className={styles.cartCount}>{totalCartItems}</div>
+                  ) : (
+                    <></>
+                  )}
+
+                </div>
+
 
                 {!user && (
                   <div>
@@ -189,7 +219,7 @@ export default function NavBar() {
                     {/* <Image
                     width={35}
                     height={35}
-                    alt="icon"
+                    alt="icons"
                     src="/images/user.png"
                   /> */}
                     {user.user
