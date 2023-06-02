@@ -17,10 +17,14 @@ const TicketCard = ({
   handlePause,
   handleResume,
 }) => {
-  const [counter, setCounter] = useState(1);
-  const [editTicket, setEditTicket] = useState(false);
-  const { addToCart } = useCartContext();
 
+  // States
+  const [counter, setCounter] = useState(1);
+  // const [editTicket, setEditTicket] = useState(false);
+
+  // Functions
+  const { addToCart } = useCartContext();
+  
   const handleAddToCart = () => {
     addToCart(ticket, counter);
     setCounter(1);
@@ -29,7 +33,8 @@ const TicketCard = ({
 
   return (
     <>
-      {editTicket && <EditTicket setEditTicket={setEditTicket} />}
+      {/* This is for the edit ticket functionality */}
+      {/* {editTicket && <EditTicket setEditTicket={setEditTicket} />} */}
       <Col xl={12} style={{ padding: "10px" }}>
         <div className="cardWrapper">
           <div className={styles.cardContainer}>
@@ -69,7 +74,7 @@ const TicketCard = ({
                         onClick={handlePause}
                       />
                     )}
-
+                    {/* This is for the edit ticket functionality */}
                     {/* <Image
                       width={24}
                       height={24}
@@ -85,7 +90,7 @@ const TicketCard = ({
               </div>
 
               <TicketCounter
-                sold={`${Number(ticketFromContract?.currentTokenId) - 1}`}
+                sold={`${Number(ticketFromContract?.currentTokenId) - Number(ticketFromContract?.startTokenId)}`}
                 total={ticket.supply}
               />
               <EventDetails details={ticket.description} />

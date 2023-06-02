@@ -22,3 +22,8 @@ export const postEvent = async (payload) => {
   const data = await instance.post("/events", payload);
   return data.data;
 };
+
+export const updateEvent = async (payload, eventId) => {
+  const data = await instance.put(`/events/${eventId}`, payload);
+  return data.data
+}

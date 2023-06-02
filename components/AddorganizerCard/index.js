@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import styles from "./AddorganizerCard.module.scss";
+import styles from "./AddOrganizerCard.module.scss";
 import { Col, Row } from "react-bootstrap";
 import Image from "next/image";
 
-const AddorganizerCard = () => {
+const AddOrganizerCard = () => {
   return (
     <>
       <Col lg={3} md={6} className={styles.organizerCard}>
@@ -22,4 +22,4 @@ const AddorganizerCard = () => {
   );
 };
 
-export default AddorganizerCard;
+export default AddOrganizerCard;

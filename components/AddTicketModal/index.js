@@ -7,7 +7,9 @@ import * as yup from 'yup'
 import TickitButton from '../tickitButton'
 import { use721 } from '../../hooks/use721'
 
-const AddTicket = ({ setAddTicket, setTickets, tickets }) => {
+const AddTicketModal = ({ setAddTicketModal, setTickets, tickets }) => {
+
+  // Use States
   const [imageError, setImageError] = useState(false)
   const [nameError, setNameError] = useState(false)
   const [filePreview, setFilePreview] = useState()
@@ -20,6 +22,7 @@ const AddTicket = ({ setAddTicket, setTickets, tickets }) => {
     description: yup.string().required(),
   })
 
+  // Formik initialization
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -42,7 +45,7 @@ const AddTicket = ({ setAddTicket, setTickets, tickets }) => {
         } else {
           setNameError(false)
           setTickets([...tickets, values])
-          setAddTicket(false)
+          setAddTicketModal(false)
         }
       } else {
         setImageError(true)
@@ -69,7 +72,7 @@ const AddTicket = ({ setAddTicket, setTickets, tickets }) => {
       <Modal show onHide={() => {}} centered>
         <Modal.Header
           onClick={() => {
-            setAddTicket(false)
+            setAddTicketModal(false)
           }}
           className={styles.closeButton}
           closeButton
@@ -204,4 +207,4 @@ const AddTicket = ({ setAddTicket, setTickets, tickets }) => {
     </Form>
   )
 }
-export default AddTicket
+export default AddTicketModal

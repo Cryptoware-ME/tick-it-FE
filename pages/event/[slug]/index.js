@@ -9,6 +9,7 @@ import TickitButton from '../../../components/tickitButton'
 import TickitTag from '../../../components/TickitTag'
 import { useRouter } from 'next/router'
 import { getEvents } from '../../../axios/event.axios'
+import { getEventTicketType } from "../../../axios/eventTicketType.axios";
 import {
   writeContractCall,
   readContractCall,
@@ -30,6 +31,8 @@ const Event = () => {
   const [contractAddress, setContractAddress] = useState()
   const [eventData, setEventData] = useState()
   const [isOwner, setIsOwner] = useState(false)
+  const [eventTickets, setEventTickets] = useState([]);
+  const [refetchEvent, setRefetchEvent] = useState(false)
 
   // Contract Calls
   const pause = writeContractCall({
@@ -61,15 +64,28 @@ const Event = () => {
     ).then((data) => {
       setEventData(data?.data[0])
       setContractAddress(data?.data[0]?.contractAddress)
+      getTickets(data?.data[0].id);
     })
   }
 
+  // Gets the tickets related to event
+  const getTickets = async (eventId) => {
+    getEventTicketType(
+      JSON.stringify({
+        where: { eventId: eventId },
+      })
+    ).then((data) => {
+      setEventTickets(data.data);
+    });
+  };
+
   // Use Effects
   useEffect(() => {
-    if (slug) {
-      getEvent()
+    if (slug || refetchEvent) {
+      console.log(1111)
+      getEvent();
     }
-  }, [slug])
+  }, [slug, refetchEvent])
 
   useEffect(() => {
     if (eventData && user) {
@@ -110,7 +126,7 @@ const Event = () => {
               <Col lg={6}>
                 <div className={styles.titleDiv}>
                   <p className="pageTitle">{eventData.name}</p>
-                  {/* Lets user edit teh name of the event */}
+                  {/* Lets user edit the name of the event */}
                   {/* {isOwner && account && (
                     <div style={{ marginLeft: '20px' }}>
                       <Image
@@ -187,6 +203,7 @@ const Event = () => {
                 <EventDate data={eventData.eventDate} />
                 <div style={{ marginLeft: '32px', display: 'flex' }}>
                   <TickitTag disabled text={eventData.category.name} />
+                  {/* Tag that shows how much time there is left for the event */}
                   {/* <div style={{ marginLeft: "12px" }}>
                     <TickitTag disabled text="in 2 days" />
                   </div> */}
@@ -206,9 +223,10 @@ const Event = () => {
               }}
             >
               <Tickets
-                eventId={eventData.id}
+                tickets={eventTickets}
                 contractAddress={eventData.contractAddress}
                 isOwner={account && isOwner}
+                setRefetchEvent = {setRefetchEvent}
               />
             </Row>
           </Container>

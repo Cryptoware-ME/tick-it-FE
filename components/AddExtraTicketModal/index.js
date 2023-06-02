@@ -10,18 +10,24 @@ import { use721 } from '../../hooks/use721'
 
 const AddExtraTicketModal = ({
   setAddTicket,
-  setTickets,
   tickets,
   contractAddress,
+  setRefetchEvent
 }) => {
+
+  // States
   const [imageError, setImageError] = useState(false)
   const [nameError, setNameError] = useState(false)
   const [ticketSupply, setTicketSupply] = useState()
   const [filePreview, setFilePreview] = useState()
   const [image, setImage] = useState()
 
+  // Contract Functions
   const { addTicket } = use721({ contractAddress })
 
+  console.log(tickets)
+
+  // Functions
   const addExtraTicket = () => {
     let ticketSupply = 0
     for (let i = 0; i < tickets.length; i++) {
@@ -54,9 +60,11 @@ const AddExtraTicketModal = ({
     }
     postEventTicketTypeBatch(ticketsData).then(() => {
       setAddTicket(false);
+      setRefetchEvent(true);
     })
   }
 
+  // Use Effects
   useEffect(() => {
     if (addTicket.response) {
       launchRes()
