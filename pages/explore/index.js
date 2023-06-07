@@ -3,14 +3,13 @@ import styles from "./Explore.module.scss";
 import { Container, Col, Row } from "react-bootstrap";
 import SideBar from "../../components/SideBar";
 import EventCard from "../../components/EventCard";
-import TickitButton from "../../components/tickitButton";
 import { getEvents } from "../../axios/event.axios";
-
+import Pagination from "react-bootstrap/Pagination";
 const Explore = () => {
-  
   const [filteredEvents, setFilteredEvents] = useState();
-  
-
+  const take = 12;
+  const [skip, setSkip] = useState(0);
+  let items = [];
   const Events = async () => {
     let events = await getEvents(
       JSON.stringify({ relations: ["organization"] })
@@ -21,7 +20,18 @@ const Explore = () => {
     Events();
   }, []);
 
+  const onMoreData = (e) => {
+    setSkip((Number(e.target.text) - 1) * take);
+  };
+  const numberOfPages = Math.ceil(filteredEvents?.length / take);
 
+  for (let number = 1; number <= numberOfPages; number++) {
+    items.push(
+      <Pagination.Item onClick={onMoreData} key={number}>
+        {number}
+      </Pagination.Item>
+    );
+  }
 
   return (
     <Container fluid className={styles.exploreWrapper}>
@@ -36,9 +46,11 @@ const Explore = () => {
             </p>
             {filteredEvents && (
               <Row>
-                {filteredEvents?.map((event, index) => (
-                  <EventCard key={index} eventData={event} />
-                ))}
+                {filteredEvents
+                  ?.slice(skip, skip + take)
+                  .map((event, index) => (
+                    <EventCard key={index} eventData={event} />
+                  ))}
               </Row>
             )}
             <Row
@@ -47,9 +59,12 @@ const Explore = () => {
                 justifyContent: "center",
                 margin: "48px 0px",
               }}
-            > {filteredEvents?.length > 9 &&
-              <TickitButton text="Load More" />
-              }
+            >
+              {filteredEvents?.length > take && (
+                <div className="d-flex justify-content-center">
+                  <Pagination>{items}</Pagination>
+                </div>
+              )}
             </Row>
           </Container>
         </Col>
