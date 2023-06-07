@@ -19,13 +19,9 @@ import { useAuth } from '../../../auth/useAuth'
 import { useEthereum } from '@cryptogate/react-providers'
 import { ConnectWalletComponent } from '@cryptogate/react-ui'
 import Image from 'next/image'
+import { usePause } from '../../../hooks/use721'
 
 const Event = () => {
-  // Hooks
-  const router = useRouter()
-  const { slug } = router.query
-  const { user } = useAuth()
-  const { account } = useEthereum()
 
   // States
   const [contractAddress, setContractAddress] = useState()
@@ -33,25 +29,16 @@ const Event = () => {
   const [isOwner, setIsOwner] = useState(false)
   const [eventTickets, setEventTickets] = useState([]);
   const [refetchEvent, setRefetchEvent] = useState(false)
+  const [pauseEvent, setPauseEvent] = useState();
 
-  // Contract Calls
-  const pause = writeContractCall({
-    address: contractAddress,
-    abi: NFTix721.abi,
-    method: 'pause',
-  })
+  // Hooks
+  const router = useRouter()
+  const { slug } = router.query
+  const { user } = useAuth()
+  const { account } = useEthereum()
+  const { pause, unpause, paused } = usePause({contractAddress});
 
-  const unpause = writeContractCall({
-    address: contractAddress,
-    abi: NFTix721.abi,
-    method: 'unpause',
-  })
-
-  const paused = readContractCall({
-    address: contractAddress,
-    abi: NFTix721.abi,
-    method: 'paused',
-  })
+  console.log(paused);
 
   // Functions
   // Gets the event details with the category and organization included
@@ -82,7 +69,6 @@ const Event = () => {
   // Use Effects
   useEffect(() => {
     if (slug || refetchEvent) {
-      console.log(1111)
       getEvent();
     }
   }, [slug, refetchEvent])
@@ -97,6 +83,15 @@ const Event = () => {
     }
   }, [eventData, user])
 
+  useEffect(() => {
+    if(pause.response){
+      setPauseEvent(true);
+    }else if(unpause.response){
+      setPauseEvent(false);
+    }
+    
+  }, [pause.response || unpause.response])
+  
   return (
     <div className={styles.eventWrapper}>
       {eventData && (
@@ -156,7 +151,7 @@ const Event = () => {
               </Col>
               {isOwner && account && (
                 <Row style={{ marginTop: '32px' }}>
-                  {paused?.response == 'false' && (
+                  {!pauseEvent && (
                     <div className={styles.buttons}>
                       <TickitButton
                         text="PAUSE SALE"
@@ -172,7 +167,7 @@ const Event = () => {
                       </div> */}
                     </div>
                   )}
-                  {paused?.response == 'true' && (
+                  {pauseEvent && (
                     <div className={styles.buttons}>
                       <TickitButton
                         text="RESUME SALES"

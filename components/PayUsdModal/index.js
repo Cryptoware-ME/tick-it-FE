@@ -9,19 +9,19 @@ import { postCustodialMint } from "../../axios/ticket.axios";
 import { useRouter } from "next/router";
 import Loader from "../loader/loader";
 import { useCartContext } from "../../cart/cart-context";
+
 const PayUsd = ({ setUsdModal, cartItemData, total }) => {
+
+  // States
   const [mintModal, setMintModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const [disabled, setDisabled] = useState(true);
+
+  // Hooks
   const router = useRouter();
   const { emptyCart } = useCartContext();
-  const schema = yup.object().shape({
-    holder: yup.string().required("This field is required"),
-    ccv: yup.number().required("This field is required"),
-    number: yup.number().required("This field is required"),
-    date: yup.date().required("Date is required"),
-  });
 
+  // Functions
   const custodialWallet = () => {
     postCustodialMint({
       eventId: cartItemData[0].eventId,
@@ -35,6 +35,14 @@ const PayUsd = ({ setUsdModal, cartItemData, total }) => {
       }, 3000);
     });
   };
+
+  // Formik
+  const schema = yup.object().shape({
+    holder: yup.string().required("This field is required"),
+    ccv: yup.number().required("This field is required"),
+    number: yup.number().required("This field is required"),
+    date: yup.date().required("Date is required"),
+  });
 
   const formik = useFormik({
     initialValues: {

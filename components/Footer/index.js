@@ -19,6 +19,7 @@ const Footer = () => {
 
   async function addEmail(email) {
     if (email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+      // Add api call to send email to newsletter
       setSubmitted(true);
       setValidMail(true);
     } else {
@@ -47,24 +48,24 @@ const Footer = () => {
               <Link href="#" className={styles.footerLink}>
                 Explore
               </Link>
-              <Link href="#" className={styles.footerLink}>
+              <Link href="/create-event" className={styles.footerLink}>
                 Create Event
               </Link>
-              <Link href="#" className={styles.footerLink}>
+              <Link href="/about" className={styles.footerLink}>
                 About
               </Link>
-              <Link href="#" className={styles.footerLink}>
+              <Link href="/support" className={styles.footerLink}>
                 Support
               </Link>
             </Col>
             <Col lg={3} md={4} sm={6} xs={6} className={styles.linksCol}>
-              <Link href="#" className={styles.footerLink}>
+              <Link href="/terms-and-conditions" className={styles.footerLink}>
                 Terms & Conditions
               </Link>
-              <Link href="#" className={styles.footerLink}>
+              <Link href="/FAQs" className={styles.footerLink}>
                 FAQ
               </Link>
-              <Link href="#" className={styles.footerLink}>
+              <Link href="/privacy" className={styles.footerLink}>
                 Privacy
               </Link>
             </Col>
@@ -79,7 +80,7 @@ const Footer = () => {
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
-                  className="modalInput"
+                  className={styles.emailInput}
                   placeholder="Email"
                 />
 

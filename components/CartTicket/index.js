@@ -9,9 +9,16 @@ import TickitButton from "../tickitButton";
 import { useCartContext } from "../../cart/cart-context";
 import Link from "next/link";
 import QrCodeModal from "../qrcode-modal";
+
 const CartTicket = ({ inCart = false, item, itemData }) => {
-  const { deleteFromCart, addToCart } = useCartContext();
+
+  // Use States
   const [qrCodeModal, setQrCodeModal] = useState(false);
+
+  // Hooks
+  const { deleteFromCart, addToCart } = useCartContext();
+
+  // Functions
   const setCounter = (value) => {
     addToCart(itemData, value);
   };

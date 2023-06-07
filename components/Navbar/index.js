@@ -10,17 +10,22 @@ import LoginModal from "../LoginModal";
 import { useAuth } from "../../auth/useAuth";
 import { useRouter } from "next/router";
 import { getOrganization } from "../../axios/organization.axios";
-import { ConnectWalletComponent } from "@cryptogate/react-ui";
 import { useCartContext } from "../../cart/cart-context";
 
 export default function NavBar() {
-  const { setModalOpen } = useAuthModalContext();
-  const { cartItems } = useCartContext();
-  const { logOut, user } = useAuth();
+
+  // States
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [added, setAdded] = useState(false);
   const [totalCartItems, setTotalCartItems] = useState(0);
+
+  // Hooks
+  const { setModalOpen } = useAuthModalContext();
+  const { cartItems } = useCartContext();
+  const { logOut, user } = useAuth();
   const router = useRouter();
+  
+  // Functions
   const handleRouting = async () => {
     if (user) {
       checkVettingDetails();
@@ -32,6 +37,7 @@ export default function NavBar() {
       }
     }
   };
+
   const checkVettingDetails = async () => {
     if (user?.user) {
       getOrganizationDetails(user?.user.id);
@@ -39,6 +45,7 @@ export default function NavBar() {
       getOrganizationDetails(user?.id);
     }
   };
+
   const getOrganizationDetails = async (id) => {
     let organization = await getOrganization(
       JSON.stringify({
@@ -56,6 +63,7 @@ export default function NavBar() {
     }
   };
 
+  // Use Effects
   useEffect(() => {
     if (added) {
       setTimeout(() => {
@@ -71,6 +79,7 @@ export default function NavBar() {
       }, 0)
     );
   }, [cartItems]);
+
   return (
     <>
       <LoginModal />
@@ -156,14 +165,6 @@ export default function NavBar() {
             </Nav>
             <Nav>
               <div className={styles.rightLinks}>
-                <div style={{ width: "40px" }}>
-                  <ConnectWalletComponent
-                    DisabledComponent={<></>}
-                    ActiveComponent={<></>}
-                  />
-                </div>
-
-
                 <div
                   onClick={() => {
                     if (user) {

@@ -7,11 +7,11 @@ import React, { useEffect, useState } from 'react'
 import * as yup from 'yup'
 import Dropdown from 'react-bootstrap/Dropdown'
 import { useAuth } from '../../auth/useAuth'
-import Edit from './edit'
 import { useRouter } from 'next/router'
 import { getCategories } from '../../axios/event.axios'
 import { getOrganization } from '../../axios/organization.axios'
 import { postEvent } from '../../axios/event.axios'
+import { useAuthModalContext } from "../../context/AuthModalProvider";
 
 const CreateEvent = () => {
   // States
@@ -27,6 +27,7 @@ const CreateEvent = () => {
   // Hooks
   const router = useRouter()
   const { user } = useAuth()
+  const { setModalOpen } = useAuthModalContext();
 
   // Functions
   const getOrganizationDetails = async (id) => {
@@ -111,7 +112,7 @@ const CreateEvent = () => {
 
   useEffect(() => {
     if (!user) {
-      router.push('/')
+      setModalOpen(true);
     } else if (user?.user) {
       getCategories().then((data) => {
         setCategories(data.data)

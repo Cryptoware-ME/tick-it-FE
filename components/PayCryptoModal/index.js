@@ -32,7 +32,7 @@ const PayCrypto = ({
   const custodialWallet = () => {
     postCustodialMint({
       eventId: cartItemData[0].eventId,
-      ticketTypeCounts: [0,0,1],
+      ticketTypeCounts: [1],
       proof: '',
     })
   }
@@ -270,7 +270,7 @@ const PayCrypto = ({
                 onClick={() => {
                   payWithCustodial
                     ? custodialWallet()
-                    : mint.send([account, [], [1,0]], {
+                    : mint.send([account, [], [1]], {
                         value: cartItemData[0].price,
                         gasPrice: '80000000000',
                         gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
