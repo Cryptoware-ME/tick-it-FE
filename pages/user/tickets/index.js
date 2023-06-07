@@ -11,7 +11,6 @@ const Tickets = () => {
   useEffect(() => {
     let temp = localStorage.getItem("tickets");
     let tickets = JSON.parse(temp);
-    console.log("tickets: ", JSON.parse(temp));
     setTickets(tickets);
   }, []);
 
