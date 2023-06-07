@@ -10,7 +10,6 @@ import "@cryptogate/react-ui/dist/esm/index.css";
 import { MultiChainProvider } from "@cryptogate/react-providers";
 import config from "../config";
 import React from "react";
-import NavBar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Inter } from "@next/font/google";
 import { AuthModalProvider } from "../context/AuthModalProvider";
@@ -19,7 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { SessionProvider } from "next-auth/react";
 import { AuthProvider } from "../auth/useAuth";
 import { CartProvider } from "../cart/cart-provider";
-import NavBarNew from "../components/NavBarNew";
+import NavBar from "../components/NavBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,7 +31,7 @@ function MyApp({ Component, pageProps, session }) {
             <AuthModalProvider>
               <CartProvider>
                 <ProSidebarProvider>
-                  <NavBarNew />
+                  <NavBar />
                   <Component {...pageProps} />
                   <Footer />
                 </ProSidebarProvider>
