@@ -1,6 +1,6 @@
 import Slider from "../components/Slider";
 import EventCard from "../components/EventCard";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import ExploreEvents from "../components/ExploreEvents";
 import React, { useEffect, useState } from "react";
 import { getEvents } from "../axios/event.axios";
@@ -26,7 +26,7 @@ export default function Home() {
       <Slider events={allEvents} />
       <Container style={{ paddingBottom: "65px" }}>
         {allEvents && (
-          <Row style={{ marginTop: "65px" }}>
+          <Col style={{ marginTop: "65px" }}>
             <p className="section-title">Hot Events</p>
             <Row
               style={{
@@ -40,11 +40,11 @@ export default function Home() {
                   <EventCard key={index} eventData={event} />
                 ))}
             </Row>
-          </Row>
+          </Col>
         )}
-        <Row id="explore" style={{ marginTop: "65px" }}>
+        <Col id="explore" style={{ marginTop: "65px" }}>
           <ExploreEvents events={allEvents} />
-        </Row>
+        </Col>
       </Container>
     </main>
   );

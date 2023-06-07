@@ -7,57 +7,34 @@ import Link from "next/link";
 import { useAuthModalContext } from "../../context/AuthModalProvider";
 import TickitButton from "../tickitButton";
 import Image from "next/image";
-import { signIn, useSession } from "next-auth/react";
-import { login, signup } from "../../axios/auth.axios";
+import { signIn, useSession, signOut } from "next-auth/react";
+import { googleLogin, login, signup } from "../../axios/auth.axios";
 import { useAuth } from "../../auth/useAuth";
 import { getUsers } from "../../axios/user.axios";
 
 const LoginModal = () => {
+  // States
+  const [loginUser, setLoginUser] = useState("");
+
+  // Hooks
   const { logIn, user } = useAuth();
   const { modalOpen, setModalOpen } = useAuthModalContext();
-  const [loginUser, setLoginUser] = useState("");
   const { data: session } = useSession();
-  const [userEmail, setUserEmail] = useState();
-  const [googleUser, setGoogleUser] = useState();
 
-  useEffect(() => {
-    if (session?.user) {
-      setUserEmail(session.user.email);
-      setGoogleUser(session.user.name);
-    }
-  }, [session]);
-
+  // Functions
   const handleSignIn = () => {
-    signIn("google");
+    signIn("google", {callbackUrl: "/"});
   };
-  useEffect(() => {
-    if (userEmail && googleUser) {
-      handleGoogleLogIn();
-    }
-  }, [userEmail && googleUser]);
 
   const handleGoogleLogIn = async () => {
-    let response = await getUsers(
-      JSON.stringify({ where: { email: userEmail } })
-    );
-    if (response?.data.length > 0) {
-      const loginRes = await login({
-        username: userEmail,
-        password: "password123",
-      });
-      logIn(loginRes);
-      if (loginRes) {
-        setModalOpen(false);
-      }
-    } else {
-      const response = await signup({
-        email: userEmail,
-        username: googleUser,
-        password: "password123",
-      });
-      localStorage.setItem("token", "bearer " + response.token);
-      setModalOpen(false);
-    }
+      // const loginRes = await googleLogin({
+      //   username: session.user.name,
+      //   email: session.user.email,
+      // }).then((data)=>{logIn(data)});
+  
+      // if (loginRes) {
+      //   setModalOpen(false);
+      // }
   };
 
   const schema = yup.object().shape({
@@ -166,6 +143,13 @@ const LoginModal = () => {
     status,
     setValues,
   } = formik;
+
+
+  useEffect(() => {
+    if (session?.user) {
+      handleGoogleLogIn();
+    }
+  }, [session]);
 
   return (
     <>
@@ -303,10 +287,11 @@ const LoginModal = () => {
                         setModalOpen(false);
                       }
                     }}
+                    disabled={values.email == null || values.password == null || values.username == null || values.confirmpassword == null || values.password != values.confirmpassword}
                   />
                 </div>
                 <div className={styles.googleLoginDiv}>
-                  {/* <div onClick={handleSignIn} className={styles.googleLogin}>
+                  <div onClick={handleSignIn} className={styles.googleLogin}>
                     <Image
                       width={26}
                       height={26}
@@ -315,7 +300,7 @@ const LoginModal = () => {
                       src="/images/googleicon.svg"
                     />
                     <p className={styles.googleinput}>Log In with Google</p>
-                  </div> */}
+                  </div>
                   <div className={styles.signupdiv}>
                     <p className={styles.signup}>If you have an account,</p>
                     <div

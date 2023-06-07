@@ -45,6 +45,7 @@
   background-color: var(--footerBackground);
   color: var(--white);
   border: none;
+  box-shadow: 0 0 0 3px rgba(226, 188, 21, 0.829); /* Add a yellow box shadow when focused */
 }
 .callForSubscription {
   color: var(--white);

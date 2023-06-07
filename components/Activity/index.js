@@ -1,7 +1,9 @@
-import { Container, Col, Row, Form } from "react-bootstrap";
+import { Container, Col, Row } from "react-bootstrap";
 import styles from "./Activity.module.scss";
+import ActivityCard from "../../components/ActivityCard";
 
 const Activity = () => {
+  // Hardcoded values: To Check
   return (
     <div className={styles.Wrapper}>
       <Container fluid>
@@ -11,115 +13,39 @@ const Activity = () => {
         <Row>
           <Col>
             <div className={styles.activityCard}>
+              {/* Activity Cards */}
+              <ActivityCard
+                date="Wednesday 4 April 2023"
+                time="11:34 AM"
+                info="Bought 3 tickets for ACDC Live"
+                highlight="ACDC Live"
+              />
+              <ActivityCard
+                date="Wednesday 4 April 2023"
+                time="11:35 AM"
+                info="Sent 2 ACDC Live tickets to Edward Erdoğan"
+                highlight="ACDC Live"
+                highlightName="Edward Erdoğan"
+              />
+
+              {/* Repeat more activity cards here */}
+            </div>
+
+            {/* Additional Activity Card */}
+            <div className={styles.activityCard2}>
               <p className={styles.activityDate}>Wednesday 4 April 2023</p>
-              <div className={styles.activity}>
-                <p className={styles.activityTime}> 11:34 AM </p>
-                <p className={styles.activityinfo}>
-                  Bought 3 tickets for{" "}
-                  <span style={{ color: "#FFCC00" }}>ACDC Live</span>
-                </p>
-              </div>
-              <div className={styles.activity}>
-                <p className={styles.activityTime}> 11:35 AM </p>
-                <p className={styles.activityinfo}>
-                  Sent 2 <span style={{ color: "#FFCC00" }}>ACDC Live</span>{" "}
-                  tickets to{" "}
-                  <span style={{ color: "#FFCC00" }}>Edward Erdoğan</span>
-                </p>
-              </div>
-              <div className={styles.activity}>
-                <p className={styles.activityTime}> 11:34 AM </p>
-                <p className={styles.activityinfo}>
-                  Bought 3 tickets for{" "}
-                  <span style={{ color: "#FFCC00" }}>ACDC Live</span>
-                </p>
-              </div>
-              <div className={styles.activity}>
-                <p className={styles.activityTime}> 11:35 AM </p>
-                <p className={styles.activityinfo}>
-                  Sent 2 <span style={{ color: "#FFCC00" }}>ACDC Live</span>{" "}
-                  tickets to{" "}
-                  <span style={{ color: "#FFCC00" }}>Ginestra Zelensky</span>
-                </p>
-              </div>
-              <div className={styles.activity}>
-                <p className={styles.activityTime}> 11:34 AM </p>
-                <p className={styles.activityinfo}>
-                  Bought 3 tickets for{" "}
-                  <span style={{ color: "#FFCC00" }}>ACDC Live</span>
-                </p>
-              </div>
-              <div className={styles.activity}>
-                <p className={styles.activityTime}> 11:35 AM </p>
-                <p className={styles.activityinfo}>
-                  Sent 2 <span style={{ color: "#FFCC00" }}>ACDC Live</span>{" "}
-                  tickets to{" "}
-                  <span style={{ color: "#FFCC00" }}>Edward Erdoğan</span>
-                </p>
-              </div>
-              <div className={styles.activity}>
-                <p className={styles.activityTime}> 11:34 AM </p>
-                <p className={styles.activityinfo}>
-                  Bought 3 tickets for{" "}
-                  <span style={{ color: "#FFCC00" }}>ACDC Live</span>
-                </p>
-              </div>
-              <div className={styles.activity}>
-                <p className={styles.activityTime}> 11:35 AM </p>
-                <p className={styles.activityinfo}>
-                  Sent 2 <span style={{ color: "#FFCC00" }}>ACDC Live</span>{" "}
-                  tickets to{" "}
-                  <span style={{ color: "#FFCC00" }}>Ginestra Zelensky</span>
-                </p>
-              </div>
-              <div className={styles.activity}>
-                <p className={styles.activityTime}> 11:34 AM </p>
-                <p className={styles.activityinfo}>
-                  Bought 3 tickets for{" "}
-                  <span style={{ color: "#FFCC00" }}>ACDC Live</span>
-                </p>
-              </div>
-              <div className={styles.activity}>
-                <p className={styles.activityTime}> 11:35 AM </p>
-                <p className={styles.activityinfo}>
-                  Sent 2 <span style={{ color: "#FFCC00" }}>ACDC Live</span>{" "}
-                  tickets to{" "}
-                  <span style={{ color: "#FFCC00" }}>Edward Erdoğan</span>
-                </p>
-              </div>
-              <div className={styles.activityCard2}>
-                <p className={styles.activityDate}>Wednesday 4 April 2023</p>
-                <div className={styles.activity}>
-                  <p className={styles.activityTime}> 11:34 AM </p>
-                  <p className={styles.activityinfo}>
-                    Bought 3 tickets for{" "}
-                    <span style={{ color: "#FFCC00" }}>ACDC Live</span>
-                  </p>
-                </div>
-                <div className={styles.activity}>
-                  <p className={styles.activityTime}> 11:35 AM </p>
-                  <p className={styles.activityinfo}>
-                    Sent 2 <span style={{ color: "#FFCC00" }}>ACDC Live</span>{" "}
-                    tickets to{" "}
-                    <span style={{ color: "#FFCC00" }}>Edward Erdoğan</span>
-                  </p>
-                </div>
-                <div className={styles.activity}>
-                  <p className={styles.activityTime}> 11:34 AM </p>
-                  <p className={styles.activityinfo}>
-                    Bought 3 tickets for{" "}
-                    <span style={{ color: "#FFCC00" }}>ACDC Live</span>
-                  </p>
-                </div>
-                <div className={styles.activity}>
-                  <p className={styles.activityTime}> 11:35 AM </p>
-                  <p className={styles.activityinfo}>
-                    Sent 2 <span style={{ color: "#FFCC00" }}>ACDC Live</span>{" "}
-                    tickets to{" "}
-                    <span style={{ color: "#FFCC00" }}>Ginestra Zelensky</span>
-                  </p>
-                </div>
-              </div>
+              <ActivityCard
+                time="11:34 AM"
+                info="Bought 3 tickets for "
+                highlight="ACDC Live"
+              />
+              <ActivityCard
+                time="11:35 AM"
+                info="Sent 2 ACDC Live tickets to Ginestra Zelensky"
+                highlight="ACDC Live"
+                highlightName="Ginestra Zelensky"
+              />
+              {/* Add more activity cards here */}
             </div>
           </Col>
         </Row>
@@ -127,5 +53,6 @@ const Activity = () => {
     </div>
   );
 };
+
 
 export default Activity;

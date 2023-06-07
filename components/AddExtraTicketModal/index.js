@@ -1,89 +1,112 @@
-import React, { useEffect, useState } from "react";
-import styles from "./AddExtraTicketModal.module.scss";
-import { Modal, Container, Row, Col, Form } from "react-bootstrap";
-import Dropzone from "../Dropzone";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import TickitButton from "../tickitButton";
-import { writeContractCall } from "@cryptogate/react-providers";
-import NFTix721 from '../../abis/NFTix721.json'
-import { postEventTicketType } from '../../axios/eventTicketType.axios'
+import React, { useEffect, useState } from 'react'
+import styles from './AddExtraTicketModal.module.scss'
+import { Modal, Container, Row, Col, Form } from 'react-bootstrap'
+import Dropzone from '../Dropzone'
+import { useFormik } from 'formik'
+import * as yup from 'yup'
+import TickitButton from '../tickitButton'
+import { postEventTicketTypeBatch } from '../../axios/eventTicketType.axios'
+import { use721 } from '../../hooks/use721'
 
-const AddExtraTicket = ({ setAddTicket, setTickets, tickets, contractAddress }) => {
-  const [imageError, setImageError] = useState(false);
-  const [nameError, setNameError] = useState(false);
-  const [filePreview, setFilePreview] = useState();
-  const [image, setImage] = useState();
+const AddExtraTicketModal = ({
+  setAddTicket,
+  tickets,
+  contractAddress,
+  setRefetchEvent
+}) => {
 
-  const addTicketTypes = writeContractCall({
-    address: contractAddress,
-    abi: NFTix721.abi,
-    // contract: "NFTix721",
-    method: "addTicketTypes",
+  // States
+  const [imageError, setImageError] = useState(false)
+  const [nameError, setNameError] = useState(false)
+  const [ticketSupply, setTicketSupply] = useState()
+  const [filePreview, setFilePreview] = useState()
+  const [image, setImage] = useState()
 
-  })
+  // Contract Functions
+  const { addTicket } = use721({ contractAddress })
 
+  console.log(tickets)
+
+  // Functions
   const addExtraTicket = () => {
-    let ticketSupply = 0;
-    for(let i = 0; i < tickets.length; i++){
-      ticketSupply = ticketSupply + tickets[0].supply;
+    let ticketSupply = 0
+    for (let i = 0; i < tickets.length; i++) {
+      ticketSupply = ticketSupply + tickets[i].supply
     }
 
-    addTicketTypes.send([[values.supply+ticketSupply], [values.price]], {
-      gasPrice: "80000000000",
-      gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
-    })
+    addTicket.send(
+      [[values.supply + ticketSupply], [values.price * 10 ** 18]],
+      {
+        gasPrice: '80000000000',
+        gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
+      },
+    )
 
-
-    // setAddTicket(false);
-
-    // postEventTicketType({
-    //   eventId: data.id,
-    //   name: tickets[0].name,
-    //   description: tickets[0].description,
-    //   supply: tickets[0].supply,
-    //   price: tickets[0].price,
-    //   image: tickets[0].image
-    // }).then(() => {
-    //   setAddTicket(false);
-    // })
-
+    setTicketSupply(values.supply)
   }
+
+  const launchRes = async () => {
+    // setLoading(true);
+    // setDisabled(true);
+    await addTicket.response.wait()
+
+    let ticketsData = {
+      eventId: tickets[0].eventId,
+      name: values.name,
+      description: values.description,
+      supply: ticketSupply,
+      price: values.price * 10 ** 18,
+      image: image,
+    }
+    postEventTicketTypeBatch(ticketsData).then(() => {
+      setAddTicket(false);
+      setRefetchEvent(true);
+    })
+  }
+
+  // Use Effects
+  useEffect(() => {
+    if (addTicket.response) {
+      launchRes()
+    }
+  }, [addTicket.response])
 
   const schema = yup.object().shape({
     name: yup.string().required(),
     price: yup.number().required(),
     supply: yup.number().required(),
     description: yup.string().required(),
-  });
+  })
+
   const formik = useFormik({
     initialValues: {
-      name: "",
-      price: "",
-      supply: "",
-      description: "",
-      image: "",
+      name: '',
+      price: '',
+      supply: '',
+      description: '',
+      image: '',
     },
     validationSchema: schema,
     onSubmit: (values) => {
       if (image) {
-        setImageError(false);
-        values.image = image;
+        setImageError(false)
+        values.image = image
         let found = tickets.find(
-          (ticket) => ticket?.name?.toLowerCase() == values?.name?.toLowerCase()
-        );
+          (ticket) =>
+            ticket?.name?.toLowerCase() == values?.name?.toLowerCase(),
+        )
         if (found) {
-          setNameError(true);
+          setNameError(true)
         } else {
-          setNameError(false);
-          addExtraTicket();
+          setNameError(false)
+          addExtraTicket()
         }
       } else {
-        setImageError(true);
+        setImageError(true)
       }
     },
-  });
-  
+  })
+
   const {
     handleSubmit,
     handleChange,
@@ -98,13 +121,13 @@ const AddExtraTicket = ({ setAddTicket, setTickets, tickets, contractAddress }) 
     setErrors,
     status,
     setValues,
-  } = formik;
+  } = formik
   return (
     <Form>
       <Modal show onHide={() => {}} centered>
         <Modal.Header
           onClick={() => {
-            setAddTicket(false);
+            setAddTicket(false)
           }}
           className={styles.closeButton}
           closeButton
@@ -118,7 +141,7 @@ const AddExtraTicket = ({ setAddTicket, setTickets, tickets, contractAddress }) 
               <Col md={4}>
                 <div
                   className={styles.drop}
-                  style={{ display: "flex", flexDirection: "column" }}
+                  style={{ display: 'flex', flexDirection: 'column' }}
                 >
                   <Dropzone
                     filePreview={filePreview}
@@ -126,7 +149,7 @@ const AddExtraTicket = ({ setAddTicket, setTickets, tickets, contractAddress }) 
                     setImage={setImage}
                     text="Image (max 1MB)"
                   />
-                  <div style={{ height: "20px" }}>
+                  <div style={{ height: '20px' }}>
                     {imageError ? (
                       <div className={styles.errors}>
                         <p className={styles.error2}>Image is required field</p>
@@ -146,10 +169,10 @@ const AddExtraTicket = ({ setAddTicket, setTickets, tickets, contractAddress }) 
                     onBlur={handleBlur}
                     value={values.name}
                     className="modalInput"
-                    style={{ color: "#656565" }}
+                    style={{ color: '#656565' }}
                   />
                 </div>
-                <div style={{ minHeight: "20px" }}>
+                <div style={{ minHeight: '20px' }}>
                   {errors.name && touched.name ? (
                     <div className={styles.errors}>
                       <p className={styles.error2}> {errors.name}</p>
@@ -174,10 +197,10 @@ const AddExtraTicket = ({ setAddTicket, setTickets, tickets, contractAddress }) 
                     onBlur={handleBlur}
                     value={values.supply}
                     className="modalInput"
-                    style={{ color: "#656565" }}
+                    style={{ color: '#656565' }}
                   />
                 </div>
-                <div style={{ minHeight: "20px" }}>
+                <div style={{ minHeight: '20px' }}>
                   {errors.supply && touched.supply ? (
                     <div className={styles.errors}>
                       <p className={styles.error2}> {errors.supply}</p>
@@ -195,10 +218,10 @@ const AddExtraTicket = ({ setAddTicket, setTickets, tickets, contractAddress }) 
                     onBlur={handleBlur}
                     value={values.price}
                     className="modalInput"
-                    style={{ color: "#656565" }}
+                    style={{ color: '#656565' }}
                   />
                 </div>
-                <div style={{ minHeight: "20px" }}>
+                <div style={{ minHeight: '20px' }}>
                   {errors.price && touched.price ? (
                     <div className={styles.errors}>
                       <p className={styles.error2}> {errors.price}</p>
@@ -219,10 +242,10 @@ const AddExtraTicket = ({ setAddTicket, setTickets, tickets, contractAddress }) 
                   onBlur={handleBlur}
                   value={values.description}
                   className="modalInput"
-                  style={{ color: "#656565" }}
+                  style={{ color: '#656565' }}
                 />
               </div>
-              <div style={{ minHeight: "20px" }}>
+              <div style={{ minHeight: '20px' }}>
                 {errors.description && touched.description ? (
                   <div className={styles.errors}>
                     <p className={styles.error2}> {errors.description}</p>
@@ -237,6 +260,6 @@ const AddExtraTicket = ({ setAddTicket, setTickets, tickets, contractAddress }) 
         </Modal.Body>
       </Modal>
     </Form>
-  );
-};
-export default AddExtraTicket;
+  )
+}
+export default AddExtraTicketModal

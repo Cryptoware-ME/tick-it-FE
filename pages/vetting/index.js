@@ -83,7 +83,7 @@ const Vetting = () => {
 
   useEffect(() => {
     if (!user) {
-      router.push("/");
+      // router.push("/");
     } else if (user.user) {
       setOwnerId(user.user.id);
     } else {

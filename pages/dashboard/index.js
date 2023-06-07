@@ -3,7 +3,7 @@ import styles from "./Dashboard.module.scss";
 import { Container, Col, Row } from "react-bootstrap";
 import DashboardBar from "../../components/DashboardBar";
 import OrganizationCard from "../../components/OrganizationCard";
-import AddorganizerCard from "../../components/AddorganizerCard";
+import AddOrganizerCard from "../../components/AddOrganizerCard";
 import UpcomingEventsCard from "../../components/UpcomingEventsCard";
 import Settings from "../../components/settings";
 import Funds from "../../components/funds";
@@ -11,7 +11,7 @@ import Host from "../../components/host";
 import Activity from "../../components/Activity";
 
 const Dashboard = ({}) => {
-  let menu = "host";
+  let menu = "dashboard";
   return (
     <Container fluid className={styles.dashboardWrapper}>
       <Row>
@@ -30,7 +30,7 @@ const Dashboard = ({}) => {
                 {[0, 1, 2]?.map((event, index) => (
                   <OrganizationCard key={index} />
                 ))}
-                <AddorganizerCard />
+                <AddOrganizerCard />
               </Row>
               <Row style={{ padding: "24px 0px" }}>
                 <div className={styles.header}>
