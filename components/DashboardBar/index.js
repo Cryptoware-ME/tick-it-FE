@@ -6,8 +6,9 @@ import { Container } from "react-bootstrap";
 import Image from "next/image";
 import { useAuth } from "../../auth/useAuth";
 
-export default function DashboardBar() {
+export default function DashboardBar({ selected }) {
   const [width, setWidth] = useState();
+  // const [selectedSection, setSelectedSection] = useState("dashboard");
   const { toggleSidebar } = useProSidebar();
   const { user } = useAuth();
 
@@ -48,25 +49,112 @@ export default function DashboardBar() {
             </div>
           </div>
           <div className={styles.dashboardBar}>
-            <Link href="#" className={styles.dashboardLink}>
+            <Link
+              href="/user/dashboard"
+              className={styles.dashboardLink}
+              style={{
+                color:
+                  selected == "dashboard"
+                    ? "var(--primary-dark)"
+                    : "var(--white)",
+                backgroundColor:
+                  selected == "dashboard" ? "#050505" : "transparent",
+              }}
+            >
               Dashboard
             </Link>
-            <Link href="#" className={styles.dashboardLink}>
+            <Link
+              href="/user/tickets"
+              className={styles.dashboardLink}
+              style={{
+                color:
+                  selected == "tickets"
+                    ? "var(--primary-dark)"
+                    : "var(--white)",
+                backgroundColor:
+                  selected == "tickets" ? "#050505" : "transparent",
+              }}
+            >
               All Tickets
             </Link>
-            <Link href="#" className={styles.dashboardLink}>
+            <Link
+              href="/user/funds"
+              className={styles.dashboardLink}
+              style={{
+                color:
+                  selected == "funds" ? "var(--primary-dark)" : "var(--white)",
+                backgroundColor:
+                  selected == "funds" ? "#050505" : "transparent",
+              }}
+            >
               Funds
             </Link>
-            <Link href="#" className={styles.dashboardLink}>
+            <Link
+              href="/user/settings"
+              className={styles.dashboardLink}
+              style={{
+                color:
+                  selected == "settings"
+                    ? "var(--primary-dark)"
+                    : "var(--white)",
+                backgroundColor:
+                  selected == "settings" ? "#050505" : "transparent",
+              }}
+            >
+              Settings
+            </Link>
+            <div className={styles.lineDiv}>
+              <hr className={styles.line} />
+            </div>
+            <Link
+              href="/user/activity"
+              className={styles.dashboardLink}
+              style={{
+                color:
+                  selected == "activity"
+                    ? "var(--primary-dark)"
+                    : "var(--white)",
+                backgroundColor:
+                  selected == "activity" ? "#050505" : "transparent",
+              }}
+            >
               Activity
             </Link>
-            <Link href="#" className={styles.dashboardLink}>
-              Settings
+            <Link
+              href="/user/attendance"
+              className={styles.dashboardLink}
+              style={{
+                color:
+                  selected == "attendance"
+                    ? "var(--primary-dark)"
+                    : "var(--white)",
+                backgroundColor:
+                  selected == "attendance" ? "#050505" : "transparent",
+              }}
+            >
+              Attendance
+            </Link>
+            <div className={styles.lineDiv}>
+              <hr className={styles.line} />
+            </div>
+
+            <Link
+              href="/user/hosting"
+              className={styles.dashboardLink}
+              style={{
+                color:
+                  selected == "hosting"
+                    ? "var(--primary-dark)"
+                    : "var(--white)",
+                backgroundColor:
+                  selected == "hosting" ? "#050505" : "transparent",
+              }}
+            >
+              Hosting
             </Link>
           </div>
         </Menu>
       </Sidebar>
- 
     </div>
   );
 }

@@ -228,3 +228,7 @@ html {
 .sidebar-col {
   padding: 0 !important;
 }
+.dashboardWrapper {
+  min-height: 100vh;
+  background-color: #0c0c0c;
+}

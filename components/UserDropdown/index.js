@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import styles from "./UserDropdown.module.scss";
 import Link from "next/link";
 const UserDropdown = ({ isOpen, onClose, logOut, user }) => {
+  const handleRoute = (route) => {
+    onClose;
+    return route;
+  };
   return (
     <div className={`${styles.menu} ${isOpen && styles.show} `}>
       <div className={styles.overlay} onClick={onClose}></div>
@@ -10,27 +14,57 @@ const UserDropdown = ({ isOpen, onClose, logOut, user }) => {
           {user?.user ? user?.user.username : user?.username}
         </p>
         <p className={styles.dropdownEmail}>
-          {" "}
           {user?.user ? user?.user.email : user?.email}
         </p>
-        <Link href="/tickets" className={styles.dropdownLink}>
+        <Link
+          onClick={onClose}
+          href="/user/dashboard"
+          className={styles.dropdownLink}
+        >
           Dashboard
         </Link>
 
-        <Link href="/tickets" className={styles.dropdownLink}>
+        <Link
+          onClick={onClose}
+          href="/user/tickets"
+          className={styles.dropdownLink}
+        >
           Tickets
         </Link>
-        <Link href="/tickets"className={styles.dropdownLink}>
+        <Link
+          onClick={onClose}
+          href="/user/funds"
+          className={styles.dropdownLink}
+        >
           Funds
         </Link>
-        <Link href="/tickets"className={styles.dropdownLink}>
+        <Link
+          onClick={onClose}
+          href="/user/hosting"
+          className={styles.dropdownLink}
+        >
           Hosting
         </Link>
-        <Link href="/tickets"className={styles.dropdownLink}>
+        <Link
+          onClick={onClose}
+          href="/user/attendance"
+          className={styles.dropdownLink}
+        >
+          Attendance
+        </Link>
+        <Link
+          onClick={onClose}
+          href="/user/activity"
+          className={styles.dropdownLink}
+        >
           Activity
         </Link>
         <hr className={styles.horline} />
-        <Link href="/tickets" className={styles.dropdownLink}>
+        <Link
+          onClick={onClose}
+          href="/user/settings"
+          className={styles.dropdownLink}
+        >
           Settings
         </Link>
         <div

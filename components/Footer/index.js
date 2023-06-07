@@ -54,9 +54,9 @@ const Footer = () => {
               <Link href="/about" className={styles.footerLink}>
                 About
               </Link>
-              <Link href="/support" className={styles.footerLink}>
+              {/* <Link href="/support" className={styles.footerLink}>
                 Support
-              </Link>
+              </Link> */}
             </Col>
             <Col lg={3} md={4} sm={6} xs={6} className={styles.linksCol}>
               <Link href="/terms-and-conditions" className={styles.footerLink}>
