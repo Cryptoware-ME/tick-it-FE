@@ -3,7 +3,7 @@ import styles from "./Dashboard.module.scss";
 import { Container, Col, Row } from "react-bootstrap";
 import DashboardBar from "../../../components/DashboardBar";
 import OrganizationCard from "../../../components/OrganizationCard";
-import AddOrganizerCard from "../../../components/AddOrganizerCard";
+import AddOrganizationCard from "../../../components/AddOrganizationCard";
 import UpcomingEventsCard from "../../../components/UpcomingEventsCard";
 
 const Dashboard = ({}) => {
@@ -26,7 +26,7 @@ const Dashboard = ({}) => {
                     {[0, 1, 2]?.map((event, index) => (
                       <OrganizationCard key={index} />
                     ))}
-                    <AddOrganizerCard />
+                    <AddOrganizationCard />
                   </Row>
                 </div>
               </div>
