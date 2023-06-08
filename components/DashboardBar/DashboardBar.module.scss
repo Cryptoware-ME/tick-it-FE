@@ -8,15 +8,14 @@
     min-height: 35px;
     height: fit-content;
     background: var(--background);
-   
   }
 }
 .sideBarmenu {
   padding: 0px !important;
   @media (max-width: 991px) {
     margin-top: 60px;
-   padding: 20px;
-   }
+    padding: 20px;
+  }
 }
 .sideBarInputDiv {
   display: flex;
@@ -131,6 +130,20 @@
   background-color: #050505;
 }
 .dashboardLink:hover {
-  background-color: #050505;
-  color: var(--primary-dark);
+  background-color: #050505 !important;
+}
+.line {
+  height: 2px;
+  color: var(--disabled1);
+  margin: 0;
+  width: 90%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.lineDiv {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }

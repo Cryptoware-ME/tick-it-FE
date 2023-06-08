@@ -32,9 +32,9 @@ const EventCard = ({ eventData }) => {
                 </div>
 
                 <div className={styles.cardDetails}>
-                  <p className={styles.eventTitle}>{eventData.name} </p>
+                  <p className={styles.eventTitle}>{eventData?.name} </p>
                   <p className={styles.eventOrganizer}>
-                    {eventData.organization.name}
+                    {eventData?.organization?.name}
                   </p>
 
                   <EventDate data={eventData.eventDate} />

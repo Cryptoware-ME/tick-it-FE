@@ -45,24 +45,24 @@ const Footer = () => {
         <Row>
           <Col lg={9} md={8} sm={7} className={styles.linksWrapper}>
             <Col lg={3} md={4} sm={6} xs={6} className={styles.linksCol}>
-              <Link href="#" className={styles.footerLink}>
+              <Link href="/explore" className={styles.footerLink}>
                 Explore
               </Link>
               <Link href="/create-event" className={styles.footerLink}>
                 Create Event
               </Link>
-              <Link href="/about" className={styles.footerLink}>
+              <Link href="/about-us" className={styles.footerLink}>
                 About
               </Link>
-              <Link href="/support" className={styles.footerLink}>
+              {/* <Link href="/support" className={styles.footerLink}>
                 Support
-              </Link>
+              </Link> */}
             </Col>
             <Col lg={3} md={4} sm={6} xs={6} className={styles.linksCol}>
               <Link href="/terms-and-conditions" className={styles.footerLink}>
                 Terms & Conditions
               </Link>
-              <Link href="/FAQs" className={styles.footerLink}>
+              <Link href="/faq" className={styles.footerLink}>
                 FAQ
               </Link>
               <Link href="/privacy" className={styles.footerLink}>

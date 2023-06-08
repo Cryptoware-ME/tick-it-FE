@@ -16,15 +16,15 @@ const TicketCard = ({
   isOwner,
   handlePause,
   handleResume,
+  ended,
 }) => {
-
   // States
   const [counter, setCounter] = useState(1);
   // const [editTicket, setEditTicket] = useState(false);
 
   // Functions
   const { addToCart } = useCartContext();
-  
+
   const handleAddToCart = () => {
     addToCart(ticket, counter);
     setCounter(1);
@@ -53,7 +53,7 @@ const TicketCard = ({
               <div className={styles.cardHeader}>
                 <h1 className="section-title">{ticket.name}</h1>
 
-                {isOwner && (
+                {isOwner && !ended && (
                   <div>
                     {!ticket.isActive ? (
                       <Image
@@ -90,7 +90,10 @@ const TicketCard = ({
               </div>
 
               <TicketCounter
-                sold={`${Number(ticketFromContract?.currentTokenId) - Number(ticketFromContract?.startTokenId)}`}
+                sold={`${
+                  Number(ticketFromContract?.currentTokenId) -
+                  Number(ticketFromContract?.startTokenId)
+                }`}
                 total={ticket.supply}
               />
               <EventDetails details={ticket.description} />
@@ -106,32 +109,33 @@ const TicketCard = ({
                   {(ticket.price / 10 ** 18).toFixed(4)}
                 </h1>
               </div>
-
-              <Row>
-                <Col className={styles.cardCounter}>
-                  {!ticket.isSoldout && (
-                    <>
-                      <h1 className={styles.cardQuantity}>Enter Quantity</h1>
-                      <div style={{ marginLeft: "8px" }}>
-                        <Counter
-                          counter={counter}
-                          setCounter={(value) => setCounter(counter + value)}
-                        />
-                      </div>
-                    </>
-                  )}
-                </Col>
-                <Col>
-                  {ticket.isSoldout ? (
-                    <TickitButton text="sold out" disabled />
-                  ) : (
-                    <TickitButton
-                      text="ADD TO CART"
-                      onClick={handleAddToCart}
-                    />
-                  )}
-                </Col>
-              </Row>
+              {!ended && (
+                <Row>
+                  <Col className={styles.cardCounter}>
+                    {!ticket.isSoldout && (
+                      <>
+                        <h1 className={styles.cardQuantity}>Enter Quantity</h1>
+                        <div style={{ marginLeft: "8px" }}>
+                          <Counter
+                            counter={counter}
+                            setCounter={(value) => setCounter(counter + value)}
+                          />
+                        </div>
+                      </>
+                    )}
+                  </Col>
+                  <Col>
+                    {ticket.isSoldout ? (
+                      <TickitButton text="sold out" disabled />
+                    ) : (
+                      <TickitButton
+                        text="ADD TO CART"
+                        onClick={handleAddToCart}
+                      />
+                    )}
+                  </Col>
+                </Row>
+              )}
             </div>
           </div>
         </div>

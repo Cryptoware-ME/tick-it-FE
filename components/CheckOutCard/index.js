@@ -5,9 +5,7 @@ import PayUsdModal from "../PayUsdModal";
 import PayCrypto from "../PayCryptoModal";
 import { useCartContext } from "../../cart/cart-context";
 
-
-const CheckOutCard = ({cartItemData}) => {
-
+const CheckOutCard = ({ cartItemData }) => {
   // Use States
   const [usdmodal, setUsdModal] = useState(false);
   const [cryptomodal, setCryptoModal] = useState(false);
@@ -15,15 +13,25 @@ const CheckOutCard = ({cartItemData}) => {
   // Hooks
   const { cartTotal, cartItems } = useCartContext();
 
-  console.log("Cart Item Data passed from Cart component: ", cartItemData);
-  console.log("Cart total from context: ", cartTotal);
-  console.log("CartItems from context: ", cartItems);
-
   return (
     <>
-      {usdmodal && <PayUsdModal setUsdModal={setUsdModal} cartItemData={cartItemData} cartItemsCount={cartItems}  total={(cartTotal / 10 ** 18).toFixed(4)}/>}
+      {usdmodal && (
+        <PayUsdModal
+          setUsdModal={setUsdModal}
+          cartItemData={cartItemData}
+          cartItemsCount={cartItems}
+          total={(cartTotal / 10 ** 18).toFixed(4)}
+        />
+      )}
 
-      {cryptomodal && <PayCrypto setCryptoModal={setCryptoModal} cartItemData={cartItemData} cartItemsCount={cartItems}  total={(cartTotal / 10 ** 18).toFixed(4)}/>}
+      {cryptomodal && (
+        <PayCrypto
+          setCryptoModal={setCryptoModal}
+          cartItemData={cartItemData}
+          cartItemsCount={cartItems}
+          total={(cartTotal / 10 ** 18).toFixed(4)}
+        />
+      )}
 
       <div style={{ padding: "10px" }}>
         <div className="cardWrapper">

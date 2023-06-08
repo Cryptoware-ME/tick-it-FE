@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Tickets.module.scss";
 import { Container, Col, Row } from "react-bootstrap";
-import DashboardBar from "../../components/DashboardBar";
-import CartTicket from "../../components/CartTicket";
-import Loader from "../../components/loader/loader";
+import DashboardBar from "../../../components/DashboardBar";
+import CartTicket from "../../../components/CartTicket";
+import Loader from "../../../components/loader/loader";
 
 const Tickets = () => {
   const [tickets, setTickets] = useState([]);
@@ -11,7 +11,6 @@ const Tickets = () => {
   useEffect(() => {
     let temp = localStorage.getItem("tickets");
     let tickets = JSON.parse(temp);
-    console.log("tickets: ", JSON.parse(temp));
     setTickets(tickets);
   }, []);
 
@@ -19,7 +18,7 @@ const Tickets = () => {
     <Container fluid className={styles.wrapper}>
       <Row>
         <Col lg={2} style={{ padding: "0px" }}>
-          <DashboardBar />
+          <DashboardBar selected="tickets" />
         </Col>
         <Col lg={10} style={{ padding: "40px 10px" }}>
           <Container fluid>

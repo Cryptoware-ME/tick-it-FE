@@ -24,7 +24,7 @@
 
 .navbarUserRelated {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   align-items: center;
   flex-grow: 1;
 }
@@ -92,7 +92,7 @@
   @media (min-width: 993px) {
     text-align: right;
   }
-
+  margin-right: 15px;
   color: var(--white);
   text-transform: uppercase;
   font-weight: 400;
@@ -107,9 +107,6 @@
 
 .logIn {
   width: fit-content;
-
-  margin-top: 0.2rem;
-  margin-right: 0.7rem;
   color: var(--white);
   text-transform: uppercase;
   font-weight: 400;
