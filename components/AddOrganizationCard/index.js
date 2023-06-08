@@ -3,7 +3,7 @@ import styles from "./AddOrganizerCard.module.scss";
 import { Col, Row } from "react-bootstrap";
 import Image from "next/image";
 
-const AddOrganizerCard = () => {
+const AddOrganizationCard = () => {
   return (
     <>
       <Col lg={3} md={6} className={styles.organizerCard}>
@@ -22,4 +22,4 @@ const AddOrganizerCard = () => {
   );
 };
 
-export default AddOrganizerCard;
+export default AddOrganizationCard;
