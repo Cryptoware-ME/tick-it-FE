@@ -16,7 +16,7 @@ const AddOrganizerCard = () => {
             src="/images/addOrganization.png"
           />
         </div>
-        <p className={styles.organizationName}>Create Organizatione</p>
+        <p className={styles.organizationName}>Create Organization</p>
       </Col>
     </>
   );

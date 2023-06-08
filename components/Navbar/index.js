@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "./NavBarNew.module.scss";
+import styles from "./Navbar.module.scss";
 import { Container, Navbar, Nav } from "react-bootstrap";
 import TickitButton from "../tickitButton";
 import { useAuth } from "../../auth/useAuth";

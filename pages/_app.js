@@ -18,7 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { SessionProvider } from "next-auth/react";
 import { AuthProvider } from "../auth/useAuth";
 import { CartProvider } from "../cart/cart-provider";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
