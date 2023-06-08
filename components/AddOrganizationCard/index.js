@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./AddOrganizerCard.module.scss";
+import styles from "./AddOrganizationCard.module.scss";
 import { Col, Row } from "react-bootstrap";
 import Image from "next/image";
 
