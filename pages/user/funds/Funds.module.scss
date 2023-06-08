@@ -29,3 +29,14 @@
   color: var(--white);
   margin-top: 10px;
 }
+.section {
+  margin-top: 24px;
+}
+.sectionContent {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #0c0c0c;
+  padding: 24px;
+}

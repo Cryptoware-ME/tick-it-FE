@@ -1,45 +1,44 @@
-import React, { useEffect, useState } from 'react'
-import styles from './addTickets.module.scss'
-import { Container, Col, Row } from 'react-bootstrap'
-import EventDate from '../../../components/EventDate'
-import EventLocation from '../../../components/EventLocation'
-import EventDetails from '../../../components/EventDetails'
-import Image from 'next/image'
-import TickitButton from '../../../components/tickitButton'
-import TickitTag from '../../../components/TickitTag'
+import React, { useEffect, useState } from "react";
+import styles from "./addTickets.module.scss";
+import { Container, Col, Row } from "react-bootstrap";
+import EventDate from "../../../components/EventDate";
+import EventLocation from "../../../components/EventLocation";
+import EventDetails from "../../../components/EventDetails";
+import Image from "next/image";
+import TickitButton from "../../../components/tickitButton";
+import TickitTag from "../../../components/TickitTag";
 
-import TicketCardPreview from '../../../components/TicketCardPreview'
-import { useAuth } from '../../../auth/useAuth'
-import { useAuthModalContext } from '../../../context/AuthModalProvider'
-import { useLaunchpad } from '../../../hooks/useLaunchpad'
-import { useEthereum } from '@cryptogate/react-providers'
-import { ConnectWalletComponent } from '@cryptogate/react-ui'
-import { useRouter } from 'next/router'
-import { getEvents, updateEvent } from '../../../axios/event.axios'
-import { getOrganization } from '../../../axios/organization.axios'
-import { postEventTicketTypeBatch } from '../../../axios/eventTicketType.axios'
-import AddTicketModal from '../../../components/AddTicketModal'
+import TicketCardPreview from "../../../components/TicketCardPreview";
+import { useAuth } from "../../../auth/useAuth";
+import { useAuthModalContext } from "../../../context/AuthModalProvider";
+import { useLaunchpad } from "../../../hooks/useLaunchpad";
+import { useEthereum } from "@cryptogate/react-providers";
+import { ConnectWalletComponent } from "@cryptogate/react-ui";
+import { useRouter } from "next/router";
+import { getEvents, updateEvent } from "../../../axios/event.axios";
+import { getOrganization } from "../../../axios/organization.axios";
+import { postEventTicketTypeBatch } from "../../../axios/eventTicketType.axios";
+import AddTicketModal from "../../../components/AddTicketModal";
 
 const AddTickets = () => {
-
   // Use States
-  const [tickets, setTickets] = useState([])
+  const [tickets, setTickets] = useState([]);
 
   // This is used for contract deployedment to get the ticket prices and ticket supply
-  const [ticketPrices, setTicketPrices] = useState([])
-  const [ticketSupply, setTicketSupply] = useState([])
+  const [ticketPrices, setTicketPrices] = useState([]);
+  const [ticketSupply, setTicketSupply] = useState([]);
 
-  const [addTicketModal, setAddTicketModal] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [disabled, setDisabled] = useState(false)
-  const [eventDetails, setEventDetails] = useState()
+  const [addTicketModal, setAddTicketModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const [eventDetails, setEventDetails] = useState();
 
   // Hook Calls
-  const router = useRouter()
-  const { account } = useEthereum()
-  const { createEvent } = useLaunchpad()
-  const { user } = useAuth()
-  const { setModalOpen } = useAuthModalContext()
+  const router = useRouter();
+  const { account } = useEthereum();
+  const { createEvent } = useLaunchpad();
+  const { user } = useAuth();
+  const { setModalOpen } = useAuthModalContext();
 
   // Functions
   // Contract interaction to deploy event
@@ -48,35 +47,35 @@ const AddTickets = () => {
       [
         eventDetails?.name,
         eventDetails?.symbol,
-        '',
+        "",
         ticketPrices,
         ticketSupply,
         [process.env.NEXT_PUBLIC_ADMIN_ADDRESS, account],
         [10, 90],
         account,
         10,
-        '0x815ae514cff4150ec895809ae516283047f6dff8e679158b151a8495f70fc929',
+        "0x815ae514cff4150ec895809ae516283047f6dff8e679158b151a8495f70fc929",
       ],
       {
-        gasPrice: '80000000000',
+        gasPrice: "80000000000",
         gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
-      },
-    )
-  }
+      }
+    );
+  };
 
   // Api call to save contract
   const launchRes = async () => {
-    setLoading(true)
-    setDisabled(true)
-    const res = await createEvent.response.wait()
+    setLoading(true);
+    setDisabled(true);
+    const res = await createEvent.response.wait();
     updateEvent(
       {
         contractAddress: res.events[0].address,
         totalSupply: ticketSupply.reduce((accumulator, currentValue) => {
-          return accumulator + currentValue
-        }, 0)
+          return accumulator + currentValue;
+        }, 0),
       },
-      eventDetails.id,
+      eventDetails.id
     ).then((data) => {
       let ticketsData = tickets.map((ticket, index) => {
         return {
@@ -86,55 +85,59 @@ const AddTickets = () => {
           supply: ticket.supply,
           price: ticket.price * 10 ** 18,
           image: ticket.image,
-        }
-      })
+        };
+      });
       postEventTicketTypeBatch(ticketsData).then(() => {
-        router.push(`/event/${data.slug}`)
-      })
-    })
-  }
+        router.push(`/event/${data.slug}`);
+      });
+    });
+  };
 
   // Remove tickets before deployment
   const handleRemoveTicket = (ticketName) => {
-    const tmpTickets = tickets.slice()
+    const tmpTickets = tickets.slice();
 
     const updatedTickets = tmpTickets.filter(
-      (tkt) => tkt?.name?.toLowerCase() !== ticketName?.toLowerCase(),
-    )
-    setTickets(updatedTickets)
-  }
+      (tkt) => tkt?.name?.toLowerCase() !== ticketName?.toLowerCase()
+    );
+    setTickets(updatedTickets);
+  };
 
   // Use Effect
   useEffect(() => {
     if (createEvent.response) {
-      launchRes()
+      launchRes();
     }
-  }, [createEvent.response])
+  }, [createEvent.response]);
 
   useEffect(() => {
     if (!user) {
-      setModalOpen(true)
+      setModalOpen(true);
     } else {
-      getEvents(JSON.stringify({ where: { id: router.query.eventId } })).then((data) => {setEventDetails(data.data[0])})
+      getEvents(JSON.stringify({ where: { id: router.query.eventId } })).then(
+        (data) => {
+          setEventDetails(data.data[0]);
+        }
+      );
     }
-  }, [user])
+  }, [user]);
 
   // This ticket sets the prices and the supply for the contract to deploy
   useEffect(() => {
     setTicketPrices(
       tickets.map((ticket) => {
-        let price = ticket.price * 10 ** 18
-        return price
-      }),
-    )
+        let price = ticket.price * 10 ** 18;
+        return price;
+      })
+    );
     let supplyAccumulated = tickets.reduce((acc, ticket) => {
-      let lastSupply = acc[acc.length - 1] || 0
-      let currentSupply = ticket.supply + lastSupply
-      acc.push(currentSupply)
-      return acc
-    }, [])
-    setTicketSupply(supplyAccumulated)
-  }, [tickets])
+      let lastSupply = acc[acc.length - 1] || 0;
+      let currentSupply = ticket.supply + lastSupply;
+      acc.push(currentSupply);
+      return acc;
+    }, []);
+    setTicketSupply(supplyAccumulated);
+  }, [tickets]);
 
   return (
     <div className={styles.eventWrapper}>
@@ -149,22 +152,22 @@ const AddTickets = () => {
         <div
           style={{
             backgroundImage: `url(${eventDetails?.banner})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            height: 'calc(65vh - 70px)',
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            height: "calc(65vh - 70px)",
           }}
         >
           <div
             style={{
-              height: '100%',
+              height: "100%",
               background:
-                ' linear-gradient(0deg,rgba(15,10,10, 1) 0%, rgba(15,10,10, 0.55) 25%, rgba(255, 204, 0, 0.31) 65%,rgba(255, 204, 0, 0.11) 100%)',
+                " linear-gradient(0deg,rgba(15,10,10, 1) 0%, rgba(15,10,10, 0.55) 25%, rgba(255, 204, 0, 0.31) 65%,rgba(255, 204, 0, 0.11) 100%)",
             }}
           />
         </div>
         <Container
           style={{
-            marginTop: '-50px',
+            marginTop: "-50px",
           }}
         >
           <Row>
@@ -182,7 +185,7 @@ const AddTickets = () => {
               </div>
             </Col>
 
-            <Row style={{ marginTop: '32px' }}>
+            <Row style={{ marginTop: "32px" }}>
               {tickets.length > 0 && (
                 <div>
                   {account ? (
@@ -191,7 +194,7 @@ const AddTickets = () => {
                       isLoading={loading}
                       disabled={disabled}
                       onClick={async () => {
-                        deployEvent()
+                        deployEvent();
                       }}
                     />
                   ) : (
@@ -206,47 +209,49 @@ const AddTickets = () => {
             </Row>
             <div
               style={{
-                marginTop: '32px',
-                display: 'flex',
-                alignItems: 'center',
+                marginTop: "32px",
+                display: "flex",
+                alignItems: "center",
               }}
             >
-              <EventDate data={eventDetails?.date} />
-              <div style={{ marginLeft: '32px', display: 'flex' }}>
+              <EventDate data={eventDetails?.eventDate} />
+              <div style={{ marginLeft: "32px", display: "flex" }}>
                 <TickitTag disabled text={eventDetails?.category} />
               </div>
             </div>
 
-            <div style={{ marginTop: '14px' }}>
+            <div style={{ marginTop: "14px" }}>
               <EventLocation
                 location={eventDetails?.location}
                 fontSize="24px"
               />
             </div>
-            <div style={{ marginTop: '14px' }}>
+            <div style={{ marginTop: "14px" }}>
               <EventDetails width="60%" details={eventDetails?.description} />
             </div>
           </Row>
           <Row
             style={{
-              padding: '80px 0px',
+              padding: "80px 0px",
             }}
           >
             <div
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                marginBottom: '24px',
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "24px",
               }}
             >
-              <p className="section-title" style={{ marginRight: '24px' }}>
+              <p className="section-title" style={{ marginRight: "24px" }}>
                 Tickets
               </p>
 
               <TickitButton
                 text="ADD TICKET"
+                isLoading={loading}
+                disabled={disabled}
                 onClick={() => {
-                  setAddTicketModal(true)
+                  setAddTicketModal(true);
                 }}
               />
             </div>
@@ -267,7 +272,7 @@ const AddTickets = () => {
         </Container>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AddTickets
+export default AddTickets;

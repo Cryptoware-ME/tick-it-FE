@@ -20,25 +20,23 @@ const Tickets = () => {
         <Col lg={2} style={{ padding: "0px" }}>
           <DashboardBar selected="tickets" />
         </Col>
-        <Col lg={10} style={{ padding: "40px 10px" }}>
-          <Container fluid>
-            <Row>
-              <p className="pageTitle" style={{ marginBottom: "24px" }}>
-                My Tickets
-              </p>
-              {tickets?.length > 0 ? (
-                <>
-                  {tickets?.map((event, index) => (
-                    <CartTicket key={index} itemData={event} />
-                  ))}
-                </>
-              ) : (
-                <div>
-                  <Loader />
-                </div>
-              )}
-            </Row>
-          </Container>
+        <Col lg={10} style={{ paddingBottom: "48px" }}>
+          <div className={styles.section}>
+            <p style={{ marginBottom: "40px" }} className="section-title">
+              My Tickets
+            </p>
+            {tickets?.length > 0 ? (
+              <>
+                {tickets?.map((event, index) => (
+                  <CartTicket key={index} itemData={event} />
+                ))}
+              </>
+            ) : (
+              <div>
+                <Loader />
+              </div>
+            )}
+          </div>
         </Col>
       </Row>
     </Container>

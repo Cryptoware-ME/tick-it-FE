@@ -4,12 +4,14 @@ import { Container, Col, Row } from "react-bootstrap";
 import SideBar from "../../components/SideBar";
 import EventCard from "../../components/EventCard";
 import { getEvents } from "../../axios/event.axios";
-import Pagination from "react-bootstrap/Pagination";
+// import Pagination from "react-bootstrap/Pagination";
+import PagePagination from "../../components/pagination";
 const Explore = () => {
   const [filteredEvents, setFilteredEvents] = useState();
-  const take = 12;
+
+  // const take = 12;
   const [skip, setSkip] = useState(0);
-  let items = [];
+  // let items = [];
   const Events = async () => {
     let events = await getEvents(
       JSON.stringify({ relations: ["organization"] })
@@ -20,18 +22,18 @@ const Explore = () => {
     Events();
   }, []);
 
-  const onMoreData = (e) => {
-    setSkip((Number(e.target.text) - 1) * take);
-  };
-  const numberOfPages = Math.ceil(filteredEvents?.length / take);
+  // const onMoreData = (e) => {
+  //   setSkip((Number(e.target.text) - 1) * take);
+  // };
+  // const numberOfPages = Math.ceil(filteredEvents?.length / take);
 
-  for (let number = 1; number <= numberOfPages; number++) {
-    items.push(
-      <Pagination.Item onClick={onMoreData} key={number}>
-        {number}
-      </Pagination.Item>
-    );
-  }
+  // for (let number = 1; number <= numberOfPages; number++) {
+  //   items.push(
+  //     <Pagination.Item onClick={onMoreData} key={number}>
+  //       {number}
+  //     </Pagination.Item>
+  //   );
+  // }
 
   return (
     <Container fluid className={styles.exploreWrapper}>
@@ -60,11 +62,7 @@ const Explore = () => {
                 margin: "48px 0px",
               }}
             >
-              {filteredEvents?.length > take && (
-                <div className="d-flex justify-content-center">
-                  <Pagination>{items}</Pagination>
-                </div>
-              )}
+              <PagePagination data={filteredEvents} setSkip={setSkip} />
             </Row>
           </Container>
         </Col>

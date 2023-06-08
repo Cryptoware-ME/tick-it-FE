@@ -11,3 +11,12 @@
   padding: 30px 10px 0px 15px;
   font-family: "DrukWideMedium";
 }
+.section {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #0c0c0c;
+  padding: 24px;
+}
