@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Pagination from "react-bootstrap/Pagination";
+
+import styles from "./pagination.module.scss";
 
 const PagePagination = ({ data, take, setSkip }) => {
   let items = [];
@@ -19,8 +21,17 @@ const PagePagination = ({ data, take, setSkip }) => {
   return (
     <>
       {data?.length > take ? (
-        <div className="d-flex justify-content-center">
-          <Pagination>{items}</Pagination>
+        <div className={styles.paginationDiv}>
+          {/* <div className={styles.backArrow}>
+            <span className={styles.arrowSpan}></span>
+          </div> */}
+          <div>
+            <Pagination>{items}</Pagination>
+          </div>
+
+          {/* <div className={styles.nextArrow}>
+            <span className={styles.arrowSpan}></span>
+          </div> */}
         </div>
       ) : (
         <></>

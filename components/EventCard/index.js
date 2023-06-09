@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
-import styles from "./EventCard.module.scss";
+import Link from "next/link";
+import React from "react";
 import { Col } from "react-bootstrap";
 import Image from "next/image";
+
 import EventDate from "../EventDate";
 import EventLocation from "../EventLocation";
-import Link from "next/link";
+
+import styles from "./EventCard.module.scss";
 
 const EventCard = ({ eventData }) => {
   return (

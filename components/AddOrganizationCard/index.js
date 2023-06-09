@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import styles from "./AddOrganizationCard.module.scss";
-import { Col, Row } from "react-bootstrap";
+import React from "react";
 import Image from "next/image";
+import { Col } from "react-bootstrap";
+
+import styles from "./AddOrganizationCard.module.scss";
 
 const AddOrganizationCard = () => {
   return (

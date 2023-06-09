@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import styles from "./Explore.module.scss";
 import { Container, Col, Row } from "react-bootstrap";
+import { getEvents } from "../../axios/event.axios";
+
 import SideBar from "../../components/SideBar";
 import EventCard from "../../components/EventCard";
-import { getEvents } from "../../axios/event.axios";
-// import Pagination from "react-bootstrap/Pagination";
 import PagePagination from "../../components/pagination";
+
+import styles from "./Explore.module.scss";
+
 const Explore = () => {
   const [filteredEvents, setFilteredEvents] = useState();
-
-  const take = 3;
+  const take = 12;
   const [skip, setSkip] = useState(0);
 
   const Events = async () => {
@@ -18,22 +19,10 @@ const Explore = () => {
     );
     setFilteredEvents(events?.data);
   };
+
   useEffect(() => {
     Events();
   }, []);
-
-  // const onMoreData = (e) => {
-  //   setSkip((Number(e.target.text) - 1) * take);
-  // };
-  // const numberOfPages = Math.ceil(filteredEvents?.length / take);
-
-  // for (let number = 1; number <= numberOfPages; number++) {
-  //   items.push(
-  //     <Pagination.Item onClick={onMoreData} key={number}>
-  //       {number}
-  //     </Pagination.Item>
-  //   );
-  // }
 
   return (
     <Container fluid className={styles.exploreWrapper}>

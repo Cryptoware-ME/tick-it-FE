@@ -1,11 +1,15 @@
-import styles from "./FundsCard.module.scss";
 import Image from "next/image";
 import React, { useState } from "react";
+
 import DepositModal from "../DepositModal";
 import WithDrawModal from "../WithDrawModal";
+
+import styles from "./FundsCard.module.scss";
+
 const FundsCard = ({ state = 1 }) => {
   const [depositmodal, setDepositModal] = useState(false);
   const [withDrawmodal, setWithDrawModal] = useState(false);
+
   return (
     <>
       {depositmodal && <DepositModal setDepositModal={setDepositModal} />}

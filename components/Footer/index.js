@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import styles from "./Footer.module.scss";
+import React, { useState } from "react";
 import { Container, Col, Row, Form } from "react-bootstrap";
 import Link from "next/link";
+import { ToastContainer } from "react-toastify";
+
 import {
   faMediumM,
   faTwitter,
@@ -10,7 +11,8 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ToastContainer } from "react-toastify";
+
+import styles from "./Footer.module.scss";
 
 const Footer = () => {
   const [email, setEmail] = useState(null);
@@ -27,6 +29,7 @@ const Footer = () => {
       setSubmitted(false);
     }
   }
+
   return (
     <div className={styles.footerWrapper}>
       <ToastContainer

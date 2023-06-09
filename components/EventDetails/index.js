@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+
 import styles from "./EventDetails.module.scss";
 
 const EventDetails = ({ width = "100%", details, fontSize = "16px" }) => {

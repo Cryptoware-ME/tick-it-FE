@@ -1,7 +1,10 @@
 import React from "react";
-import styles from "./OrganizationSettings.module.scss";
 import { Container } from "react-bootstrap";
+
 import TickitButton from "../../components/tickitButton";
+
+import styles from "./OrganizationSettings.module.scss";
+
 const OrganizationSettings = () => {
   return (
     <Container fluid className={styles.organization}>

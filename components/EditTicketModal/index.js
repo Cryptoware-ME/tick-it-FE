@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
-import styles from "./EditTicket.module.scss";
+import React, { useState } from "react";
 import { Modal, Container, Row, Col } from "react-bootstrap";
-import Dropzone from "../../components/Dropzone";
+
 import { useFormik } from "formik";
 import * as yup from "yup";
+
+import Dropzone from "../../components/Dropzone";
 import TickitButton from "../tickitButton";
+
+import styles from "./EditTicket.module.scss";
 
 const EditTicket = ({ setEditTicket }) => {
   const [imageError, setImageError] = useState(false);

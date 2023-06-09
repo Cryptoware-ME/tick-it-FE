@@ -1,5 +1,7 @@
 import { Col, Row, Container } from "react-bootstrap";
+
 import styles from "./privacy.module.scss";
+
 const Privacy = () => {
   return (
     <div className={styles.Wrapper}>

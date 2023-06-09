@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
+import { Sidebar, Menu, useProSidebar } from "react-pro-sidebar";
 import Link from "next/link";
-import styles from "./DashboardBar.module.scss";
-import { Container } from "react-bootstrap";
 import Image from "next/image";
+
 import { useAuth } from "../../auth/useAuth";
+
+import styles from "./DashboardBar.module.scss";
 
 export default function DashboardBar({ selected }) {
   const [width, setWidth] = useState();

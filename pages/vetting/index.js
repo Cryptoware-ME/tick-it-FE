@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
-import styles from "./Vetting.module.scss";
-import { Col, Row, Container } from "react-bootstrap";
-import EventDetails from "../../components/EventDetails";
-import TickitButton from "../../components/tickitButton";
+import { Container } from "react-bootstrap";
+import { useRouter } from "next/router";
+
 import { useFormik } from "formik";
 import * as yup from "yup";
-import Dropzone from "../../components/Dropzone";
+
 import { useAuth } from "../../auth/useAuth";
-import { useRouter } from "next/router";
 import { postOrganization } from "../../axios/organization.axios";
+
+import EventDetails from "../../components/EventDetails";
+import TickitButton from "../../components/tickitButton";
+import Dropzone from "../../components/Dropzone";
+
+import styles from "./Vetting.module.scss";
+
 const Vetting = () => {
   const [bannerPreview, setBannerPreview] = useState();
   const [profilePreview, setProfilePreview] = useState();
@@ -18,6 +23,7 @@ const Vetting = () => {
   const [bannerImage, setBannerImage] = useState();
   const [profileImage, setProfileImage] = useState();
   const [submited, setSubmited] = useState(false);
+
   const { user } = useAuth();
   const router = useRouter();
   const schema = yup.object().shape({

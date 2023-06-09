@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import styles from "./Tickets.module.scss";
-import { Row, Col } from "react-bootstrap";
+import { Row } from "react-bootstrap";
+
+import { readContractCalls } from "@cryptogate/react-providers";
+import NFTix721 from "../../abis/NFTix721.json";
+
 import TicketCard from "../TicketCard";
 import TickitButton from "../tickitButton";
-import {
-  readContractCall,
-  readContractCalls,
-} from "@cryptogate/react-providers";
-import NFTix721 from "../../abis/NFTix721.json";
 import AddExtraTicketModal from "../AddExtraTicketModal";
+
+import styles from "./Tickets.module.scss";
 
 const Tickets = ({
   tickets,

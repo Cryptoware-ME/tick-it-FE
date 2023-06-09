@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
-import TickitButton from "../../components/tickitButton";
+import { Sidebar, Menu, useProSidebar } from "react-pro-sidebar";
 import Image from "next/image";
+
+import TickitButton from "../../components/tickitButton";
+
 import styles from "./SideBar.module.scss";
 
 export default function SideBar() {
   const [width, setWidth] = useState();
+
   const { toggleSidebar } = useProSidebar();
-  useEffect(() => {
-    getWidth();
-  }, []);
 
   const getWidth = () => {
     let a = window.innerWidth;
@@ -17,6 +17,10 @@ export default function SideBar() {
       setWidth(a);
     }
   };
+
+  useEffect(() => {
+    getWidth();
+  }, []);
 
   return (
     <div className={styles.sideBar}>

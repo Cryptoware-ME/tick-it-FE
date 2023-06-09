@@ -1,7 +1,9 @@
-import { Container, Col, Row, Modal } from "react-bootstrap";
-import styles from "./ReportModal.module.scss";
+import { Container, Modal } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
+
 import TickitButton from "../tickitButton";
+
+import styles from "./ReportModal.module.scss";
 
 const ReportModal = ({ setReportModal }) => {
   return (

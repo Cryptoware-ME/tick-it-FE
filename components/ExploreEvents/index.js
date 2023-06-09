@@ -1,14 +1,13 @@
+import Link from "next/link";
 import React from "react";
-import styles from "./ExploreEvents.module.scss";
 import { Row } from "react-bootstrap";
+
 import EventCard from "../EventCard";
 import TickitButton from "../../components/tickitButton";
-import Link from "next/link";
-import TickitTag from "../TickitTag";
+
+import styles from "./ExploreEvents.module.scss";
 
 const ExploreEvents = ({ events }) => {
-  
-
   return (
     <>
       <p className="section-title">Explore Events</p>
@@ -34,19 +33,19 @@ const ExploreEvents = ({ events }) => {
         }}
       >
         {events &&
-          events.slice(0,4).map((event, index) => (
-            <EventCard eventData={event} key={index} />
-          ))}
+          events
+            .slice(0, 4)
+            .map((event, index) => <EventCard eventData={event} key={index} />)}
       </Row>
       <div
         style={{
           paddingTop: "65px",
-          display:"flex",
-          justifyContent:"center"
+          display: "flex",
+          justifyContent: "center",
         }}
       >
         <Link href="/explore" className={styles.exploreMoreButton}>
-          <TickitButton  text="Explore More" />
+          <TickitButton text="Explore More" />
         </Link>
       </div>
     </>

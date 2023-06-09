@@ -1,7 +1,10 @@
 import { Container, Col, Row } from "react-bootstrap";
-import styles from "./activity.module.scss";
+
 import ActivityCard from "../../../components/ActivityCard";
 import DashboardBar from "../../../components/DashboardBar";
+
+import styles from "./activity.module.scss";
+
 const Activity = () => {
   // Hardcoded values: To Check
   return (

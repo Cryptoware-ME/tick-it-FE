@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
-import styles from "./tickit-button.module.scss";
+import React from "react";
 import Image from "next/image";
+
 import Loader from "../loader/loader";
+
+import styles from "./tickit-button.module.scss";
 const TickitButton = ({
   text,
   onClick,

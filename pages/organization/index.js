@@ -1,13 +1,17 @@
 import React from "react";
-import styles from "./organization.module.scss";
 import { Container, Row, Col } from "react-bootstrap";
+
 import UserProfileDetails from "../../components/UserProfileDetails";
 import OrganizationSidebar from "../../components/OrganizationSidebar";
 import OrganizationEvents from "../../components/OrganizationEvents";
 import OrganizationTeam from "../../components/OrganizationTeam";
 import OrganizationSettings from "../../components/OrganizationSettings";
+
+import styles from "./organization.module.scss";
+
 const Organization = () => {
   let menu = "team";
+
   return (
     <Container fluid className={styles.organization}>
       <Row>

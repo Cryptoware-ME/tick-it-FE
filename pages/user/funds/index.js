@@ -1,8 +1,11 @@
 import { Container, Col, Row } from "react-bootstrap";
-import styles from "./Funds.module.scss";
-import FundsCard from "../../../components/FundsCard";
 import Image from "next/image";
+
+import FundsCard from "../../../components/FundsCard";
 import DashboardBar from "../../../components/DashboardBar";
+
+import styles from "./Funds.module.scss";
+
 const Funds = () => {
   return (
     <Container fluid className="dashboardWrapper">

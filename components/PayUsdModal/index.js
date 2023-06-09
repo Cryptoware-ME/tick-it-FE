@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
-import styles from "./PayUsd.module.scss";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 import { Modal, Container, Row, Col } from "react-bootstrap";
-import Dropdown from "react-bootstrap/Dropdown";
+
 import { useFormik } from "formik";
 import * as yup from "yup";
-import TickitButton from "../tickitButton";
+
 import { postCustodialMint } from "../../axios/ticket.axios";
-import { useRouter } from "next/router";
-import Loader from "../loader/loader";
 import { useCartContext } from "../../cart/cart-context";
 
-const PayUsd = ({ setUsdModal, cartItemData, total }) => {
+import TickitButton from "../tickitButton";
 
+import styles from "./PayUsd.module.scss";
+
+const PayUsd = ({ setUsdModal, cartItemData, total }) => {
   // States
   const [mintModal, setMintModal] = useState(false);
   const [loading, setLoading] = useState(true);

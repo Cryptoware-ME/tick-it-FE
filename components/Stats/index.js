@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { Col } from "react-bootstrap";
+
 import styles from "./Stats.module.scss";
-import { Col, Row } from "react-bootstrap";
+
 const Stats = ({}) => {
   return (
     <>

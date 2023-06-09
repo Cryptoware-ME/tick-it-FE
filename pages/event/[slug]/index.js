@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from "react";
-import styles from "./Event.module.scss";
 import { Container, Col, Row } from "react-bootstrap";
+import { useRouter } from "next/router";
+import { useAuth } from "../../../auth/useAuth";
+import { useEthereum } from "@cryptogate/react-providers";
+import { ConnectWalletComponent } from "@cryptogate/react-ui";
+import { usePause } from "../../../hooks/use721";
+
 import EventDate from "../../../components/EventDate";
 import EventLocation from "../../../components/EventLocation";
 import EventDetails from "../../../components/EventDetails";
 import Tickets from "../../../components/Tickets";
 import TickitButton from "../../../components/tickitButton";
 import TickitTag from "../../../components/TickitTag";
-import { useRouter } from "next/router";
+
 import { getEvents } from "../../../axios/event.axios";
 import { getEventTicketType } from "../../../axios/eventTicketType.axios";
-import {
-  writeContractCall,
-  readContractCall,
-} from "@cryptogate/react-providers";
-import NFTix721 from "../../../abis/NFTix721.json";
-import { useAuth } from "../../../auth/useAuth";
-import { useEthereum } from "@cryptogate/react-providers";
-import { ConnectWalletComponent } from "@cryptogate/react-ui";
-import Image from "next/image";
-import { usePause } from "../../../hooks/use721";
+
+import styles from "./Event.module.scss";
 
 const Event = () => {
   // States
@@ -36,7 +33,7 @@ const Event = () => {
   const { slug } = router.query;
   const { user } = useAuth();
   const { account } = useEthereum();
-  const { pause, unpause, paused } = usePause({ contractAddress });
+  const { pause, unpause } = usePause({ contractAddress });
 
   // Functions
   // Gets the event details with the category and organization included

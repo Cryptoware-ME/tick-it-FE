@@ -1,17 +1,21 @@
-import React, { useState, useEffect } from "react";
-import styles from "./Navbar.module.scss";
-import { Container, Navbar, Nav } from "react-bootstrap";
-import TickitButton from "../tickitButton";
-import { useAuth } from "../../auth/useAuth";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import Image from "next/image";
+import React, { useState, useEffect } from "react";
+import { Container, Navbar, Nav } from "react-bootstrap";
+
+import { ConnectWalletComponent } from "@cryptogate/react-ui";
+
+import { useAuth } from "../../auth/useAuth";
 import { getOrganization } from "../../axios/organization.axios";
 import { useCartContext } from "../../cart/cart-context";
 import { useAuthModalContext } from "../../context/AuthModalProvider";
+
 import UserDropdown from "../UserDropdown";
+import TickitButton from "../tickitButton";
 import LoginModal from "../LoginModal";
-import Link from "next/link";
-import Image from "next/image";
-import { ConnectWalletComponent } from "@cryptogate/react-ui";
+
+import styles from "./Navbar.module.scss";
 
 const NavBar = () => {
   // States
