@@ -9,6 +9,7 @@ import TickitButton from "../../../components/tickitButton";
 import Switch from "../../../components/Switch";
 
 import styles from "./Settings.module.scss";
+import ChangePasswordModal from "../../../components/ChangePasswordModal";
 
 const Settings = () => {
   const { user } = useAuth();
@@ -18,8 +19,10 @@ const Settings = () => {
   const [userNameEdit, setUserNameEdit] = useState(false);
   const [emailEdit, setEmailEdit] = useState(false);
   const [mobileEdit, setMobileEdit] = useState(false);
-
+  const [passwodModal, setPasswodModal] = useState(false);
   return (
+      <>
+      {passwodModal && <ChangePasswordModal setPasswodModal={setPasswodModal} />}
     <Container fluid className="dashboardWrapper">
       <Row>
         <Col lg={2} style={{ padding: "0px" }}>
@@ -61,7 +64,7 @@ const Settings = () => {
                     )}
                     {userNameEdit && (
                       <TickitButton
-                        text="Save"
+                      text="Save"
                         style2={true}
                         onClick={() => {
                           setUserNameEdit(false);
@@ -92,20 +95,20 @@ const Settings = () => {
                   <Col md={4} className={styles.settingCol}>
                     {!emailEdit && (
                       <TickitButton
-                        text="Edit"
+                      text="Edit"
                         onClick={() => {
                           setEmailEdit(true);
                         }}
-                      />
+                        />
                     )}
                     {emailEdit && (
                       <TickitButton
-                        text="Save"
-                        style2={true}
+                      text="Save"
+                      style2={true}
                         onClick={() => {
                           setEmailEdit(false);
                         }}
-                      />
+                        />
                     )}
                   </Col>
                 </Row>
@@ -116,7 +119,7 @@ const Settings = () => {
                   <Col md={4} className={styles.settingCol}>
                     {!mobileEdit && (
                       <p className={styles.settingValue}>961112233</p>
-                    )}
+                      )}
                     {mobileEdit && (
                       <input
                         type="text"
@@ -161,7 +164,7 @@ const Settings = () => {
                     isOn={eventCheck}
                     name="event"
                     handleToggle={() => setEventCheck(!eventCheck)}
-                  />
+                    />
 
                   <p
                     onClick={() => setEventCheck(!eventCheck)}
@@ -191,7 +194,7 @@ const Settings = () => {
                     isOn={newsCheck}
                     name="news"
                     handleToggle={() => setNewsCheck(!newsCheck)}
-                  />
+                    />
 
                   <p
                     onClick={() => setNewsCheck(!newsCheck)}
@@ -209,9 +212,14 @@ const Settings = () => {
               <div className={styles.sectionContent}>
                 <p className="section-title">Security settings</p>
                 <div className={styles.settingLinkDiv}>
-                  <Link href="#" className={styles.settingLink}>
+                  <div
+                    onClick={() => {
+                      setPasswodModal(true);
+                    }}
+                    className={styles.settingLink}
+                    >
                     Password
-                  </Link>
+                  </div>
                   <Link href="#" className={styles.settingLink}>
                     2FA
                   </Link>
@@ -225,6 +233,7 @@ const Settings = () => {
         </Col>
       </Row>
     </Container>
+                    </>
   );
 };
 

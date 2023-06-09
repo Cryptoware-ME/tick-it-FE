@@ -1,6 +1,6 @@
 .cardImage {
-  width: 100%;
-  height: auto;
+ width: 180px;
+  height:180px;
   object-fit: cover;
   border-radius: 50%;
 }
@@ -10,6 +10,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  width: fit-content;
 }
 .organizationName {
   margin: 8px 0px;
