@@ -216,6 +216,8 @@ html {
   position: relative;
   background: var(--cardWrapper);
   border-radius: 20px;
+  display: flex;
+  justify-content: center;
 }
 .Dropzone_uploadEvent___sxse {
   transform: none !important;
