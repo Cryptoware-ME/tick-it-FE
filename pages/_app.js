@@ -20,7 +20,7 @@ import { AuthProvider } from "../auth/useAuth";
 import { CartProvider } from "../cart/cart-provider";
 import NavBar from "../components/Navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] })
 
 function MyApp({ Component, pageProps, session }) {
   return (
@@ -41,7 +41,7 @@ function MyApp({ Component, pageProps, session }) {
         </SessionProvider>
       </MultiChainProvider>
     </div>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp

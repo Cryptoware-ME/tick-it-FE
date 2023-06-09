@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./UserDropdown.module.scss";
 import Link from "next/link";
+import { signIn, useSession, signOut } from "next-auth/react";
+
 const UserDropdown = ({ isOpen, onClose, logOut, user }) => {
   const handleRoute = (route) => {
     onClose;
@@ -70,6 +72,7 @@ const UserDropdown = ({ isOpen, onClose, logOut, user }) => {
         <div
           className={styles.dropdownBtn}
           onClick={() => {
+            // signOut("google");
             logOut();
             onClose();
           }}
