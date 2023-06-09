@@ -1,10 +1,6 @@
 .settingRow {
   color: var(--white);
-  margin: 20px 8px;
-  padding: 20px 8px;
-  border: 1px solid var(--white);
-  min-height: 250px;
-  border-radius: 10px;
+  margin: 8px;
   width: 100%;
 }
 
@@ -29,6 +25,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-top: 16px;
+  color: var(--white);
 }
 
 .settingLinkDiv {
@@ -73,4 +71,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.section {
+  margin-top: 24px;
+}
+.sectionContent {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #0c0c0c;
+  padding: 24px;
 }

@@ -11,6 +11,7 @@ import UserDropdown from "../UserDropdown";
 import LoginModal from "../LoginModal";
 import Link from "next/link";
 import Image from "next/image";
+import { ConnectWalletComponent } from "@cryptogate/react-ui";
 
 const NavBar = () => {
   // States
@@ -122,6 +123,9 @@ const NavBar = () => {
               {/* <div className={styles.navbarLink}>Support</div> */}
             </Nav>
             <Nav className={styles.navbarUserRelated}>
+              <div style={{ marginRight: "12px" }}>
+                <ConnectWalletComponent ActiveComponent={<></>} />
+              </div>
               <div
                 onClick={() => {
                   user ? router.push("/cart") : setModalOpen(true);

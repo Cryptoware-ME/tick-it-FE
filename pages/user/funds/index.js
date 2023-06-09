@@ -11,21 +11,21 @@ const Funds = () => {
           <DashboardBar selected="funds" />
         </Col>
 
-        <Col lg={10} style={{ padding: "0px" }}>
-          <Container fluid>
-            <Row>
-              <p style={{ marginTop: "24px " }} className="pageTitle">
+        <Col lg={10} style={{ paddingBottom: "48px" }}>
+          <div className={styles.section}>
+            <div className={styles.sectionContent}>
+              <p style={{ marginBottom: "40px" }} className="section-title">
                 Funds
               </p>
               <Row>
-                <Col lg={4} md={6} sm={12} style={{ marginTop: "24px " }}>
+                <Col lg={4} md={6} sm={12}>
                   <FundsCard />
                 </Col>
-                <Col lg={4} md={6} sm={12} style={{ marginTop: "24px " }}>
+                <Col lg={4} md={6} sm={12}>
                   <FundsCard state={2} />
                 </Col>
 
-                <Col lg={4} md={6} sm={12} style={{ marginTop: "24px " }}>
+                <Col lg={4} md={6} sm={12}>
                   <div className={styles.cardContainer}>
                     <Image
                       width={48}
@@ -37,8 +37,8 @@ const Funds = () => {
                   </div>
                 </Col>
               </Row>
-            </Row>
-          </Container>
+            </div>
+          </div>
         </Col>
       </Row>
     </Container>

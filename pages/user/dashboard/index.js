@@ -14,33 +14,37 @@ const Dashboard = ({}) => {
           <DashboardBar selected="dashboard" />
         </Col>
 
-        <Col lg={10}>
-          <Container fluid>
-            <Row className={styles.section}>
-              <div className="cardWrapper">
-                <div className={styles.sectionContent}>
-                  <p style={{ marginBottom: "40px" }} className="section-title">
-                    Organizations
-                  </p>
-                  <Row>
-                    {[0, 1, 2]?.map((event, index) => (
-                      <OrganizationCard key={index} />
-                    ))}
-                    <AddOrganizationCard />
-                  </Row>
+        <Col lg={10} style={{ paddingBottom: "48px" }}>
+          <div className={styles.section}>
+            <div className="cardWrapper">
+              <div className={styles.sectionContent}>
+                <p style={{ marginBottom: "40px" }} className="section-title">
+                  Organizations
+                </p>
+                <Row>
+                  {[0, 1, 2]?.map((event, index) => (
+                    <OrganizationCard key={index} />
+                  ))}
+                  <AddOrganizationCard />
+                </Row>
+              </div>
+            </div>
+          </div>
+          <div className={styles.section}>
+            <div className="cardWrapper">
+              <div className={styles.sectionContent}>
+                <div className={styles.header}>
+                  <p className="section-title">Upcoming Events</p>
+                  <p className={styles.viewAll}>View All Tickets</p>
                 </div>
+                <Row>
+                  {[0, 1, 2, 3]?.map((event, index) => (
+                    <UpcomingEventsCard key={index} />
+                  ))}
+                </Row>
               </div>
-            </Row>
-            <Row style={{ padding: "24px 0px" }}>
-              <div className={styles.header}>
-                <p className="section-title">Upcoming Events</p>
-                <p className={styles.viewAll}>View All Tickets</p>
-              </div>
-              {[0, 1, 2, 3]?.map((event, index) => (
-                <UpcomingEventsCard key={index} />
-              ))}
-            </Row>
-          </Container>
+            </div>
+          </div>
         </Col>
       </Row>
     </Container>
