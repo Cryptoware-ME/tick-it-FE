@@ -26,7 +26,7 @@ const Settings = () => {
           <DashboardBar selected="settings" />
         </Col>
 
-        <Col lg={10} style={{ paddingBottom: "48px" }}>
+        <Col lg={10} style={{ padding: "24px" }}>
           <div className={styles.section}>
             <div className="cardWrapper">
               <div className={styles.sectionContent}>
