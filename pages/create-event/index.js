@@ -12,6 +12,7 @@ import { getCategories } from '../../axios/event.axios'
 import { getOrganization } from '../../axios/organization.axios'
 import { postEvent } from '../../axios/event.axios'
 import { useAuthModalContext } from "../../context/AuthModalProvider";
+import { useSession } from 'next-auth/react'
 
 const CreateEvent = () => {
   // States
@@ -28,6 +29,8 @@ const CreateEvent = () => {
   const router = useRouter()
   const { user } = useAuth()
   const { setModalOpen } = useAuthModalContext();
+  const {data: session} = useSession();
+  console.log(session)
 
   // Functions
   const getOrganizationDetails = async (id) => {

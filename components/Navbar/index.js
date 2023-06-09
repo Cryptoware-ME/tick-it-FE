@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { getOrganization } from '../../axios/organization.axios'
 import { useCartContext } from '../../cart/cart-context'
 import { useAuthModalContext } from '../../context/AuthModalProvider'
+import { signIn, useSession, signOut } from "next-auth/react";
 import UserDropdown from '../UserDropdown'
 import LoginModal from '../LoginModal'
 import Link from 'next/link'

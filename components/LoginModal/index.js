@@ -11,6 +11,7 @@ import { signIn, useSession, signOut } from "next-auth/react";
 import { googleLogin, login, signup } from "../../axios/auth.axios";
 import { useAuth } from "../../auth/useAuth";
 import { getUsers } from "../../axios/user.axios";
+import { useRouter } from "next/router";
 
 const LoginModal = () => {
   // States
@@ -20,22 +21,28 @@ const LoginModal = () => {
   const { logIn, user } = useAuth();
   const { modalOpen, setModalOpen } = useAuthModalContext();
   const { data: session } = useSession();
+  const router = useRouter();
+  console.log(session)
 
   // Functions
   const handleSignIn = () => {
-    signIn("google", {callbackUrl: "/"});
+    signIn("google").then(() => {handleGoogleLogIn()});
   };
 
   const handleGoogleLogIn = async () => {
-      // const loginRes = await googleLogin({
-      //   username: session.user.name,
-      //   email: session.user.email,
-      // }).then((data)=>{logIn(data)});
+      const loginRes = await googleLogin(session.token.account.id_token, {
+        username: session.user.name,
+        email: session.user.email,
+      }).then((data)=>{logIn(data)});
   
-      // if (loginRes) {
-      //   setModalOpen(false);
-      // }
+      if (loginRes) {
+        setModalOpen(false);
+      }
   };
+
+  const redirct = async () => {
+    router.push("https://tickitapi-dev21314.cryptoware.me/v1/auth/oAuth?redirect=''")
+  }
 
   const schema = yup.object().shape({
     email: yup
@@ -143,13 +150,6 @@ const LoginModal = () => {
     status,
     setValues,
   } = formik;
-
-
-  useEffect(() => {
-    if (session?.user) {
-      handleGoogleLogIn();
-    }
-  }, [session]);
 
   return (
     <>
@@ -291,7 +291,7 @@ const LoginModal = () => {
                   />
                 </div>
                 <div className={styles.googleLoginDiv}>
-                  <div onClick={handleSignIn} className={styles.googleLogin}>
+                  <div onClick={redirct} className={styles.googleLogin}>
                     <Image
                       width={26}
                       height={26}
@@ -380,7 +380,7 @@ const LoginModal = () => {
                   </div>
 
                   <div className={styles.googleLoginDiv}>
-                    {/* <div onClick={handleSignIn} className={styles.googleLogin}>
+                    <div onClick={handleSignIn} className={styles.googleLogin}>
                       <Image
                         width={26}
                         height={26}
@@ -389,7 +389,7 @@ const LoginModal = () => {
                         src="/images/googleicon.svg"
                       />
                       <p className={styles.googleinput}>Log In with Google</p>
-                    </div> */}
+                    </div>
 
                     <div className={styles.signupdiv}>
                       <p className={styles.signup}>

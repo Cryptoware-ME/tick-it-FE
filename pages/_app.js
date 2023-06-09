@@ -1,26 +1,26 @@
-import "../styles/globals.css";
-import "../styles/fonts.css";
-import "../styles/colors.css";
-import "@next/font/google";
-import "swiper/scss";
-import "swiper/scss/navigation";
-import "swiper/scss/pagination";
-import "bootstrap/dist/css/bootstrap.css";
-import "@cryptogate/react-ui/dist/esm/index.css";
-import { MultiChainProvider } from "@cryptogate/react-providers";
-import config from "../config";
-import React from "react";
-import Footer from "../components/Footer";
-import { Inter } from "@next/font/google";
-import { AuthModalProvider } from "../context/AuthModalProvider";
-import { ProSidebarProvider } from "react-pro-sidebar";
-import "react-toastify/dist/ReactToastify.css";
-import { SessionProvider } from "next-auth/react";
-import { AuthProvider } from "../auth/useAuth";
-import { CartProvider } from "../cart/cart-provider";
-import NavBar from "../components/NavBar";
+import '../styles/globals.css'
+import '../styles/fonts.css'
+import '../styles/colors.css'
+import '@next/font/google'
+import 'swiper/scss'
+import 'swiper/scss/navigation'
+import 'swiper/scss/pagination'
+import 'bootstrap/dist/css/bootstrap.css'
+import '@cryptogate/react-ui/dist/esm/index.css'
+import { MultiChainProvider } from '@cryptogate/react-providers'
+import config from '../config'
+import React from 'react'
+import Footer from '../components/Footer'
+import { Inter } from '@next/font/google'
+import { AuthModalProvider } from '../context/AuthModalProvider'
+import { ProSidebarProvider } from 'react-pro-sidebar'
+import 'react-toastify/dist/ReactToastify.css'
+import { SessionProvider } from 'next-auth/react'
+import { AuthProvider } from '../auth/useAuth'
+import { CartProvider } from '../cart/cart-provider'
+import NavBar from '../components/NavBar'
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] })
 
 function MyApp({ Component, pageProps, session }) {
   return (
@@ -41,7 +41,7 @@ function MyApp({ Component, pageProps, session }) {
         </SessionProvider>
       </MultiChainProvider>
     </div>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp

@@ -5,8 +5,10 @@ export const login = async (payload) => {
   return data.data;
 };
 
-export const googleLogin = async (payload) => {
-  const data = await instance.post("/auth/google", payload);
+export const googleLogin = async (token, payload) => {
+  console.log(token);
+  instance.defaults.headers.common["token"] = token;
+  const data = await instance.post("/auth/oAuth", payload);
   return data.data
 }
 export const signup = async (payload) => {
