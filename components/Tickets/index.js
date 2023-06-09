@@ -10,8 +10,13 @@ import {
 import NFTix721 from "../../abis/NFTix721.json";
 import AddExtraTicketModal from "../AddExtraTicketModal";
 
-const Tickets = ({ tickets, contractAddress, isOwner, setRefetchEvent }) => {
-
+const Tickets = ({
+  tickets,
+  contractAddress,
+  isOwner,
+  setRefetchEvent,
+  ended,
+}) => {
   // States
   const [addticket, setAddTicket] = useState(false);
   const [addTicketModal, setAddTicketModal] = useState(false);
@@ -53,7 +58,7 @@ const Tickets = ({ tickets, contractAddress, isOwner, setRefetchEvent }) => {
           setAddTicket={setAddTicketModal}
           tickets={tickets}
           contractAddress={contractAddress}
-          setRefetchEvent = {setRefetchEvent}
+          setRefetchEvent={setRefetchEvent}
         />
       )}
       <div className={styles.launchButton}>
@@ -61,7 +66,7 @@ const Tickets = ({ tickets, contractAddress, isOwner, setRefetchEvent }) => {
           Tickets
         </p>
 
-        {isOwner && (
+        {isOwner && !ended && (
           <TickitButton
             text="ADD TICKET"
             onClick={() => {
@@ -77,6 +82,7 @@ const Tickets = ({ tickets, contractAddress, isOwner, setRefetchEvent }) => {
             <TicketCard
               key={index}
               ticket={ticket}
+              ended={ended}
               ticketFromContract={ticketFromContract[index]}
               isOwner={isOwner}
               handlePause={() => handlePause(index)}

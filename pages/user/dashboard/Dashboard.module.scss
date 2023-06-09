@@ -3,10 +3,18 @@
   background-color: #0c0c0c;
 }
 
-.organizationSection {
-  border-bottom: 3px solid #1a1a1a;
-  padding: 24px 0px;
+.section {
+  margin-top: 48px;
 }
+.sectionContent {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #0c0c0c;
+  padding: 24px;
+}
+
 .viewAll {
   font-weight: 400;
   font-size: 16px;
@@ -21,4 +29,5 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 36px;
 }

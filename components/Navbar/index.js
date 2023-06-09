@@ -1,91 +1,91 @@
-import React, { useState, useEffect } from 'react'
-import styles from './NavBarNew.module.scss'
-import { Container, Navbar, Nav } from 'react-bootstrap'
-import TickitButton from '../tickitButton'
-import { useAuth } from '../../auth/useAuth'
-import { useRouter } from 'next/router'
-import { getOrganization } from '../../axios/organization.axios'
-import { useCartContext } from '../../cart/cart-context'
-import { useAuthModalContext } from '../../context/AuthModalProvider'
-import { signIn, useSession, signOut } from "next-auth/react";
-import UserDropdown from '../UserDropdown'
-import LoginModal from '../LoginModal'
-import Link from 'next/link'
-import Image from 'next/image'
+import React, { useState, useEffect } from "react";
+import styles from "./Navbar.module.scss";
+import { Container, Navbar, Nav } from "react-bootstrap";
+import TickitButton from "../tickitButton";
+import { useAuth } from "../../auth/useAuth";
+import { useRouter } from "next/router";
+import { getOrganization } from "../../axios/organization.axios";
+import { useCartContext } from "../../cart/cart-context";
+import { useAuthModalContext } from "../../context/AuthModalProvider";
+import UserDropdown from "../UserDropdown";
+import LoginModal from "../LoginModal";
+import Link from "next/link";
+import Image from "next/image";
+import { ConnectWalletComponent } from "@cryptogate/react-ui";
 
 const NavBar = () => {
   // States
-  const [showUserDropdown, setShowUserDropdown] = useState(false)
-  const [added, setAdded] = useState(false)
-  const [totalCartItems, setTotalCartItems] = useState(0)
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const [added, setAdded] = useState(false);
+  const [totalCartItems, setTotalCartItems] = useState(0);
 
   // Hooks
-  const { setModalOpen } = useAuthModalContext()
-  const { cartItems } = useCartContext()
-  const { logOut, user } = useAuth()
-  const router = useRouter()
+  const { setModalOpen } = useAuthModalContext();
+  const { cartItems } = useCartContext();
+  const { logOut, user } = useAuth();
+  const router = useRouter();
 
   // Functions
   const handleRouting = async () => {
     if (user) {
-      checkVettingDetails()
+      checkVettingDetails();
     } else {
-      setModalOpen(true)
-      let userDetails = await user
+      setModalOpen(true);
+      let userDetails = await user;
       if (userDetails) {
-        checkVettingDetails()
+        checkVettingDetails();
       }
     }
-  }
+  };
 
   const checkVettingDetails = async () => {
     if (user?.user) {
-      getOrganizationDetails(user?.user.id)
+      getOrganizationDetails(user?.user.id);
     } else {
-      getOrganizationDetails(user?.id)
+      getOrganizationDetails(user?.id);
     }
-  }
+  };
 
   const getOrganizationDetails = async (id) => {
     let organization = await getOrganization(
       JSON.stringify({
         where: { ownerId: id },
-      }),
-    )
+      })
+    );
     if (organization.data[0]) {
       if (organization.data[0].isVetted) {
-        router.push('/create-event')
+        router.push("/create-event");
       } else {
-        router.push('/explore')
+        router.push("/explore");
       }
     } else {
-      router.push('/vetting')
+      router.push("/vetting");
     }
-  }
+  };
 
   // Use Effects
   useEffect(() => {
     if (added) {
       setTimeout(() => {
-        setAdded(false)
-      }, 3000)
+        setAdded(false);
+      }, 3000);
     }
-  }, [added])
+  }, [added]);
 
   useEffect(() => {
     setTotalCartItems(
       cartItems.reduce((count, item) => {
-        return count + item.quantity
-      }, 0),
-    )
-  }, [cartItems])
+        return count + item.quantity;
+      }, 0)
+    );
+  }, [cartItems]);
 
   return (
     <>
       <LoginModal />
       <UserDropdown
         onClose={() => {
-          setShowUserDropdown(false)
+          setShowUserDropdown(false);
         }}
         isOpen={showUserDropdown}
         logOut={logOut}
@@ -109,7 +109,7 @@ const NavBar = () => {
             <Nav className={styles.navbarRoutes}>
               <div
                 onClick={() => {
-                  router.push('/explore')
+                  router.push("/explore");
                 }}
                 className={styles.navbarLink}
               >
@@ -123,14 +123,16 @@ const NavBar = () => {
               {/* <div className={styles.navbarLink}>Support</div> */}
             </Nav>
             <Nav className={styles.navbarUserRelated}>
+              <div style={{ marginRight: "12px" }}>
+                <ConnectWalletComponent ActiveComponent={<></>} />
+              </div>
               <div
                 onClick={() => {
-                  user ? router.push('/cart') : setModalOpen(true)
+                  user ? router.push("/cart") : setModalOpen(true);
                 }}
                 className={styles.cart}
               >
                 <Image
-                  style={{ marginRight: '15px' }}
                   width={33}
                   height={33}
                   alt="icon"
@@ -148,7 +150,7 @@ const NavBar = () => {
                     text="Log in"
                     padding="5px"
                     onClick={() => {
-                      setModalOpen(true)
+                      setModalOpen(true);
                     }}
                   />
                 </div>
@@ -157,7 +159,7 @@ const NavBar = () => {
                 <div className={styles.logIn}>
                   <Image
                     onClick={() => {
-                      setShowUserDropdown(true)
+                      setShowUserDropdown(true);
                     }}
                     width={35}
                     height={35}
@@ -171,7 +173,7 @@ const NavBar = () => {
         </Container>
       </Navbar>
     </>
-  )
-}
+  );
+};
 
-export default NavBar
+export default NavBar;
