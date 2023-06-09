@@ -9,9 +9,9 @@ import PagePagination from "../../components/pagination";
 const Explore = () => {
   const [filteredEvents, setFilteredEvents] = useState();
 
-  // const take = 12;
+  const take = 3;
   const [skip, setSkip] = useState(0);
-  // let items = [];
+
   const Events = async () => {
     let events = await getEvents(
       JSON.stringify({ relations: ["organization"] })
@@ -62,7 +62,11 @@ const Explore = () => {
                 margin: "48px 0px",
               }}
             >
-              <PagePagination data={filteredEvents} setSkip={setSkip} />
+              <PagePagination
+                data={filteredEvents}
+                setSkip={setSkip}
+                take={take}
+              />
             </Row>
           </Container>
         </Col>
