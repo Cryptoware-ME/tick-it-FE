@@ -5,19 +5,19 @@ import { useRouter } from "next/router";
 import { useEthereum } from "@cryptogate/react-providers";
 import { ConnectWalletComponent } from "@cryptogate/react-ui";
 
-import { useAuth } from "../../auth/useAuth";
-import { useAuthModalContext } from "../../context/AuthModalProvider";
-import { useLaunchpad } from "../../hooks/useLaunchpad";
-import { getEvents, updateEvent } from "../../axios/event.axios";
-import { postEventTicketTypeBatch } from "../../axios/eventTicketType.axios";
+import { useAuth } from "../../../auth/useAuth";
+import { useAuthModalContext } from "../../../context/AuthModalProvider";
+import { useLaunchpad } from "../../../hooks/useLaunchpad";
+import { getEvents, updateEvent } from "../../../axios/event.axios";
+import { postEventTicketTypeBatch } from "../../../axios/eventTicketType.axios";
 
-import EventDate from "../../components/EventDate";
-import EventLocation from "../../components/EventLocation";
-import EventDetails from "../../components/EventDetails";
-import TickitButton from "../../components/tickitButton";
-import TickitTag from "../../components/TickitTag";
-import AddTicketModal from "../../components/AddTicketModal";
-import TicketCardPreview from "../../components/TicketCardPreview";
+import EventDate from "../../../components/EventDate";
+import EventLocation from "../../../components/EventLocation";
+import EventDetails from "../../../components/EventDetails";
+import TickitButton from "../../../components/tickitButton";
+import TickitTag from "../../../components/TickitTag";
+import AddTicketModal from "../../../components/AddTicketModal";
+import TicketCardPreview from "../../../components/TicketCardPreview";
 
 import styles from "./addTickets.module.scss";
 
