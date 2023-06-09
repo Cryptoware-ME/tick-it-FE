@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
-import styles from "./OrganizationCard.module.scss";
-import { Col, Row } from "react-bootstrap";
+import React from "react";
+import { Col } from "react-bootstrap";
 import Image from "next/image";
 
-const OrganizationCard = () => {
+import styles from "./OrganizationCard.module.scss";
+
+const OrganizationCard = ({ data }) => {
+  console.log("data: ", data.profile);
   return (
     <>
       <Col lg={3} md={6} className={styles.organizerCard}>
@@ -13,10 +15,10 @@ const OrganizationCard = () => {
             height={512}
             className={styles.cardImage}
             alt="image"
-            src="/images/organization.png"
+            src={data?.profile}
           />
         </div>
-        <p className={styles.organizationName}>Factory People</p>
+        <p className={styles.organizationName}>{data?.name}</p>
         <p className={styles.organizationRole}>Organizer</p>
       </Col>
     </>

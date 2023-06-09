@@ -1,11 +1,12 @@
-import React, {useEffect} from "react";
-import styles from "./Cart.module.scss";
+import React, { useEffect } from "react";
 import { Container, Col, Row } from "react-bootstrap";
+
 import CartTicket from "../../components/CartTicket";
 import CheckOutCard from "../../components/CheckOutCard";
 import { useCartContext } from "../../cart/cart-context";
 import { getEventTicketType } from "../../axios/eventTicketType.axios";
 
+import styles from "./Cart.module.scss";
 const Cart = () => {
   // Use States
   const [cartItemsData, setCartItemsData] = React.useState([]);
@@ -30,7 +31,7 @@ const Cart = () => {
   // Use Effects
   useEffect(() => {
     if (cartItems && cartItems.length) getTickets();
-  }, [cartItems]); 
+  }, [cartItems]);
 
   useEffect(() => {
     if (cartItemsData && cartItemsData.length) {
@@ -61,7 +62,7 @@ const Cart = () => {
             ))}
           </Col>
           <Col lg={4}>
-            <CheckOutCard cartItemData={cartItemsData}/>
+            <CheckOutCard cartItemData={cartItemsData} />
           </Col>
         </Row>
       </Container>

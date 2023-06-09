@@ -1,10 +1,11 @@
-import React from "react";
-import styles from "./OrganizationTeam.module.scss";
-import { Container, Row, Col } from "react-bootstrap";
-import { Table } from "react-bootstrap";
 import Image from "next/image";
-import { ethers } from "ethers";
+import React from "react";
+import { Container, Row } from "react-bootstrap";
+import { Table } from "react-bootstrap";
+
 import TickitButton from "../../components/tickitButton";
+
+import styles from "./OrganizationTeam.module.scss";
 
 const OrganizationTeam = () => {
   return (

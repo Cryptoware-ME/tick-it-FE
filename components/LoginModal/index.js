@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from "react";
-import styles from "./LoginModal.module.scss";
+import Link from "next/link";
+import { Modal, Container, Form } from "react-bootstrap";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+import Image from "next/image";
+
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { Col, Row, Modal, Container, Alert, Form } from "react-bootstrap";
-import Link from "next/link";
-import { useAuthModalContext } from "../../context/AuthModalProvider";
-import TickitButton from "../tickitButton";
-import Image from "next/image";
-import { signIn, useSession, signOut } from "next-auth/react";
+
+import { signIn, useSession } from "next-auth/react";
 import { googleLogin, login, signup } from "../../axios/auth.axios";
 import { useAuth } from "../../auth/useAuth";
 import { getUsers } from "../../axios/user.axios";
-import { useRouter } from "next/router";
+import { useAuthModalContext } from "../../context/AuthModalProvider";
+
+import TickitButton from "../tickitButton";
+
+import styles from "./LoginModal.module.scss";
 
 const LoginModal = () => {
   // States
@@ -22,27 +26,32 @@ const LoginModal = () => {
   const { modalOpen, setModalOpen } = useAuthModalContext();
   const { data: session } = useSession();
   const router = useRouter();
-  console.log(session)
 
   // Functions
   const handleSignIn = () => {
-    signIn("google").then(() => {handleGoogleLogIn()});
+    signIn("google").then(() => {
+      handleGoogleLogIn();
+    });
   };
 
   const handleGoogleLogIn = async () => {
-      const loginRes = await googleLogin(session.token.account.id_token, {
-        username: session.user.name,
-        email: session.user.email,
-      }).then((data)=>{logIn(data)});
-  
-      if (loginRes) {
-        setModalOpen(false);
-      }
+    const loginRes = await googleLogin(session.token.account.id_token, {
+      username: session.user.name,
+      email: session.user.email,
+    }).then((data) => {
+      logIn(data);
+    });
+
+    if (loginRes) {
+      setModalOpen(false);
+    }
   };
 
   const redirct = async () => {
-    router.push("https://tickitapi-dev21314.cryptoware.me/v1/auth/oAuth?redirect=''")
-  }
+    router.push(
+      "https://tickitapi-dev21314.cryptoware.me/v1/auth/oAuth?redirect=''"
+    );
+  };
 
   const schema = yup.object().shape({
     email: yup
@@ -287,7 +296,13 @@ const LoginModal = () => {
                         setModalOpen(false);
                       }
                     }}
-                    disabled={values.email == null || values.password == null || values.username == null || values.confirmpassword == null || values.password != values.confirmpassword}
+                    disabled={
+                      values.email == null ||
+                      values.password == null ||
+                      values.username == null ||
+                      values.confirmpassword == null ||
+                      values.password != values.confirmpassword
+                    }
                   />
                 </div>
                 <div className={styles.googleLoginDiv}>

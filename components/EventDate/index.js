@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+
 import styles from "./EventDate.module.scss";
 
 const EventDate = ({ data, date, fontSize = "16px" }) => {
   const [day, setDay] = useState();
   const [time, setTime] = useState();
+
   useEffect(() => {
     const date = new Date(data);
     const formattedDay = date.toLocaleDateString("en-US", {

@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
-import styles from "./UserDropdown.module.scss";
+import React from "react";
 import Link from "next/link";
-import { signIn, useSession, signOut } from "next-auth/react";
+
+import styles from "./UserDropdown.module.scss";
 
 const UserDropdown = ({ isOpen, onClose, logOut, user }) => {
-  const handleRoute = (route) => {
-    onClose;
-    return route;
-  };
   return (
     <div className={`${styles.menu} ${isOpen && styles.show} `}>
       <div className={styles.overlay} onClick={onClose}></div>

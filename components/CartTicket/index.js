@@ -1,17 +1,19 @@
-import React,{useState} from "react";
-import styles from "./CartTicket.module.scss";
+import Link from "next/link";
+import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Image from "next/image";
+
+import { useCartContext } from "../../cart/cart-context";
+
 import EventDetails from "../EventDetails";
 import Counter from "../Counter";
 import EventDate from "../EventDate";
 import TickitButton from "../tickitButton";
-import { useCartContext } from "../../cart/cart-context";
-import Link from "next/link";
 import QrCodeModal from "../qrcode-modal";
 
-const CartTicket = ({ inCart = false, item, itemData }) => {
+import styles from "./CartTicket.module.scss";
 
+const CartTicket = ({ inCart = false, item, itemData }) => {
   // Use States
   const [qrCodeModal, setQrCodeModal] = useState(false);
 

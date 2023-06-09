@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
-import styles from "./TicketCard.module.scss";
+import { toast } from "react-toastify";
+import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Image from "next/image";
+
+import { useCartContext } from "../../cart/cart-context";
+
 import TicketCounter from "../TicketCounter";
 import EventDetails from "../EventDetails";
 import TickitButton from "../tickitButton";
 import Counter from "../Counter";
-import EditTicket from "../EditTicketModal";
-import { useCartContext } from "../../cart/cart-context";
-import { toast } from "react-toastify";
+
+import styles from "./TicketCard.module.scss";
 
 const TicketCard = ({
   ticket,

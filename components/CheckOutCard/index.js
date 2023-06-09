@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import styles from "./CheckOutCard.module.scss";
+import { useCartContext } from "../../cart/cart-context";
+
 import TickitButton from "../tickitButton";
 import PayUsdModal from "../PayUsdModal";
 import PayCrypto from "../PayCryptoModal";
-import { useCartContext } from "../../cart/cart-context";
+
+import styles from "./CheckOutCard.module.scss";
 
 const CheckOutCard = ({ cartItemData }) => {
   // Use States

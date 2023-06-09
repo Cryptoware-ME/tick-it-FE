@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
-import styles from "./UserProfileDetails.module.scss";
+import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Image from "next/image";
-import EventDetails from "../../components/EventDetails";
+
+import EventDetails from "../EventDetails";
 import ProfileSocials from "../ProfileSocials";
 import ReportModal from "../ReportModal";
 import EditOrganizationModal from "../EditOrganizationModal";
 
+import styles from "./UserProfileDetails.module.scss";
+
 const UserProfileDetails = ({ state = 2 }) => {
   const [reportModal, setReportModal] = useState(false);
   const [editOrganizationModal, setEditOrganizationModal] = useState(false);
-  
+
   return (
     <>
       {reportModal && <ReportModal setReportModal={setReportModal} />}
@@ -22,7 +24,6 @@ const UserProfileDetails = ({ state = 2 }) => {
       <div className={styles.wrapper}>
         <Container>
           <Row className={styles.profile}>
-
             <Col lg={4} className={styles.imageCol}>
               <Image
                 width={208}

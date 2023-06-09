@@ -1,5 +1,7 @@
 import { Col, Row, Container } from "react-bootstrap";
+
 import styles from "./faq.module.scss";
+
 const FAQ = () => {
   return (
     <div className={styles.Wrapper}>

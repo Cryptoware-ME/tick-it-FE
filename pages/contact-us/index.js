@@ -1,7 +1,9 @@
 import { Col, Row, Container } from "react-bootstrap";
-import styles from "./contactUs.module.scss";
+
 import TickitButton from "../../components/tickitButton";
 import ProfileSocials from "../../components/ProfileSocials";
+
+import styles from "./contactUs.module.scss";
 
 const ContactUs = () => {
   return (

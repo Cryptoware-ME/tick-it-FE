@@ -1,5 +1,7 @@
 import { Col, Row, Container } from "react-bootstrap";
+
 import styles from "./terms-and-conditions.module.scss";
+
 const TermsAndConditions = () => {
   return (
     <div className={styles.Wrapper}>

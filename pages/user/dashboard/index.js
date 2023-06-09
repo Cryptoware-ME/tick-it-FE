@@ -1,12 +1,40 @@
 import React, { useEffect, useState } from "react";
-import styles from "./Dashboard.module.scss";
 import { Container, Col, Row } from "react-bootstrap";
+
+import { useAuth } from "../../../auth/useAuth";
+import { getOrganization } from "../../../axios/organization.axios";
+
 import DashboardBar from "../../../components/DashboardBar";
 import OrganizationCard from "../../../components/OrganizationCard";
 import AddOrganizationCard from "../../../components/AddOrganizationCard";
 import UpcomingEventsCard from "../../../components/UpcomingEventsCard";
 
+import styles from "./Dashboard.module.scss";
+
 const Dashboard = ({}) => {
+  const [organizationData, setOrganizationData] = useState();
+
+  const { user } = useAuth();
+
+  const getOrganizationDetails = async (id) => {
+    let organization = await getOrganization(
+      JSON.stringify({
+        where: { ownerId: id },
+      })
+    );
+    setOrganizationData(organization?.data);
+  };
+
+  useEffect(() => {
+    if (user) {
+      if (user?.user) {
+        getOrganizationDetails(user?.user.id);
+      } else {
+        getOrganizationDetails(user?.id);
+      }
+    }
+  }, [user]);
+
   return (
     <Container fluid className="dashboardWrapper">
       <Row>
@@ -22,8 +50,8 @@ const Dashboard = ({}) => {
                   Organizations
                 </p>
                 <Row>
-                  {[0, 1, 2]?.map((event, index) => (
-                    <OrganizationCard key={index} />
+                  {organizationData?.map((organization, index) => (
+                    <OrganizationCard key={index} data={organization} />
                   ))}
                   <AddOrganizationCard />
                 </Row>

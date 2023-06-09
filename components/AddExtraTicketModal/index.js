@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
-import styles from "./AddExtraTicketModal.module.scss";
 import { Modal, Container, Row, Col, Form } from "react-bootstrap";
-import Dropzone from "../Dropzone";
+
 import { useFormik } from "formik";
 import * as yup from "yup";
-import TickitButton from "../tickitButton";
+
 import { postEventTicketTypeBatch } from "../../axios/eventTicketType.axios";
 import { use721 } from "../../hooks/use721";
+
+import Dropzone from "../Dropzone";
+import TickitButton from "../tickitButton";
+
+import styles from "./AddExtraTicketModal.module.scss";
 
 const AddExtraTicketModal = ({
   setAddTicket,

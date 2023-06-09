@@ -1,8 +1,10 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
-import styles from "./Dropzone.module.scss";
+
 import { uploadImage } from "../../axios/media.axios";
+
+import styles from "./Dropzone.module.scss";
 
 function MyDropzone({ filePreview, setFilePreview, setImage, text }) {
   const { getRootProps, getInputProps, open, acceptedFiles } = useDropzone({

@@ -1,5 +1,7 @@
-import { Col, Row, Container} from "react-bootstrap";
+import { Col, Row, Container } from "react-bootstrap";
+
 import styles from "./aboutUs.module.scss";
+
 const aboutUs = () => {
   return (
     <div className={styles.Wrapper}>

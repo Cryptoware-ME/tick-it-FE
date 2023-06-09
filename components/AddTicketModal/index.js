@@ -1,57 +1,57 @@
-import React, { useEffect, useState } from 'react'
-import styles from './AddTicketModal.module.scss'
-import { Modal, Container, Row, Col, Form } from 'react-bootstrap'
-import Dropzone from '../../components/Dropzone'
-import { useFormik } from 'formik'
-import * as yup from 'yup'
-import TickitButton from '../tickitButton'
-import { use721 } from '../../hooks/use721'
+import React, { useState } from "react";
+import { Modal, Container, Row, Col, Form } from "react-bootstrap";
+
+import { useFormik } from "formik";
+import * as yup from "yup";
+
+import Dropzone from "../../components/Dropzone";
+import TickitButton from "../tickitButton";
+
+import styles from "./AddTicketModal.module.scss";
 
 const AddTicketModal = ({ setAddTicketModal, setTickets, tickets }) => {
-
   // Use States
-  const [imageError, setImageError] = useState(false)
-  const [nameError, setNameError] = useState(false)
-  const [filePreview, setFilePreview] = useState()
-  const [image, setImage] = useState()
+  const [imageError, setImageError] = useState(false);
+  const [nameError, setNameError] = useState(false);
+  const [filePreview, setFilePreview] = useState();
+  const [image, setImage] = useState();
 
   const schema = yup.object().shape({
     name: yup.string().required(),
     price: yup.number().required(),
     supply: yup.number().required(),
     description: yup.string().required(),
-  })
+  });
 
   // Formik initialization
   const formik = useFormik({
     initialValues: {
-      name: '',
-      price: '',
-      supply: '',
-      description: '',
-      image: '',
+      name: "",
+      price: "",
+      supply: "",
+      description: "",
+      image: "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
       if (image) {
-        setImageError(false)
-        values.image = image
+        setImageError(false);
+        values.image = image;
         let found = tickets.find(
-          (ticket) =>
-            ticket?.name?.toLowerCase() == values?.name?.toLowerCase(),
-        )
+          (ticket) => ticket?.name?.toLowerCase() == values?.name?.toLowerCase()
+        );
         if (found) {
-          setNameError(true)
+          setNameError(true);
         } else {
-          setNameError(false)
-          setTickets([...tickets, values])
-          setAddTicketModal(false)
+          setNameError(false);
+          setTickets([...tickets, values]);
+          setAddTicketModal(false);
         }
       } else {
-        setImageError(true)
+        setImageError(true);
       }
     },
-  })
+  });
   const {
     handleSubmit,
     handleChange,
@@ -66,13 +66,13 @@ const AddTicketModal = ({ setAddTicketModal, setTickets, tickets }) => {
     setErrors,
     status,
     setValues,
-  } = formik
+  } = formik;
   return (
     <Form>
       <Modal show onHide={() => {}} centered>
         <Modal.Header
           onClick={() => {
-            setAddTicketModal(false)
+            setAddTicketModal(false);
           }}
           className={styles.closeButton}
           closeButton
@@ -86,7 +86,7 @@ const AddTicketModal = ({ setAddTicketModal, setTickets, tickets }) => {
               <Col md={4}>
                 <div
                   className={styles.drop}
-                  style={{ display: 'flex', flexDirection: 'column' }}
+                  style={{ display: "flex", flexDirection: "column" }}
                 >
                   <Dropzone
                     filePreview={filePreview}
@@ -94,7 +94,7 @@ const AddTicketModal = ({ setAddTicketModal, setTickets, tickets }) => {
                     setImage={setImage}
                     text="Image (max 1MB)"
                   />
-                  <div style={{ height: '20px' }}>
+                  <div style={{ height: "20px" }}>
                     {imageError ? (
                       <div className={styles.errors}>
                         <p className={styles.error2}>Image is required field</p>
@@ -114,10 +114,10 @@ const AddTicketModal = ({ setAddTicketModal, setTickets, tickets }) => {
                     onBlur={handleBlur}
                     value={values.name}
                     className="modalInput"
-                    style={{ color: '#656565' }}
+                    style={{ color: "#656565" }}
                   />
                 </div>
-                <div style={{ minHeight: '20px' }}>
+                <div style={{ minHeight: "20px" }}>
                   {errors.name && touched.name ? (
                     <div className={styles.errors}>
                       <p className={styles.error2}> {errors.name}</p>
@@ -142,10 +142,10 @@ const AddTicketModal = ({ setAddTicketModal, setTickets, tickets }) => {
                     onBlur={handleBlur}
                     value={values.supply}
                     className="modalInput"
-                    style={{ color: '#656565' }}
+                    style={{ color: "#656565" }}
                   />
                 </div>
-                <div style={{ minHeight: '20px' }}>
+                <div style={{ minHeight: "20px" }}>
                   {errors.supply && touched.supply ? (
                     <div className={styles.errors}>
                       <p className={styles.error2}> {errors.supply}</p>
@@ -163,10 +163,10 @@ const AddTicketModal = ({ setAddTicketModal, setTickets, tickets }) => {
                     onBlur={handleBlur}
                     value={values.price}
                     className="modalInput"
-                    style={{ color: '#656565' }}
+                    style={{ color: "#656565" }}
                   />
                 </div>
-                <div style={{ minHeight: '20px' }}>
+                <div style={{ minHeight: "20px" }}>
                   {errors.price && touched.price ? (
                     <div className={styles.errors}>
                       <p className={styles.error2}> {errors.price}</p>
@@ -187,10 +187,10 @@ const AddTicketModal = ({ setAddTicketModal, setTickets, tickets }) => {
                   onBlur={handleBlur}
                   value={values.description}
                   className="modalInput"
-                  style={{ color: '#656565' }}
+                  style={{ color: "#656565" }}
                 />
               </div>
-              <div style={{ minHeight: '20px' }}>
+              <div style={{ minHeight: "20px" }}>
                 {errors.description && touched.description ? (
                   <div className={styles.errors}>
                     <p className={styles.error2}> {errors.description}</p>
@@ -205,6 +205,6 @@ const AddTicketModal = ({ setAddTicketModal, setTickets, tickets }) => {
         </Modal.Body>
       </Modal>
     </Form>
-  )
-}
-export default AddTicketModal
+  );
+};
+export default AddTicketModal;

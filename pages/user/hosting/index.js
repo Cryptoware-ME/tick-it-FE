@@ -1,7 +1,10 @@
-import EventCard from "../../../components/EventCard";
-import styles from "./hosting.module.scss";
 import { Row, Col, Container } from "react-bootstrap";
+
+import EventCard from "../../../components/EventCard";
 import DashboardBar from "../../../components/DashboardBar";
+
+import styles from "./hosting.module.scss";
+
 const Hosting = () => {
   return (
     <Container fluid className="dashboardWrapper">

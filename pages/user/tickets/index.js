@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import styles from "./Tickets.module.scss";
 import { Container, Col, Row } from "react-bootstrap";
+
 import DashboardBar from "../../../components/DashboardBar";
 import CartTicket from "../../../components/CartTicket";
 import Loader from "../../../components/loader/loader";
+
+import styles from "./Tickets.module.scss";
 
 const Tickets = () => {
   const [tickets, setTickets] = useState([]);

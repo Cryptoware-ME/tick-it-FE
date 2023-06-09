@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
+import { Sidebar, Menu, useProSidebar } from "react-pro-sidebar";
 import Link from "next/link";
-import styles from "./OrganizationSidebar.module.scss";
-import { Container } from "react-bootstrap";
 import Image from "next/image";
+
+import styles from "./OrganizationSidebar.module.scss";
 
 const OrganizationSidebar = () => {
   const [width, setWidth] = useState();
+
   const { toggleSidebar } = useProSidebar();
-  useEffect(() => {
-    getWidth();
-  }, []);
 
   const getWidth = () => {
     let a = window.innerWidth;
@@ -18,11 +16,16 @@ const OrganizationSidebar = () => {
       setWidth(a);
     }
   };
+
+  useEffect(() => {
+    getWidth();
+  }, []);
+
   return (
     <div className={styles.sideBar}>
       <Sidebar
         breakPoint="lg"
-      backgroundColor={width > 991 ? "transparent" : "var(--background)"}
+        backgroundColor={width > 991 ? "transparent" : "var(--background)"}
         width={width > 991 ? "100%" : "80%"}
         className={styles.sideBarmenu}
       >

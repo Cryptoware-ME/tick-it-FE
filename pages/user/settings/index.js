@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
-import styles from "./Settings.module.scss";
+import Link from "next/link";
+import React, { useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
+
+import { useAuth } from "../../../auth/useAuth";
+
 import DashboardBar from "../../../components/DashboardBar";
 import TickitButton from "../../../components/tickitButton";
-import Link from "next/link";
 import Switch from "../../../components/Switch";
-import { useAuth } from "../../../auth/useAuth";
+
+import styles from "./Settings.module.scss";
 
 const Settings = () => {
   const { user } = useAuth();
