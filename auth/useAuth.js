@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
 
   const restoreUser = async (token) => {
+    console
     const response = await validate(token);
     if (response) {
       setUser(response);
@@ -15,6 +16,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    console.log(token)
     if (token) {
       restoreUser(token);
     }
@@ -30,8 +32,6 @@ export const AuthProvider = ({ children }) => {
 export const useAuth = () => {
   const { user, setUser } = useContext(AuthContext);
 
-  useEffect(() => {}, [user]);
-
   const logIn = (user) => {
     setUser(user);
     localStorage.setItem("token", "Bearer " + user?.token);
@@ -42,5 +42,6 @@ export const useAuth = () => {
     localStorage.removeItem("token");
   };
 
-  return { user, logOut, logIn };
+  return { user, logOut, logIn, setUser };
 };
+
