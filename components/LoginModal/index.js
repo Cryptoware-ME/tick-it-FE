@@ -1,55 +1,46 @@
 import Link from "next/link";
 import { Modal, Container, Form } from "react-bootstrap";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-import { signIn, useSession } from "next-auth/react";
 import { googleLogin, login, signup } from "../../axios/auth.axios";
 import { useAuth } from "../../auth/useAuth";
 import { getUsers } from "../../axios/user.axios";
 import { useAuthModalContext } from "../../context/AuthModalProvider";
+import Cookies from 'js-cookie'
+import { validate } from "../../axios/auth.axios";
 
 import TickitButton from "../tickitButton";
 
 import styles from "./LoginModal.module.scss";
 
 const LoginModal = () => {
+
   // States
   const [loginUser, setLoginUser] = useState("");
 
   // Hooks
-  const { logIn, user } = useAuth();
+  const { logIn, user, setUser } = useAuth();
   const { modalOpen, setModalOpen } = useAuthModalContext();
-  const { data: session } = useSession();
   const router = useRouter();
 
   // Functions
-  const handleSignIn = () => {
-    signIn("google").then(() => {
-      handleGoogleLogIn();
-    });
-  };
-
-  const handleGoogleLogIn = async () => {
-    const loginRes = await googleLogin(session.token.account.id_token, {
-      username: session.user.name,
-      email: session.user.email,
-    }).then((data) => {
-      logIn(data);
-    });
-
-    if (loginRes) {
-      setModalOpen(false);
+  const restoreUser = async () => {
+    console.log("Entered Restore User in Login Modal")
+    const response = await validate("Bearer " + Cookies.get("token"));
+    if (response) {
+      setUser(response);
+      Cookies.remove('token');
     }
-  };
+  }
 
-  const redirct = async () => {
+  const redirect = async () => {
     router.push(
-      "https://tickitapi-dev21314.cryptoware.me/v1/auth/oAuth?redirect=''"
+      `${process.env.NEXT_PUBLIC_API_HOST}/auth/oAuth`
     );
   };
 
@@ -160,6 +151,16 @@ const LoginModal = () => {
     setValues,
   } = formik;
 
+  useEffect(() => {
+    console.log(Cookies.get('token'))
+    if(Cookies.get('token')){
+      console.log(111)
+
+      localStorage.setItem("token", "Bearer " + Cookies.get('token'));
+      restoreUser();
+    }
+  }, [])
+  
   return (
     <>
       {modalOpen ? (
@@ -290,7 +291,7 @@ const LoginModal = () => {
                         email: values.email,
                         username: values.username,
                         password: values.password,
-                      });
+                      })
                       logIn(response);
                       if (response) {
                         setModalOpen(false);
@@ -306,7 +307,7 @@ const LoginModal = () => {
                   />
                 </div>
                 <div className={styles.googleLoginDiv}>
-                  <div onClick={redirct} className={styles.googleLogin}>
+                  <div onClick={redirect} className={styles.googleLogin}>
                     <Image
                       width={26}
                       height={26}
@@ -395,7 +396,7 @@ const LoginModal = () => {
                   </div>
 
                   <div className={styles.googleLoginDiv}>
-                    <div onClick={handleSignIn} className={styles.googleLogin}>
+                    <div onClick={redirect} className={styles.googleLogin}>
                       <Image
                         width={26}
                         height={26}
