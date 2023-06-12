@@ -5,12 +5,11 @@
   background-repeat: no-repeat;
 }
 .cardContainer {
-  height: 100%;
-  min-height: 350px;
+  height: 351px;
   width: 100%;
-  text-decoration: none;
   border-radius: 20px;
   overflow: hidden;
+  background-color: black;
 }
 
 .cardGradient {
@@ -23,7 +22,7 @@
 
   pointer-events: none;
   position: absolute;
-  width: 99.5%;
+  width: 99.1%;
   bottom: 1px;
   height: 100%;
   z-index: 2;
@@ -31,7 +30,7 @@
 }
 .cardImage {
   width: 100%;
-  height: auto;
+  min-height: 100%;
   max-height: 215px;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;

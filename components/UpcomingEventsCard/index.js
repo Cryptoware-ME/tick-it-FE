@@ -3,10 +3,10 @@ import { Col } from "react-bootstrap";
 
 import styles from "./UpcomingEventsCard.module.scss";
 
-const UpcomingEventsCard = ({ columns = 3 }) => {
+const UpcomingEventsCard = () => {
   return (
     <>
-      <Col md={columns} className={styles.cardWrapper}>
+      <Col md={3} sm={6} className={styles.cardWrapper}>
         <div
           style={{
             backgroundImage: `url("/images/photo.png")`,

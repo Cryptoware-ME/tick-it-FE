@@ -7,13 +7,12 @@
   @media (max-width: 991px) {
     min-height: 35px;
     height: fit-content;
-    background: var(--background);
+    background: var(--surface1);
   }
 }
 .sideBarmenu {
   padding: 0px !important;
   @media (max-width: 991px) {
-    margin-top: 60px;
     padding: 20px;
   }
 }
@@ -101,7 +100,7 @@
   display: flex;
   background-color: rgba(207, 109, 110, 1);
   height: 100px;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   flex-direction: row;
 }

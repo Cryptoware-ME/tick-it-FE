@@ -32,9 +32,9 @@ const Explore = () => {
         </Col>
         <Col lg={10}>
           <Container>
-            <p style={{ margin: "30px 0px" }} className="pageTitle">
-              Explore
-            </p>
+            <div className={styles.titleDiv}>
+              <p className="pageTitle">Explore</p>
+            </div>
             {filteredEvents && (
               <Row>
                 {filteredEvents

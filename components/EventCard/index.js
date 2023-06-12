@@ -12,7 +12,7 @@ const EventCard = ({ eventData }) => {
   return (
     <>
       {eventData && (
-        <Col md={3} style={{ padding: "10px" }}>
+        <Col md={3} style={{ marginTop: "20px" }}>
           <Link
             href={{
               pathname: `/event/${eventData.slug}`,

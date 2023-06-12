@@ -5,7 +5,6 @@ import Image from "next/image";
 import styles from "./OrganizationCard.module.scss";
 
 const OrganizationCard = ({ data }) => {
-  console.log("data: ", data.profile);
   return (
     <>
       <Col lg={3} md={6} className={styles.organizerCard}>
