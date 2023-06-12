@@ -1,9 +1,9 @@
 /* Global Theme Variables */
 
 :root {
-  --primary: #D4B63C;
-  --primary-dark: #B98912;
-  --primary-light: #F2DC84;
+  --primary: #d4b63c;
+  --primary-dark: #b98912;
+  --primary-light: #f2dc84;
   --secondary: #cf6d6e;
   --secondary-dark: #7b3e3f;
   --secondary-light: #f09b9c;
@@ -12,7 +12,7 @@
   --white: #ffffff;
   --background: #050505;
   --surface1: #0c0c0c;
-  --surface1: #1e1c17;
+  --surface2: #1e1c17;
   --field: #161616;
   --sidebar: linear-gradient(270deg, #1a1a1a 0%, rgba(26, 26, 26, 0) 100%);
   --sideBarShadow: 4px 0px 20px 0px rgba(0, 0, 0, 0.25);

@@ -13,10 +13,6 @@ export default function DashboardBar({ selected }) {
   const { toggleSidebar } = useProSidebar();
   const { user } = useAuth();
 
-  useEffect(() => {
-    getWidth();
-  }, []);
-
   const getWidth = () => {
     let a = window.innerWidth;
     if (a > 991) {
@@ -24,6 +20,9 @@ export default function DashboardBar({ selected }) {
     }
   };
 
+  useEffect(() => {
+    getWidth();
+  }, []);
   return (
     <div className={styles.sideBar}>
       <Sidebar
@@ -34,13 +33,21 @@ export default function DashboardBar({ selected }) {
       >
         <Menu>
           <div className={styles.userDetails}>
-            <Image
-              width={45}
-              height={45}
-              alt="search"
-              src="/images/iconuser.png"
-            />
-            <div style={{ marginLeft: "5px" }}>
+            <div
+              style={{
+                width: "25%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Image
+                width={45}
+                height={45}
+                alt="search"
+                src="/images/iconuser.png"
+              />
+            </div>
+            <div style={{ width: "75%" }}>
               <p className={styles.userName}>
                 {user?.user ? user?.user.username : user?.username}
               </p>
@@ -156,6 +163,21 @@ export default function DashboardBar({ selected }) {
           </div>
         </Menu>
       </Sidebar>
+      <main style={{ display: "flex", padding: 10 }}>
+        <div
+          onClick={() => {
+            toggleSidebar();
+          }}
+          className={`d-lg-none mx-auto mb-2`}
+        >
+          <Image
+            alt="openmodal"
+            src="/images/rightarrow.png"
+            width="40"
+            height="30"
+          />
+        </div>
+      </main>
     </div>
   );
 }

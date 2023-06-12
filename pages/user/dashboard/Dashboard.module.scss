@@ -4,7 +4,9 @@
 }
 
 .section {
-  margin-top: 48px;
+  @media (min-width: 991px) {
+    margin-top: 48px;
+  }
 }
 .sectionContent {
   display: flex;
@@ -31,4 +33,15 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 36px;
+}
+.organizations {
+  display: flex;
+  @media (max-width: 991px) {
+    justify-content: center;
+  }
+}
+.addOrganizations {
+  @media (max-width: 991px) {
+    margin-top: 48px;
+  }
 }

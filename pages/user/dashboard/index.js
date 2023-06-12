@@ -49,16 +49,18 @@ const Dashboard = ({}) => {
                 <p style={{ marginBottom: "40px" }} className="section-title">
                   Organizations
                 </p>
-                <Row>
+                <Row className={styles.organizations}>
                   {organizationData?.map((organization, index) => (
                     <OrganizationCard key={index} data={organization} />
                   ))}
-                  <AddOrganizationCard />
+                  <Col lg={3} md={6} className={styles.addOrganizations}>
+                    <AddOrganizationCard />
+                  </Col>
                 </Row>
               </div>
             </div>
           </div>
-          <div className={styles.section}>
+          <div className={styles.section} style={{ marginTop: "48px" }}>
             <div className="cardWrapper">
               <div className={styles.sectionContent}>
                 <div className={styles.header}>

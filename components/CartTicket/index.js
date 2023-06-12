@@ -87,9 +87,11 @@ const CartTicket = ({ inCart = false, item, itemData }) => {
                   </Row>
                 )}
                 {!inCart && (
-                  <Row className={styles.cardCounter}>
-                    <TickitButton style2 text="SEND TICKET" />
-                    <div style={{ marginLeft: "12px", width: "fit-content" }}>
+                  <Row className={styles.cartTicketButton}>
+                    <div style={{ marginTop: "16px", width: "fit-content" }}>
+                      <TickitButton style2 text="SEND TICKET" />
+                    </div>
+                    <div style={{ marginTop: "16px", width: "fit-content" }}>
                       <TickitButton
                         text="ENTER EVENT"
                         onClick={() => {
