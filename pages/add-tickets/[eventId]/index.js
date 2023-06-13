@@ -72,6 +72,7 @@ const AddTickets = () => {
     updateEvent(
       {
         contractAddress: res.events[0].address,
+        isPublished: true,
         totalSupply: ticketSupply.reduce((accumulator, currentValue) => {
           return accumulator + currentValue;
         }, 0),

@@ -25,6 +25,21 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  @media (max-width: 991px) {
+    flex-direction: row;
+    justify-content: space-around;
+    padding-bottom: 8px;
+    padding-top: 8px;
+  }
+}
+.connected {
+  @media (min-width: 991px) {
+    margin-right: 12px;
+  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
 }
 .navbarLink {
   color: var(--white);
@@ -38,6 +53,9 @@
   text-decoration: none;
   transition: ease-in-out 0.4s;
   position: relative;
+  @media (max-width: 991px) {
+    margin-top: 8px;
+  }
 }
 .navbarLink:hover {
   color: var(--primary);
@@ -90,7 +108,7 @@
   @media (min-width: 993px) {
     text-align: right;
   }
-  margin-right: 15px;
+  margin-right: 8px;
   color: var(--white);
   text-transform: uppercase;
   font-weight: 400;

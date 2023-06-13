@@ -15,7 +15,10 @@ const Explore = () => {
 
   const Events = async () => {
     let events = await getEvents(
-      JSON.stringify({ relations: ["organization"] })
+      JSON.stringify({
+        relations: ["organization"],
+        where: { isPublished: true },
+      })
     );
     setFilteredEvents(events?.data);
   };
@@ -23,6 +26,10 @@ const Explore = () => {
   useEffect(() => {
     Events();
   }, []);
+
+  useEffect(() => {
+    console.log("filteredEvents: ", filteredEvents);
+  }, [filteredEvents]);
 
   return (
     <Container fluid className={styles.exploreWrapper}>
