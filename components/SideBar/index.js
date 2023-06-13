@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Sidebar, Menu, useProSidebar } from "react-pro-sidebar";
 import Image from "next/image";
 
+import { getCategories } from "../../axios/event.axios";
+
 import TickitButton from "../../components/tickitButton";
 
 import styles from "./SideBar.module.scss";
 
-export default function SideBar() {
+export default function SideBar({ categoryFilter, setCategoryFilter }) {
   const [width, setWidth] = useState();
+  const [categories, setCategories] = useState([]);
 
   const { toggleSidebar } = useProSidebar();
 
@@ -20,6 +23,9 @@ export default function SideBar() {
 
   useEffect(() => {
     getWidth();
+    getCategories().then((data) => {
+      setCategories(data.data);
+    });
   }, []);
 
   return (
@@ -175,58 +181,25 @@ export default function SideBar() {
               />
               <p className={styles.checkboxText}>All</p>
             </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <input
-                className={styles.squareCheckbox}
-                type="checkbox"
-                onclick="myFunction()"
-              />
-              <p className={styles.checkboxText}>Concert</p>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <input
-                className={styles.squareCheckbox}
-                type="checkbox"
-                onclick="myFunction()"
-              />
-              <p className={styles.checkboxText}>Workshop</p>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <input
-                className={styles.squareCheckbox}
-                type="checkbox"
-                onclick="myFunction()"
-              />
-              <p className={styles.checkboxText}>Hobbies</p>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <input
-                className={styles.squareCheckbox}
-                type="checkbox"
-                onclick="myFunction()"
-              />
-              <p className={styles.checkboxText}>Other</p>
-            </div>
+
+            {categories.map((category, index) => (
+              <div
+                key={index}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <input
+                  className={styles.squareCheckbox}
+                  type="checkbox"
+                  onClick={() => {
+                    setCategoryFilter(category.id);
+                  }}
+                />
+                <p className={styles.checkboxText}>{category.name}</p>
+              </div>
+            ))}
           </div>
           <div className={styles.filterButton}>
             <TickitButton text="Filter" />
