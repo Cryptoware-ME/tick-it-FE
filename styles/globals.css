@@ -200,6 +200,10 @@ html {
   line-height: 29px;
   font-family: "DrukWideMedium";
   margin-bottom: 0;
+  @media (max-width: 991px) {
+    font-size: 20px;
+    line-height: 24px;
+  }
 }
 .modalInput {
   width: 100% !important;

@@ -12,23 +12,35 @@ const Explore = () => {
   const [filteredEvents, setFilteredEvents] = useState();
   const take = 12;
   const [skip, setSkip] = useState(0);
+  const [categoryFilter, setCategoryFilter] = useState("");
 
-  const Events = async () => {
+  const Events = async (filters) => {
     let events = await getEvents(
-      JSON.stringify({ relations: ["organization"] })
+      JSON.stringify({
+        relations: ["organization", "category"],
+        where: filters,
+      })
     );
     setFilteredEvents(events?.data);
   };
 
   useEffect(() => {
-    Events();
-  }, []);
+    let tempfilters = { isPublished: true };
+    if (categoryFilter && categoryFilter != undefined) {
+      tempfilters = { ...tempfilters, categoryId: categoryFilter };
+    }
+
+    Events(tempfilters);
+  }, [categoryFilter]);
 
   return (
     <Container fluid className={styles.exploreWrapper}>
       <Row>
         <Col lg={2} style={{ paddingRight: "0px" }}>
-          <SideBar />
+          <SideBar
+            categoryFilter={categoryFilter}
+            setCategoryFilter={setCategoryFilter}
+          />
         </Col>
         <Col lg={10}>
           <Container>

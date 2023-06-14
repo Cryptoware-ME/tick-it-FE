@@ -11,7 +11,7 @@ import { googleLogin, login, signup } from "../../axios/auth.axios";
 import { useAuth } from "../../auth/useAuth";
 import { getUsers } from "../../axios/user.axios";
 import { useAuthModalContext } from "../../context/AuthModalProvider";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 import { validate } from "../../axios/auth.axios";
 
 import TickitButton from "../tickitButton";
@@ -19,7 +19,6 @@ import TickitButton from "../tickitButton";
 import styles from "./LoginModal.module.scss";
 
 const LoginModal = () => {
-
   // States
   const [loginUser, setLoginUser] = useState("");
 
@@ -30,18 +29,15 @@ const LoginModal = () => {
 
   // Functions
   const restoreUser = async () => {
-    console.log("Entered Restore User in Login Modal")
     const response = await validate("Bearer " + Cookies.get("token"));
     if (response) {
       setUser(response);
-      Cookies.remove('token');
+      Cookies.remove("token");
     }
-  }
+  };
 
   const redirect = async () => {
-    router.push(
-      `${process.env.NEXT_PUBLIC_API_HOST}/auth/oAuth`
-    );
+    router.push(`${process.env.NEXT_PUBLIC_API_HOST}/auth/oAuth`);
   };
 
   const schema = yup.object().shape({
@@ -152,15 +148,12 @@ const LoginModal = () => {
   } = formik;
 
   useEffect(() => {
-    console.log(Cookies.get('token'))
-    if(Cookies.get('token')){
-      console.log(111)
-
-      localStorage.setItem("token", "Bearer " + Cookies.get('token'));
+    if (Cookies.get("token")) {
+      localStorage.setItem("token", "Bearer " + Cookies.get("token"));
       restoreUser();
     }
-  }, [])
-  
+  }, []);
+
   return (
     <>
       {modalOpen ? (
@@ -291,7 +284,7 @@ const LoginModal = () => {
                         email: values.email,
                         username: values.username,
                         password: values.password,
-                      })
+                      });
                       logIn(response);
                       if (response) {
                         setModalOpen(false);

@@ -138,7 +138,7 @@ const CreateEvent = () => {
 
           <div style={{ marginTop: "48px" }}>
             <p className="section-title">Event Details</p>
-            <div style={{ marginTop: "24px " }}>
+            <div style={{ marginTop: "24px ", width: "fit-content" }}>
               <Dropzone
                 filePreview={filePreview}
                 setFilePreview={setFilePreview}

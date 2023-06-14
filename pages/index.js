@@ -1,39 +1,41 @@
-import Slider from '../components/Slider'
-import EventCard from '../components/EventCard'
-import { Container, Row, Col } from 'react-bootstrap'
-import ExploreEvents from '../components/ExploreEvents'
-import React, { useEffect, useState } from 'react'
-import { getEvents } from '../axios/event.axios'
-import { getJWT, useAuth } from '../auth/useAuth'
-import Cookies from 'js-cookie'
+import Slider from "../components/Slider";
+import EventCard from "../components/EventCard";
+import { Container, Row, Col } from "react-bootstrap";
+import ExploreEvents from "../components/ExploreEvents";
+import React, { useEffect, useState } from "react";
+import { getEvents } from "../axios/event.axios";
+import { getJWT, useAuth } from "../auth/useAuth";
+import Cookies from "js-cookie";
 
 export default function Home() {
-
-  const [allEvents, setAllEvents] = useState()
+  const [allEvents, setAllEvents] = useState();
 
   const Events = async () => {
     let events = await getEvents(
-      JSON.stringify({ relations: ['organization'] }),
-    )
-    setAllEvents(events?.data)
-  }
+      JSON.stringify({
+        relations: ["organization"],
+        where: { isPublished: true },
+      })
+    );
+    setAllEvents(events?.data);
+  };
 
   useEffect(() => {
-    Events()
-  }, [])  
+    Events();
+  }, []);
 
   return (
-    <main style={{ backgroundColor: ' var(--background)' }}>
+    <main style={{ backgroundColor: " var(--background)" }}>
       <Slider events={allEvents} />
-      <Container style={{ paddingBottom: '65px' }}>
+      <Container style={{ paddingBottom: "65px" }}>
         {allEvents && (
-          <Col style={{ marginTop: '65px' }}>
+          <Col style={{ marginTop: "65px" }}>
             <p className="section-title">Hot Events</p>
             <Row
               style={{
-                marginTop: '24px',
-                display: 'flex',
-                justifyContent: 'space-around',
+                marginTop: "24px",
+                display: "flex",
+                justifyContent: "space-around",
               }}
             >
               {allEvents.slice(0, 4).map((event, index) => (
@@ -42,10 +44,10 @@ export default function Home() {
             </Row>
           </Col>
         )}
-        <Col id="explore" style={{ marginTop: '65px' }}>
+        <Col id="explore" style={{ marginTop: "65px" }}>
           <ExploreEvents events={allEvents} />
         </Col>
       </Container>
     </main>
-  )
+  );
 }

@@ -29,8 +29,8 @@ const Tickets = () => {
             </p>
             {tickets?.length > 0 ? (
               <>
-                {tickets?.map((event, index) => (
-                  <CartTicket key={index} itemData={event} />
+                {tickets?.map((ticket, index) => (
+                  <CartTicket key={index} itemData={ticket} />
                 ))}
               </>
             ) : (

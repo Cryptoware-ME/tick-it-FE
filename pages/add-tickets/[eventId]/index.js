@@ -58,7 +58,7 @@ const AddTickets = () => {
         "0x815ae514cff4150ec895809ae516283047f6dff8e679158b151a8495f70fc929",
       ],
       {
-        gasPrice: "80000000000",
+        gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
         gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
       }
     );
@@ -72,6 +72,7 @@ const AddTickets = () => {
     updateEvent(
       {
         contractAddress: res.events[0].address,
+        isPublished: true,
         totalSupply: ticketSupply.reduce((accumulator, currentValue) => {
           return accumulator + currentValue;
         }, 0),

@@ -38,7 +38,7 @@ const AddExtraTicketModal = ({
     addTicket.send(
       [[values.supply + ticketSupply], [values.price * 10 ** 18]],
       {
-        gasPrice: "80000000000",
+        gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
         gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
       }
     );

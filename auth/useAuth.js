@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
 
   const restoreUser = async (token) => {
-    console
+    console;
     const response = await validate(token);
     if (response) {
       setUser(response);
@@ -16,7 +16,6 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log(token)
     if (token) {
       restoreUser(token);
     }
@@ -44,4 +43,3 @@ export const useAuth = () => {
 
   return { user, logOut, logIn, setUser };
 };
-
