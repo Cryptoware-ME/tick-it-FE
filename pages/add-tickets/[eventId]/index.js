@@ -22,6 +22,7 @@ import TicketCardPreview from "../../../components/TicketCardPreview";
 import styles from "./addTickets.module.scss";
 
 const AddTickets = () => {
+
   // Use States
   const [tickets, setTickets] = useState([]);
 
@@ -114,13 +115,14 @@ const AddTickets = () => {
 
   useEffect(() => {
     if (!user) {
-      setModalOpen(true);
+      setModalOpen();
     } else {
       getEvents(JSON.stringify({ where: { id: router.query.eventId } })).then(
         (data) => {
           setEventDetails(data.data[0]);
         }
       );
+      setModalOpen();
     }
   }, [user]);
 
