@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Navbar, Nav } from "react-bootstrap";
 
 import { ConnectWalletComponent } from "@cryptogate/react-ui";
+import { useEthereum } from "@cryptogate/react-providers";
 
 import { useAuth } from "../../auth/useAuth";
 import { getOrganization } from "../../axios/organization.axios";
@@ -28,6 +29,7 @@ const NavBar = () => {
   const { cartItems } = useCartContext();
   const { logOut, user } = useAuth();
   const router = useRouter();
+  const { account } = useEthereum();
 
   // Functions
   const handleRouting = async () => {
@@ -126,10 +128,13 @@ const NavBar = () => {
 
               {/* <div className={styles.navbarLink}>Support</div> */}
             </Nav>
+            {/* {!isMobile && ( */}
             <Nav className={styles.navbarUserRelated}>
-              <div style={{ marginRight: "12px" }}>
-                <ConnectWalletComponent ActiveComponent={<></>} />
-              </div>
+              {account && (
+                <div className={styles.connected}>
+                  <ConnectWalletComponent ActiveComponent={<></>} />
+                </div>
+              )}
               <div
                 onClick={() => {
                   user ? router.push("/cart") : setModalOpen(true);
@@ -137,8 +142,8 @@ const NavBar = () => {
                 className={styles.cart}
               >
                 <Image
-                  width={33}
-                  height={33}
+                  width={35}
+                  height={35}
                   alt="icon"
                   src="/images/cartLogo.svg"
                 />
@@ -148,6 +153,7 @@ const NavBar = () => {
                   <></>
                 )}
               </div>
+
               {!user && (
                 <div className={styles.logIn}>
                   <TickitButton
@@ -165,14 +171,15 @@ const NavBar = () => {
                     onClick={() => {
                       setShowUserDropdown(true);
                     }}
-                    width={35}
-                    height={35}
+                    width={38}
+                    height={38}
                     alt="icon"
                     src="/images/user.png"
                   />
                 </div>
               )}
             </Nav>
+            {/* )} */}
           </Navbar.Collapse>
         </Container>
       </Navbar>

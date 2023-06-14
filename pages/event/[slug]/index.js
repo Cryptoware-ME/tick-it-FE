@@ -161,7 +161,9 @@ const Event = () => {
                             text="PAUSE SALE"
                             onClick={() => {
                               pause.send([], {
-                                gasPrice: "80000000000",
+                                gasPrice: Number(
+                                  process.env.NEXT_PUBLIC_GAS_PRICE
+                                ),
                                 gasLimit: Number(
                                   process.env.NEXT_PUBLIC_GAS_LIMIT
                                 ),
@@ -179,7 +181,9 @@ const Event = () => {
                             text="RESUME SALES"
                             onClick={() => {
                               unpause.send([], {
-                                gasPrice: "80000000000",
+                                gasPrice: Number(
+                                  process.env.NEXT_PUBLIC_GAS_PRICE
+                                ),
                                 gasLimit: Number(
                                   process.env.NEXT_PUBLIC_GAS_LIMIT
                                 ),

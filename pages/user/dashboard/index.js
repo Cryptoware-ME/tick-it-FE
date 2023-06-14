@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
+import Link from "next/link";
 
 import { useAuth } from "../../../auth/useAuth";
 import { getOrganization } from "../../../axios/organization.axios";
@@ -13,6 +14,7 @@ import styles from "./Dashboard.module.scss";
 
 const Dashboard = ({}) => {
   const [organizationData, setOrganizationData] = useState();
+  const [tickets, setTickets] = useState([]);
 
   const { user } = useAuth();
 
@@ -35,6 +37,12 @@ const Dashboard = ({}) => {
     }
   }, [user]);
 
+  useEffect(() => {
+    let temp = localStorage.getItem("tickets");
+    let tickets = JSON.parse(temp);
+    setTickets(tickets);
+  }, []);
+
   return (
     <Container fluid className="dashboardWrapper">
       <Row>
@@ -46,9 +54,7 @@ const Dashboard = ({}) => {
           <div className={styles.section}>
             <div className="cardWrapper">
               <div className={styles.sectionContent}>
-                <p style={{ marginBottom: "40px" }} className="section-title">
-                  Organizations
-                </p>
+                <p className="section-title">Organizations</p>
                 <Row className={styles.organizations}>
                   {organizationData?.map((organization, index) => (
                     <OrganizationCard key={index} data={organization} />
@@ -65,11 +71,13 @@ const Dashboard = ({}) => {
               <div className={styles.sectionContent}>
                 <div className={styles.header}>
                   <p className="section-title">Upcoming Events</p>
-                  <p className={styles.viewAll}>View All Tickets</p>
+                  <Link href="/user/tickets" className={styles.viewAll}>
+                    View All Tickets
+                  </Link>
                 </div>
                 <Row>
-                  {[0, 1, 2, 3]?.map((event, index) => (
-                    <UpcomingEventsCard key={index} />
+                  {tickets?.map((ticket, index) => (
+                    <UpcomingEventsCard key={index} ticket={ticket} />
                   ))}
                 </Row>
               </div>

@@ -89,11 +89,16 @@ const CartTicket = ({ inCart = false, item, itemData }) => {
                 {!inCart && (
                   <Row className={styles.cartTicketButton}>
                     <div style={{ marginTop: "16px", width: "fit-content" }}>
-                      <TickitButton style2 text="SEND TICKET" />
+                      <TickitButton
+                        style2
+                        text="SEND TICKET"
+                        minWidth="180px"
+                      />
                     </div>
                     <div style={{ marginTop: "16px", width: "fit-content" }}>
                       <TickitButton
                         text="ENTER EVENT"
+                        minWidth="180px"
                         onClick={() => {
                           setQrCodeModal(true);
                         }}

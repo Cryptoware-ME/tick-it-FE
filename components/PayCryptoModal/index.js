@@ -276,7 +276,7 @@ const PayCrypto = ({
                     ? custodialWallet()
                     : mint.send([account, [], [1]], {
                         value: cartItemData[0].price,
-                        gasPrice: "80000000000",
+                        gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
                         gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
                       });
                 }}
