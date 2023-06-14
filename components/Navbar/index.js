@@ -18,7 +18,7 @@ import LoginModal from "../LoginModal";
 
 import styles from "./NavbarTickit.module.scss";
 
-const NavbarTickit = () => {
+const Navbar = () => {
   // States
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [added, setAdded] = useState(false);
@@ -128,7 +128,7 @@ const NavbarTickit = () => {
 
               {/* <div className={styles.navbarLink}>Support</div> */}
             </Nav>
-            {/* {!isMobile && ( */}
+
             <Nav className={styles.navbarUserRelated}>
               {account && (
                 <div className={styles.connected}>
@@ -179,7 +179,6 @@ const NavbarTickit = () => {
                 </div>
               )}
             </Nav>
-            {/* )} */}
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -187,4 +186,4 @@ const NavbarTickit = () => {
   );
 };
 
-export default NavbarTickit
+export default Navbar;
