@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 import { useEthereum } from "@cryptogate/react-providers";
 import { ConnectWalletComponent } from "@cryptogate/react-ui";
@@ -17,6 +18,7 @@ import EventDetails from "../../../components/EventDetails";
 import TickitButton from "../../../components/tickitButton";
 import TickitTag from "../../../components/TickitTag";
 import AddTicketModal from "../../../components/AddTicketModal";
+import EditEventModal from "../../../components/EditEventModal";
 import TicketCardPreview from "../../../components/TicketCardPreview";
 
 import styles from "./addTickets.module.scss";
@@ -30,9 +32,11 @@ const AddTickets = () => {
   const [ticketSupply, setTicketSupply] = useState([]);
 
   const [addTicketModal, setAddTicketModal] = useState(false);
+  const [editEventModal, setEditEventModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [eventDetails, setEventDetails] = useState();
+  const [update, setUpdate] = useState(false);
 
   // Hook Calls
   const router = useRouter();
@@ -122,7 +126,7 @@ const AddTickets = () => {
         }
       );
     }
-  }, [user]);
+  }, [user || update]);
 
   // This ticket sets the prices and the supply for the contract to deploy
   useEffect(() => {
@@ -148,6 +152,15 @@ const AddTickets = () => {
           setAddTicketModal={setAddTicketModal}
           setTickets={setTickets}
           tickets={tickets}
+        />
+      )}
+      {editEventModal && (
+        <EditEventModal
+          setEditEventModal={setEditEventModal}
+          symbol={eventDetails.symbol}
+          id={eventDetails.id}
+          isPublished={eventDetails.isPublished}
+          setUpdate={setUpdate}
         />
       )}
       <div>
@@ -176,14 +189,18 @@ const AddTickets = () => {
             <Col>
               <div className={styles.titleDiv}>
                 <p className="pageTitle">{eventDetails?.name}</p>
-                {/* <div style={{ marginLeft: '20px' }}>
+                <div style={{ marginLeft: "20px" }}>
                   <Image
                     width={24}
                     height={24}
                     alt="edit"
                     src="/images/edit.png"
+                    onClick={() => {
+                      setEditEventModal(true);
+                    }}
+                    style={{ cursor: "pointer" }}
                   />
-                </div> */}
+                </div>
               </div>
             </Col>
 

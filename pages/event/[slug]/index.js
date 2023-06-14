@@ -5,6 +5,7 @@ import { useAuth } from "../../../auth/useAuth";
 import { useEthereum } from "@cryptogate/react-providers";
 import { ConnectWalletComponent } from "@cryptogate/react-ui";
 import { usePause } from "../../../hooks/use721";
+import Image from "next/image";
 
 import EventDate from "../../../components/EventDate";
 import EventLocation from "../../../components/EventLocation";
@@ -12,6 +13,7 @@ import EventDetails from "../../../components/EventDetails";
 import Tickets from "../../../components/Tickets";
 import TickitButton from "../../../components/tickitButton";
 import TickitTag from "../../../components/TickitTag";
+import EditEventModal from "../../../components/EditEventModal";
 
 import { getEvents } from "../../../axios/event.axios";
 import { getEventTicketType } from "../../../axios/eventTicketType.axios";
@@ -20,6 +22,7 @@ import styles from "./Event.module.scss";
 
 const Event = () => {
   // States
+  const [editEventModal, setEditEventModal] = useState(false);
   const [contractAddress, setContractAddress] = useState();
   const [eventData, setEventData] = useState();
   const [isOwner, setIsOwner] = useState(false);
@@ -27,6 +30,7 @@ const Event = () => {
   const [refetchEvent, setRefetchEvent] = useState(false);
   const [ended, setEnded] = useState(false);
   const [pauseEvent, setPauseEvent] = useState();
+  const [update, setUpdate] = useState(false);
 
   // Hooks
   const router = useRouter();
@@ -82,7 +86,7 @@ const Event = () => {
         setIsOwner(true);
       }
     }
-  }, [eventData, user]);
+  }, [eventData || user || update]);
 
   useEffect(() => {
     if (pause.response) {
@@ -94,6 +98,15 @@ const Event = () => {
 
   return (
     <div className={styles.eventWrapper}>
+      {editEventModal && (
+        <EditEventModal
+          setEditEventModal={setEditEventModal}
+          symbol={eventData.symbol}
+          id={eventData.id}
+          isPublished={eventData.isPublished}
+          setUpdate={setUpdate}
+        />
+      )}
       {eventData && (
         <div>
           <div
@@ -121,17 +134,20 @@ const Event = () => {
               <Col lg={6}>
                 <div className={styles.titleDiv}>
                   <p className="pageTitle">{eventData.name}</p>
-                  {/* Lets user edit the name of the event */}
-                  {/* {isOwner && account && (
-                    <div style={{ marginLeft: '20px' }}>
+                  {isOwner && account && (
+                    <div style={{ marginLeft: "20px" }}>
                       <Image
-                        width={32}
-                        height={32}
+                        width={24}
+                        height={24}
                         alt="edit"
                         src="/images/edit.png"
+                        onClick={() => {
+                          setEditEventModal(true);
+                        }}
+                        style={{ cursor: "pointer" }}
                       />
                     </div>
-                  )} */}
+                  )}
                 </div>
               </Col>
               <Col lg={6}>

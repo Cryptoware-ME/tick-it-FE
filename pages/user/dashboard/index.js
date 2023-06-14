@@ -71,15 +71,25 @@ const Dashboard = ({}) => {
               <div className={styles.sectionContent}>
                 <div className={styles.header}>
                   <p className="section-title">Upcoming Events</p>
-                  <Link href="/user/tickets" className={styles.viewAll}>
-                    View All Tickets
-                  </Link>
+                  {tickets && (
+                    <Link href="/user/tickets" className={styles.viewAll}>
+                      View All Tickets
+                    </Link>
+                  )}
                 </div>
-                <Row>
-                  {tickets?.map((ticket, index) => (
-                    <UpcomingEventsCard key={index} ticket={ticket} />
-                  ))}
-                </Row>
+                {tickets ? (
+                  <Row>
+                    {tickets?.slice(0, 4).map((ticket, index) => (
+                      <UpcomingEventsCard key={index} ticket={ticket} />
+                    ))}
+                  </Row>
+                ) : (
+                  <Row>
+                    <Link href="/explore" className={styles.viewAll}>
+                      Explore Upcoming Events To Buy Tickets
+                    </Link>
+                  </Row>
+                )}
               </div>
             </div>
           </div>
