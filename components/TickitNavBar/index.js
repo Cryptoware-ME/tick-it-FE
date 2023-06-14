@@ -16,9 +16,9 @@ import UserDropdown from "../UserDropdown";
 import TickitButton from "../tickitButton";
 import LoginModal from "../LoginModal";
 
-import styles from "./NavbarTickit.module.scss";
+import styles from "./TickitNavBar.module.scss";
 
-const Navbar = () => {
+const TickitNavBar = () => {
   // States
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [added, setAdded] = useState(false);
@@ -186,4 +186,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default TickitNavBar;
