@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-import { googleLogin, login, signup } from "../../axios/auth.axios";
+import { login, signup } from "../../axios/auth.axios";
 import { useAuth } from "../../auth/useAuth";
 import { getUsers } from "../../axios/user.axios";
 import { useAuthModalContext } from "../../context/AuthModalProvider";
@@ -30,7 +30,6 @@ const LoginModal = () => {
 
   // Functions
   const restoreUser = async () => {
-    console.log("Entered Restore User in Login Modal")
     const response = await validate("Bearer " + Cookies.get("token"));
     if (response) {
       setUser(response);
@@ -152,10 +151,7 @@ const LoginModal = () => {
   } = formik;
 
   useEffect(() => {
-    console.log(Cookies.get('token'))
     if(Cookies.get('token')){
-      console.log(111)
-
       localStorage.setItem("token", "Bearer " + Cookies.get('token'));
       restoreUser();
     }

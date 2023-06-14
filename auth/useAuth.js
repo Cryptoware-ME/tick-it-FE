@@ -4,33 +4,8 @@ import { AuthContext } from "./AuthContext";
 import { validate } from "../axios/auth.axios";
 
 export const AuthProvider = ({ children }) => {
+  // States
   const [user, setUser] = useState();
-
-  const restoreUser = async (token) => {
-    console
-    const response = await validate(token);
-    if (response) {
-      setUser(response);
-    }
-  };
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    console.log(token)
-    if (token) {
-      restoreUser(token);
-    }
-  }, []);
-
-  return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
-
-export const useAuth = () => {
-  const { user, setUser } = useContext(AuthContext);
 
   const logIn = (user) => {
     setUser(user);
@@ -42,6 +17,28 @@ export const useAuth = () => {
     localStorage.removeItem("token");
   };
 
-  return { user, logOut, logIn, setUser };
+  const restoreUser = async (token) => {
+    const response = await validate(token);
+    if (response) {
+      setUser(response);
+    }
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      restoreUser(token);
+    }
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ user, setUser, logIn, logOut }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => {
+  return useContext(AuthContext);
 };
 
