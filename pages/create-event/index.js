@@ -116,20 +116,15 @@ const CreateEvent = () => {
 
   // Use Effects
   useEffect(() => {
-    console.log(1)
-    console.log(user)
     if (!user) {
-      console.log("No user")
       setModalOpen(true);
     } else if (user?.user) {
-      console.log("There is a user")
       getCategories().then((data) => {
         setCategories(data.data);
       });
       getOrganizationDetails(user?.user.id);
       setModalOpen(false);
     } else {
-      console.log("There is a user 2")
       getCategories().then((data) => {
         setCategories(data.data);
       });

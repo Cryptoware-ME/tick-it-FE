@@ -81,6 +81,7 @@ const AddTickets = () => {
       eventDetails.id
     ).then((data) => {
       let ticketsData = tickets.map((ticket, index) => {
+        console.log(index);
         return {
           eventId: data.id,
           name: ticket.name,
@@ -88,6 +89,7 @@ const AddTickets = () => {
           supply: ticket.supply,
           price: ticket.price * 10 ** 18,
           image: ticket.image,
+          ticketTypeId: index
         };
       });
       postEventTicketTypeBatch(ticketsData).then(() => {
