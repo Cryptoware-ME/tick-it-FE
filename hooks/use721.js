@@ -32,7 +32,6 @@ export const usePause = ({ contractAddress }) => {
     abi: NFTix721.abi,
     method: "unpause",
   });
-  console.log("contarct: ", contractAddress);
   const paused = readContractCall({
     address: contractAddress,
     abi: NFTix721.abi,

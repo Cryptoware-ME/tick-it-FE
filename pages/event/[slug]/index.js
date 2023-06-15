@@ -30,8 +30,8 @@ const Event = () => {
   const [eventTickets, setEventTickets] = useState([]);
   const [refetchEvent, setRefetchEvent] = useState(false);
   const [ended, setEnded] = useState(false);
-  const [pauseEvent, setPauseEvent] = useState(false);
   const [update, setUpdate] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // Hooks
   const router = useRouter();
@@ -66,6 +66,32 @@ const Event = () => {
     });
   };
 
+  const handleChangeState = async () => {
+    if (paused.response == "true") {
+      unpause.send([], {
+        gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
+        gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
+      });
+    } else {
+      pause.send([], {
+        gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
+        gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
+      });
+    }
+  };
+  const waitResponse = async () => {
+    if (paused.response == "true") {
+      await unpause.response.wait();
+      setLoading(false);
+      location.reload();
+    }
+    if (paused.response == "false") {
+      await pause.response.wait();
+      setLoading(false);
+      location.reload();
+    }
+  };
+
   // Use Effects
   useEffect(() => {
     if (slug || refetchEvent) {
@@ -90,12 +116,11 @@ const Event = () => {
   }, [eventData || user || update]);
 
   useEffect(() => {
-    if (paused.response == true) {
-      setPauseEvent(true);
-    } else {
-      setPauseEvent(false);
+    if (pause.response || unpause.response) {
+      setLoading(true);
+      waitResponse();
     }
-  }, [paused.response]);
+  }, [pause.response || unpause.response]);
 
   return (
     <div className={styles.eventWrapper}>
@@ -173,47 +198,23 @@ const Event = () => {
                 <>
                   {isOwner && account && (
                     <Row style={{ marginTop: "32px" }}>
-                      {pauseEvent == true && (
+                      {paused.response && (
                         <div className={styles.buttons}>
                           <TickitButton
-                            text="PAUSE SALE"
+                            text={
+                              paused.response == "true"
+                                ? "RESUME SALES"
+                                : "PAUSE SALE"
+                            }
+                            isLoading={loading}
+                            disabled={loading}
                             onClick={() => {
-                              pause.send([], {
-                                gasPrice: Number(
-                                  process.env.NEXT_PUBLIC_GAS_PRICE
-                                ),
-                                gasLimit: Number(
-                                  process.env.NEXT_PUBLIC_GAS_LIMIT
-                                ),
-                              });
+                              handleChangeState();
                             }}
                           />
                           {/* <div style={{ marginLeft: "40px" }}>
                       <TickitButton style2 text="VIEW ACTIVITY" />
                       </div> */}
-                        </div>
-                      )}
-                      {pauseEvent == false && (
-                        <div className={styles.buttons}>
-                          <TickitButton
-                            text="RESUME SALES"
-                            onClick={() => {
-                              unpause.send([], {
-                                gasPrice: Number(
-                                  process.env.NEXT_PUBLIC_GAS_PRICE
-                                ),
-                                gasLimit: Number(
-                                  process.env.NEXT_PUBLIC_GAS_LIMIT
-                                ),
-                              });
-                            }}
-                          />
-                          {/* <div style={{ marginLeft: "40px" }}>
-                    <TickitButton text="CANCEL SALES" />
-                  </div> */}
-                          {/* <div style={{ marginLeft: "40px" }}>
-                    <TickitButton style2 text="VIEW ACTIVITY" />
-                  </div> */}
                         </div>
                       )}
                     </Row>
@@ -230,10 +231,6 @@ const Event = () => {
                 <EventDate data={eventData.eventDate} />
                 <div style={{ marginLeft: "32px", display: "flex" }}>
                   <TickitTag disabled text={eventData.category.name} />
-                  {/* Tag that shows how much time there is left for the event */}
-                  {/* <div style={{ marginLeft: "12px" }}>
-                    <TickitTag disabled text="in 2 days" />
-                  </div> */}
                 </div>
               </div>
 

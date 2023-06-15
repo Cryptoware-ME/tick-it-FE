@@ -21,8 +21,6 @@ const PayCrypto = ({
   cartItemsCount,
   cartTotal,
 }) => {
-  console.log(cartItemData)
-  console.log(cartItemsCount)
 
   // States
   const [state, setState] = useState(1)
