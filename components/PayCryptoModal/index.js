@@ -20,9 +20,6 @@ const PayCrypto = ({
   cartItemsCount,
   cartTotal,
 }) => {
-
-  console.log(cartItemData)
-
   // States
   const [state, setState] = useState(1);
   const [payWithCustodial, setPayWithCustodial] = useState(false);
