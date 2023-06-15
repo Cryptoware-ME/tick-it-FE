@@ -18,7 +18,6 @@ const Tickets = ({
   ended,
 }) => {
   // States
-  const [addticket, setAddTicket] = useState(false);
   const [addTicketModal, setAddTicketModal] = useState(false);
   const [ticketsCallData, setTicketsCallData] = useState([]);
 
@@ -82,11 +81,11 @@ const Tickets = ({
             <TicketCard
               key={index}
               ticket={ticket}
+              allTickets={tickets}
               ended={ended}
               ticketFromContract={ticketFromContract[index]}
               isOwner={isOwner}
-              handlePause={() => handlePause(index)}
-              handleResume={() => handleResume(index)}
+              setRefetchEvent={setRefetchEvent}
             />
           ))}
         </div>

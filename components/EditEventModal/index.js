@@ -1,39 +1,45 @@
-import { Container, Form } from "react-bootstrap";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Modal, Container, Row, Col } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useRouter } from "next/router";
 
-import * as yup from "yup";
 import { useFormik } from "formik";
+import * as yup from "yup";
 
 import { getCategories } from "../../axios/event.axios";
 import { getOrganization } from "../../axios/organization.axios";
 import { postEvent } from "../../axios/event.axios";
-import { useAuthModalContext } from "../../context/AuthModalProvider";
 import { useAuth } from "../../auth/useAuth";
+import { useAuthModalContext } from "../../context/AuthModalProvider";
 
-import TickitButton from "../../components/tickitButton";
-import Dropzone from "../../components/Dropzone";
+import Dropzone from "../Dropzone";
+import TickitButton from "../tickitButton";
 
-import styles from "./createEvent.module.scss";
+import styles from "./EditEventModal.module.scss";
 
-const CreateEvent = () => {
-  // States
-  const [filePreview, setFilePreview] = useState();
+const EditEventModal = ({
+  setEditEventModal,
+  symbol,
+  id,
+  isPublished,
+  setUpdate,
+}) => {
   const [imageError, setImageError] = useState(false);
-  const [categoryError, setCategoryError] = useState(false);
   const [image, setImage] = useState();
-  const [selectedValue, setSelectedValue] = useState();
+  const [filePreview, setFilePreview] = useState();
+  const [categoryError, setCategoryError] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [organization, setOrganization] = useState("");
+  const [selectedValue, setSelectedValue] = useState();
   const [categoryId, setCategoryId] = useState("");
+  const [organization, setOrganization] = useState("");
 
-  // Hooks
   const router = useRouter();
   const { user } = useAuth();
   const { setModalOpen } = useAuthModalContext();
 
-  // Functions
+  const handleDropdownSelect = (eventKey) => {
+    setSelectedValue(eventKey);
+  };
   const getOrganizationDetails = async (id) => {
     let organization = await getOrganization(
       JSON.stringify({
@@ -45,28 +51,28 @@ const CreateEvent = () => {
 
   const postCreateEvent = async () => {
     postEvent({
+      id: id,
       name: values.name,
-      symbol: values.symbol,
       description: values.description,
       eventDate: values.date,
       location: values.location,
+      symbol: symbol,
       banner: values.banner,
       media: "",
       urls: "",
       categoryId: categoryId,
       organizationId: organization.id,
     }).then((data) => {
-      router.push(`/add-tickets/${data.id}`);
+      router.push(
+        isPublished ? `/event/${data.slug}` : `/add-tickets/${data.id}`
+      );
+      setUpdate(true);
+      setEditEventModal(false);
     });
-  };
-
-  const handleDropdownSelect = (eventKey) => {
-    setSelectedValue(eventKey);
   };
 
   const schema = yup.object().shape({
     name: yup.string().required(),
-    symbol: yup.string().max(3).required(),
     date: yup.date().required(),
     location: yup.string().required(),
     description: yup.string().required(),
@@ -74,7 +80,6 @@ const CreateEvent = () => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      symbol: "",
       date: "",
       location: "",
       description: "",
@@ -114,7 +119,6 @@ const CreateEvent = () => {
     setValues,
   } = formik;
 
-  // Use Effects
   useEffect(() => {
     if (!user) {
       setModalOpen(true);
@@ -129,37 +133,42 @@ const CreateEvent = () => {
         setCategories(data.data);
       });
       getOrganizationDetails(user?.id);
-
       setModalOpen(false);
     }
   }, [user]);
 
   return (
-    <div className={styles.Wrapper}>
-      <Form>
-        <Container style={{ paddingTop: "24px", paddingBottom: "48px" }}>
-          <p className="pageTitle">Create Event</p>
+    <Modal show onHide={() => {}} centered>
+      <Modal.Header
+        onClick={() => {
+          setEditEventModal(false);
+        }}
+        className={styles.closeButton}
+        closeButton
+      />
 
-          <div style={{ marginTop: "48px" }}>
-            <p className="section-title">Event Details</p>
-            <div style={{ marginTop: "24px ", width: "fit-content" }}>
+      <Modal.Body>
+        <Container>
+          <p className={styles.title}>Edit Event</p>
+
+          <Row>
+            <div className={styles.drop}>
               <Dropzone
                 filePreview={filePreview}
                 setFilePreview={setFilePreview}
                 setImage={setImage}
                 text="Banner (max 1MB)"
               />
-              <div style={{ height: "20px" }}>
-                {imageError ? (
-                  <div className={styles.errors}>
-                    <p className={styles.error}> Image is required field</p>
-                  </div>
-                ) : null}
-              </div>
+              {imageError ? (
+                <div className={styles.errors}>
+                  <p className={styles.error2}> Image is required field</p>
+                </div>
+              ) : null}
             </div>
-
-            <p className={styles.title}>Name</p>
+          </Row>
+          <Row>
             <div className={styles.InputDiv}>
+              <p className={styles.detailsTitle}>Name</p>
               <input
                 id="name"
                 name="name"
@@ -171,58 +180,15 @@ const CreateEvent = () => {
                 style={{ color: "#656565" }}
               />
             </div>
-            <div style={{ height: "20px" }}>
+            <div style={{ minHeight: "20px" }}>
               {errors.name && touched.name ? (
                 <div className={styles.errors}>
-                  <p className={styles.error}> {errors.name}</p>
+                  <p className={styles.error2}> {errors.name}</p>
                 </div>
               ) : null}
             </div>
-
-            <p className={styles.title}>Symbol</p>
             <div className={styles.InputDiv}>
-              <input
-                id="symbol"
-                name="symbol"
-                type="text"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.symbol}
-                className="modalInput"
-                style={{ color: "#656565" }}
-              />
-            </div>
-            <div style={{ height: "20px" }}>
-              {errors.symbol && touched.symbol ? (
-                <div className={styles.errors}>
-                  <p className={styles.error}> {errors.symbol}</p>
-                </div>
-              ) : null}
-            </div>
-
-            <p className={styles.title}>Date & Time</p>
-            <div className={styles.InputDiv}>
-              <input
-                id="date"
-                name="date"
-                type="datetime-local"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.date}
-                className="modalInput"
-                style={{ color: "#656565" }}
-              />
-            </div>
-            <div style={{ height: "20px" }}>
-              {errors.date && touched.date ? (
-                <div className={styles.errors}>
-                  <p className={styles.error}> {errors.date}</p>
-                </div>
-              ) : null}
-            </div>
-
-            <p className={styles.title}>Location</p>
-            <div className={styles.InputDiv}>
+              <p className={styles.detailsTitle}>Location</p>
               <input
                 id="location"
                 name="location"
@@ -237,12 +203,32 @@ const CreateEvent = () => {
             <div style={{ height: "20px" }}>
               {errors.location && touched.location ? (
                 <div className={styles.errors}>
-                  <p className={styles.error}> {errors.location}</p>
+                  <p className={styles.error2}> {errors.location}</p>
                 </div>
               ) : null}
             </div>
-            <p className={styles.title}>Category</p>
             <div className={styles.InputDiv}>
+              <p className={styles.detailsTitle}>Date</p>
+              <input
+                id="date"
+                name="date"
+                type="datetime-local"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.date}
+                className="modalInput"
+                style={{ color: "#656565" }}
+              />
+            </div>
+            <div style={{ height: "20px" }}>
+              {errors.date && touched.date ? (
+                <div className={styles.errors}>
+                  <p className={styles.error2}> {errors.date}</p>
+                </div>
+              ) : null}
+            </div>
+            <div className={styles.InputDiv}>
+              <p className={styles.detailsTitle}>Category</p>
               <Dropdown
                 onBlur={() => {
                   if (!selectedValue) {
@@ -283,14 +269,15 @@ const CreateEvent = () => {
             <div style={{ height: "20px" }}>
               {categoryError ? (
                 <div className={styles.errors}>
-                  <p className={styles.error}> Category is required field</p>
+                  <p className={styles.error2}> Category is required field</p>
                 </div>
               ) : null}
             </div>
-            <p style={{ marginTop: "16px" }} className={styles.title}>
-              Description
-            </p>
-            <div className={styles.descriptionDiv}>
+          </Row>
+
+          <Row className={styles.holderInput}>
+            <div className={styles.InputDiv}>
+              <p className={styles.detailsTitle}>Description</p>
               <textarea
                 id="description"
                 name="description"
@@ -299,24 +286,23 @@ const CreateEvent = () => {
                 onBlur={handleBlur}
                 value={values.description}
                 className="modalInput"
-                style={{ minHeight: "120px" }}
+                style={{ color: "#656565" }}
               />
             </div>
-            <div style={{ height: "20px" }}>
+            <div style={{ minHeight: "20px" }}>
               {errors.description && touched.description ? (
                 <div className={styles.errors}>
-                  <p className={styles.error}> {errors.description}</p>
+                  <p className={styles.error2}> {errors.description}</p>
                 </div>
               ) : null}
             </div>
-          </div>
-
-          <div className={styles.appButton}>
-            <TickitButton onClick={handleSubmit} text="CREATE" />
+          </Row>
+          <div className={styles.buttonAdd}>
+            <TickitButton style1 text="Edit Event" onClick={handleSubmit} />
           </div>
         </Container>
-      </Form>
-    </div>
+      </Modal.Body>
+    </Modal>
   );
 };
-export default CreateEvent;
+export default EditEventModal;
