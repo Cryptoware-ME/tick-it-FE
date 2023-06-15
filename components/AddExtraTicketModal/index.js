@@ -47,8 +47,6 @@ const AddExtraTicketModal = ({
   };
 
   const launchRes = async () => {
-    // setLoading(true);
-    // setDisabled(true);
     await addTicket.response.wait();
 
     let ticketsData = {

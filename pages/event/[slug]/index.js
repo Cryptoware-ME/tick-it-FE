@@ -14,6 +14,7 @@ import Tickets from "../../../components/Tickets";
 import TickitButton from "../../../components/tickitButton";
 import TickitTag from "../../../components/TickitTag";
 import EditEventModal from "../../../components/EditEventModal";
+import AddExtraTicketModal from "../../../components/AddExtraTicketModal";
 
 import { getEvents } from "../../../axios/event.axios";
 import { getEventTicketType } from "../../../axios/eventTicketType.axios";
@@ -29,7 +30,7 @@ const Event = () => {
   const [eventTickets, setEventTickets] = useState([]);
   const [refetchEvent, setRefetchEvent] = useState(false);
   const [ended, setEnded] = useState(false);
-  const [pauseEvent, setPauseEvent] = useState();
+  const [pauseEvent, setPauseEvent] = useState(false);
   const [update, setUpdate] = useState(false);
 
   // Hooks
@@ -37,7 +38,7 @@ const Event = () => {
   const { slug } = router.query;
   const { user } = useAuth();
   const { account } = useEthereum();
-  const { pause, unpause } = usePause({ contractAddress });
+  const { pause, unpause, paused } = usePause({ contractAddress });
 
   // Functions
   // Gets the event details with the category and organization included
@@ -89,12 +90,12 @@ const Event = () => {
   }, [eventData || user || update]);
 
   useEffect(() => {
-    if (pause.response) {
+    if (paused.response == true) {
       setPauseEvent(true);
-    } else if (unpause.response) {
+    } else {
       setPauseEvent(false);
     }
-  }, [pause.response || unpause.response]);
+  }, [paused.response]);
 
   return (
     <div className={styles.eventWrapper}>
@@ -107,6 +108,7 @@ const Event = () => {
           setUpdate={setUpdate}
         />
       )}
+
       {eventData && (
         <div>
           <div
@@ -171,7 +173,7 @@ const Event = () => {
                 <>
                   {isOwner && account && (
                     <Row style={{ marginTop: "32px" }}>
-                      {!pauseEvent && (
+                      {pauseEvent == true && (
                         <div className={styles.buttons}>
                           <TickitButton
                             text="PAUSE SALE"
@@ -191,7 +193,7 @@ const Event = () => {
                       </div> */}
                         </div>
                       )}
-                      {pauseEvent && (
+                      {pauseEvent == false && (
                         <div className={styles.buttons}>
                           <TickitButton
                             text="RESUME SALES"
