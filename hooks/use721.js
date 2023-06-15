@@ -11,7 +11,13 @@ export const use721 = ({ contractAddress }) => {
     method: "addTicketTypes",
   });
 
-  return { addTicket };
+  const ticketTypeAmount =readContractCall({
+    address: contractAddress,
+    abi: NFTix721.abi,
+    method: "ticketTypes"
+  })
+
+  return { addTicket, ticketTypeAmount };
 };
 
 export const usePause = ({ contractAddress }) => {
