@@ -20,19 +20,25 @@ const PayCrypto = ({
   cartItemsCount,
   cartTotal,
 }) => {
-  const { account } = useEthereum();
+
+  console.log(cartItemData)
+
+  // States
   const [state, setState] = useState(1);
   const [payWithCustodial, setPayWithCustodial] = useState(false);
   const [eventId, setEventId] = useState();
   const [eventTickets, setEventTickets] = useState();
 
+  // Hooks
+  const { account } = useEthereum();
+
   const mint = writeContractCall({
     address: cartItemData[0]?.event.contractAddress,
     abi: NFTix721.abi,
-    // contract: "NFTix721",
     method: "mint",
   });
 
+  // Functions
   const custodialWallet = () => {
     postCustodialMint({
       eventId: cartItemData[0].eventId,
@@ -51,15 +57,18 @@ const PayCrypto = ({
     });
   };
 
+  // Use Effects
   useEffect(() => {
     if (eventId) {
       getTickets();
     }
   }, [eventId]);
+
   useEffect(() => {
     if (eventTickets) {
     }
   }, [eventTickets]);
+
   useEffect(() => {
     if (cartItemData) {
       setEventId(cartItemData[0].eventId);

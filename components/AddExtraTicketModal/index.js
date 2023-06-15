@@ -56,6 +56,7 @@ const AddExtraTicketModal = ({
       supply: ticketSupply,
       price: values.price * 10 ** 18,
       image: image,
+      ticketTypeId: tickets.length
     };
     postEventTicketTypeBatch(ticketsData).then(() => {
       setAddTicket(false);

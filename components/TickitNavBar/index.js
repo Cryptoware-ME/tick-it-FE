@@ -16,9 +16,9 @@ import UserDropdown from "../UserDropdown";
 import TickitButton from "../tickitButton";
 import LoginModal from "../LoginModal";
 
-import styles from "./Navbar.module.scss";
+import styles from "./TickitNavBar.module.scss";
 
-const NavBar = () => {
+const TickitNavBar = () => {
   // States
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [added, setAdded] = useState(false);
@@ -128,7 +128,7 @@ const NavBar = () => {
 
               {/* <div className={styles.navbarLink}>Support</div> */}
             </Nav>
-            {/* {!isMobile && ( */}
+
             <Nav className={styles.navbarUserRelated}>
               {account && (
                 <div className={styles.connected}>
@@ -179,7 +179,6 @@ const NavBar = () => {
                 </div>
               )}
             </Nav>
-            {/* )} */}
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -187,4 +186,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default TickitNavBar;

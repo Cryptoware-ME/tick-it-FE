@@ -114,6 +114,7 @@ const CreateEvent = () => {
     setValues,
   } = formik;
 
+  // Use Effects
   useEffect(() => {
     if (!user) {
       setModalOpen(true);
@@ -122,11 +123,13 @@ const CreateEvent = () => {
         setCategories(data.data);
       });
       getOrganizationDetails(user?.user.id);
+      setModalOpen(false);
     } else {
       getCategories().then((data) => {
         setCategories(data.data);
       });
       getOrganizationDetails(user?.id);
+
       setModalOpen(false);
     }
   }, [user]);

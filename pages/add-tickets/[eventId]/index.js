@@ -24,6 +24,7 @@ import TicketCardPreview from "../../../components/TicketCardPreview";
 import styles from "./addTickets.module.scss";
 
 const AddTickets = () => {
+
   // Use States
   const [tickets, setTickets] = useState([]);
 
@@ -84,6 +85,7 @@ const AddTickets = () => {
       eventDetails.id
     ).then((data) => {
       let ticketsData = tickets.map((ticket, index) => {
+        console.log(index);
         return {
           eventId: data.id,
           name: ticket.name,
@@ -91,6 +93,7 @@ const AddTickets = () => {
           supply: ticket.supply,
           price: ticket.price * 10 ** 18,
           image: ticket.image,
+          ticketTypeId: index
         };
       });
       postEventTicketTypeBatch(ticketsData).then(() => {
@@ -118,13 +121,14 @@ const AddTickets = () => {
 
   useEffect(() => {
     if (!user) {
-      setModalOpen(true);
+      setModalOpen();
     } else {
       getEvents(JSON.stringify({ where: { id: router.query.eventId } })).then(
         (data) => {
           setEventDetails(data.data[0]);
         }
       );
+      setModalOpen();
     }
   }, [user || update]);
 

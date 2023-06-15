@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-import { googleLogin, login, signup } from "../../axios/auth.axios";
+import { login, signup } from "../../axios/auth.axios";
 import { useAuth } from "../../auth/useAuth";
 import { getUsers } from "../../axios/user.axios";
 import { useAuthModalContext } from "../../context/AuthModalProvider";
@@ -148,8 +148,8 @@ const LoginModal = () => {
   } = formik;
 
   useEffect(() => {
-    if (Cookies.get("token")) {
-      localStorage.setItem("token", "Bearer " + Cookies.get("token"));
+    if(Cookies.get('token')){
+      localStorage.setItem("token", "Bearer " + Cookies.get('token'));
       restoreUser();
     }
   }, []);
