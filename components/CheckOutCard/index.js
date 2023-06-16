@@ -22,7 +22,7 @@ const CheckOutCard = ({ cartItemData }) => {
           setUsdModal={setUsdModal}
           cartItemData={cartItemData}
           cartItemsCount={cartItems}
-          total={(cartTotal / 10 ** 18).toFixed(4)}
+          total={(cartTotal / 10 ** 18).toFixed(6)}
         />
       )}
 
@@ -31,7 +31,7 @@ const CheckOutCard = ({ cartItemData }) => {
           setCryptoModal={setCryptoModal}
           cartItemData={cartItemData}
           cartItemsCount={cartItems}
-          total={(cartTotal / 10 ** 18).toFixed(4)}
+          total={(cartTotal / 10 ** 18).toFixed(6)}
         />
       )}
 

@@ -26,32 +26,30 @@
 
 .InputDiv {
   width: 30%;
-  @media (max-width:"1200px") {
-     width: 40%;
+  @media (max-width: "1200px") {
+    width: 40%;
   }
-   @media (max-width:"991px") {
-     width: 70%;
+  @media (max-width: "991px") {
+    width: 70%;
   }
-   @media (max-width:"768px") {
-     width: 100%;
+  @media (max-width: "768px") {
+    width: 100%;
   }
 }
 
 .descriptionDiv {
-
   width: 60%;
-    @media (max-width:"1200px") {
-     width: 70%;
+  @media (max-width: "1200px") {
+    width: 70%;
   }
-   @media (max-width:"991px") {
-     width: 100%;
+  @media (max-width: "991px") {
+    width: 100%;
   }
 }
 
 .error {
   color: red;
   font-size: 13px;
-
 }
 
 .title {
@@ -61,7 +59,6 @@
   font-size: 13px;
   margin-bottom: 4px;
 }
-
 
 .modalDescription {
   background-color: transparent;

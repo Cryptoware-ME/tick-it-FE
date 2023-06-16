@@ -5,10 +5,13 @@ import Image from "next/image";
 import { ConnectWalletComponent } from "@cryptogate/react-ui";
 import { useEthereum } from "@cryptogate/react-providers";
 import { writeContractCall } from "@cryptogate/react-providers";
+import { useRouter } from "next/router";
+import { useCartContext } from "../../cart/cart-context";
 
 import NFTix721 from "../../abis/NFTix721.json";
 import { postCustodialMint } from "../../axios/ticket.axios";
 import { getEventTicketType } from "../../axios/eventTicketType.axios";
+import { use721 } from "../../hooks/use721";
 
 import TickitButton from "../tickitButton";
 
@@ -20,19 +23,25 @@ const PayCrypto = ({
   cartItemsCount,
   cartTotal,
 }) => {
-  const { account } = useEthereum();
+  // States
   const [state, setState] = useState(1);
   const [payWithCustodial, setPayWithCustodial] = useState(false);
   const [eventId, setEventId] = useState();
   const [eventTickets, setEventTickets] = useState();
+  const [loading, setLoading] = useState(false);
+
+  // Hooks
+  const { account } = useEthereum();
+  const router = useRouter();
+  const { emptyCart } = useCartContext();
 
   const mint = writeContractCall({
     address: cartItemData[0]?.event.contractAddress,
     abi: NFTix721.abi,
-    // contract: "NFTix721",
     method: "mint",
   });
 
+  // Functions
   const custodialWallet = () => {
     postCustodialMint({
       eventId: cartItemData[0].eventId,
@@ -51,20 +60,65 @@ const PayCrypto = ({
     });
   };
 
+  const groupedTickets = (returnStatement) => {
+    const groupedTickets = {};
+    cartItemData.forEach((ticket) => {
+      const { eventId, ticketTypeId, price } = ticket;
+      if (!groupedTickets[eventId]) {
+        groupedTickets[eventId] = [];
+      }
+      groupedTickets[eventId].push(ticketTypeId, price);
+    });
+
+    // Create an array to store the quantities
+    const quantities = Array(eventTickets?.length).fill(0);
+    let totalPrice = 0;
+
+    // Retrieve quantities from quantityArray based on ticketId
+    cartItemsCount.forEach((quantityObj) => {
+      const { ticketId, quantity } = quantityObj;
+      cartItemData.forEach((ticket, index) => {
+        if (ticket.id === ticketId) {
+          const ticketTypeId = ticket.ticketTypeId;
+          quantities[ticketTypeId] += quantity;
+          totalPrice += ticket.price * quantity;
+        }
+      });
+    });
+    return returnStatement == "quantities" ? quantities : totalPrice;
+  };
+
+  const waitResponse = async () => {
+    mint.response.wait();
+    router.push("/");
+    setLoading(false);
+    emptyCart();
+  };
+
+  // Use Effects
   useEffect(() => {
     if (eventId) {
       getTickets();
     }
   }, [eventId]);
+
   useEffect(() => {
     if (eventTickets) {
     }
   }, [eventTickets]);
+
   useEffect(() => {
     if (cartItemData) {
       setEventId(cartItemData[0].eventId);
     }
   }, [cartItemData]);
+
+  useEffect(() => {
+    if (mint.response) {
+      setLoading(true);
+      waitResponse();
+    }
+  }, [mint.response]);
 
   return (
     <Modal show onHide={() => {}} centered>
@@ -270,12 +324,13 @@ const PayCrypto = ({
                 minWidth="100%"
                 style1
                 text="Pay"
-                disabled={!payWithCustodial && !account}
+                disabled={(!payWithCustodial && !account) || loading}
+                isLoading={loading}
                 onClick={() => {
                   payWithCustodial
                     ? custodialWallet()
-                    : mint.send([account, [], [1]], {
-                        value: cartItemData[0].price,
+                    : mint.send([account, [], groupedTickets("quantities")], {
+                        value: groupedTickets("totalPrice"),
                         gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
                         gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
                       });

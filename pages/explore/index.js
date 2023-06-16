@@ -1,45 +1,41 @@
-import React, { useEffect, useState } from "react";
-import { Container, Col, Row } from "react-bootstrap";
-import { getEvents } from "../../axios/event.axios";
+import React, { useEffect, useState } from 'react'
+import { Container, Col, Row } from 'react-bootstrap'
+import { getEvents, getEventsFiltered } from '../../axios/event.axios'
 
-import SideBar from "../../components/SideBar";
-import EventCard from "../../components/EventCard";
-import PagePagination from "../../components/pagination";
+import SideBar from '../../components/SideBar'
+import EventCard from '../../components/EventCard'
+import PagePagination from '../../components/pagination'
 
-import styles from "./Explore.module.scss";
+import styles from './Explore.module.scss'
 
 const Explore = () => {
-  const [filteredEvents, setFilteredEvents] = useState();
-  const take = 12;
-  const [skip, setSkip] = useState(0);
-  const [categoryFilter, setCategoryFilter] = useState("");
 
-  const Events = async (filters) => {
-    let events = await getEvents(
-      JSON.stringify({
-        relations: ["organization", "category"],
-        where: filters,
-      })
-    );
-    setFilteredEvents(events?.data);
-  };
+  // States
+  const [filteredEvents, setFilteredEvents] = useState()
+  const [skip, setSkip] = useState(0)
 
+  // Consts
+  const take = 12
+
+  // Functions
+  const eventsFiltered = async(categoryIds, location, from, to, search) => {
+    let eventsFiltered = await getEventsFiltered(
+      categoryIds, location, from, to, search
+    ).then((data) => {setFilteredEvents(data?.data)})
+  }
+
+  // Use Effects
   useEffect(() => {
-    let tempfilters = { isPublished: true };
-    if (categoryFilter && categoryFilter != undefined) {
-      tempfilters = { ...tempfilters, categoryId: categoryFilter };
-    }
-
-    Events(tempfilters);
-  }, [categoryFilter]);
+    eventsFiltered();
+  }, [])
+  
 
   return (
     <Container fluid className={styles.exploreWrapper}>
       <Row>
-        <Col lg={2} style={{ paddingRight: "0px" }}>
+        <Col lg={2} style={{ paddingRight: '0px' }}>
           <SideBar
-            categoryFilter={categoryFilter}
-            setCategoryFilter={setCategoryFilter}
+            eventsFiltered={eventsFiltered}
           />
         </Col>
         <Col lg={10}>
@@ -58,9 +54,9 @@ const Explore = () => {
             )}
             <Row
               style={{
-                display: "flex",
-                justifyContent: "center",
-                margin: "48px 0px",
+                display: 'flex',
+                justifyContent: 'center',
+                margin: '48px 0px',
               }}
             >
               <PagePagination
@@ -73,7 +69,7 @@ const Explore = () => {
         </Col>
       </Row>
     </Container>
-  );
-};
+  )
+}
 
-export default Explore;
+export default Explore

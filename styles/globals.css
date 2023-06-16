@@ -215,6 +215,9 @@ html {
   color: var(--inputText) !important;
   padding: 5px 10px !important;
 }
+.modalInput::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
 .cardWrapper {
   padding: 1px;
   position: relative;

@@ -24,6 +24,7 @@ const AddExtraTicketModal = ({
   const [ticketSupply, setTicketSupply] = useState();
   const [filePreview, setFilePreview] = useState();
   const [image, setImage] = useState();
+  const [loading, setLoading] = useState(false);
 
   // Contract Functions
   const { addTicket } = use721({ contractAddress });
@@ -47,8 +48,7 @@ const AddExtraTicketModal = ({
   };
 
   const launchRes = async () => {
-    // setLoading(true);
-    // setDisabled(true);
+    setLoading(true);
     await addTicket.response.wait();
 
     let ticketsData = {
@@ -58,8 +58,10 @@ const AddExtraTicketModal = ({
       supply: ticketSupply,
       price: values.price * 10 ** 18,
       image: image,
+      ticketTypeId: tickets.length,
     };
     postEventTicketTypeBatch(ticketsData).then(() => {
+      setLoading(false);
       setAddTicket(false);
       setRefetchEvent(true);
     });
@@ -254,7 +256,12 @@ const AddExtraTicketModal = ({
               </div>
             </Row>
             <div className={styles.buttonAdd}>
-              <TickitButton onClick={handleSubmit} text="ADD TICKET" />
+              <TickitButton
+                onClick={handleSubmit}
+                isLoading={loading}
+                disabled={loading}
+                text="ADD TICKET"
+              />
             </div>
           </Container>
         </Modal.Body>

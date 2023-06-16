@@ -5,6 +5,7 @@ import { useAuth } from "../../../auth/useAuth";
 import { useEthereum } from "@cryptogate/react-providers";
 import { ConnectWalletComponent } from "@cryptogate/react-ui";
 import { usePause } from "../../../hooks/use721";
+import Image from "next/image";
 
 import EventDate from "../../../components/EventDate";
 import EventLocation from "../../../components/EventLocation";
@@ -12,6 +13,8 @@ import EventDetails from "../../../components/EventDetails";
 import Tickets from "../../../components/Tickets";
 import TickitButton from "../../../components/tickitButton";
 import TickitTag from "../../../components/TickitTag";
+import EditEventModal from "../../../components/EditEventModal";
+import AddExtraTicketModal from "../../../components/AddExtraTicketModal";
 
 import { getEvents } from "../../../axios/event.axios";
 import { getEventTicketType } from "../../../axios/eventTicketType.axios";
@@ -20,20 +23,22 @@ import styles from "./Event.module.scss";
 
 const Event = () => {
   // States
+  const [editEventModal, setEditEventModal] = useState(false);
   const [contractAddress, setContractAddress] = useState();
   const [eventData, setEventData] = useState();
   const [isOwner, setIsOwner] = useState(false);
   const [eventTickets, setEventTickets] = useState([]);
   const [refetchEvent, setRefetchEvent] = useState(false);
   const [ended, setEnded] = useState(false);
-  const [pauseEvent, setPauseEvent] = useState();
+  const [update, setUpdate] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // Hooks
   const router = useRouter();
   const { slug } = router.query;
   const { user } = useAuth();
   const { account } = useEthereum();
-  const { pause, unpause } = usePause({ contractAddress });
+  const { pause, unpause, paused } = usePause({ contractAddress });
 
   // Functions
   // Gets the event details with the category and organization included
@@ -48,6 +53,7 @@ const Event = () => {
       setContractAddress(data?.data[0]?.contractAddress);
       getTickets(data?.data[0].id);
     });
+    setRefetchEvent(false);
   };
 
   // Gets the tickets related to event
@@ -61,9 +67,35 @@ const Event = () => {
     });
   };
 
+  const handleChangeState = async () => {
+    if (paused.response == "true") {
+      unpause.send([], {
+        gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
+        gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
+      });
+    } else {
+      pause.send([], {
+        gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
+        gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
+      });
+    }
+  };
+  const waitResponse = async () => {
+    if (paused.response == "true") {
+      await unpause.response.wait();
+      setLoading(false);
+      location.reload();
+    }
+    if (paused.response == "false") {
+      await pause.response.wait();
+      setLoading(false);
+      location.reload();
+    }
+  };
+
   // Use Effects
   useEffect(() => {
-    if (slug || refetchEvent) {
+    if (slug) {
       getEvent();
     }
   }, [slug, refetchEvent]);
@@ -76,24 +108,34 @@ const Event = () => {
       }
     }
     if (eventData && user) {
-      let userId = user.id;
+      let userId = user.user ? user.user.id : user.id;
       let eventUserId = eventData.organization.ownerId;
       if (userId === eventUserId) {
         setIsOwner(true);
       }
     }
-  }, [eventData, user]);
+  }, [eventData || user || update]);
 
   useEffect(() => {
-    if (pause.response) {
-      setPauseEvent(true);
-    } else if (unpause.response) {
-      setPauseEvent(false);
+    if (pause.response || unpause.response) {
+      setLoading(true);
+      waitResponse();
     }
   }, [pause.response || unpause.response]);
 
   return (
     <div className={styles.eventWrapper}>
+      {editEventModal && (
+        <EditEventModal
+          setEditEventModal={setEditEventModal}
+          symbol={eventData.symbol}
+          id={eventData.id}
+          isPublished={eventData.isPublished}
+          setUpdate={setUpdate}
+          eventDetails={eventData}
+        />
+      )}
+
       {eventData && (
         <div>
           <div
@@ -121,17 +163,20 @@ const Event = () => {
               <Col lg={6}>
                 <div className={styles.titleDiv}>
                   <p className="pageTitle">{eventData.name}</p>
-                  {/* Lets user edit the name of the event */}
-                  {/* {isOwner && account && (
-                    <div style={{ marginLeft: '20px' }}>
+                  {isOwner && account && (
+                    <div style={{ marginLeft: "20px" }}>
                       <Image
-                        width={32}
-                        height={32}
+                        width={24}
+                        height={24}
                         alt="edit"
                         src="/images/edit.png"
+                        onClick={() => {
+                          setEditEventModal(true);
+                        }}
+                        style={{ cursor: "pointer" }}
                       />
                     </div>
-                  )} */}
+                  )}
                 </div>
               </Col>
               <Col lg={6}>
@@ -155,47 +200,23 @@ const Event = () => {
                 <>
                   {isOwner && account && (
                     <Row style={{ marginTop: "32px" }}>
-                      {!pauseEvent && (
+                      {paused.response && (
                         <div className={styles.buttons}>
                           <TickitButton
-                            text="PAUSE SALE"
+                            text={
+                              paused.response == "true"
+                                ? "RESUME SALES"
+                                : "PAUSE SALE"
+                            }
+                            isLoading={loading}
+                            disabled={loading}
                             onClick={() => {
-                              pause.send([], {
-                                gasPrice: Number(
-                                  process.env.NEXT_PUBLIC_GAS_PRICE
-                                ),
-                                gasLimit: Number(
-                                  process.env.NEXT_PUBLIC_GAS_LIMIT
-                                ),
-                              });
+                              handleChangeState();
                             }}
                           />
                           {/* <div style={{ marginLeft: "40px" }}>
                       <TickitButton style2 text="VIEW ACTIVITY" />
                       </div> */}
-                        </div>
-                      )}
-                      {pauseEvent && (
-                        <div className={styles.buttons}>
-                          <TickitButton
-                            text="RESUME SALES"
-                            onClick={() => {
-                              unpause.send([], {
-                                gasPrice: Number(
-                                  process.env.NEXT_PUBLIC_GAS_PRICE
-                                ),
-                                gasLimit: Number(
-                                  process.env.NEXT_PUBLIC_GAS_LIMIT
-                                ),
-                              });
-                            }}
-                          />
-                          {/* <div style={{ marginLeft: "40px" }}>
-                    <TickitButton text="CANCEL SALES" />
-                  </div> */}
-                          {/* <div style={{ marginLeft: "40px" }}>
-                    <TickitButton style2 text="VIEW ACTIVITY" />
-                  </div> */}
                         </div>
                       )}
                     </Row>
@@ -212,10 +233,6 @@ const Event = () => {
                 <EventDate data={eventData.eventDate} />
                 <div style={{ marginLeft: "32px", display: "flex" }}>
                   <TickitTag disabled text={eventData.category.name} />
-                  {/* Tag that shows how much time there is left for the event */}
-                  {/* <div style={{ marginLeft: "12px" }}>
-                    <TickitTag disabled text="in 2 days" />
-                  </div> */}
                 </div>
               </div>
 
