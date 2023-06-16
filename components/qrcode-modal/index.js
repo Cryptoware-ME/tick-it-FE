@@ -19,7 +19,7 @@ const QrCodeModal = ({ setQrCodeModal }) => {
         <Container>
           <p className={styles.title}>Scan To Enter Event</p>
           <div className={styles.image}>
-            <Image width={250} height={250} src="/images/qrcode.svg" />
+            <Image width={250} height={250} alt="QR" src="/images/qrcode.svg" />
           </div>
         </Container>
       </Modal.Body>

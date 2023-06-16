@@ -18,9 +18,9 @@ const EditTicketModal = ({
   setRefetchEvent,
 }) => {
   const [imageError, setImageError] = useState(false);
-  const [filePreview, setFilePreview] = useState();
+  const [filePreview, setFilePreview] = useState(ticket.image);
   const [nameError, setNameError] = useState(false);
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(ticket.image);
 
   const editTicket = () => {
     // let ticketSupply = 0;
@@ -47,6 +47,7 @@ const EditTicketModal = ({
       eventId: allTickets[0].eventId,
       id: ticket.id,
       name: values.name,
+      price: values.price,
       description: values.description,
       image: image,
     };
@@ -65,15 +66,22 @@ const EditTicketModal = ({
 
   const schema = yup.object().shape({
     name: yup.string().required(),
-    // price: yup.number().required(),
+    price: yup
+      .number()
+      .required()
+      .test(
+        "Is positive?",
+        "ERROR: The number must be greater than 0!",
+        (value) => value > 0
+      ),
     description: yup.string().required(),
   });
   const formik = useFormik({
     initialValues: {
-      name: "",
-      // price: "",
-      description: "",
-      image: "",
+      name: ticket.name,
+      price: ticket.price / 10 ** 18,
+      description: ticket.description,
+      image: ticket.image,
     },
     validationSchema: schema,
     onSubmit: (values) => {
@@ -175,8 +183,8 @@ const EditTicketModal = ({
                   )}
                 </div>
 
-                {/* <div className={styles.InputDiv}>
-                  <p className={styles.detailsTitle}>Set price (USD)</p>
+                <div className={styles.InputDiv}>
+                  <p className={styles.detailsTitle}>Set price (ETH)</p>
                   <input
                     id="price"
                     name="price"
@@ -194,7 +202,7 @@ const EditTicketModal = ({
                       <p className={styles.error2}> {errors.price}</p>
                     </div>
                   ) : null}
-                </div> */}
+                </div>
               </Col>
             </Row>
 

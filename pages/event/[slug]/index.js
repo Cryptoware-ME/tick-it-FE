@@ -53,6 +53,7 @@ const Event = () => {
       setContractAddress(data?.data[0]?.contractAddress);
       getTickets(data?.data[0].id);
     });
+    setRefetchEvent(false);
   };
 
   // Gets the tickets related to event
@@ -94,7 +95,7 @@ const Event = () => {
 
   // Use Effects
   useEffect(() => {
-    if (slug || refetchEvent) {
+    if (slug) {
       getEvent();
     }
   }, [slug, refetchEvent]);
@@ -107,7 +108,7 @@ const Event = () => {
       }
     }
     if (eventData && user) {
-      let userId = user.id;
+      let userId = user.user ? user.user.id : user.id;
       let eventUserId = eventData.organization.ownerId;
       if (userId === eventUserId) {
         setIsOwner(true);
@@ -131,6 +132,7 @@ const Event = () => {
           id={eventData.id}
           isPublished={eventData.isPublished}
           setUpdate={setUpdate}
+          eventDetails={eventData}
         />
       )}
 

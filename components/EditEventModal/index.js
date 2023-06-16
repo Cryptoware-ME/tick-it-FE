@@ -23,14 +23,17 @@ const EditEventModal = ({
   id,
   isPublished,
   setUpdate,
+  eventDetails,
 }) => {
   const [imageError, setImageError] = useState(false);
-  const [image, setImage] = useState();
-  const [filePreview, setFilePreview] = useState();
+  const [image, setImage] = useState(eventDetails.banner);
+  const [filePreview, setFilePreview] = useState(eventDetails.banner);
   const [categoryError, setCategoryError] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [selectedValue, setSelectedValue] = useState();
-  const [categoryId, setCategoryId] = useState("");
+  const [selectedValue, setSelectedValue] = useState(
+    eventDetails.category.name
+  );
+  const [categoryId, setCategoryId] = useState(eventDetails.category.id);
   const [organization, setOrganization] = useState("");
 
   const router = useRouter();
@@ -79,12 +82,12 @@ const EditEventModal = ({
   });
   const formik = useFormik({
     initialValues: {
-      name: "",
+      name: eventDetails.name,
       date: "",
-      location: "",
-      description: "",
-      banner: "",
-      category: "",
+      location: eventDetails.location,
+      description: eventDetails.description,
+      banner: eventDetails.banner,
+      category: eventDetails.category.name,
     },
     validationSchema: schema,
     onSubmit: async () => {

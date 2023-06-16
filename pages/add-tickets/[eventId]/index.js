@@ -163,6 +163,7 @@ const AddTickets = () => {
           id={eventDetails.id}
           isPublished={eventDetails.isPublished}
           setUpdate={setUpdate}
+          eventDetails={eventDetails}
         />
       )}
       <div>
