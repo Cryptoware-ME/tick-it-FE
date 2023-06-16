@@ -184,6 +184,7 @@ const Vetting = () => {
               onBlur={handleBlur}
               value={values.description}
               className="modalInput"
+              style={{ minHeight: "170px" }}
             />
           </div>
           <div style={{ minHeight: "20px" }}>
@@ -219,6 +220,7 @@ const Vetting = () => {
               onBlur={handleBlur}
               value={values.eventKind}
               className="modalInput"
+              style={{ minHeight: "170px" }}
             />
           </div>
           <div style={{ minHeight: "20px" }}>

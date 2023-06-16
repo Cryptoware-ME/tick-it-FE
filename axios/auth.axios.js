@@ -1,7 +1,9 @@
 import { instance } from "./ApiAxios";
 
 export const login = async (payload) => {
+  console.log("login request");
   const data = await instance.post("/auth/login", payload);
+  console.log("login data: ", data);
   return data.data;
 };
 

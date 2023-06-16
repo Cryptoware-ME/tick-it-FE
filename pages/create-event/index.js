@@ -299,7 +299,7 @@ const CreateEvent = () => {
                 onBlur={handleBlur}
                 value={values.description}
                 className="modalInput"
-                style={{ minHeight: "120px" }}
+                style={{ minHeight: "170px" }}
               />
             </div>
             <div style={{ height: "20px" }}>
