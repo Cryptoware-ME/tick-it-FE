@@ -10,7 +10,7 @@ import TicketCounter from "../TicketCounter";
 import EventDetails from "../EventDetails";
 import TickitButton from "../tickitButton";
 import Counter from "../Counter";
-// import EditTicketModal from "../EditTicketModal";
+import EditTicketModal from "../EditTicketModal";
 
 import styles from "./TicketCard.module.scss";
 
@@ -24,7 +24,7 @@ const TicketCard = ({
 }) => {
   // States
   const [counter, setCounter] = useState(1);
-  // const [editTicket, setEditTicket] = useState(false);
+  const [editTicket, setEditTicket] = useState(false);
 
   // Functions
   const { addToCart } = useCartContext();
@@ -47,14 +47,14 @@ const TicketCard = ({
 
   return (
     <>
-      {/* {editTicket && (
+      {editTicket && (
         <EditTicketModal
           setEditTicket={setEditTicket}
           ticket={ticket}
           allTickets={allTickets}
           setRefetchEvent={setRefetchEvent}
         />
-      )} */}
+      )}
       <Col xl={12} style={{ padding: "10px" }}>
         <div className="cardWrapper">
           <div className={styles.cardContainer}>
@@ -100,7 +100,7 @@ const TicketCard = ({
                       />
                     )}
 
-                    {/* <Image
+                    <Image
                       width={22}
                       height={22}
                       alt="edit"
@@ -109,7 +109,7 @@ const TicketCard = ({
                       onClick={() => {
                         setEditTicket(true);
                       }}
-                    /> */}
+                    />
                   </div>
                 )}
               </div>

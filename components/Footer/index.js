@@ -68,8 +68,8 @@ const Footer = () => {
               <Link href="/faq" className={styles.footerLink}>
                 FAQ
               </Link>
-              <Link href="/privacy" className={styles.footerLink}>
-                Privacy
+              <Link href="/privacy-policy" className={styles.footerLink}>
+                Privacy Policy
               </Link>
             </Col>
           </Col>
