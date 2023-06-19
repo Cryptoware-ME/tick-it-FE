@@ -160,9 +160,6 @@ const LoginModal = () => {
       restoreUser();
     }
   }, []);
-  useEffect(() => {
-    console.log("modalOpen: ", modalOpen);
-  }, [modalOpen]);
 
   return (
     <>
@@ -170,7 +167,6 @@ const LoginModal = () => {
         <Modal show centered>
           <Modal.Header
             onClick={() => {
-              console.log("closseee");
               setModalOpen(false);
               if (!user) {
                 router.push("/");

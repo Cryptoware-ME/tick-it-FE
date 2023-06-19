@@ -58,12 +58,9 @@ const TickitNavBar = () => {
         where: { ownerId: id },
       })
     );
-    if (organization.data[0]) {
-      if (organization.data[0].isVetted) {
-        router.push("/create-event");
-      } else {
-        router.push("/explore");
-      }
+    if ((organization.data.length = 1 && organization.data[0].isVetted)) {
+      // router.push("/create-event");
+      router.push("/vetting");
     } else {
       router.push("/vetting");
     }

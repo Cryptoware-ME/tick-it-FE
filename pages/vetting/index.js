@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { useRouter } from "next/router";
 
 import { useFormik } from "formik";
@@ -7,10 +7,13 @@ import * as yup from "yup";
 
 import { useAuth } from "../../auth/useAuth";
 import { postOrganization } from "../../axios/organization.axios";
+import { useAuthModalContext } from "../../context/AuthModalProvider";
+import { getOrganization } from "../../axios/organization.axios";
 
 import EventDetails from "../../components/EventDetails";
 import TickitButton from "../../components/tickitButton";
 import Dropzone from "../../components/Dropzone";
+import Loader from "../../components/loader/loader";
 
 import styles from "./Vetting.module.scss";
 
@@ -22,10 +25,49 @@ const Vetting = () => {
   const [profileImageError, setProfileImageError] = useState(false);
   const [bannerImage, setBannerImage] = useState();
   const [profileImage, setProfileImage] = useState();
-  const [submited, setSubmited] = useState(false);
+  const [organization, setOrganization] = useState();
 
+  const { setModalOpen } = useAuthModalContext();
   const { user } = useAuth();
   const router = useRouter();
+
+  const handleRouting = async () => {
+    if (user) {
+      if (user.user) {
+        setOwnerId(user.user.id);
+      } else {
+        setOwnerId(user.id);
+      }
+      checkVettingDetails();
+    } else {
+      setModalOpen(true);
+      let userDetails = await user;
+      if (userDetails) {
+        checkVettingDetails();
+      }
+    }
+  };
+
+  const checkVettingDetails = async () => {
+    getOrganizationDetails(ownerId);
+  };
+
+  const getOrganizationDetails = async (id) => {
+    let organizations = await getOrganization(
+      JSON.stringify({
+        where: { ownerId: id },
+      })
+    );
+    setOrganization(organizations.data);
+    if ((organizations.data.length = 1 && organizations.data[0].isVetted)) {
+      ////change////
+      // router.push("/create-event");
+      router.push("/vetting/applications");
+    } else if (organizations.data.length > 1) {
+      router.push("/vetting/applications");
+    }
+  };
+
   const schema = yup.object().shape({
     name: yup
       .string()
@@ -61,7 +103,7 @@ const Vetting = () => {
             profile: values.profile,
             banner: values.banner,
           }).then((data) => {
-            setSubmited(true);
+            router.push("/vetting/applications");
           });
         } else {
           setProfileImageError(true);
@@ -88,19 +130,13 @@ const Vetting = () => {
   } = formik;
 
   useEffect(() => {
-    if (!user) {
-      // router.push("/");
-    } else if (user.user) {
-      setOwnerId(user.user.id);
-    } else {
-      setOwnerId(user.id);
-    }
+    handleRouting();
   }, [user]);
 
   return (
     <div className={styles.wrapper}>
-      {!submited && (
-        <Container style={{ padding: "50px 10px 100px 10px" }}>
+      {organization && organization.length ? (
+        <Container style={{ padding: "50px  10px" }}>
           <p className="pageTitle">Become an organizer</p>
           <EventDetails details=" Lorem ipsum dolor sit amet, consecteur adipscing elit, sed do eiusmod tempor incididunt ut labore et dolor magna aliqua" />
           <div style={{ display: "flex", justifyContent: "space-around" }}>
@@ -235,30 +271,17 @@ const Vetting = () => {
             <TickitButton onClick={handleSubmit} text="SUBMIT" />
           </div>
         </Container>
-      )}
-      {submited && (
-        <Container style={{ padding: "50px 10px 100px 10px" }}>
-          <p className="pageTitle">Application submited</p>
-          <div className={styles.event}>
-            <EventDetails details="Check your inbox for the approval email. Meanwhile, you can buy tickets for the best events in your region." />
-          </div>
-          <div className={styles.appButton}>
-            <div className={styles.buttons}>
-              <TickitButton text="SEE APPLICATION" minWidth="250px" disabled />
-            </div>
-
-            <div className={styles.buttons}>
-              <TickitButton
-                style2
-                text="BACK TO HOME"
-                minWidth="250px"
-                onClick={() => {
-                  router.push("/");
-                }}
-              />
-            </div>
-          </div>
-        </Container>
+      ) : (
+        <div
+          style={{
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Loader />
+        </div>
       )}
     </div>
   );
