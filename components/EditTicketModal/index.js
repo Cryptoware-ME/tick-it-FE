@@ -4,6 +4,7 @@ import { Modal, Container, Row, Col, Form } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
+import { use721 } from "../../hooks/use721";
 import { postEventTicketTypeBatch } from "../../axios/eventTicketType.axios";
 
 import Dropzone from "../../components/Dropzone";
@@ -13,39 +14,35 @@ import styles from "./EditTicket.module.scss";
 
 const EditTicketModal = ({
   setEditTicket,
-  ticket,
+  ticketDetails,
   allTickets,
   setRefetchEvent,
+  contractAddress,
 }) => {
   const [imageError, setImageError] = useState(false);
-  const [filePreview, setFilePreview] = useState(ticket.image);
+  const [filePreview, setFilePreview] = useState(ticketDetails?.image);
   const [nameError, setNameError] = useState(false);
-  const [image, setImage] = useState(ticket.image);
+  const [image, setImage] = useState(ticketDetails?.image);
+
+  const { editTicketPrice } = use721({ contractAddress });
 
   const editTicket = () => {
-    // let ticketSupply = 0;
-    // for (let i = 0; i < tickets.length; i++) {
-    //   ticketSupply = ticketSupply + tickets[i].supply;
-    // }
+    let ticketTypeId = ticketDetails?.ticketTypeId;
 
-    // addTicket.send(
-    //   [[values.supply + ticketSupply], [values.price * 10 ** 18]],
-    //   {
-    //     gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
-    //     gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
-    //   }
-    // );
+    editTicketPrice.send([ticketTypeId, values.price * 10 ** 18], {
+      gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
+      gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
+    });
 
-    // setTicketSupply(values.supply);
     launchRes();
   };
 
   const launchRes = async () => {
-    // await addTicket.response.wait();
+    await editTicketPrice.response.wait();
 
     let ticketsData = {
       eventId: allTickets[0].eventId,
-      id: ticket.id,
+      id: ticketDetails?.id,
       name: values.name,
       price: values.price,
       description: values.description,
@@ -56,13 +53,6 @@ const EditTicketModal = ({
       setRefetchEvent(true);
     });
   };
-
-  // Use Effects
-  // useEffect(() => {
-  //   if (addTicket.response) {
-  //     launchRes();
-  //   }
-  // }, [addTicket.response]);
 
   const schema = yup.object().shape({
     name: yup.string().required(),
@@ -78,10 +68,10 @@ const EditTicketModal = ({
   });
   const formik = useFormik({
     initialValues: {
-      name: ticket.name,
-      price: ticket.price / 10 ** 18,
-      description: ticket.description,
-      image: ticket.image,
+      name: ticketDetails?.name,
+      price: ticketDetails?.price / 10 ** 18,
+      description: ticketDetails?.description,
+      image: ticketDetails?.image,
     },
     validationSchema: schema,
     onSubmit: (values) => {
@@ -89,7 +79,9 @@ const EditTicketModal = ({
         setImageError(false);
         values.image = image;
         let found = allTickets.find(
-          (ticket) => ticket?.name?.toLowerCase() == values?.name?.toLowerCase()
+          (ticket) =>
+            ticket?.name?.toLowerCase() == values?.name?.toLowerCase() &&
+            ticket.ticketTypeId != ticketDetails?.ticketTypeId
         );
         if (found) {
           setNameError(true);

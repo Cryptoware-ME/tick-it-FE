@@ -86,6 +86,7 @@ const Tickets = ({
               ticketFromContract={ticketFromContract[index]}
               isOwner={isOwner}
               setRefetchEvent={setRefetchEvent}
+              contractAddress={contractAddress}
             />
           ))}
         </div>

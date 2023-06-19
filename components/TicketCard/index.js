@@ -21,6 +21,7 @@ const TicketCard = ({
   ended,
   allTickets,
   setRefetchEvent,
+  contractAddress,
 }) => {
   // States
   const [counter, setCounter] = useState(1);
@@ -50,9 +51,10 @@ const TicketCard = ({
       {editTicket && (
         <EditTicketModal
           setEditTicket={setEditTicket}
-          ticket={ticket}
+          ticketDetails={ticket}
           allTickets={allTickets}
           setRefetchEvent={setRefetchEvent}
+          contractAddress={contractAddress}
         />
       )}
       <Col xl={12} style={{ padding: "10px" }}>
