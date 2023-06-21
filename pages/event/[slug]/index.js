@@ -7,6 +7,7 @@ import { ConnectWalletComponent } from "@cryptogate/react-ui";
 import { usePause } from "../../../hooks/use721";
 import Image from "next/image";
 
+import ReportModal from "../../../components/ReportModal";
 import EventDate from "../../../components/EventDate";
 import EventLocation from "../../../components/EventLocation";
 import EventDetails from "../../../components/EventDetails";
@@ -32,6 +33,7 @@ const Event = () => {
   const [ended, setEnded] = useState(false);
   const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [reportModal, setReportModal] = useState(false);
 
   // Hooks
   const router = useRouter();
@@ -135,7 +137,13 @@ const Event = () => {
           eventDetails={eventData}
         />
       )}
-
+      {reportModal && (
+        <ReportModal
+          id={eventData.id}
+          setReportModal={setReportModal}
+          reportEvent
+        />
+      )}
       {eventData && (
         <div>
           <div
@@ -163,6 +171,21 @@ const Event = () => {
               <Col lg={6}>
                 <div className={styles.titleDiv}>
                   <p className="pageTitle">{eventData.name}</p>
+                  {!isOwner && user && (
+                    <div
+                      onClick={() => {
+                        setReportModal(true);
+                      }}
+                      className={styles.reportDiv}
+                    >
+                      <Image
+                        width={80}
+                        height={25}
+                        alt="report"
+                        src="/images/repportText.svg"
+                      />
+                    </div>
+                  )}
                   {isOwner && account && (
                     <div style={{ marginLeft: "20px" }}>
                       <Image
