@@ -35,11 +35,6 @@ const SeeApplication = () => {
     }
   }, [orgId]);
 
-  useEffect(() => {
-    if (vettingData) {
-      console.log("vettingData: ", vettingData);
-    }
-  }, [vettingData]);
   return (
     <div className={styles.wrapper}>
       {!loading ? (
