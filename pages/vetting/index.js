@@ -106,6 +106,13 @@ const Vetting = () => {
             name: values.name,
             profile: values.profile,
             banner: values.banner,
+            vettingObj: JSON.stringify({
+              name: values.name,
+              profile: values.profile,
+              banner: values.banner,
+              description: values.description,
+              eventKind: values.eventKind,
+            }),
           }).then((data) => {
             router.push("/vetting/applications");
           });

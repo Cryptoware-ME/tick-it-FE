@@ -110,13 +110,16 @@ const Applications = () => {
                         }
                         minWidth="250px"
                         onClick={() => {
-                          if (organization.isVetted) {
+                          if (!organization.isVetted) {
                             router.push({
                               pathname: "/create-event",
                               query: { orgId: organization.id },
                             });
                           } else {
-                            router.push("/application");
+                            router.push({
+                              pathname: "/see-application",
+                              query: { orgId: organization.id },
+                            });
                           }
                         }}
                       />
