@@ -57,7 +57,7 @@ const SeeApplication = () => {
                 textAlign: "center",
               }}
             >
-              <EventDetails details="banner Image" />
+              <EventDetails details="Banner Image" />
               <div>
                 <Image
                   width={512}
@@ -80,7 +80,7 @@ const SeeApplication = () => {
                 textAlign: "center",
               }}
             >
-              <EventDetails details="banner Image" />
+              <EventDetails details="Profile Image" />
               <div>
                 <Image
                   width={512}
