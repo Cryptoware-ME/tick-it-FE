@@ -14,7 +14,6 @@ import styles from "../Vetting.module.scss";
 
 const Applications = () => {
   const [organization, setOrganization] = useState();
-  const [ownerId, setOwnerId] = useState();
   const [loading, setLoading] = useState(true);
 
   const { setModalOpen } = useAuthModalContext();
@@ -23,7 +22,6 @@ const Applications = () => {
 
   const handleRouting = async () => {
     if (user) {
-      setOwnerId(user.id);
       getOrganizationDetails(user.id);
     } else {
       setModalOpen(true);
@@ -44,7 +42,10 @@ const Applications = () => {
     if (tempOrg?.data) {
       if (tempOrg?.data?.length == 1) {
         if (tempOrg.data[0].isVetted) {
-          router.push("/create-event");
+          router.push({
+            pathname: "/create-event",
+            query: { orgId: tempOrg.data[0].id },
+          });
         } else {
           router.push("/vetting/applications");
         }
@@ -110,7 +111,10 @@ const Applications = () => {
                         minWidth="250px"
                         onClick={() => {
                           if (organization.isVetted) {
-                            router.push("/create-event");
+                            router.push({
+                              pathname: "/create-event",
+                              query: { orgId: organization.id },
+                            });
                           } else {
                             router.push("/application");
                           }

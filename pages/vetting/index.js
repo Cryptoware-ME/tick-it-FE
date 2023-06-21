@@ -55,7 +55,10 @@ const Vetting = () => {
       if (tempOrg?.data) {
         if (tempOrg?.data?.length == 1) {
           if (tempOrg.data[0].isVetted) {
-            router.push("/create-event");
+            router.push({
+              pathname: "/create-event",
+              query: { orgId: tempOrg.data[0].id },
+            });
           } else {
             router.push("/vetting/applications");
           }

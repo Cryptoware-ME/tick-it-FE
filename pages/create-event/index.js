@@ -22,25 +22,37 @@ const CreateEvent = () => {
   const [filePreview, setFilePreview] = useState();
   const [imageError, setImageError] = useState(false);
   const [categoryError, setCategoryError] = useState(false);
+  const [organizationError, setOrganizationError] = useState(false);
   const [image, setImage] = useState();
   const [selectedValue, setSelectedValue] = useState();
   const [categories, setCategories] = useState([]);
-  const [organization, setOrganization] = useState("");
+  const [organizations, setOrganizations] = useState();
+  const [organizationbyId, setOrganizationbyId] = useState();
+  const [selectedOrganization, setSelectedOrganization] = useState();
   const [categoryId, setCategoryId] = useState("");
 
   // Hooks
   const router = useRouter();
+  const { orgId } = router.query;
   const { user } = useAuth();
   const { setModalOpen } = useAuthModalContext();
 
   // Functions
   const getOrganizationDetails = async (id) => {
-    let organization = await getOrganization(
+    let tempOrg = await getOrganization(
       JSON.stringify({
         where: { ownerId: id },
       })
     );
-    setOrganization(organization.data[0]);
+    setOrganizations(tempOrg.data);
+  };
+  const getOrganizationById = async (id) => {
+    let tempOrg = await getOrganization(
+      JSON.stringify({
+        where: { id: id },
+      })
+    );
+    setOrganizationbyId(tempOrg.data);
   };
 
   const postCreateEvent = async () => {
@@ -54,7 +66,11 @@ const CreateEvent = () => {
       media: "",
       urls: "",
       categoryId: categoryId,
-      organizationId: organization.id,
+      organizationId: orgId
+        ? organizationbyId[0].id
+        : organizations.length > 1
+        ? selectedOrganization.id
+        : organizations[0].id,
     }).then((data) => {
       router.push(`/add-tickets/${data.id}`);
     });
@@ -62,6 +78,9 @@ const CreateEvent = () => {
 
   const handleDropdownSelect = (eventKey) => {
     setSelectedValue(eventKey);
+  };
+  const handleOrganizationSelect = (eventKey) => {
+    setSelectedOrganization(eventKey);
   };
 
   const schema = yup.object().shape({
@@ -89,7 +108,14 @@ const CreateEvent = () => {
         if (selectedValue) {
           setCategoryError(false);
           values.category = selectedValue;
-          postCreateEvent();
+          if (orgId) {
+            postCreateEvent();
+          } else if (selectedOrganization) {
+            setOrganizationError(false);
+            postCreateEvent();
+          } else {
+            setOrganizationError(true);
+          }
         } else {
           setCategoryError(true);
         }
@@ -123,10 +149,14 @@ const CreateEvent = () => {
         setCategories(data.data);
       });
       getOrganizationDetails(user?.id);
-
       setModalOpen(false);
     }
   }, [user]);
+  useEffect(() => {
+    if (orgId) {
+      getOrganizationById(orgId);
+    }
+  }, [orgId]);
 
   return (
     <div className={styles.Wrapper}>
@@ -136,6 +166,75 @@ const CreateEvent = () => {
 
           <div style={{ marginTop: "48px" }}>
             <p className="section-title">Event Details</p>
+            <div style={{ marginTop: "24px " }}>
+              <p className={styles.title}>Organization Name</p>
+              {!orgId ? (
+                organizations &&
+                organizations.length > 1 && (
+                  <>
+                    <div className={styles.InputDiv}>
+                      <Dropdown
+                        onBlur={() => {
+                          if (!selectedOrganization) {
+                            setOrganizationError(true);
+                          } else {
+                            setOrganizationError(false);
+                          }
+                        }}
+                        onSelect={handleOrganizationSelect}
+                      >
+                        <Dropdown.Toggle
+                          className="modalInput"
+                          style={{
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                          }}
+                          variant="success"
+                          id="dropdown-basic"
+                        >
+                          {selectedOrganization
+                            ? selectedOrganization
+                            : "Select Organization"}
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                          {organizations.map((organization, index) => (
+                            <Dropdown.Item
+                              eventKey={organization.name}
+                              key={index}
+                              onClick={() => {
+                                setCategoryId(organization.id);
+                              }}
+                            >
+                              {organization.name}
+                            </Dropdown.Item>
+                          ))}
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </div>
+                    <div style={{ height: "20px" }}>
+                      {organizationError ? (
+                        <div className={styles.errors}>
+                          <p className={styles.error}>
+                            Organization is required field
+                          </p>
+                        </div>
+                      ) : null}
+                    </div>
+                  </>
+                )
+              ) : (
+                <div className={styles.InputDiv}>
+                  <input
+                    type="text"
+                    disabled
+                    value={organizationbyId && organizationbyId[0]?.name}
+                    className="modalInput"
+                    style={{ color: "#656565" }}
+                  />
+                </div>
+              )}
+            </div>
             <div style={{ marginTop: "24px ", width: "fit-content" }}>
               <Dropzone
                 filePreview={filePreview}
