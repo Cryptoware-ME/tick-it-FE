@@ -8,12 +8,8 @@ const UserDropdown = ({ isOpen, onClose, logOut, user }) => {
     <div className={`${styles.menu} ${isOpen && styles.show} `}>
       <div className={styles.overlay} onClick={onClose}></div>
       <div className={`${styles.dropdown} ${isOpen && styles.active} `}>
-        <p className={styles.dropdownTitle}>
-          {user?.user ? user?.user.username : user?.username}
-        </p>
-        <p className={styles.dropdownEmail}>
-          {user?.user ? user?.user.email : user?.email}
-        </p>
+        <p className={styles.dropdownTitle}>{user?.username}</p>
+        <p className={styles.dropdownEmail}>{user?.email}</p>
         <Link
           onClick={onClose}
           href="/user/dashboard"

@@ -25,47 +25,48 @@ const Vetting = () => {
   const [profileImageError, setProfileImageError] = useState(false);
   const [bannerImage, setBannerImage] = useState();
   const [profileImage, setProfileImage] = useState();
-  const [organization, setOrganization] = useState();
+  const [loading, setLoading] = useState(true);
 
   const { setModalOpen } = useAuthModalContext();
   const { user } = useAuth();
   const router = useRouter();
+  const { newOrg } = router.query;
 
   const handleRouting = async () => {
     if (user) {
-      if (user.user) {
-        setOwnerId(user.user.id);
-      } else {
-        setOwnerId(user.id);
-      }
-      checkVettingDetails();
+      setOwnerId(user.id);
+      getOrganizationDetails(user.id);
     } else {
       setModalOpen(true);
       let userDetails = await user;
       if (userDetails) {
-        checkVettingDetails();
+        getOrganizationDetails(userDetails.id);
       }
     }
   };
 
-  const checkVettingDetails = async () => {
-    getOrganizationDetails(ownerId);
-  };
-
   const getOrganizationDetails = async (id) => {
-    let organizations = await getOrganization(
+    let tempOrg = await getOrganization(
       JSON.stringify({
         where: { ownerId: id },
       })
     );
-    setOrganization(organizations.data);
-    if ((organizations.data.length = 1 && organizations.data[0].isVetted)) {
-      ////change////
-      // router.push("/create-event");
-      router.push("/vetting/applications");
-    } else if (organizations.data.length > 1) {
-      router.push("/vetting/applications");
+    if (!newOrg) {
+      if (tempOrg?.data) {
+        if (tempOrg?.data?.length == 1) {
+          if (tempOrg.data[0].isVetted) {
+            router.push("/create-event");
+          } else {
+            router.push("/vetting/applications");
+          }
+        } else {
+          router.push("/vetting/applications");
+        }
+      } else {
+        router.push("/vetting");
+      }
     }
+    setLoading(false);
   };
 
   const schema = yup.object().shape({
@@ -135,7 +136,7 @@ const Vetting = () => {
 
   return (
     <div className={styles.wrapper}>
-      {organization && organization.length ? (
+      {!loading ? (
         <Container style={{ padding: "50px  10px" }}>
           <p className="pageTitle">Become an organizer</p>
           <EventDetails details=" Lorem ipsum dolor sit amet, consecteur adipscing elit, sed do eiusmod tempor incididunt ut labore et dolor magna aliqua" />

@@ -108,7 +108,7 @@ const Event = () => {
       }
     }
     if (eventData && user) {
-      let userId = user.user ? user.user.id : user.id;
+      let userId = user.id;
       let eventUserId = eventData.organization.ownerId;
       if (userId === eventUserId) {
         setIsOwner(true);

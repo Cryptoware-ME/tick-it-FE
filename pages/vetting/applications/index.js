@@ -15,6 +15,7 @@ import styles from "../Vetting.module.scss";
 const Applications = () => {
   const [organization, setOrganization] = useState();
   const [ownerId, setOwnerId] = useState();
+  const [loading, setLoading] = useState(true);
 
   const { setModalOpen } = useAuthModalContext();
   const { user } = useAuth();
@@ -22,53 +23,42 @@ const Applications = () => {
 
   const handleRouting = async () => {
     if (user) {
-      if (user.user) {
-        setOwnerId(user.user.id);
-      } else {
-        setOwnerId(user.id);
-      }
-      checkVettingDetails();
+      setOwnerId(user.id);
+      getOrganizationDetails(user.id);
     } else {
       setModalOpen(true);
       let userDetails = await user;
       if (userDetails) {
-        checkVettingDetails();
+        getOrganizationDetails(userDetails.id);
       }
     }
   };
 
-  const checkVettingDetails = async () => {
-    getOrganizationDetails(ownerId);
-  };
-
   const getOrganizationDetails = async (id) => {
-    let organizations = await getOrganization(
+    let tempOrg = await getOrganization(
       JSON.stringify({
         where: { ownerId: id },
       })
     );
-    console.log("organizations: ", organizations);
-    setOrganization(organizations.data);
-    if ((organizations.data.length = 1 && organizations.data[0].isVetted)) {
-      ////change////
-      // router.push("/create-event");
-      router.push("/vetting/applications");
-    } else if (organizations.data.length < 1) {
-      router.push("/vetting");
+    setOrganization(tempOrg.data);
+    if (tempOrg?.data) {
+      if (tempOrg?.data?.length == 1) {
+        if (tempOrg.data[0].isVetted) {
+          router.push("/create-event");
+        } else {
+          router.push("/vetting/applications");
+        }
+      }
     } else {
-      router.push("/vetting/applications");
+      router.push("/vetting");
     }
+    setLoading(false);
   };
 
   useEffect(() => {
     handleRouting();
   }, [user]);
 
-  useEffect(() => {
-    if (organization) {
-      console.log("organization: ", organization);
-    }
-  }, [organization]);
   return (
     <div className={styles.wrapper}>
       <Container style={{ padding: "50px 10px" }}>
@@ -89,7 +79,7 @@ const Applications = () => {
             </div>
           </Col>
         </Row>
-        {organization && organization.length > 0 ? (
+        {!loading ? (
           <>
             {organization?.map((organization, index) => (
               <div style={{ marginTop: "36px" }} key={index}>

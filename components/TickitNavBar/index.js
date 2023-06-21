@@ -22,6 +22,7 @@ const TickitNavBar = () => {
   // States
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [added, setAdded] = useState(false);
+  const [ownerId, setOwnerId] = useState();
   const [totalCartItems, setTotalCartItems] = useState(0);
 
   // Hooks
@@ -34,33 +35,33 @@ const TickitNavBar = () => {
   // Functions
   const handleRouting = async () => {
     if (user) {
-      checkVettingDetails();
+      setOwnerId(user.id);
+      getOrganizationDetails(user.id);
     } else {
       setModalOpen(true);
       let userDetails = await user;
       if (userDetails) {
-        checkVettingDetails();
+        getOrganizationDetails(userDetails.id);
       }
     }
   };
 
-  const checkVettingDetails = async () => {
-    if (user?.user) {
-      getOrganizationDetails(user?.user.id);
-    } else {
-      getOrganizationDetails(user?.id);
-    }
-  };
-
   const getOrganizationDetails = async (id) => {
-    let organization = await getOrganization(
+    let tempOrg = await getOrganization(
       JSON.stringify({
         where: { ownerId: id },
       })
     );
-    if ((organization.data.length = 1 && organization.data[0].isVetted)) {
-      // router.push("/create-event");
-      router.push("/vetting");
+    if (tempOrg?.data) {
+      if (tempOrg?.data?.length == 1) {
+        if (tempOrg.data[0].isVetted) {
+          router.push("/create-event");
+        } else {
+          router.push("/vetting/applications");
+        }
+      } else {
+        router.push("/vetting/applications");
+      }
     } else {
       router.push("/vetting");
     }

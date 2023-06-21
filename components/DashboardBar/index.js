@@ -48,12 +48,8 @@ export default function DashboardBar({ selected }) {
               />
             </div>
             <div style={{ width: "75%" }}>
-              <p className={styles.userName}>
-                {user?.user ? user?.user.username : user?.username}
-              </p>
-              <p className={styles.userEmail}>
-                {user?.user ? user?.user.email : user?.email}
-              </p>
+              <p className={styles.userName}>{user?.username}</p>
+              <p className={styles.userEmail}>{user?.email}</p>
             </div>
           </div>
           <div className={styles.dashboardBar}>

@@ -10,7 +10,10 @@ const AddOrganizationCard = () => {
       <div
         className={styles.addOrganizer}
         onClick={() => {
-          router.push("/vetting");
+          router.push({
+            pathname: "/vetting",
+            query: { newOrg: true },
+          });
         }}
       >
         <Image
