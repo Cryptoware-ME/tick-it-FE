@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { useRouter } from "next/router";
 
 import { useFormik } from "formik";
@@ -7,10 +7,13 @@ import * as yup from "yup";
 
 import { useAuth } from "../../auth/useAuth";
 import { postOrganization } from "../../axios/organization.axios";
+import { useAuthModalContext } from "../../context/AuthModalProvider";
+import { getOrganization } from "../../axios/organization.axios";
 
 import EventDetails from "../../components/EventDetails";
 import TickitButton from "../../components/tickitButton";
 import Dropzone from "../../components/Dropzone";
+import Loader from "../../components/loader/loader";
 
 import styles from "./Vetting.module.scss";
 
@@ -22,10 +25,53 @@ const Vetting = () => {
   const [profileImageError, setProfileImageError] = useState(false);
   const [bannerImage, setBannerImage] = useState();
   const [profileImage, setProfileImage] = useState();
-  const [submited, setSubmited] = useState(false);
+  const [loading, setLoading] = useState(true);
 
+  const { setModalOpen } = useAuthModalContext();
   const { user } = useAuth();
   const router = useRouter();
+  const { newOrg } = router.query;
+
+  const handleRouting = async () => {
+    if (user) {
+      setOwnerId(user.id);
+      getOrganizationDetails(user.id);
+    } else {
+      setModalOpen(true);
+      let userDetails = await user;
+      if (userDetails) {
+        getOrganizationDetails(userDetails.id);
+      }
+    }
+  };
+
+  const getOrganizationDetails = async (id) => {
+    let tempOrg = await getOrganization(
+      JSON.stringify({
+        where: { ownerId: id },
+      })
+    );
+    if (!newOrg) {
+      if (tempOrg?.data.length) {
+        if (tempOrg?.data?.length == 1) {
+          if (tempOrg.data[0].isVetted) {
+            router.push({
+              pathname: "/create-event",
+              query: { orgId: tempOrg.data[0].id },
+            });
+          } else {
+            router.push("/vetting/applications");
+          }
+        } else {
+          router.push("/vetting/applications");
+        }
+      } else {
+        router.push("/vetting");
+      }
+    }
+    setLoading(false);
+  };
+
   const schema = yup.object().shape({
     name: yup
       .string()
@@ -60,8 +106,15 @@ const Vetting = () => {
             name: values.name,
             profile: values.profile,
             banner: values.banner,
+            vettingObj: JSON.stringify({
+              name: values.name,
+              profile: values.profile,
+              banner: values.banner,
+              description: values.description,
+              eventKind: values.eventKind,
+            }),
           }).then((data) => {
-            setSubmited(true);
+            router.push("/vetting/applications");
           });
         } else {
           setProfileImageError(true);
@@ -88,19 +141,13 @@ const Vetting = () => {
   } = formik;
 
   useEffect(() => {
-    if (!user) {
-      // router.push("/");
-    } else if (user.user) {
-      setOwnerId(user.user.id);
-    } else {
-      setOwnerId(user.id);
-    }
+    handleRouting();
   }, [user]);
 
   return (
     <div className={styles.wrapper}>
-      {!submited && (
-        <Container style={{ padding: "50px 10px 100px 10px" }}>
+      {!loading ? (
+        <Container style={{ padding: "50px  10px" }}>
           <p className="pageTitle">Become an organizer</p>
           <EventDetails details=" Lorem ipsum dolor sit amet, consecteur adipscing elit, sed do eiusmod tempor incididunt ut labore et dolor magna aliqua" />
           <div style={{ display: "flex", justifyContent: "space-around" }}>
@@ -184,6 +231,7 @@ const Vetting = () => {
               onBlur={handleBlur}
               value={values.description}
               className="modalInput"
+              style={{ minHeight: "170px" }}
             />
           </div>
           <div style={{ minHeight: "20px" }}>
@@ -219,6 +267,7 @@ const Vetting = () => {
               onBlur={handleBlur}
               value={values.eventKind}
               className="modalInput"
+              style={{ minHeight: "170px" }}
             />
           </div>
           <div style={{ minHeight: "20px" }}>
@@ -233,30 +282,17 @@ const Vetting = () => {
             <TickitButton onClick={handleSubmit} text="SUBMIT" />
           </div>
         </Container>
-      )}
-      {submited && (
-        <Container style={{ padding: "50px 10px 100px 10px" }}>
-          <p className="pageTitle">Application submited</p>
-          <div className={styles.event}>
-            <EventDetails details="Check your inbox for the approval email. Meanwhile, you can buy tickets for the best events in your region." />
-          </div>
-          <div className={styles.appButton}>
-            <div className={styles.buttons}>
-              <TickitButton text="SEE APPLICATION" minWidth="250px" disabled />
-            </div>
-
-            <div className={styles.buttons}>
-              <TickitButton
-                style2
-                text="BACK TO HOME"
-                minWidth="250px"
-                onClick={() => {
-                  router.push("/");
-                }}
-              />
-            </div>
-          </div>
-        </Container>
+      ) : (
+        <div
+          style={{
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Loader />
+        </div>
       )}
     </div>
   );

@@ -13,21 +13,21 @@ export const AuthModalProvider = ({ children }) => {
 
   const [modalOpen, setModalOpen] = useState(false);
 
-  const changeModalMode = () =>
-    !user ? setModalOpen(true) : setModalOpen(false);
+  // const changeModalMode = () =>
+  //   // !user ? setModalOpen(true) :
+  //   setModalOpen(false);
 
   useEffect(() => {
-    if(user){
+    if (user) {
       setModalOpen(false);
     }
-  }, [user])
-  
+  }, [user]);
 
   return (
     <AuthModalContext.Provider
       value={{
         modalOpen,
-        setModalOpen: changeModalMode,
+        setModalOpen,
       }}
     >
       {children}

@@ -11,16 +11,21 @@ export const use721 = ({ contractAddress }) => {
     method: "addTicketTypes",
   });
 
-  const ticketTypeAmount =readContractCall({
+  const ticketTypeAmount = readContractCall({
     address: contractAddress,
     abi: NFTix721.abi,
-    method: "ticketTypes"
-  })
+    method: "ticketTypes",
+  });
+  const editTicketPrice = writeContractCall({
+    address: contractAddress,
+    abi: NFTix721.abi,
+    method: "changeTicketPrice",
+  });
 
-  return { addTicket, ticketTypeAmount };
+  return { addTicket, ticketTypeAmount, editTicketPrice };
 };
 
-export const usePause = ({ contractAddress }) => {
+export const usePause = ({ contractAddress, refetchEvent }) => {
   const pause = writeContractCall({
     address: contractAddress,
     abi: NFTix721.abi,
@@ -36,6 +41,7 @@ export const usePause = ({ contractAddress }) => {
     address: contractAddress,
     abi: NFTix721.abi,
     method: "paused",
+    enabled: refetchEvent,
   });
 
   return { pause, unpause, paused };

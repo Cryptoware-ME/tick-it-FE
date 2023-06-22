@@ -29,11 +29,7 @@ const Dashboard = ({}) => {
 
   useEffect(() => {
     if (user) {
-      if (user?.user) {
-        getOrganizationDetails(user?.user.id);
-      } else {
-        getOrganizationDetails(user?.id);
-      }
+      getOrganizationDetails(user?.id);
     }
   }, [user]);
 

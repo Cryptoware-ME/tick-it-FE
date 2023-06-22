@@ -7,6 +7,7 @@ import { ConnectWalletComponent } from "@cryptogate/react-ui";
 import { usePause } from "../../../hooks/use721";
 import Image from "next/image";
 
+import ReportModal from "../../../components/ReportModal";
 import EventDate from "../../../components/EventDate";
 import EventLocation from "../../../components/EventLocation";
 import EventDetails from "../../../components/EventDetails";
@@ -28,17 +29,20 @@ const Event = () => {
   const [eventData, setEventData] = useState();
   const [isOwner, setIsOwner] = useState(false);
   const [eventTickets, setEventTickets] = useState([]);
-  const [refetchEvent, setRefetchEvent] = useState(false);
+  const [refetchEvent, setRefetchEvent] = useState(null);
   const [ended, setEnded] = useState(false);
-  const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [reportModal, setReportModal] = useState(false);
 
   // Hooks
   const router = useRouter();
   const { slug } = router.query;
   const { user } = useAuth();
   const { account } = useEthereum();
-  const { pause, unpause, paused } = usePause({ contractAddress });
+  const { pause, unpause, paused } = usePause({
+    contractAddress,
+    refetchEvent,
+  });
 
   // Functions
   // Gets the event details with the category and organization included
@@ -53,7 +57,7 @@ const Event = () => {
       setContractAddress(data?.data[0]?.contractAddress);
       getTickets(data?.data[0].id);
     });
-    setRefetchEvent(false);
+    setRefetchEvent(Date.now());
   };
 
   // Gets the tickets related to event
@@ -81,15 +85,18 @@ const Event = () => {
     }
   };
   const waitResponse = async () => {
+    setRefetchEvent(Date.now());
     if (paused.response == "true") {
       await unpause.response.wait();
       setLoading(false);
-      location.reload();
+      setRefetchEvent(Date.now());
+      // location.reload();
     }
     if (paused.response == "false") {
       await pause.response.wait();
       setLoading(false);
-      location.reload();
+      setRefetchEvent(Date.now());
+      // location.reload();
     }
   };
 
@@ -108,13 +115,13 @@ const Event = () => {
       }
     }
     if (eventData && user) {
-      let userId = user.user ? user.user.id : user.id;
+      let userId = user.id;
       let eventUserId = eventData.organization.ownerId;
       if (userId === eventUserId) {
         setIsOwner(true);
       }
     }
-  }, [eventData || user || update]);
+  }, [eventData || user || refetchEvent]);
 
   useEffect(() => {
     if (pause.response || unpause.response) {
@@ -131,11 +138,17 @@ const Event = () => {
           symbol={eventData.symbol}
           id={eventData.id}
           isPublished={eventData.isPublished}
-          setUpdate={setUpdate}
           eventDetails={eventData}
+          setRefetchEvent={setRefetchEvent}
         />
       )}
-
+      {reportModal && (
+        <ReportModal
+          id={eventData.id}
+          setReportModal={setReportModal}
+          reportEvent
+        />
+      )}
       {eventData && (
         <div>
           <div
@@ -163,6 +176,21 @@ const Event = () => {
               <Col lg={6}>
                 <div className={styles.titleDiv}>
                   <p className="pageTitle">{eventData.name}</p>
+                  {!isOwner && user && (
+                    <div
+                      onClick={() => {
+                        setReportModal(true);
+                      }}
+                      className={styles.reportDiv}
+                    >
+                      <Image
+                        width={80}
+                        height={25}
+                        alt="report"
+                        src="/images/repportText.svg"
+                      />
+                    </div>
+                  )}
                   {isOwner && account && (
                     <div style={{ marginLeft: "20px" }}>
                       <Image
