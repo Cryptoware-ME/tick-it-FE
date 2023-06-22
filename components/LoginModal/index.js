@@ -120,7 +120,7 @@ const LoginModal = () => {
       isSignup: false,
     },
     validationSchema: schema,
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       setLoginError(false);
 
       try {
@@ -131,6 +131,8 @@ const LoginModal = () => {
         logIn(loginRes);
         if (loginRes) {
           setModalOpen(false);
+          resetForm();
+          setLoginUser("");
         }
       } catch (e) {
         setLoginError(true);
@@ -155,6 +157,7 @@ const LoginModal = () => {
   } = formik;
 
   useEffect(() => {
+    values.isSignup = false;
     if (Cookies.get("token")) {
       localStorage.setItem("token", "Bearer " + Cookies.get("token"));
       restoreUser();
@@ -293,6 +296,11 @@ const LoginModal = () => {
                       });
                       logIn(response);
                       if (response) {
+                        values.confirmpassword = null;
+                        values.password = null;
+                        values.email = null;
+                        values.username = null;
+                        values.isSignup = false;
                         setModalOpen(false);
                       }
                     }}
