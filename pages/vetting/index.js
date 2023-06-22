@@ -52,7 +52,7 @@ const Vetting = () => {
       })
     );
     if (!newOrg) {
-      if (tempOrg?.data) {
+      if (tempOrg?.data.length) {
         if (tempOrg?.data?.length == 1) {
           if (tempOrg.data[0].isVetted) {
             router.push({

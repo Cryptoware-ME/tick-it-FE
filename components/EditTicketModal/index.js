@@ -23,6 +23,7 @@ const EditTicketModal = ({
   const [filePreview, setFilePreview] = useState(ticketDetails?.image);
   const [nameError, setNameError] = useState(false);
   const [image, setImage] = useState(ticketDetails?.image);
+  const [loading, setLoading] = useState(false);
 
   const { editTicketPrice } = use721({ contractAddress });
 
@@ -33,23 +34,22 @@ const EditTicketModal = ({
       gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
       gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
     });
-
-    launchRes();
   };
 
   const launchRes = async () => {
-    await editTicketPrice.response.wait();
+    const res = await editTicketPrice.response.wait();
 
     let ticketsData = {
       eventId: allTickets[0].eventId,
       id: ticketDetails?.id,
       name: values.name,
-      price: values.price,
+      price: values.price * 10 ** 18,
       description: values.description,
       image: image,
     };
     postEventTicketTypeBatch(ticketsData).then(() => {
       setEditTicket(false);
+      setLoading(false);
       setRefetchEvent(true);
     });
   };
@@ -109,6 +109,13 @@ const EditTicketModal = ({
     status,
     setValues,
   } = formik;
+
+  useEffect(() => {
+    if (editTicketPrice.response) {
+      setLoading(true);
+      launchRes();
+    }
+  }, [editTicketPrice.response]);
 
   return (
     <Form>
@@ -221,7 +228,12 @@ const EditTicketModal = ({
               </div>
             </Row>
             <div className={styles.buttonAdd}>
-              <TickitButton onClick={handleSubmit} text="Edit TICKET" />
+              <TickitButton
+                isLoading={loading}
+                disabled={loading}
+                onClick={handleSubmit}
+                text="Edit TICKET"
+              />
             </div>
           </Container>
         </Modal.Body>
