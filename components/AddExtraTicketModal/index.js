@@ -63,7 +63,7 @@ const AddExtraTicketModal = ({
     postEventTicketTypeBatch(ticketsData).then(() => {
       setLoading(false);
       setAddTicket(false);
-      setRefetchEvent(true);
+      setRefetchEvent(Date.now());
     });
   };
 

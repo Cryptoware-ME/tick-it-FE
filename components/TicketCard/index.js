@@ -42,7 +42,7 @@ const TicketCard = ({
       isActive: state == "resume" ? true : false,
     };
     postEventTicketTypeBatch(ticketsData).then(() => {
-      setRefetchEvent(true);
+      setRefetchEvent(Date.now());
     });
   };
 

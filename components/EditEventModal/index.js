@@ -22,8 +22,8 @@ const EditEventModal = ({
   symbol,
   id,
   isPublished,
-  setUpdate,
   eventDetails,
+  setRefetchEvent,
 }) => {
   const [imageError, setImageError] = useState(false);
   const [image, setImage] = useState(eventDetails.banner);
@@ -69,7 +69,8 @@ const EditEventModal = ({
       router.push(
         isPublished ? `/event/${data.slug}` : `/add-tickets/${data.id}`
       );
-      setUpdate(true);
+
+      setRefetchEvent(Date.now());
       setEditEventModal(false);
     });
   };

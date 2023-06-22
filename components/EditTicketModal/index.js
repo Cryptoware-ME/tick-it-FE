@@ -50,7 +50,7 @@ const EditTicketModal = ({
     postEventTicketTypeBatch(ticketsData).then(() => {
       setEditTicket(false);
       setLoading(false);
-      setRefetchEvent(true);
+      setRefetchEvent(Date.now());
     });
   };
 
