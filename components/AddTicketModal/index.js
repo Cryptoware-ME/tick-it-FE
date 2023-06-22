@@ -18,7 +18,14 @@ const AddTicketModal = ({ setAddTicketModal, setTickets, tickets }) => {
 
   const schema = yup.object().shape({
     name: yup.string().required(),
-    price: yup.number().required(),
+    price: yup
+      .number()
+      .required()
+      .test(
+        "Is positive?",
+        "ERROR: The number must be greater than 0!",
+        (value) => value > 0
+      ),
     supply: yup.number().required(),
     description: yup.string().required(),
   });

@@ -21,6 +21,7 @@ import styles from "./LoginModal.module.scss";
 const LoginModal = () => {
   // States
   const [loginUser, setLoginUser] = useState("");
+  const [loginError, setLoginError] = useState(false);
 
   // Hooks
   const { logIn, user, setUser } = useAuth();
@@ -119,14 +120,22 @@ const LoginModal = () => {
       isSignup: false,
     },
     validationSchema: schema,
-    onSubmit: async (values) => {
-      const loginRes = await login({
-        username: loginUser,
-        password: values.password,
-      });
-      logIn(loginRes);
-      if (loginRes) {
-        setModalOpen(false);
+    onSubmit: async (values, { resetForm }) => {
+      setLoginError(false);
+
+      try {
+        let loginRes = await login({
+          username: loginUser,
+          password: values.password,
+        });
+        logIn(loginRes);
+        if (loginRes) {
+          setModalOpen(false);
+          resetForm();
+          setLoginUser("");
+        }
+      } catch (e) {
+        setLoginError(true);
       }
     },
   });
@@ -148,22 +157,22 @@ const LoginModal = () => {
   } = formik;
 
   useEffect(() => {
-    if(Cookies.get('token')){
-      localStorage.setItem("token", "Bearer " + Cookies.get('token'));
+    values.isSignup = false;
+    if (Cookies.get("token")) {
+      localStorage.setItem("token", "Bearer " + Cookies.get("token"));
       restoreUser();
     }
   }, []);
 
   return (
     <>
-      {modalOpen ? (
-        <Modal show onHide={() => {}} centered className={styles.wrapper}>
+      {modalOpen && (
+        <Modal show centered>
           <Modal.Header
             onClick={() => {
+              setModalOpen(false);
               if (!user) {
-                setModalOpen(false);
-              } else {
-                setModalOpen(false);
+                router.push("/");
               }
             }}
             className={styles.closeButton}
@@ -287,6 +296,11 @@ const LoginModal = () => {
                       });
                       logIn(response);
                       if (response) {
+                        values.confirmpassword = null;
+                        values.password = null;
+                        values.email = null;
+                        values.username = null;
+                        values.isSignup = false;
                         setModalOpen(false);
                       }
                     }}
@@ -387,6 +401,21 @@ const LoginModal = () => {
                   <div className={styles.inputDiv}>
                     <TickitButton text="Log In" onClick={handleSubmit} />
                   </div>
+                  <div
+                    style={{
+                      minHeight: "20px",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {loginError ? (
+                      <div style={{ width: "100%", textAlign: "center" }}>
+                        <p className={styles.error}>
+                          Wrong username or password
+                        </p>
+                      </div>
+                    ) : null}
+                  </div>
 
                   <div className={styles.googleLoginDiv}>
                     <div onClick={redirect} className={styles.googleLogin}>
@@ -419,8 +448,6 @@ const LoginModal = () => {
             )}
           </Modal.Body>
         </Modal>
-      ) : (
-        <></>
       )}
     </>
   );

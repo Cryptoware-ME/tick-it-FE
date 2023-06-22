@@ -125,12 +125,6 @@ const EditEventModal = ({
   useEffect(() => {
     if (!user) {
       setModalOpen(true);
-    } else if (user?.user) {
-      getCategories().then((data) => {
-        setCategories(data.data);
-      });
-      getOrganizationDetails(user?.user.id);
-      setModalOpen(false);
     } else {
       getCategories().then((data) => {
         setCategories(data.data);

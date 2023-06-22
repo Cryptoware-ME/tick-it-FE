@@ -24,6 +24,7 @@
 }
 .inputDiv {
   display: flex;
+  flex-direction: column;
 }
 .roundCheckbox {
   border-radius: 50% !important;
@@ -47,6 +48,7 @@
 .descriptionDiv {
   display: flex;
   margin-top: 10px;
+  flex-direction: column;
 }
 .modalDescription {
   width: 80%;
@@ -127,4 +129,15 @@
   background-color: #0c0c0c;
   border-radius: 20px;
   padding: 20px;
+}
+.title {
+  color: var(--white);
+}
+.profileImage {
+  width: 220px;
+  height: 220px;
+}
+.bannerImage {
+  width: 300px;
+  height: 220px;
 }

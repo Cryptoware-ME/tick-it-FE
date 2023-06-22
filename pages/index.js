@@ -4,8 +4,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import ExploreEvents from "../components/ExploreEvents";
 import React, { useEffect, useState } from "react";
 import { getEvents } from "../axios/event.axios";
-import { getJWT, useAuth } from "../auth/useAuth";
-import Cookies from "js-cookie";
 
 export default function Home() {
   const [allEvents, setAllEvents] = useState();
