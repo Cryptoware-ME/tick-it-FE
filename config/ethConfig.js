@@ -6,6 +6,7 @@ const ethConfig = {
   allowedNetworks: [
     getChainById(ChainId.Sepolia),
     getChainById(ChainId.Apothem),
+    getChainById(ChainId.RSKTestnet)
   ],
   contractList: [
     {
@@ -16,6 +17,8 @@ const ethConfig = {
           process.env.NEXT_PUBLIC_SEPOLIA_NFTIX721_CONTRACT_ADDRESS,
         [ChainId.Apothem]:
           process.env.NEXT_PUBLIC_APOTHEM_NFTIX721_CONTRACT_ADDRESS,
+          [ChainId.RSKTestnet]:
+          process.env.NEXT_PUBLIC_ROOTSTOCK_NFTIX721_CONTRACT_ADDRESS,
       },
     },
     {
@@ -26,12 +29,15 @@ const ethConfig = {
           process.env.NEXT_PUBLIC_SEPOLIA_LAUNCHPAD_CONTRACT_ADDRESS,
         [ChainId.Apothem]:
           process.env.NEXT_PUBLIC_APOTHEM_LAUNCHPAD_CONTRACT_ADDRESS,
+          [ChainId.RSKTestnet]:
+          process.env.NEXT_PUBLIC_ROOTSTOCK_LAUNCHPAD_CONTRACT_ADDRESS,
       },
     },
   ],
   readOnlyUrls: {
     [ChainId.Sepolia]: `https://sepolia.infura.io/v3/98d5cf1c763f4224afa492b70366effa`,
     [ChainId.Apothem]: `https://erpc.apothem.network`,
+    [ChainId.RSKTestnet]: `https://public-node.testnet.rsk.co`
   },
   wallets: [
     EvmWallets.METAMASK,
