@@ -41,14 +41,19 @@ const AddTickets = () => {
   // Hook Calls
   const router = useRouter();
   const { account } = useEthereum();
-  const { createEvent } = useLaunchpad();
+  const {
+    createEvent,
+    createEventState,
+    createEventEvents,
+    resetCreateEventState,
+  } = useLaunchpad();
   const { user } = useAuth();
   const { setModalOpen } = useAuthModalContext();
 
   // Functions
   // Contract interaction to deploy event
   const deployEvent = async () => {
-    createEvent.send(
+    createEvent(
       [
         eventDetails?.name,
         eventDetails?.symbol,
@@ -70,12 +75,9 @@ const AddTickets = () => {
 
   // Api call to save contract
   const launchRes = async () => {
-    setLoading(true);
-    setDisabled(true);
-    const res = await createEvent.response.wait();
     updateEvent(
       {
-        contractAddress: res.events[0].address,
+        contractAddress: createEventEvents[0].args["_newClone"],
         isPublished: true,
         totalSupply: ticketSupply.reduce((accumulator, currentValue) => {
           return accumulator + currentValue;
@@ -95,6 +97,7 @@ const AddTickets = () => {
         };
       });
       postEventTicketTypeBatch(ticketsData).then(() => {
+        resetCreateEventState();
         router.push(`/event/${data.slug}`);
       });
     });
@@ -110,12 +113,16 @@ const AddTickets = () => {
     setTickets(updatedTickets);
   };
 
-  // Use Effect
   useEffect(() => {
-    if (createEvent.response) {
-      launchRes();
+    if (
+      createEventState.status == "PendingSignature" ||
+      createEventState.status == "Mining"
+    ) {
+      setLoading(true);
+      setDisabled(true);
     }
-  }, [createEvent.response]);
+    if (createEventState.status == "Success") launchRes();
+  }, [createEventState]);
 
   useEffect(() => {
     if (!user) {

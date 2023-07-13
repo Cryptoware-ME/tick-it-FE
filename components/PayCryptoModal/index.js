@@ -35,7 +35,12 @@ const PayCrypto = ({
   const router = useRouter();
   const { emptyCart } = useCartContext();
 
-  const mint = writeContractCall({
+  const {
+    send: mint,
+    state: mintState,
+    events: mintEvent,
+    resetState: mintEventState,
+  } = writeContractCall({
     address: cartItemData[0]?.event.contractAddress,
     abi: NFTix721.abi,
     method: "mint",
@@ -88,13 +93,6 @@ const PayCrypto = ({
     return returnStatement == "quantities" ? quantities : totalPrice;
   };
 
-  const waitResponse = async () => {
-    mint.response.wait();
-    router.push("/");
-    setLoading(false);
-    emptyCart();
-  };
-
   // Use Effects
   useEffect(() => {
     if (eventId) {
@@ -114,11 +112,19 @@ const PayCrypto = ({
   }, [cartItemData]);
 
   useEffect(() => {
-    if (mint.response) {
+    if (
+      mintState.status == "PendingSignature" ||
+      mintState.status == "Mining"
+    ) {
       setLoading(true);
-      waitResponse();
     }
-  }, [mint.response]);
+    if (mintState.status == "Success" || mintState.status == "Success") {
+      // waitResponse();
+      setLoading(false);
+      router.push("/");
+      emptyCart();
+    }
+  }, [mintState]);
 
   return (
     <Modal show onHide={() => {}} centered>
@@ -329,7 +335,7 @@ const PayCrypto = ({
                 onClick={() => {
                   payWithCustodial
                     ? custodialWallet()
-                    : mint.send([account, [], groupedTickets("quantities")], {
+                    : mint([account, [], groupedTickets("quantities")], {
                         value: groupedTickets("totalPrice"),
                         gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
                         gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),

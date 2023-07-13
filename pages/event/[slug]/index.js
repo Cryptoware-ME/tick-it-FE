@@ -39,7 +39,17 @@ const Event = () => {
   const { slug } = router.query;
   const { user } = useAuth();
   const { account } = useEthereum();
-  const { pause, unpause, paused } = usePause({
+  const {
+    pauseEvent,
+    pauseState,
+    pauseEventEvent,
+    resetPause,
+    unpauseEvent,
+    unpauseState,
+    unpauseEventEvent,
+    resetUnpause,
+    paused,
+  } = usePause({
     contractAddress,
     refetchEvent,
   });
@@ -73,30 +83,15 @@ const Event = () => {
 
   const handleChangeState = async () => {
     if (paused.response == "true") {
-      unpause.send([], {
+      unpauseEvent([], {
         gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
         gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
       });
     } else {
-      pause.send([], {
+      pauseEvent([], {
         gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
         gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
       });
-    }
-  };
-  const waitResponse = async () => {
-    setRefetchEvent(Date.now());
-    if (paused.response == "true") {
-      await unpause.response.wait();
-      setLoading(false);
-      setRefetchEvent(Date.now());
-      // location.reload();
-    }
-    if (paused.response == "false") {
-      await pause.response.wait();
-      setLoading(false);
-      setRefetchEvent(Date.now());
-      // location.reload();
     }
   };
 
@@ -124,11 +119,19 @@ const Event = () => {
   }, [eventData || user || refetchEvent]);
 
   useEffect(() => {
-    if (pause.response || unpause.response) {
+    if (
+      pauseState.status == "PendingSignature" ||
+      unpauseState.status == "Mining" ||
+      unpauseState.status == "PendingSignature" ||
+      pauseState.status == "Mining"
+    ) {
       setLoading(true);
-      waitResponse();
     }
-  }, [pause.response || unpause.response]);
+    if (pauseState.status == "Success" || unpauseState.status == "Success") {
+      // waitResponse();
+      setLoading(false);
+    }
+  }, [pauseState || unpauseState]);
 
   return (
     <div className={styles.eventWrapper}>
@@ -228,11 +231,11 @@ const Event = () => {
                 <>
                   {isOwner && account && (
                     <Row style={{ marginTop: "32px" }}>
-                      {paused.response && (
+                      {paused.response != null && (
                         <div className={styles.buttons}>
                           <TickitButton
                             text={
-                              paused.response == "true"
+                              paused.response == true
                                 ? "RESUME SALES"
                                 : "PAUSE SALE"
                             }
