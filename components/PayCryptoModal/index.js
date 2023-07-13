@@ -119,7 +119,6 @@ const PayCrypto = ({
       setLoading(true);
     }
     if (mintState.status == "Success" || mintState.status == "Success") {
-      // waitResponse();
       setLoading(false);
       router.push("/");
       emptyCart();
@@ -277,7 +276,6 @@ const PayCrypto = ({
                   ActiveComponent={
                     <TickitButton style2 text="Connect wallet" />
                   }
-                  // ConnectedComponent={<></>}
                 />
               </div>
             )}
