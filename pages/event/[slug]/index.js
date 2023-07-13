@@ -67,7 +67,7 @@ const Event = () => {
       setContractAddress(data?.data[0]?.contractAddress);
       getTickets(data?.data[0].id);
     });
-    setRefetchEvent(Date.now());
+    // setRefetchEvent(Date.now());
   };
 
   // Gets the tickets related to event
@@ -231,25 +231,23 @@ const Event = () => {
                 <>
                   {isOwner && account && (
                     <Row style={{ marginTop: "32px" }}>
-                      {paused.response != null && (
-                        <div className={styles.buttons}>
-                          <TickitButton
-                            text={
-                              paused.response == true
-                                ? "RESUME SALES"
-                                : "PAUSE SALE"
-                            }
-                            isLoading={loading}
-                            disabled={loading}
-                            onClick={() => {
-                              handleChangeState();
-                            }}
-                          />
-                          {/* <div style={{ marginLeft: "40px" }}>
+                      <div className={styles.buttons}>
+                        <TickitButton
+                          text={
+                            paused.response == true
+                              ? "RESUME SALES"
+                              : "PAUSE SALE"
+                          }
+                          isLoading={loading}
+                          disabled={loading}
+                          onClick={() => {
+                            handleChangeState();
+                          }}
+                        />
+                        {/* <div style={{ marginLeft: "40px" }}>
                       <TickitButton style2 text="VIEW ACTIVITY" />
                       </div> */}
-                        </div>
-                      )}
+                      </div>
                     </Row>
                   )}
                 </>
