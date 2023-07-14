@@ -3,10 +3,10 @@ import { Container, Col, Row } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { useAuth } from "../../../auth/useAuth";
 import { useEthereum } from "@cryptogate/react-providers";
-import { ConnectWalletComponent } from "@cryptogate/react-ui";
 import { usePause } from "../../../hooks/use721";
 import Image from "next/image";
 
+import ConnectWallet from "../../../components/connect-wallet";
 import ReportModal from "../../../components/ReportModal";
 import EventDate from "../../../components/EventDate";
 import EventLocation from "../../../components/EventLocation";
@@ -214,11 +214,11 @@ const Event = () => {
                 {!ended && (
                   <div className={styles.titleButtons}>
                     {isOwner && (
-                      <ConnectWalletComponent
-                        ConnectedComponent={<></>}
-                        ActiveComponent={
+                      <ConnectWallet
+                        active={
                           <TickitButton style2 text="connect wallet to edit" />
                         }
+                        connected={<></>}
                       />
                     )}
                     {/* Reserve and View Activity button */}

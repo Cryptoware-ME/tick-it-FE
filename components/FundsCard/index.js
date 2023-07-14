@@ -3,13 +3,17 @@ import React, { useState } from "react";
 
 import DepositModal from "../DepositModal";
 import WithDrawModal from "../WithDrawModal";
+import Shortner from "../../utils/addressShortner";
+import { useAccount } from "@cryptogate/react-providers";
+import { unlinkWallet } from "../../axios/wallets.axios";
 
 import styles from "./FundsCard.module.scss";
 
-const FundsCard = ({ state = 1 }) => {
+const FundsCard = ({ data, refetch }) => {
   const [depositmodal, setDepositModal] = useState(false);
   const [withDrawmodal, setWithDrawModal] = useState(false);
 
+  const { ethBalance } = useAccount(data?.address.toString());
   return (
     <>
       {depositmodal && <DepositModal setDepositModal={setDepositModal} />}
@@ -17,7 +21,7 @@ const FundsCard = ({ state = 1 }) => {
 
       <div className={styles.cardContainer}>
         <div className={styles.cardHeader}>
-          {state == 1 && (
+          {data.type == "custodial" && (
             <Image
               width={38}
               height={30}
@@ -26,14 +30,16 @@ const FundsCard = ({ state = 1 }) => {
               className={styles.tickImage}
             />
           )}
-          <div className={styles.cardTitle}>0xJo6g...007</div>
+          <div className={styles.cardTitle}>{Shortner(data?.address)}</div>
         </div>
         <div className={styles.cardInfo}>
-          <p className={styles.cardDetails}>0.15 ETH</p>
+          <p className={styles.cardDetails}>
+            {parseFloat(ethBalance).toFixed(5)} ETH
+          </p>
           <p className={styles.cardDetails}>$270</p>
-          <p className={styles.cardDetails}>Tickets</p>
+          {/* <p className={styles.cardDetails}>Tickets</p> */}
         </div>
-        {state == 1 && (
+        {data.type == "custodial" && (
           <div className={styles.cardButtons}>
             <div
               className={styles.buttonDiv}
@@ -67,9 +73,17 @@ const FundsCard = ({ state = 1 }) => {
             </div>
           </div>
         )}
-        {state == 2 && (
+        {data.type != "custodial" && (
           <div className={styles.unLink}>
-            <div className={styles.unLinkBtn}>
+            <div
+              className={styles.unLinkBtn}
+              onClick={async () => {
+                await unlinkWallet(data.id);
+
+                console.log("sddddddddddddddddddddddddddd");
+                refetch();
+              }}
+            >
               <Image
                 width={13}
                 height={17}

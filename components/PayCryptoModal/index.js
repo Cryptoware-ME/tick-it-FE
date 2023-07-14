@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Modal, Container, Row, Col } from "react-bootstrap";
 import Image from "next/image";
 
-import { ConnectWalletComponent } from "@cryptogate/react-ui";
 import { useEthereum } from "@cryptogate/react-providers";
 import { writeContractCall } from "@cryptogate/react-providers";
 import { useRouter } from "next/router";
@@ -11,9 +10,9 @@ import { useCartContext } from "../../cart/cart-context";
 import NFTix721 from "../../abis/NFTix721.json";
 import { postCustodialMint } from "../../axios/ticket.axios";
 import { getEventTicketType } from "../../axios/eventTicketType.axios";
-import { use721 } from "../../hooks/use721";
 
 import TickitButton from "../tickitButton";
+import ConnectWallet from "../connect-wallet";
 
 import styles from "./PayCrypto.module.scss";
 
@@ -272,10 +271,8 @@ const PayCrypto = ({
                   display: "flex",
                 }}
               >
-                <ConnectWalletComponent
-                  ActiveComponent={
-                    <TickitButton style2 text="Connect wallet" />
-                  }
+                <ConnectWallet
+                  active={<TickitButton style2 text="Connect wallet" />}
                 />
               </div>
             )}

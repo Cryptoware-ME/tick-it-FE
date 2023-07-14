@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 
 import { useEthereum } from "@cryptogate/react-providers";
-import { ConnectWalletComponent } from "@cryptogate/react-ui";
 
 import { useAuth } from "../../../auth/useAuth";
 import { useAuthModalContext } from "../../../context/AuthModalProvider";
@@ -12,6 +11,7 @@ import { useLaunchpad } from "../../../hooks/useLaunchpad";
 import { getEvents, updateEvent } from "../../../axios/event.axios";
 import { postEventTicketTypeBatch } from "../../../axios/eventTicketType.axios";
 
+import ConnectWallet from "../../../components/connect-wallet";
 import EventDate from "../../../components/EventDate";
 import EventLocation from "../../../components/EventLocation";
 import EventDetails from "../../../components/EventDetails";
@@ -227,8 +227,8 @@ const AddTickets = () => {
                       }}
                     />
                   ) : (
-                    <ConnectWalletComponent
-                      ActiveComponent={
+                    <ConnectWallet
+                      active={
                         <TickitButton text="connect wallet to launch" style2 />
                       }
                     />
