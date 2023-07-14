@@ -32,11 +32,19 @@ export const getCategories = async (filter) => {
 };
 
 export const postEvent = async (payload) => {
-  const data = await instance.post("/events", payload);
+  const data = await instance.post("/events", payload,{
+  headers: {
+    Authorization: localStorage.getItem("token")
+  }
+});
   return data.data;
 };
 
 export const updateEvent = async (payload, eventId) => {
-  const data = await instance.put(`/events/${eventId}`, payload);
+  const data = await instance.put(`/events/${eventId}`, payload, {
+    headers: {
+      Authorization: localStorage.getItem("token")
+    }
+  });
   return data.data
 }
