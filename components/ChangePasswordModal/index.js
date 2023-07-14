@@ -1,26 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Container, Row, Col } from "react-bootstrap";
-
+import { changePassword } from "../../axios/user.axios";
+import { login } from "../../axios/auth.axios";
 import { useFormik } from "formik";
 import * as yup from "yup";
-
+import { useAuth } from "../../auth/useAuth";
 import TickitButton from "../tickitButton";
-
 import styles from "./ChangePasswordModal.module.scss";
 
-const ChangePasswordModal = ({ setPasswodModal }) => {
+const ChangePasswordModal = ({ setPasswordModal }) => {
+  const [loginError, setLoginError] = useState(false);
   // Hooks
   const schema = yup.object().shape({
     newPassword: yup.string().min(6).required("New password is required"),
     oldPassword: yup.string().required("Old password is required"),
     confirmPassword: yup
-
       .string()
       .min(6)
       .required("This field is required")
-      .oneOf([yup.ref("password"), null], "Passwords must match"),
+      .oneOf([yup.ref("newPassword"), null], "Passwords must match"),
   });
-
+  const { user, setUser } = useAuth();
   // Formik
   const formik = useFormik({
     initialValues: {
@@ -29,7 +29,15 @@ const ChangePasswordModal = ({ setPasswodModal }) => {
       confirmPassword: "",
     },
     validationSchema: schema,
-    onSubmit: async (values) => {},
+    onSubmit: async (values) => {
+      changePassword({
+        oldPassword: values.oldPassword,
+        newPassword: values.newPassword,
+      }).then((data) => {
+        console.log(data)
+        setPasswordModal(false);
+      });
+    },
   });
 
   const {
@@ -51,7 +59,7 @@ const ChangePasswordModal = ({ setPasswodModal }) => {
     <Modal show onHide={() => {}} centered>
       <Modal.Header
         onClick={() => {
-          setPasswodModal(false);
+          setPasswordModal(false);
         }}
         className={styles.closeButton}
         closeButton
@@ -75,10 +83,22 @@ const ChangePasswordModal = ({ setPasswodModal }) => {
                   className="modalInput"
                 />
               </div>
-              <div style={{ height: "18px" }}>
+
+              <div
+                style={{
+                  minHeight: "20px",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
                 {errors.oldPassword && touched.oldPassword ? (
                   <div className={styles.errors}>
                     <p className={styles.error}> {errors.oldPassword}</p>
+                  </div>
+                ) : null}
+                {loginError ? (
+                  <div style={{ width: "100%", textAlign: "center" }}>
+                    <p className={styles.error}>Wrong password</p>
                   </div>
                 ) : null}
               </div>

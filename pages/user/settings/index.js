@@ -1,9 +1,8 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState,useEffect} from "react";
 import { Container, Col, Row } from "react-bootstrap";
-
 import { useAuth } from "../../../auth/useAuth";
-
+import { updateUser,getUsers } from "../../../axios/user.axios";
 import DashboardBar from "../../../components/DashboardBar";
 import TickitButton from "../../../components/tickitButton";
 import Switch from "../../../components/Switch";
@@ -12,18 +11,24 @@ import styles from "./Settings.module.scss";
 import ChangePasswordModal from "../../../components/ChangePasswordModal";
 
 const Settings = () => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [eventCheck, setEventCheck] = useState(true);
   const [emailCheck, setEmailCheck] = useState(true);
   const [newsCheck, setNewsCheck] = useState(true);
   const [userNameEdit, setUserNameEdit] = useState(false);
   const [emailEdit, setEmailEdit] = useState(false);
   const [mobileEdit, setMobileEdit] = useState(false);
-  const [passwodModal, setPasswodModal] = useState(false);
+  const [passwordModal, setPasswordModal] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [userNameError, setUserNameError] = useState(false);
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [ phoneNumber,setPhoneNumber] = useState("")
+
   return (
     <>
-      {passwodModal && (
-        <ChangePasswordModal setPasswodModal={setPasswodModal} />
+      {passwordModal && (
+        <ChangePasswordModal setPasswordModal={setPasswordModal} />
       )}
       <Container fluid className="dashboardWrapper">
         <Row>
@@ -49,11 +54,28 @@ const Settings = () => {
                           type="text"
                           defaultValue={user?.username}
                           placeholder="Enter Username"
-                          onChange={(e) => {}}
+                          onChange={(e) => {
+                            setUserName(e.target.value);
+                          }}
                           required
                           className={styles.inputBar}
                         />
                       )}
+                      <div
+                        style={{
+                          minHeight: "20px",
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
+                      >
+                        {userNameError && (
+                          <div className={styles.errors}>
+                            <p className={styles.error}>
+                              Username already in use
+                            </p>
+                          </div>
+                        )}
+                      </div>
                     </Col>
                     <Col md={4} className={styles.settingCol}>
                       {!userNameEdit && (
@@ -64,12 +86,29 @@ const Settings = () => {
                           }}
                         />
                       )}
+
                       {userNameEdit && (
                         <TickitButton
                           text="Save"
                           style2={true}
+                          disabled={!userName}
                           onClick={() => {
-                            setUserNameEdit(false);
+                            getUsers(
+                              JSON.stringify({ where: { username: userName } })
+                            ).then((user) => {
+                              if (user.data.length > 0) {
+                                setUserNameError(true);
+                              } else {
+                                setUserNameError(false);
+                                updateUser({
+                                  username: userName,
+                                }).then((data) => {
+                                 
+                                  setUser(data)
+                                  setUserNameEdit(false);
+                                });
+                              }
+                            });
                           }}
                         />
                       )}
@@ -88,11 +127,27 @@ const Settings = () => {
                           type="text"
                           defaultValue={user?.email}
                           placeholder="Enter Email"
-                          onChange={(e) => {}}
+                          onChange={(e) => {setEmail(e.target.value)}}
                           required
                           className={styles.inputBar}
                         />
+                        
                       )}
+                      <div
+                        style={{
+                          minHeight: "20px",
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
+                      >
+                        {emailError && (
+                          <div className={styles.errors}>
+                            <p className={styles.error}>
+                           Email is already in use
+                            </p>
+                          </div>
+                        )}
+                      </div>
                     </Col>
                     <Col md={4} className={styles.settingCol}>
                       {!emailEdit && (
@@ -107,8 +162,23 @@ const Settings = () => {
                         <TickitButton
                           text="Save"
                           style2={true}
+                          disabled={!email}
                           onClick={() => {
-                            setEmailEdit(false);
+                            getUsers(
+                              JSON.stringify({ where: { email: email } })
+                            ).then((user) => {
+                              if (user.data.length > 0) {
+                                setEmailError(true);
+                              } else {
+                                setEmailError(false);
+                                updateUser({
+                                  email: email,
+                                }).then((data) => {
+                                  setUser(data)
+                                  setEmailEdit(false);
+                                });
+                              }
+                            });
                           }}
                         />
                       )}
@@ -120,14 +190,17 @@ const Settings = () => {
                     </Col>
                     <Col md={4} className={styles.settingCol}>
                       {!mobileEdit && (
-                        <p className={styles.settingValue}>961112233</p>
+                        <p className={styles.settingValue}>
+                          {user?.phoneNumber ?? "---"}
+                        </p>
                       )}
+                      
                       {mobileEdit && (
                         <input
                           type="text"
-                          defaultValue="961112233"
+                          defaultValue={user?.phoneNumber}
                           placeholder="Enter Phone Number"
-                          onChange={(e) => {}}
+                          onChange={(e) => {setPhoneNumber(e.target.value)}}
                           required
                           className={styles.inputBar}
                         />
@@ -146,8 +219,14 @@ const Settings = () => {
                         <TickitButton
                           text="Save"
                           style2={true}
+                          disabled={!phoneNumber}
                           onClick={() => {
-                            setMobileEdit(false);
+                            updateUser({
+                              phoneNumber: phoneNumber,
+                            }).then((data) => {
+                              setUser(data)
+                              setMobileEdit(false);
+                            });
                           }}
                         />
                       )}
@@ -216,7 +295,7 @@ const Settings = () => {
                   <div className={styles.settingLinkDiv}>
                     <div
                       onClick={() => {
-                        setPasswodModal(true);
+                        setPasswordModal(true);
                       }}
                       className={styles.settingLink}
                     >
