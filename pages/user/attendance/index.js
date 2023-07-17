@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
+import { useRouter } from "next/router";
+
+import { useAuth } from "../../../auth/useAuth";
 
 import DashboardBar from "../../../components/DashboardBar";
 import CartTicket from "../../../components/CartTicket";
@@ -10,11 +13,20 @@ import styles from "./attendance.module.scss";
 const Attendance = () => {
   const [tickets, setTickets] = useState([]);
 
+  const { user } = useAuth();
+  const router = useRouter();
+
   useEffect(() => {
     let temp = localStorage.getItem("tickets");
     let tickets = JSON.parse(temp);
     setTickets(tickets);
   }, []);
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/");
+    }
+  }, [user]);
 
   return (
     <Container fluid className={styles.wrapper}>

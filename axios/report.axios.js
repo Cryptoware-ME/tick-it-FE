@@ -6,6 +6,10 @@ export const getReportTypes = async () => {
 };
 
 export const postReport = async (payload) => {
-  const data = await instance.post("/reports", payload);
+  const data = await instance.post("/reports", payload, {
+    headers: {
+      Authorization: localStorage.getItem("token")
+    }
+  });
   return data.data;
 };

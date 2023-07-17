@@ -1,9 +1,12 @@
 import React from "react";
 import Link from "next/link";
 
+import { useEvm } from "@cryptogate/react-providers";
+
 import styles from "./UserDropdown.module.scss";
 
 const UserDropdown = ({ isOpen, onClose, logOut, user }) => {
+  const { deactivate } = useEvm();
   return (
     <div className={`${styles.menu} ${isOpen && styles.show} `}>
       <div className={styles.overlay} onClick={onClose}></div>
@@ -67,6 +70,7 @@ const UserDropdown = ({ isOpen, onClose, logOut, user }) => {
             // signOut("google");
             logOut();
             onClose();
+            deactivate();
           }}
         >
           Log Out

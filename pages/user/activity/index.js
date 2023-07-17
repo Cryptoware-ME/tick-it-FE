@@ -1,4 +1,8 @@
 import { Container, Col, Row } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+
+import { useAuth } from "../../../auth/useAuth";
 
 import ActivityCard from "../../../components/ActivityCard";
 import DashboardBar from "../../../components/DashboardBar";
@@ -6,7 +10,15 @@ import DashboardBar from "../../../components/DashboardBar";
 import styles from "./activity.module.scss";
 
 const Activity = () => {
-  // Hardcoded values: To Check
+  const { user } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/");
+    }
+  }, [user]);
+
   return (
     <Container fluid className="dashboardWrapper">
       <Row>

@@ -25,20 +25,23 @@ const EditTicketModal = ({
   const [image, setImage] = useState(ticketDetails?.image);
   const [loading, setLoading] = useState(false);
 
-  const { editTicketPrice } = use721({ contractAddress });
+  const {
+    editTicketPrice,
+    editTicketPriceState,
+    editTicketPriceEvents,
+    resetEditTicketPrice,
+  } = use721({ contractAddress });
 
   const editTicket = () => {
     let ticketTypeId = ticketDetails?.ticketTypeId;
 
-    editTicketPrice.send([ticketTypeId, values.price * 10 ** 18], {
+    editTicketPrice([ticketTypeId, values.price * 10 ** 18], {
       gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
       gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
     });
   };
 
   const launchRes = async () => {
-    const res = await editTicketPrice.response.wait();
-
     let ticketsData = {
       eventId: allTickets[0].eventId,
       id: ticketDetails?.id,
@@ -111,11 +114,14 @@ const EditTicketModal = ({
   } = formik;
 
   useEffect(() => {
-    if (editTicketPrice.response) {
+    if (
+      editTicketPriceState.status == "PendingSignature" ||
+      editTicketPriceState.status == "Mining"
+    ) {
       setLoading(true);
-      launchRes();
     }
-  }, [editTicketPrice.response]);
+    if (editTicketPriceState.status == "Success") launchRes();
+  }, [editTicketPriceState]);
 
   return (
     <Form>

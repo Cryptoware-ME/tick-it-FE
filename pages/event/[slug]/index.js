@@ -3,10 +3,10 @@ import { Container, Col, Row } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { useAuth } from "../../../auth/useAuth";
 import { useEthereum } from "@cryptogate/react-providers";
-import { ConnectWalletComponent } from "@cryptogate/react-ui";
 import { usePause } from "../../../hooks/use721";
 import Image from "next/image";
 
+import ConnectWallet from "../../../components/connect-wallet";
 import ReportModal from "../../../components/ReportModal";
 import EventDate from "../../../components/EventDate";
 import EventLocation from "../../../components/EventLocation";
@@ -39,7 +39,17 @@ const Event = () => {
   const { slug } = router.query;
   const { user } = useAuth();
   const { account } = useEthereum();
-  const { pause, unpause, paused } = usePause({
+  const {
+    pauseEvent,
+    pauseState,
+    pauseEventEvent,
+    resetPause,
+    unpauseEvent,
+    unpauseState,
+    unpauseEventEvent,
+    resetUnpause,
+    paused,
+  } = usePause({
     contractAddress,
     refetchEvent,
   });
@@ -57,7 +67,7 @@ const Event = () => {
       setContractAddress(data?.data[0]?.contractAddress);
       getTickets(data?.data[0].id);
     });
-    setRefetchEvent(Date.now());
+    // setRefetchEvent(Date.now());
   };
 
   // Gets the tickets related to event
@@ -73,30 +83,15 @@ const Event = () => {
 
   const handleChangeState = async () => {
     if (paused.response == "true") {
-      unpause.send([], {
+      unpauseEvent([], {
         gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
         gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
       });
     } else {
-      pause.send([], {
+      pauseEvent([], {
         gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
         gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
       });
-    }
-  };
-  const waitResponse = async () => {
-    setRefetchEvent(Date.now());
-    if (paused.response == "true") {
-      await unpause.response.wait();
-      setLoading(false);
-      setRefetchEvent(Date.now());
-      // location.reload();
-    }
-    if (paused.response == "false") {
-      await pause.response.wait();
-      setLoading(false);
-      setRefetchEvent(Date.now());
-      // location.reload();
     }
   };
 
@@ -124,11 +119,19 @@ const Event = () => {
   }, [eventData || user || refetchEvent]);
 
   useEffect(() => {
-    if (pause.response || unpause.response) {
+    if (
+      pauseState.status == "PendingSignature" ||
+      unpauseState.status == "Mining" ||
+      unpauseState.status == "PendingSignature" ||
+      pauseState.status == "Mining"
+    ) {
       setLoading(true);
-      waitResponse();
     }
-  }, [pause.response || unpause.response]);
+    if (pauseState.status == "Success" || unpauseState.status == "Success") {
+      // waitResponse();
+      setLoading(false);
+    }
+  }, [pauseState || unpauseState]);
 
   return (
     <div className={styles.eventWrapper}>
@@ -211,11 +214,11 @@ const Event = () => {
                 {!ended && (
                   <div className={styles.titleButtons}>
                     {isOwner && (
-                      <ConnectWalletComponent
-                        ConnectedComponent={<></>}
-                        ActiveComponent={
+                      <ConnectWallet
+                        active={
                           <TickitButton style2 text="connect wallet to edit" />
                         }
+                        connected={<></>}
                       />
                     )}
                     {/* Reserve and View Activity button */}
@@ -228,25 +231,23 @@ const Event = () => {
                 <>
                   {isOwner && account && (
                     <Row style={{ marginTop: "32px" }}>
-                      {paused.response && (
-                        <div className={styles.buttons}>
-                          <TickitButton
-                            text={
-                              paused.response == "true"
-                                ? "RESUME SALES"
-                                : "PAUSE SALE"
-                            }
-                            isLoading={loading}
-                            disabled={loading}
-                            onClick={() => {
-                              handleChangeState();
-                            }}
-                          />
-                          {/* <div style={{ marginLeft: "40px" }}>
+                      <div className={styles.buttons}>
+                        <TickitButton
+                          text={
+                            paused.response == true
+                              ? "RESUME SALES"
+                              : "PAUSE SALE"
+                          }
+                          isLoading={loading}
+                          disabled={loading}
+                          onClick={() => {
+                            handleChangeState();
+                          }}
+                        />
+                        {/* <div style={{ marginLeft: "40px" }}>
                       <TickitButton style2 text="VIEW ACTIVITY" />
                       </div> */}
-                        </div>
-                      )}
+                      </div>
                     </Row>
                   )}
                 </>

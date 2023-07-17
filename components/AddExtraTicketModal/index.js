@@ -27,7 +27,9 @@ const AddExtraTicketModal = ({
   const [loading, setLoading] = useState(false);
 
   // Contract Functions
-  const { addTicket } = use721({ contractAddress });
+  const { addTicket, addTicketState, addTicketEvents, resetAddTicket } = use721(
+    { contractAddress }
+  );
 
   // Functions
   const addExtraTicket = () => {
@@ -36,21 +38,15 @@ const AddExtraTicketModal = ({
       ticketSupply = ticketSupply + tickets[i].supply;
     }
 
-    addTicket.send(
-      [[values.supply + ticketSupply], [values.price * 10 ** 18]],
-      {
-        gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
-        gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
-      }
-    );
+    addTicket([[values.supply + ticketSupply], [values.price * 10 ** 18]], {
+      gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
+      gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
+    });
 
     setTicketSupply(values.supply);
   };
 
   const launchRes = async () => {
-    setLoading(true);
-    await addTicket.response.wait();
-
     let ticketsData = {
       eventId: tickets[0].eventId,
       name: values.name,
@@ -68,11 +64,16 @@ const AddExtraTicketModal = ({
   };
 
   // Use Effects
+
   useEffect(() => {
-    if (addTicket.response) {
-      launchRes();
+    if (
+      addTicketState.status == "PendingSignature" ||
+      addTicketState.status == "Mining"
+    ) {
+      setLoading(true);
     }
-  }, [addTicket.response]);
+    if (addTicketState.status == "Success") launchRes();
+  }, [addTicketState]);
 
   const schema = yup.object().shape({
     name: yup.string().required(),

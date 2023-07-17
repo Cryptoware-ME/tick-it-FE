@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { useAuth } from "../../../auth/useAuth";
 import { getOrganization } from "../../../axios/organization.axios";
@@ -17,6 +18,7 @@ const Dashboard = ({}) => {
   const [tickets, setTickets] = useState([]);
 
   const { user } = useAuth();
+  const router = useRouter();
 
   const getOrganizationDetails = async (id) => {
     let organization = await getOrganization(
@@ -30,6 +32,8 @@ const Dashboard = ({}) => {
   useEffect(() => {
     if (user) {
       getOrganizationDetails(user?.id);
+    } else {
+      router.push("/");
     }
   }, [user]);
 
