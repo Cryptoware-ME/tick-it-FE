@@ -37,7 +37,6 @@ const Funds = () => {
         </Col>
 
         <Col lg={10}>
-          {/* <div className={styles.section}> */}
           <div className={styles.sectionContent}>
             <p style={{ marginBottom: "40px" }} className="section-title">
               Funds
@@ -48,7 +47,7 @@ const Funds = () => {
                   <FundsCard data={wallet} refetch={getWallets} />
                 </Col>
               ))}
-              <Col lg={4} md={6} sm={12}>
+              {/* <Col lg={4} md={6} sm={12}>
                 <div className={styles.cardContainer}>
                   <Image
                     width={48}
@@ -58,10 +57,9 @@ const Funds = () => {
                   />
                   <p className={styles.linkWallet}>Link a new wallet</p>
                 </div>
-              </Col>
+              </Col> */}
             </Row>
           </div>
-          {/* </div> */}
         </Col>
       </Row>
     </Container>

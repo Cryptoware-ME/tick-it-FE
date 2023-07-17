@@ -20,7 +20,7 @@ const ChangePasswordModal = ({ setPasswordModal }) => {
       .required("This field is required")
       .oneOf([yup.ref("newPassword"), null], "Passwords must match"),
   });
-  const { user, setUser } = useAuth();
+
   // Formik
   const formik = useFormik({
     initialValues: {
@@ -30,13 +30,17 @@ const ChangePasswordModal = ({ setPasswordModal }) => {
     },
     validationSchema: schema,
     onSubmit: async (values) => {
+      setLoginError(false);
       changePassword({
         oldPassword: values.oldPassword,
         newPassword: values.newPassword,
-      }).then((data) => {
-        console.log(data)
-        setPasswordModal(false);
-      });
+      })
+        .then((data) => {
+          setPasswordModal(false);
+        })
+        .catch(() => {
+          setLoginError(true);
+        });
     },
   });
 
@@ -88,16 +92,15 @@ const ChangePasswordModal = ({ setPasswordModal }) => {
                 style={{
                   minHeight: "20px",
                   display: "flex",
-                  justifyContent: "center",
                 }}
               >
                 {errors.oldPassword && touched.oldPassword ? (
-                  <div className={styles.errors}>
+                  <div>
                     <p className={styles.error}> {errors.oldPassword}</p>
                   </div>
                 ) : null}
-                {loginError ? (
-                  <div style={{ width: "100%", textAlign: "center" }}>
+                {loginError && !errors.oldPassword ? (
+                  <div>
                     <p className={styles.error}>Wrong password</p>
                   </div>
                 ) : null}

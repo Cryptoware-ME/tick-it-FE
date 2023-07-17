@@ -1,8 +1,8 @@
 import Link from "next/link";
-import React, { useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import { useAuth } from "../../../auth/useAuth";
-import { updateUser,getUsers } from "../../../axios/user.axios";
+import { updateUser, getUsers } from "../../../axios/user.axios";
 import DashboardBar from "../../../components/DashboardBar";
 import TickitButton from "../../../components/tickitButton";
 import Switch from "../../../components/Switch";
@@ -23,7 +23,7 @@ const Settings = () => {
   const [userNameError, setUserNameError] = useState(false);
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
-  const [ phoneNumber,setPhoneNumber] = useState("")
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   return (
     <>
@@ -103,8 +103,7 @@ const Settings = () => {
                                 updateUser({
                                   username: userName,
                                 }).then((data) => {
-                                 
-                                  setUser(data)
+                                  setUser(data);
                                   setUserNameEdit(false);
                                 });
                               }
@@ -127,11 +126,12 @@ const Settings = () => {
                           type="text"
                           defaultValue={user?.email}
                           placeholder="Enter Email"
-                          onChange={(e) => {setEmail(e.target.value)}}
+                          onChange={(e) => {
+                            setEmail(e.target.value);
+                          }}
                           required
                           className={styles.inputBar}
                         />
-                        
                       )}
                       <div
                         style={{
@@ -143,14 +143,14 @@ const Settings = () => {
                         {emailError && (
                           <div className={styles.errors}>
                             <p className={styles.error}>
-                           Email is already in use
+                              Email is already in use
                             </p>
                           </div>
                         )}
                       </div>
                     </Col>
                     <Col md={4} className={styles.settingCol}>
-                      {!emailEdit && (
+                      {/* {!emailEdit && (
                         <TickitButton
                           text="Edit"
                           onClick={() => {
@@ -181,7 +181,7 @@ const Settings = () => {
                             });
                           }}
                         />
-                      )}
+                      )} */}
                     </Col>
                   </Row>
                   <Row className={styles.settingRow}>
@@ -194,13 +194,15 @@ const Settings = () => {
                           {user?.phoneNumber ?? "---"}
                         </p>
                       )}
-                      
+
                       {mobileEdit && (
                         <input
                           type="text"
                           defaultValue={user?.phoneNumber}
                           placeholder="Enter Phone Number"
-                          onChange={(e) => {setPhoneNumber(e.target.value)}}
+                          onChange={(e) => {
+                            setPhoneNumber(e.target.value);
+                          }}
                           required
                           className={styles.inputBar}
                         />
@@ -224,7 +226,7 @@ const Settings = () => {
                             updateUser({
                               phoneNumber: phoneNumber,
                             }).then((data) => {
-                              setUser(data)
+                              setUser(data);
                               setMobileEdit(false);
                             });
                           }}

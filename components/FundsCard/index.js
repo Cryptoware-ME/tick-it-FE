@@ -79,8 +79,6 @@ const FundsCard = ({ data, refetch }) => {
               className={styles.unLinkBtn}
               onClick={async () => {
                 await unlinkWallet(data.id);
-
-                console.log("sddddddddddddddddddddddddddd");
                 refetch();
               }}
             >
