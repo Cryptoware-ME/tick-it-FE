@@ -1,19 +1,34 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import DepositModal from "../DepositModal";
 import WithDrawModal from "../WithDrawModal";
 import Shortner from "../../utils/addressShortner";
 import { useAccount } from "@cryptogate/react-providers";
 import { unlinkWallet } from "../../axios/wallets.axios";
+import { getEthereumPrice } from "../../axios/ethPrice.axios";
 
 import styles from "./FundsCard.module.scss";
 
 const FundsCard = ({ data, refetch }) => {
   const [depositmodal, setDepositModal] = useState(false);
   const [withDrawmodal, setWithDrawModal] = useState(false);
+  const [usdAmout, setUsdAmout] = useState(0);
 
   const { ethBalance } = useAccount(data?.address.toString());
+
+  const getUsdAmount = async () => {
+    let ethPrice = await getEthereumPrice();
+    let amountInUsd = ethPrice * ethBalance;
+    setUsdAmout(amountInUsd.toFixed(5));
+  };
+
+  useEffect(() => {
+    if (ethBalance) {
+      getUsdAmount();
+    }
+  }, [ethBalance]);
+
   return (
     <>
       {depositmodal && <DepositModal setDepositModal={setDepositModal} />}
@@ -36,7 +51,7 @@ const FundsCard = ({ data, refetch }) => {
           <p className={styles.cardDetails}>
             {parseFloat(ethBalance).toFixed(5)} ETH
           </p>
-          <p className={styles.cardDetails}>$270</p>
+          <p className={styles.cardDetails}>{usdAmout} $</p>
           {/* <p className={styles.cardDetails}>Tickets</p> */}
         </div>
         {data.type == "custodial" && (
