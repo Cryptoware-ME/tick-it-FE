@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import { useRouter } from "next/router";
 
+import { useAuth } from "../../../auth/useAuth";
+
 import DashboardBar from "../../../components/DashboardBar";
 import CartTicket from "../../../components/CartTicket";
 import Loader from "../../../components/loader/loader";
@@ -12,6 +14,7 @@ const Tickets = () => {
   const [tickets, setTickets] = useState([]);
 
   const router = useRouter();
+  const { user } = useAuth();
 
   useEffect(() => {
     let temp = localStorage.getItem("tickets");
