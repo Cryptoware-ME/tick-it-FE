@@ -5,6 +5,7 @@ import FundsCard from "../../../components/FundsCard";
 import DashboardBar from "../../../components/DashboardBar";
 import { getWalletsByUser } from "../../../axios/wallets.axios";
 import { useAuth } from "../../../auth/useAuth";
+import { useRouter } from "next/router";
 
 import styles from "./Funds.module.scss";
 
@@ -12,6 +13,7 @@ const Funds = () => {
   const [walletsList, setWalletsList] = useState([]);
 
   const { user } = useAuth();
+  const router = useRouter();
 
   const getWallets = async () => {
     getWalletsByUser(
@@ -26,6 +28,8 @@ const Funds = () => {
   useEffect(() => {
     if (user?.id) {
       getWallets();
+    } else {
+      router.push("/");
     }
   }, [user]);
 

@@ -1,14 +1,17 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { Container, Col, Row } from "react-bootstrap";
+import { useRouter } from "next/router";
+
 import { useAuth } from "../../../auth/useAuth";
 import { updateUser, getUsers } from "../../../axios/user.axios";
+
 import DashboardBar from "../../../components/DashboardBar";
 import TickitButton from "../../../components/tickitButton";
+import ChangePasswordModal from "../../../components/ChangePasswordModal";
 import Switch from "../../../components/Switch";
 
 import styles from "./Settings.module.scss";
-import ChangePasswordModal from "../../../components/ChangePasswordModal";
 
 const Settings = () => {
   const { user, setUser } = useAuth();
@@ -24,6 +27,14 @@ const Settings = () => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/");
+    }
+  }, [user]);
 
   return (
     <>
@@ -41,6 +52,15 @@ const Settings = () => {
               <div className="cardWrapper">
                 <div className={styles.sectionContent}>
                   <p className="section-title">Account Settings</p>
+                  <Row className={styles.settingRow}>
+                    <Col md={4} className={styles.settingCol}>
+                      <p className={styles.settingCategory}>Email</p>
+                    </Col>
+                    <Col md={4} className={styles.settingCol}>
+                      <p className={styles.settingValue}>{user?.email}</p>
+                    </Col>
+                    <Col md={4} className={styles.settingCol}></Col>
+                  </Row>
                   <Row className={styles.settingRow}>
                     <Col md={4} className={styles.settingCol}>
                       <p className={styles.settingCategory}>Username</p>
@@ -80,6 +100,7 @@ const Settings = () => {
                     <Col md={4} className={styles.settingCol}>
                       {!userNameEdit && (
                         <TickitButton
+                          isSmall
                           text="Edit"
                           onClick={() => {
                             setUserNameEdit(true);
@@ -89,9 +110,10 @@ const Settings = () => {
 
                       {userNameEdit && (
                         <TickitButton
+                          isSmall
                           text="Save"
                           style2={true}
-                          disabled={!userName}
+                          disabled={!userName || userName == user?.username}
                           onClick={() => {
                             getUsers(
                               JSON.stringify({ where: { username: userName } })
@@ -113,77 +135,7 @@ const Settings = () => {
                       )}
                     </Col>
                   </Row>
-                  <Row className={styles.settingRow}>
-                    <Col md={4} className={styles.settingCol}>
-                      <p className={styles.settingCategory}>Email</p>
-                    </Col>
-                    <Col md={4} className={styles.settingCol}>
-                      {!emailEdit && (
-                        <p className={styles.settingValue}>{user?.email}</p>
-                      )}
-                      {emailEdit && (
-                        <input
-                          type="text"
-                          defaultValue={user?.email}
-                          placeholder="Enter Email"
-                          onChange={(e) => {
-                            setEmail(e.target.value);
-                          }}
-                          required
-                          className={styles.inputBar}
-                        />
-                      )}
-                      <div
-                        style={{
-                          minHeight: "20px",
-                          display: "flex",
-                          justifyContent: "center",
-                        }}
-                      >
-                        {emailError && (
-                          <div className={styles.errors}>
-                            <p className={styles.error}>
-                              Email is already in use
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                    </Col>
-                    <Col md={4} className={styles.settingCol}>
-                      {/* {!emailEdit && (
-                        <TickitButton
-                          text="Edit"
-                          onClick={() => {
-                            setEmailEdit(true);
-                          }}
-                        />
-                      )}
-                      {emailEdit && (
-                        <TickitButton
-                          text="Save"
-                          style2={true}
-                          disabled={!email}
-                          onClick={() => {
-                            getUsers(
-                              JSON.stringify({ where: { email: email } })
-                            ).then((user) => {
-                              if (user.data.length > 0) {
-                                setEmailError(true);
-                              } else {
-                                setEmailError(false);
-                                updateUser({
-                                  email: email,
-                                }).then((data) => {
-                                  setUser(data)
-                                  setEmailEdit(false);
-                                });
-                              }
-                            });
-                          }}
-                        />
-                      )} */}
-                    </Col>
-                  </Row>
+
                   <Row className={styles.settingRow}>
                     <Col md={4} className={styles.settingCol}>
                       <p className={styles.settingCategory}>Phone Number</p>
@@ -211,6 +163,7 @@ const Settings = () => {
                     <Col md={4} className={styles.settingCol}>
                       {!mobileEdit && (
                         <TickitButton
+                          isSmall
                           text="Edit"
                           onClick={() => {
                             setMobileEdit(true);
@@ -220,8 +173,11 @@ const Settings = () => {
                       {mobileEdit && (
                         <TickitButton
                           text="Save"
+                          isSmall
                           style2={true}
-                          disabled={!phoneNumber}
+                          disabled={
+                            !phoneNumber || phoneNumber == user?.phoneNumber
+                          }
                           onClick={() => {
                             updateUser({
                               phoneNumber: phoneNumber,
@@ -301,7 +257,7 @@ const Settings = () => {
                       }}
                       className={styles.settingLink}
                     >
-                      Password
+                      Change Password
                     </div>
                     <Link href="#" className={styles.settingLink}>
                       2FA
