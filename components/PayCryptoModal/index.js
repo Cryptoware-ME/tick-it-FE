@@ -46,7 +46,9 @@ const PayCrypto = ({
     Object.keys(parsedData).map((key) => {
       const transaction = parsedData[key];
 
+
       mint(key, [account, [], transaction.tickets], {
+
         value: transaction.total,
         gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
         gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
