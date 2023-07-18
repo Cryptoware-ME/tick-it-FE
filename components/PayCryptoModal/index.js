@@ -3,12 +3,11 @@ import { Modal, Container, Row, Col } from "react-bootstrap";
 import Image from "next/image";
 
 import { useEthereum } from "@cryptogate/react-providers";
-import { writeContractCall } from "@cryptogate/react-providers";
+import { writeDynamicContractCall } from "@cryptogate/react-providers";
 import { useRouter } from "next/router";
 import { useCartContext } from "../../cart/cart-context";
 
 import NFTix721 from "../../abis/NFTix721.json";
-import { postCustodialMint } from "../../axios/ticket.axios";
 import { getEventTicketType } from "../../axios/eventTicketType.axios";
 
 import TickitButton from "../tickitButton";
@@ -37,10 +36,8 @@ const PayCrypto = ({
   const {
     send: mint,
     state: mintState,
-    events: mintEvent,
     resetState: mintEventState,
-  } = writeContractCall({
-    address: cartItemData[0]?.event.contractAddress,
+  } = writeDynamicContractCall({
     abi: NFTix721.abi,
     method: "mint",
   });
@@ -49,7 +46,7 @@ const PayCrypto = ({
     Object.keys(parsedData).map((key) => {
       const transaction = parsedData[key];
 
-      mint([account, [], transaction.tickets], {
+      mint(key, [account, [], transaction.tickets], {
         value: transaction.total,
         gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
         gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
