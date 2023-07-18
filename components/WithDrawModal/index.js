@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
-import styles from "./WithDrawModal.module.scss";
+import React from "react";
 import { Modal, Container } from "react-bootstrap";
-import Image from "next/image";
+
 import TickitButton from "../tickitButton";
+
+import styles from "./WithDrawModal.module.scss";
+
 const WithDrawModal = ({ setWithDrawModal }) => {
   return (
     <Modal show onHide={() => {}} centered>

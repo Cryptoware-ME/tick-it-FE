@@ -1,18 +1,19 @@
 import Slider from "../components/Slider";
 import EventCard from "../components/EventCard";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import ExploreEvents from "../components/ExploreEvents";
 import React, { useEffect, useState } from "react";
 import { getEvents } from "../axios/event.axios";
-import { useAuth } from "../auth/useAuth";
 
 export default function Home() {
   const [allEvents, setAllEvents] = useState();
-  const { user } = useAuth();
 
   const Events = async () => {
     let events = await getEvents(
-      JSON.stringify({ relations: ["organization"] })
+      JSON.stringify({
+        relations: ["organization"],
+        where: { isPublished: true },
+      })
     );
     setAllEvents(events?.data);
   };
@@ -26,7 +27,7 @@ export default function Home() {
       <Slider events={allEvents} />
       <Container style={{ paddingBottom: "65px" }}>
         {allEvents && (
-          <Row style={{ marginTop: "65px" }}>
+          <Col style={{ marginTop: "65px" }}>
             <p className="section-title">Hot Events</p>
             <Row
               style={{
@@ -35,16 +36,15 @@ export default function Home() {
                 justifyContent: "space-around",
               }}
             >
-              {allEvents.slice(0, 4)
-                .map((event, index) => (
-                  <EventCard key={index} eventData={event} />
-                ))}
+              {allEvents.slice(0, 4).map((event, index) => (
+                <EventCard key={index} eventData={event} />
+              ))}
             </Row>
-          </Row>
+          </Col>
         )}
-        <Row id="explore" style={{ marginTop: "65px" }}>
+        <Col id="explore" style={{ marginTop: "65px" }}>
           <ExploreEvents events={allEvents} />
-        </Row>
+        </Col>
       </Container>
     </main>
   );

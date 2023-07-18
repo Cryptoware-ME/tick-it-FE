@@ -10,11 +10,19 @@ export const getEventTicketType = async (filter) => {
 };
 
 export const postEventTicketType = async (payload) => {
-  const data = await instance.post(`/eventTicketTypes`, payload);
+  const data = await instance.post(`/eventTicketTypes`, payload , {
+    headers: {
+      Authorization: localStorage.getItem("token")
+    }
+  });
   return data;
 };
 
 export const postEventTicketTypeBatch = async (payload) => {
-  const data = await instance.post(`/eventTicketTypes/batch`, payload);
+  const data = await instance.post(`/eventTicketTypes/batch`, payload, {
+    headers: {
+      Authorization: localStorage.getItem("token")
+    }
+  });
   return data;
 };

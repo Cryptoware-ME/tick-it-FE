@@ -1,61 +1,75 @@
-import React, { useEffect, useState } from "react";
-import styles from "./Explore.module.scss";
-import { Container, Col, Row } from "react-bootstrap";
-import SideBar from "../../components/SideBar";
-import EventCard from "../../components/EventCard";
-import TickitButton from "../../components/tickitButton";
-import { getEvents } from "../../axios/event.axios";
+import React, { useEffect, useState } from 'react'
+import { Container, Col, Row } from 'react-bootstrap'
+import { getEvents, getEventsFiltered } from '../../axios/event.axios'
+
+import SideBar from '../../components/SideBar'
+import EventCard from '../../components/EventCard'
+import PagePagination from '../../components/pagination'
+
+import styles from './Explore.module.scss'
 
 const Explore = () => {
-  
-  const [filteredEvents, setFilteredEvents] = useState();
-  
 
-  const Events = async () => {
-    let events = await getEvents(
-      JSON.stringify({ relations: ["organization"] })
-    );
-    setFilteredEvents(events?.data);
-  };
+  // States
+  const [filteredEvents, setFilteredEvents] = useState()
+  const [skip, setSkip] = useState(0)
+
+  // Consts
+  const take = 12
+
+  // Functions
+  const eventsFiltered = async(categoryIds, location, from, to, search) => {
+    let eventsFiltered = await getEventsFiltered(
+      categoryIds, location, from, to, search
+    ).then((data) => {setFilteredEvents(data?.data)})
+  }
+
+  // Use Effects
   useEffect(() => {
-    Events();
-  }, []);
-
-
+    eventsFiltered();
+  }, [])
+  
 
   return (
     <Container fluid className={styles.exploreWrapper}>
       <Row>
-        <Col lg={2} style={{ paddingRight: "0px" }}>
-          <SideBar />
+        <Col lg={2} style={{ paddingRight: '0px' }}>
+          <SideBar
+            eventsFiltered={eventsFiltered}
+          />
         </Col>
         <Col lg={10}>
           <Container>
-            <p style={{ margin: "30px 0px" }} className="pageTitle">
-              Explore
-            </p>
+            <div className={styles.titleDiv}>
+              <p className="pageTitle">Explore</p>
+            </div>
             {filteredEvents && (
               <Row>
-                {filteredEvents?.map((event, index) => (
-                  <EventCard key={index} eventData={event} />
-                ))}
+                {filteredEvents
+                  ?.slice(skip, skip + take)
+                  .map((event, index) => (
+                    <EventCard key={index} eventData={event} />
+                  ))}
               </Row>
             )}
             <Row
               style={{
-                display: "flex",
-                justifyContent: "center",
-                margin: "48px 0px",
+                display: 'flex',
+                justifyContent: 'center',
+                margin: '48px 0px',
               }}
-            > {filteredEvents?.length > 9 &&
-              <TickitButton text="Load More" />
-              }
+            >
+              <PagePagination
+                data={filteredEvents}
+                setSkip={setSkip}
+                take={take}
+              />
             </Row>
           </Container>
         </Col>
       </Row>
     </Container>
-  );
-};
+  )
+}
 
-export default Explore;
+export default Explore

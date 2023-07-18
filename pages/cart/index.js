@@ -1,15 +1,20 @@
-import React from "react";
-import styles from "./Cart.module.scss";
+import React, { useEffect } from "react";
 import { Container, Col, Row } from "react-bootstrap";
+
 import CartTicket from "../../components/CartTicket";
 import CheckOutCard from "../../components/CheckOutCard";
 import { useCartContext } from "../../cart/cart-context";
 import { getEventTicketType } from "../../axios/eventTicketType.axios";
 
+import styles from "./Cart.module.scss";
 const Cart = () => {
-  const { cartItems, setCartTotal } = useCartContext();
+  // Use States
   const [cartItemsData, setCartItemsData] = React.useState([]);
 
+  // Hooks
+  const { cartItems, setCartTotal } = useCartContext();
+
+  // Functions
   const getTickets = React.useCallback(async () => {
     getEventTicketType(
       JSON.stringify({
@@ -23,11 +28,12 @@ const Cart = () => {
     });
   }, [cartItems]);
 
-  React.useEffect(() => {
+  // Use Effects
+  useEffect(() => {
     if (cartItems && cartItems.length) getTickets();
   }, [cartItems]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (cartItemsData && cartItemsData.length) {
       const total = cartItems.reduce((accumulator, currentValue) => {
         const data = cartItemsData.filter(
@@ -56,9 +62,7 @@ const Cart = () => {
             ))}
           </Col>
           <Col lg={4}>
-
-            <CheckOutCard cartItemData={cartItemsData}/>
-
+            <CheckOutCard cartItemData={cartItemsData} />
           </Col>
         </Row>
       </Container>

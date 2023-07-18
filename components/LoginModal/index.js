@@ -1,63 +1,44 @@
-import React, { useEffect, useState } from "react";
-import styles from "./LoginModal.module.scss";
+import Link from "next/link";
+import { Modal, Container, Form } from "react-bootstrap";
+import { useRouter } from "next/router";
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { Col, Row, Modal, Container, Alert, Form } from "react-bootstrap";
-import Link from "next/link";
-import { useAuthModalContext } from "../../context/AuthModalProvider";
-import TickitButton from "../tickitButton";
-import Image from "next/image";
-import { signIn, useSession } from "next-auth/react";
+
 import { login, signup } from "../../axios/auth.axios";
 import { useAuth } from "../../auth/useAuth";
 import { getUsers } from "../../axios/user.axios";
+import { useAuthModalContext } from "../../context/AuthModalProvider";
+import Cookies from "js-cookie";
+import { validate } from "../../axios/auth.axios";
+
+import TickitButton from "../tickitButton";
+
+import styles from "./LoginModal.module.scss";
 
 const LoginModal = () => {
-  const { logIn, user } = useAuth();
-  const { modalOpen, setModalOpen } = useAuthModalContext();
+  // States
   const [loginUser, setLoginUser] = useState("");
-  const { data: session } = useSession();
-  const [userEmail, setUserEmail] = useState();
-  const [googleUser, setGoogleUser] = useState();
+  const [loginError, setLoginError] = useState(false);
 
-  useEffect(() => {
-    if (session?.user) {
-      setUserEmail(session.user.email);
-      setGoogleUser(session.user.name);
+  // Hooks
+  const { logIn, user, setUser } = useAuth();
+  const { modalOpen, setModalOpen } = useAuthModalContext();
+  const router = useRouter();
+
+  // Functions
+  const restoreUser = async () => {
+    const response = await validate("Bearer " + Cookies.get("token"));
+    if (response) {
+      setUser(response);
+      Cookies.remove("token");
     }
-  }, [session]);
-
-  const handleSignIn = () => {
-    signIn("google");
   };
-  useEffect(() => {
-    if (userEmail && googleUser) {
-      handleGoogleLogIn();
-    }
-  }, [userEmail && googleUser]);
 
-  const handleGoogleLogIn = async () => {
-    let response = await getUsers(
-      JSON.stringify({ where: { email: userEmail } })
-    );
-    if (response?.data.length > 0) {
-      const loginRes = await login({
-        username: userEmail,
-        password: "password123",
-      });
-      logIn(loginRes);
-      if (loginRes) {
-        setModalOpen(false);
-      }
-    } else {
-      const response = await signup({
-        email: userEmail,
-        username: googleUser,
-        password: "password123",
-      });
-      localStorage.setItem("token", "bearer " + response.token);
-      setModalOpen(false);
-    }
+  const redirect = async () => {
+    router.push(`${process.env.NEXT_PUBLIC_API_HOST}/auth/oAuth`);
   };
 
   const schema = yup.object().shape({
@@ -139,14 +120,22 @@ const LoginModal = () => {
       isSignup: false,
     },
     validationSchema: schema,
-    onSubmit: async (values) => {
-      const loginRes = await login({
-        username: loginUser,
-        password: values.password,
-      });
-      logIn(loginRes);
-      if (loginRes) {
-        setModalOpen(false);
+    onSubmit: async (values, { resetForm }) => {
+      setLoginError(false);
+
+      try {
+        let loginRes = await login({
+          username: loginUser,
+          password: values.password,
+        });
+        logIn(loginRes);
+        if (loginRes) {
+          setModalOpen(false);
+          resetForm();
+          setLoginUser("");
+        }
+      } catch (e) {
+        setLoginError(true);
       }
     },
   });
@@ -167,16 +156,23 @@ const LoginModal = () => {
     setValues,
   } = formik;
 
+  useEffect(() => {
+    values.isSignup = false;
+    if (Cookies.get("token")) {
+      localStorage.setItem("token", "Bearer " + Cookies.get("token"));
+      restoreUser();
+    }
+  }, []);
+
   return (
     <>
-      {modalOpen ? (
-        <Modal show onHide={() => {}} centered className={styles.wrapper}>
+      {modalOpen && (
+        <Modal show centered>
           <Modal.Header
             onClick={() => {
+              setModalOpen(false);
               if (!user) {
-                setModalOpen(false);
-              } else {
-                setModalOpen(false);
+                router.push("/");
               }
             }}
             className={styles.closeButton}
@@ -300,13 +296,25 @@ const LoginModal = () => {
                       });
                       logIn(response);
                       if (response) {
+                        values.confirmpassword = null;
+                        values.password = null;
+                        values.email = null;
+                        values.username = null;
+                        values.isSignup = false;
                         setModalOpen(false);
                       }
                     }}
+                    disabled={
+                      values.email == null ||
+                      values.password == null ||
+                      values.username == null ||
+                      values.confirmpassword == null ||
+                      values.password != values.confirmpassword
+                    }
                   />
                 </div>
                 <div className={styles.googleLoginDiv}>
-                  {/* <div onClick={handleSignIn} className={styles.googleLogin}>
+                  <div onClick={redirect} className={styles.googleLogin}>
                     <Image
                       width={26}
                       height={26}
@@ -315,7 +323,7 @@ const LoginModal = () => {
                       src="/images/googleicon.svg"
                     />
                     <p className={styles.googleinput}>Log In with Google</p>
-                  </div> */}
+                  </div>
                   <div className={styles.signupdiv}>
                     <p className={styles.signup}>If you have an account,</p>
                     <div
@@ -393,9 +401,24 @@ const LoginModal = () => {
                   <div className={styles.inputDiv}>
                     <TickitButton text="Log In" onClick={handleSubmit} />
                   </div>
+                  <div
+                    style={{
+                      minHeight: "20px",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {loginError ? (
+                      <div style={{ width: "100%", textAlign: "center" }}>
+                        <p className={styles.error}>
+                          Wrong username or password
+                        </p>
+                      </div>
+                    ) : null}
+                  </div>
 
                   <div className={styles.googleLoginDiv}>
-                    {/* <div onClick={handleSignIn} className={styles.googleLogin}>
+                    <div onClick={redirect} className={styles.googleLogin}>
                       <Image
                         width={26}
                         height={26}
@@ -404,7 +427,7 @@ const LoginModal = () => {
                         src="/images/googleicon.svg"
                       />
                       <p className={styles.googleinput}>Log In with Google</p>
-                    </div> */}
+                    </div>
 
                     <div className={styles.signupdiv}>
                       <p className={styles.signup}>
@@ -425,8 +448,6 @@ const LoginModal = () => {
             )}
           </Modal.Body>
         </Modal>
-      ) : (
-        <></>
       )}
     </>
   );

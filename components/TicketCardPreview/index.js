@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
-import styles from "./TicketCardPreview.module.scss";
-import { Col, Row } from "react-bootstrap";
+import React from "react";
+import { Col } from "react-bootstrap";
 import Image from "next/image";
+
 import EventDetails from "../EventDetails";
 
-const TicketCardPreview = ({ticket, handleRemoveTicket }) => {
+import styles from "./TicketCardPreview.module.scss";
+
+const TicketCardPreview = ({ ticket, handleRemoveTicket }) => {
   return (
     <>
       <Col xl={12} style={{ padding: "10px" }}>
@@ -56,7 +58,7 @@ const TicketCardPreview = ({ticket, handleRemoveTicket }) => {
               >
                 <h1 className={styles.priceCurrency}>ETH </h1>
                 <h1 style={{ marginLeft: "5px" }} className={styles.cardPrice}>
-                {ticket?.price}
+                  {ticket?.price}
                 </h1>
               </div>
             </div>

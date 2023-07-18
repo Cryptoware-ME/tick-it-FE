@@ -5,12 +5,11 @@
   background-repeat: no-repeat;
 }
 .cardContainer {
-  height: 100%;
   min-height: 350px;
   width: 100%;
-  text-decoration: none;
   border-radius: 20px;
   overflow: hidden;
+  background-color: black;
 }
 
 .cardGradient {
@@ -23,21 +22,22 @@
 
   pointer-events: none;
   position: absolute;
-  width: 99.5%;
+  width: calc(100% - 2px);
+  left: 1px;
   bottom: 1px;
-  height: 100%;
-  z-index: 2;
+  height: calc(100% - 2px);
+  // z-index: 2;
   border-radius: 20px;
 }
 .cardImage {
   width: 100%;
-  height: auto;
+  min-height: 100%;
   max-height: 215px;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
   object-fit: cover;
   position: relative;
-  z-index: 1;
+  // z-index: 1;
   transition: all ease-in-out 0.7s;
   transform-origin: bottom;
   transform: scale(1);

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import styles from "./RecipientsModal.module.scss";
+import React from "react";
 import { Modal, Container } from "react-bootstrap";
-
 import Image from "next/image";
+
+import styles from "./RecipientsModal.module.scss";
 
 const RecipientsModal = ({ setRecipientsModal }) => {
   return (

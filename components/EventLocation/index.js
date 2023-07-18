@@ -1,4 +1,5 @@
 import React from "react";
+
 import styles from "./EventLocation.module.scss";
 
 const EventLocation = ({ location, fontSize = "16px" }) => {

@@ -1,25 +1,101 @@
-import React, { useEffect, useState } from "react";
-import styles from "./EditTicket.module.scss";
-import { Modal, Container, Row, Col } from "react-bootstrap";
-import Dropzone from "../../components/Dropzone";
+import React, { useState, useEffect } from "react";
+import { Modal, Container, Row, Col, Form } from "react-bootstrap";
+
 import { useFormik } from "formik";
 import * as yup from "yup";
+
+import { use721 } from "../../hooks/use721";
+import { postEventTicketTypeBatch } from "../../axios/eventTicketType.axios";
+
+import Dropzone from "../../components/Dropzone";
 import TickitButton from "../tickitButton";
 
-const EditTicket = ({ setEditTicket }) => {
+import styles from "./EditTicket.module.scss";
+
+const EditTicketModal = ({
+  setEditTicket,
+  ticketDetails,
+  allTickets,
+  setRefetchEvent,
+  contractAddress,
+}) => {
   const [imageError, setImageError] = useState(false);
-  const [filePreview, setFilePreview] = useState();
+  const [filePreview, setFilePreview] = useState(ticketDetails?.image);
+  const [nameError, setNameError] = useState(false);
+  const [image, setImage] = useState(ticketDetails?.image);
+  const [loading, setLoading] = useState(false);
+
+  const {
+    editTicketPrice,
+    editTicketPriceState,
+    editTicketPriceEvents,
+    resetEditTicketPrice,
+  } = use721({ contractAddress });
+
+  const editTicket = () => {
+    let ticketTypeId = ticketDetails?.ticketTypeId;
+
+    editTicketPrice([ticketTypeId, values.price * 10 ** 18], {
+      gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
+      gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
+    });
+  };
+
+  const launchRes = async () => {
+    let ticketsData = {
+      eventId: allTickets[0].eventId,
+      id: ticketDetails?.id,
+      name: values.name,
+      price: values.price * 10 ** 18,
+      description: values.description,
+      image: image,
+    };
+    postEventTicketTypeBatch(ticketsData).then(() => {
+      setEditTicket(false);
+      setLoading(false);
+      setRefetchEvent(Date.now());
+    });
+  };
+
   const schema = yup.object().shape({
-    Description: yup.string().required("This field is required"),
-    Date: yup.date().required("Date is required"),
+    name: yup.string().required(),
+    price: yup
+      .number()
+      .required()
+      .test(
+        "Is positive?",
+        "ERROR: The number must be greater than 0!",
+        (value) => value > 0
+      ),
+    description: yup.string().required(),
   });
   const formik = useFormik({
     initialValues: {
-      Description: "",
-      Date: "",
+      name: ticketDetails?.name,
+      price: ticketDetails?.price / 10 ** 18,
+      description: ticketDetails?.description,
+      image: ticketDetails?.image,
     },
     validationSchema: schema,
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      if (image) {
+        setImageError(false);
+        values.image = image;
+        let found = allTickets.find(
+          (ticket) =>
+            ticket?.name?.toLowerCase() == values?.name?.toLowerCase() &&
+            ticket.ticketTypeId != ticketDetails?.ticketTypeId
+        );
+        if (found) {
+          setNameError(true);
+        } else {
+          setNameError(false);
+          editTicket();
+        }
+      } else {
+        setImageError(true);
+      }
+    },
   });
   const {
     handleSubmit,
@@ -36,129 +112,139 @@ const EditTicket = ({ setEditTicket }) => {
     status,
     setValues,
   } = formik;
+
+  useEffect(() => {
+    if (
+      editTicketPriceState.status == "PendingSignature" ||
+      editTicketPriceState.status == "Mining"
+    ) {
+      setLoading(true);
+    }
+    if (editTicketPriceState.status == "Success") launchRes();
+  }, [editTicketPriceState]);
+
   return (
-    <Modal show onHide={() => {}} centered>
-      <Modal.Header
-        onClick={() => {
-          setEditTicket(false);
-        }}
-        className={styles.closeButton}
-        closeButton
-      />
+    <Form>
+      <Modal show onHide={() => {}} centered>
+        <Modal.Header
+          onClick={() => {
+            setEditTicket(false);
+          }}
+          className={styles.closeButton}
+          closeButton
+        />
 
-      <Modal.Body>
-        <Container>
-          <p className={styles.title}>Edit Ticket</p>
+        <Modal.Body>
+          <Container>
+            <p className={styles.title}>Edit Ticket</p>
 
-          <Row>
-            <Col md={4}>
-              <div className={styles.drop}>
-                <Dropzone
-                  filePreview={filePreview}
-                  setFilePreview={setFilePreview}
-                  text="Image (max 1MB)"
-                />
-                {imageError ? (
-                  <div className={styles.errors}>
-                    <p className={styles.error}> Image is required field</p>
+            <Row>
+              <Col md={4}>
+                <div
+                  className={styles.drop}
+                  style={{ display: "flex", flexDirection: "column" }}
+                >
+                  <Dropzone
+                    filePreview={filePreview}
+                    setFilePreview={setFilePreview}
+                    setImage={setImage}
+                    text="Image (max 1MB)"
+                  />
+                  <div style={{ height: "20px" }}>
+                    {imageError ? (
+                      <div className={styles.errors}>
+                        <p className={styles.error2}>Image is required field</p>
+                      </div>
+                    ) : null}
                   </div>
-                ) : null}
-              </div>
-            </Col>
-            <Col md={8}>
+                </div>
+              </Col>
+              <Col md={8}>
+                <div className={styles.InputDiv}>
+                  <p className={styles.detailsTitle}>Ticket title</p>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.name}
+                    className="modalInput"
+                    style={{ color: "#656565" }}
+                  />
+                </div>
+                <div style={{ minHeight: "20px" }}>
+                  {errors.name && touched.name ? (
+                    <div className={styles.errors}>
+                      <p className={styles.error2}> {errors.name}</p>
+                    </div>
+                  ) : null}
+                  {nameError && (
+                    <div className={styles.errors}>
+                      <p className={styles.error2}>
+                        You already have a ticket with this name
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                <div className={styles.InputDiv}>
+                  <p className={styles.detailsTitle}>Set price (ETH)</p>
+                  <input
+                    id="price"
+                    name="price"
+                    type="number"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.price}
+                    className="modalInput"
+                    style={{ color: "#656565" }}
+                  />
+                </div>
+                <div style={{ minHeight: "20px" }}>
+                  {errors.price && touched.price ? (
+                    <div className={styles.errors}>
+                      <p className={styles.error2}> {errors.price}</p>
+                    </div>
+                  ) : null}
+                </div>
+              </Col>
+            </Row>
+
+            <Row className={styles.holderInput}>
               <div className={styles.InputDiv}>
-                <p className={styles.detailsTitle}>Ticket title</p>
-                <input
-                  id="Description"
-                  name="Description"
+                <p className={styles.detailsTitle}>Description</p>
+                <textarea
+                  id="description"
+                  name="description"
                   type="text"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.Description}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.description}
                   className="modalInput"
                   style={{ color: "#656565" }}
                 />
               </div>
               <div style={{ minHeight: "20px" }}>
-                {errors.Description && touched.Description ? (
+                {errors.description && touched.description ? (
                   <div className={styles.errors}>
-                    <p className={styles.error2}> {errors.Description}</p>
+                    <p className={styles.error2}> {errors.description}</p>
                   </div>
                 ) : null}
               </div>
-
-              <div className={styles.InputDiv}>
-                <p className={styles.detailsTitle}>Number of tickets</p>
-                <input
-                  id="Description"
-                  name="Description"
-                  type="Description"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.Description}
-                  className="modalInput"
-                  style={{ color: "#656565" }}
-                />
-              </div>
-              <div style={{ minHeight: "20px" }}>
-                {errors.Description && touched.Description ? (
-                  <div className={styles.errors}>
-                    <p className={styles.error2}> {errors.Description}</p>
-                  </div>
-                ) : null}
-              </div>
-
-              <div className={styles.InputDiv}>
-                <p className={styles.detailsTitle}>Set price (USD)</p>
-                <input
-                  id="Description"
-                  name="Description"
-                  type="Description"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.Description}
-                  className="modalInput"
-                  style={{ color: "#656565" }}
-                />
-              </div>
-              <div style={{ minHeight: "20px" }}>
-                {errors.Description && touched.Description ? (
-                  <div className={styles.errors}>
-                    <p className={styles.error2}> {errors.Description}</p>
-                  </div>
-                ) : null}
-              </div>
-            </Col>
-          </Row>
-
-          <Row className={styles.holderInput}>
-            <div className={styles.InputDiv}>
-              <p className={styles.detailsTitle}>Description</p>
-              <textarea
-                id="Description"
-                name="Description"
-                type="Description"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.Description}
-                className="modalInput"
-                style={{ color: "#656565" }}
+            </Row>
+            <div className={styles.buttonAdd}>
+              <TickitButton
+                isLoading={loading}
+                disabled={loading}
+                onClick={handleSubmit}
+                text="Edit TICKET"
               />
             </div>
-            <div style={{ minHeight: "20px" }}>
-              {errors.Description && touched.Description ? (
-                <div className={styles.errors}>
-                  <p className={styles.error2}> {errors.Description}</p>
-                </div>
-              ) : null}
-            </div>
-          </Row>
-          <div className={styles.buttonAdd}>
-            <TickitButton style1 text="Edit TICKET" />
-          </div>
-        </Container>
-      </Modal.Body>
-    </Modal>
+          </Container>
+        </Modal.Body>
+      </Modal>
+    </Form>
   );
 };
-export default EditTicket;
+export default EditTicketModal;

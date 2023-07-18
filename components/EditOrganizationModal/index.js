@@ -1,7 +1,8 @@
-import { Container, Col, Row, Modal } from "react-bootstrap";
-import styles from "./EditOrganizationModal.module.scss";
-import Dropdown from "react-bootstrap/Dropdown";
+import { Container, Modal } from "react-bootstrap";
+
 import TickitButton from "../tickitButton";
+
+import styles from "./EditOrganizationModal.module.scss";
 
 const EditOrganizationModal = ({ setEditOrganizationModal }) => {
   return (

@@ -1,15 +1,19 @@
-import styles from "./Slider.module.scss";
-import { Autoplay } from "swiper";
+import { useRouter } from "next/router";
 import { Container, Row } from "react-bootstrap";
-import TickitButton from "../tickitButton";
+
 import { EffectFade, Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper";
 import "swiper/scss";
 import "swiper/scss/navigation";
 import "swiper/scss/pagination";
 import "swiper/scss/scrollbar";
 import "swiper/scss/effect-fade";
-import { useRouter } from "next/router";
+
+import TickitButton from "../tickitButton";
+
+import styles from "./Slider.module.scss";
+
 export default function Slider({ events }) {
   const router = useRouter();
   if (events)
@@ -64,5 +68,6 @@ export default function Slider({ events }) {
           </SwiperSlide>
         ))}
       </Swiper>
-    );else return <div className={styles.wrapper}></div>;
+    );
+  else return <div className={styles.wrapper}></div>;
 }

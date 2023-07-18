@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
-import styles from "./DepositModal.module.scss";
-import { Modal, Container } from "react-bootstrap";
+import React from "react";
 import Image from "next/image";
+import { Modal, Container } from "react-bootstrap";
+
 import TickitButton from "../tickitButton";
+
+import styles from "./DepositModal.module.scss";
 
 const DepositModal = ({ setDepositModal }) => {
   return (

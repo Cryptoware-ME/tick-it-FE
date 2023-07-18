@@ -1,25 +1,32 @@
-import React, { useEffect, useState } from "react";
-import styles from "./OrganizationCard.module.scss";
-import { Col, Row } from "react-bootstrap";
+import React from "react";
+import { Col } from "react-bootstrap";
 import Image from "next/image";
+import Link from "next/link";
 
-const OrganizationCard = () => {
+import styles from "./OrganizationCard.module.scss";
+
+const OrganizationCard = ({ data }) => {
   return (
-    <>
-      <Col lg={3} md={6} className={styles.organizerCard}>
+    <Col lg={3} md={6} className={styles.organizerCard}>
+      <Link
+        href={{
+          pathname: `/organization/${data.id}`,
+        }}
+        style={{ textDecoration: "none" }}
+      >
         <div>
           <Image
             width={512}
             height={512}
             className={styles.cardImage}
             alt="image"
-            src="/images/organization.png"
+            src={data?.profile}
           />
         </div>
-        <p className={styles.organizationName}>Factory People</p>
+        <p className={styles.organizationName}>{data?.name}</p>
         <p className={styles.organizationRole}>Organizer</p>
-      </Col>
-    </>
+      </Link>
+    </Col>
   );
 };
 

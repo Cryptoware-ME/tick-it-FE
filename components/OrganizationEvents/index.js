@@ -1,9 +1,12 @@
 import React from "react";
-import styles from "./OrganizationEvents.module.scss";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import Image from "next/image";
+
 import UpcomingEventsCard from "../UpcomingEventsCard";
-const OrganizationEvents = (state = 1) => {
+
+import styles from "./OrganizationEvents.module.scss";
+
+const OrganizationEvents = () => {
   return (
     <Container fluid className={styles.allEvents}>
       <div className={styles.title}>

@@ -3,6 +3,8 @@
   flex-direction: row;
   border-radius: 20px;
   overflow: hidden;
+  width: 100%;
+  height: fit-content;
   @media (max-width: 991px) {
     flex-direction: column;
   }

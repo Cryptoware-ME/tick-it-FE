@@ -8,15 +8,13 @@
     min-height: 35px;
     height: fit-content;
     background: var(--background);
-   
   }
 }
 .sideBarmenu {
   padding: 0px !important;
   @media (max-width: 991px) {
-    margin-top: 60px;
-   padding: 20px;
-   }
+    padding: 20px;
+  }
 }
 
 .userDetails {
@@ -58,7 +56,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
 }
 .profileImage {
   margin-right: 10px;

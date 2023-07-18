@@ -200,6 +200,10 @@ html {
   line-height: 29px;
   font-family: "DrukWideMedium";
   margin-bottom: 0;
+  @media (max-width: 991px) {
+    font-size: 20px;
+    line-height: 24px;
+  }
 }
 .modalInput {
   width: 100% !important;
@@ -211,11 +215,16 @@ html {
   color: var(--inputText) !important;
   padding: 5px 10px !important;
 }
+.modalInput::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
 .cardWrapper {
   padding: 1px;
   position: relative;
   background: var(--cardWrapper);
   border-radius: 20px;
+  display: flex;
+  justify-content: center;
 }
 .Dropzone_uploadEvent___sxse {
   transform: none !important;
@@ -227,4 +236,34 @@ html {
 }
 .sidebar-col {
   padding: 0 !important;
+}
+.dashboardWrapper {
+  min-height: 100vh;
+  background-color: #0c0c0c;
+}
+.pagination {
+  --bs-pagination-color: var(--disabled1) !important;
+  --bs-pagination-bg: transparent !important;
+  --bs-pagination-border-color: transparent !important;
+  --bs-pagination-hover-color: var(--primary) !important;
+  --bs-pagination-hover-bg: transparent !important;
+  --bs-pagination-hover-border-color: transparent !important;
+  --bs-pagination-focus-color: var(--primary) !important;
+  --bs-pagination-focus-bg: transparent !important;
+  --bs-pagination-focus-box-shadow: none !important;
+  --bs-pagination-active-color: var(--primary) !important;
+  --bs-pagination-active-bg: transparent !important;
+  --bs-pagination-active-border-color: transparent !important;
+  --bs-pagination-disabled-color: var(--disabled1) !important;
+  --bs-pagination-disabled-border-color: none !important;
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  margin-top: 14px !important;
+}
+
+.page-link {
+  font-weight: 700 !important;
+  font-size: 24px !important;
+  line-height: 24px !important;
 }

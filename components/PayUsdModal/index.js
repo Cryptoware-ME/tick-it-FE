@@ -1,40 +1,51 @@
-import React, { useEffect, useState } from "react";
-import styles from "./PayUsd.module.scss";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 import { Modal, Container, Row, Col } from "react-bootstrap";
-import Dropdown from "react-bootstrap/Dropdown";
+
 import { useFormik } from "formik";
 import * as yup from "yup";
-import TickitButton from "../tickitButton";
+
 import { postCustodialMint } from "../../axios/ticket.axios";
-import { useRouter } from "next/router";
-import Loader from "../loader/loader";
 import { useCartContext } from "../../cart/cart-context";
-const PayUsd = ({ setUsdModal, cartItemData, total }) => {
+
+import TickitButton from "../tickitButton";
+
+import styles from "./PayUsd.module.scss";
+
+const PayUsd = ({ setUsdModal, cartItemData, total, parsedData }) => {
+  // States
   const [mintModal, setMintModal] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [disabled, setDisabled] = useState(true);
+
+  // Hooks
   const router = useRouter();
   const { emptyCart } = useCartContext();
+
+  // Functions
+  const custodialWallet = () => {
+    Object.keys(parsedData).map((key) => {
+      const transaction = parsedData[key];
+
+      postCustodialMint({
+        contractAddress: key,
+        ticketTypeCounts: transaction.tickets,
+        proof: "",
+      });
+    });
+
+    setMintModal(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  };
+
+  // Formik
   const schema = yup.object().shape({
     holder: yup.string().required("This field is required"),
     ccv: yup.number().required("This field is required"),
     number: yup.number().required("This field is required"),
     date: yup.date().required("Date is required"),
   });
-
-  const custodialWallet = () => {
-    postCustodialMint({
-      eventId: cartItemData[0].eventId,
-      ticketTypeCounts: [1],
-      proof: "",
-    }).then(() => {
-      setMintModal(true);
-      setTimeout(() => {
-        setLoading(false);
-        setDisabled(false);
-      }, 3000);
-    });
-  };
 
   const formik = useFormik({
     initialValues: {
@@ -242,7 +253,7 @@ const PayUsd = ({ setUsdModal, cartItemData, total }) => {
                 <TickitButton
                   minWidth="100%"
                   style2
-                  disabled={disabled}
+                  disabled={loading}
                   isLoading={loading}
                   text="Back to Home"
                   onClick={() => {

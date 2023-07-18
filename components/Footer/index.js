@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import styles from "./Footer.module.scss";
+import React, { useState } from "react";
 import { Container, Col, Row, Form } from "react-bootstrap";
 import Link from "next/link";
+import { ToastContainer } from "react-toastify";
+
 import {
   faMediumM,
   faTwitter,
@@ -10,7 +11,8 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ToastContainer } from "react-toastify";
+
+import styles from "./Footer.module.scss";
 
 const Footer = () => {
   const [email, setEmail] = useState(null);
@@ -19,6 +21,7 @@ const Footer = () => {
 
   async function addEmail(email) {
     if (email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+      // Add api call to send email to newsletter
       setSubmitted(true);
       setValidMail(true);
     } else {
@@ -26,6 +29,7 @@ const Footer = () => {
       setSubmitted(false);
     }
   }
+
   return (
     <div className={styles.footerWrapper}>
       <ToastContainer
@@ -44,28 +48,28 @@ const Footer = () => {
         <Row>
           <Col lg={9} md={8} sm={7} className={styles.linksWrapper}>
             <Col lg={3} md={4} sm={6} xs={6} className={styles.linksCol}>
-              <Link href="#" className={styles.footerLink}>
+              <Link href="/explore" className={styles.footerLink}>
                 Explore
               </Link>
-              <Link href="#" className={styles.footerLink}>
+              <Link href="/vetting/applications" className={styles.footerLink}>
                 Create Event
               </Link>
-              <Link href="#" className={styles.footerLink}>
+              <Link href="/about-us" className={styles.footerLink}>
                 About
               </Link>
-              <Link href="#" className={styles.footerLink}>
+              {/* <Link href="/support" className={styles.footerLink}>
                 Support
-              </Link>
+              </Link> */}
             </Col>
             <Col lg={3} md={4} sm={6} xs={6} className={styles.linksCol}>
-              <Link href="#" className={styles.footerLink}>
+              <Link href="/terms-and-conditions" className={styles.footerLink}>
                 Terms & Conditions
               </Link>
-              <Link href="#" className={styles.footerLink}>
+              <Link href="/faq" className={styles.footerLink}>
                 FAQ
               </Link>
-              <Link href="#" className={styles.footerLink}>
-                Privacy
+              <Link href="/privacy-policy" className={styles.footerLink}>
+                Privacy Policy
               </Link>
             </Col>
           </Col>
@@ -79,7 +83,7 @@ const Footer = () => {
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
-                  className="modalInput"
+                  className={styles.emailInput}
                   placeholder="Email"
                 />
 

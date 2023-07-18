@@ -1,61 +1,94 @@
 import React, { useEffect, useState } from "react";
-import styles from "./AddExtraTicketModal.module.scss";
 import { Modal, Container, Row, Col, Form } from "react-bootstrap";
-import Dropzone from "../Dropzone";
+
 import { useFormik } from "formik";
 import * as yup from "yup";
-import TickitButton from "../tickitButton";
-import { writeContractCall } from "@cryptogate/react-providers";
-import NFTix721 from '../../abis/NFTix721.json'
-import { postEventTicketType } from '../../axios/eventTicketType.axios'
 
-const AddExtraTicket = ({ setAddTicket, setTickets, tickets, contractAddress }) => {
+import { postEventTicketTypeBatch } from "../../axios/eventTicketType.axios";
+import { use721 } from "../../hooks/use721";
+
+import Dropzone from "../Dropzone";
+import TickitButton from "../tickitButton";
+
+import styles from "./AddExtraTicketModal.module.scss";
+
+const AddExtraTicketModal = ({
+  setAddTicket,
+  tickets,
+  contractAddress,
+  setRefetchEvent,
+}) => {
+  // States
   const [imageError, setImageError] = useState(false);
   const [nameError, setNameError] = useState(false);
+  const [ticketSupply, setTicketSupply] = useState();
   const [filePreview, setFilePreview] = useState();
   const [image, setImage] = useState();
+  const [loading, setLoading] = useState(false);
 
-  const addTicketTypes = writeContractCall({
-    address: contractAddress,
-    abi: NFTix721.abi,
-    // contract: "NFTix721",
-    method: "addTicketTypes",
+  // Contract Functions
+  const { addTicket, addTicketState, addTicketEvents, resetAddTicket } = use721(
+    { contractAddress }
+  );
 
-  })
-
+  // Functions
   const addExtraTicket = () => {
     let ticketSupply = 0;
-    for(let i = 0; i < tickets.length; i++){
-      ticketSupply = ticketSupply + tickets[0].supply;
+    for (let i = 0; i < tickets.length; i++) {
+      ticketSupply = ticketSupply + tickets[i].supply;
     }
 
-    addTicketTypes.send([[values.supply+ticketSupply], [values.price]], {
-      gasPrice: "80000000000",
+    addTicket([[values.supply + ticketSupply], [values.price * 10 ** 18]], {
+      gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
       gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
-    })
+    });
 
+    setTicketSupply(values.supply);
+  };
 
-    // setAddTicket(false);
+  const launchRes = async () => {
+    let ticketsData = {
+      eventId: tickets[0].eventId,
+      name: values.name,
+      description: values.description,
+      supply: ticketSupply,
+      price: values.price * 10 ** 18,
+      image: image,
+      ticketTypeId: tickets.length,
+    };
+    postEventTicketTypeBatch(ticketsData).then(() => {
+      setLoading(false);
+      setAddTicket(false);
+      setRefetchEvent(Date.now());
+    });
+  };
 
-    // postEventTicketType({
-    //   eventId: data.id,
-    //   name: tickets[0].name,
-    //   description: tickets[0].description,
-    //   supply: tickets[0].supply,
-    //   price: tickets[0].price,
-    //   image: tickets[0].image
-    // }).then(() => {
-    //   setAddTicket(false);
-    // })
+  // Use Effects
 
-  }
+  useEffect(() => {
+    if (
+      addTicketState.status == "PendingSignature" ||
+      addTicketState.status == "Mining"
+    ) {
+      setLoading(true);
+    }
+    if (addTicketState.status == "Success") launchRes();
+  }, [addTicketState]);
 
   const schema = yup.object().shape({
     name: yup.string().required(),
-    price: yup.number().required(),
+    price: yup
+      .number()
+      .required()
+      .test(
+        "Is positive?",
+        "ERROR: The number must be greater than 0!",
+        (value) => value > 0
+      ),
     supply: yup.number().required(),
     description: yup.string().required(),
   });
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -83,7 +116,7 @@ const AddExtraTicket = ({ setAddTicket, setTickets, tickets, contractAddress }) 
       }
     },
   });
-  
+
   const {
     handleSubmit,
     handleChange,
@@ -231,7 +264,12 @@ const AddExtraTicket = ({ setAddTicket, setTickets, tickets, contractAddress }) 
               </div>
             </Row>
             <div className={styles.buttonAdd}>
-              <TickitButton onClick={handleSubmit} text="ADD TICKET" />
+              <TickitButton
+                onClick={handleSubmit}
+                isLoading={loading}
+                disabled={loading}
+                text="ADD TICKET"
+              />
             </div>
           </Container>
         </Modal.Body>
@@ -239,4 +277,4 @@ const AddExtraTicket = ({ setAddTicket, setTickets, tickets, contractAddress }) 
     </Form>
   );
 };
-export default AddExtraTicket;
+export default AddExtraTicketModal;

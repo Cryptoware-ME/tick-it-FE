@@ -1,85 +1,63 @@
 import React, { useEffect, useState } from "react";
-import styles from "./Tickets.module.scss";
-import { Row, Col } from "react-bootstrap";
+import { Row } from "react-bootstrap";
+
+import { readContractCalls } from "@cryptogate/react-providers";
+import NFTix721 from "../../abis/NFTix721.json";
+
 import TicketCard from "../TicketCard";
 import TickitButton from "../tickitButton";
-import AddExtraTicket from "../AddExtraTicketModal";
-import { getEventTicketType } from "../../axios/eventTicketType.axios";
-import {
-  readContractCall,
-  readContractCalls,
-} from "@cryptogate/react-providers";
-import NFTix721 from "../../abis/NFTix721.json";
-import { postEventTicketTypeBatch } from "../../axios/eventTicketType.axios";
+import AddExtraTicketModal from "../AddExtraTicketModal";
 
-const Tickets = ({ eventId, contractAddress, isOwner }) => {
-  const [eventTickets, setEventTickets] = useState([]);
-  const [addticket, setAddTicket] = useState(false);
+import styles from "./Tickets.module.scss";
+
+const Tickets = ({
+  tickets,
+  contractAddress,
+  isOwner,
+  setRefetchEvent,
+  ended,
+}) => {
+  // States
   const [addTicketModal, setAddTicketModal] = useState(false);
   const [ticketsCallData, setTicketsCallData] = useState([]);
 
-  const ticketType = readContractCalls(ticketsCallData);
+  // Contract Calls
+  const ticketFromContract = readContractCalls(ticketsCallData);
 
-  const setupTicketArray = async () => {
-    let ticketTypesArray = [];
+  // Functions
+  const getTicketsFromContract = async () => {
+    let ticketTypes = [];
 
-    for (let i = 0; i < eventTickets.length; i++) {
+    for (let i = 0; i < tickets.length; i++) {
       const data = {
         address: contractAddress,
         method: "ticketTypes",
         abi: NFTix721.abi,
         args: [i],
       };
-      ticketTypesArray.push(data);
+      ticketTypes.push(data);
     }
-    if (ticketTypesArray.length) {
-      setTicketsCallData(ticketTypesArray);
+
+    if (ticketTypes.length) {
+      setTicketsCallData(ticketTypes);
     }
   };
 
-  const getTickets = async () => {
-    getEventTicketType(
-      JSON.stringify({
-        where: { eventId: eventId },
-      })
-    ).then((data) => {
-      setEventTickets(data.data);
-    });
-  };
-  const handlePause = async (index) => {
-    let tmpEvents = eventTickets;
-
-    tmpEvents[index].isActive = true;
-    postEventTicketTypeBatch(tmpEvents);
-    setEventTickets(tmpEvents);
-  };
-  const handleResume = async (index) => {
-    let tmpEvents = eventTickets;
-
-    tmpEvents[index].isActive = false;
-    postEventTicketTypeBatch(tmpEvents);
-    setEventTickets(tmpEvents);
-  };
-
+  // Use Effects
   useEffect(() => {
-    if (eventId) {
-      getTickets();
+    if (tickets) {
+      getTicketsFromContract();
     }
-  }, [eventId]);
-
-  useEffect(() => {
-    if (eventTickets) {
-      setupTicketArray();
-    }
-  }, [eventTickets]);
+  }, [tickets]);
 
   return (
     <>
       {addTicketModal && (
-        <AddExtraTicket
+        <AddExtraTicketModal
           setAddTicket={setAddTicketModal}
-          tickets={eventTickets}
+          tickets={tickets}
           contractAddress={contractAddress}
+          setRefetchEvent={setRefetchEvent}
         />
       )}
       <div className={styles.launchButton}>
@@ -87,7 +65,7 @@ const Tickets = ({ eventId, contractAddress, isOwner }) => {
           Tickets
         </p>
 
-        {isOwner && (
+        {isOwner && !ended && (
           <TickitButton
             text="ADD TICKET"
             onClick={() => {
@@ -99,14 +77,16 @@ const Tickets = ({ eventId, contractAddress, isOwner }) => {
 
       <Row>
         <div>
-          {eventTickets?.map((ticket, index) => (
+          {tickets?.map((ticket, index) => (
             <TicketCard
               key={index}
               ticket={ticket}
-              ticketFromContract={ticketType[index]}
+              allTickets={tickets}
+              ended={ended}
+              ticketFromContract={ticketFromContract[index]}
               isOwner={isOwner}
-              handlePause={() => handlePause(index)}
-              handleResume={() => handleResume(index)}
+              setRefetchEvent={setRefetchEvent}
+              contractAddress={contractAddress}
             />
           ))}
         </div>

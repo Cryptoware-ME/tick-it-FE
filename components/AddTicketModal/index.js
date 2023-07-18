@@ -1,22 +1,36 @@
-import React, { useEffect, useState } from "react";
-import styles from "./AddTicketModal.module.scss";
+import React, { useState } from "react";
 import { Modal, Container, Row, Col, Form } from "react-bootstrap";
-import Dropzone from "../../components/Dropzone";
+
 import { useFormik } from "formik";
 import * as yup from "yup";
+
+import Dropzone from "../../components/Dropzone";
 import TickitButton from "../tickitButton";
 
-const AddTicket = ({ setAddTicket, setTickets, tickets }) => {
+import styles from "./AddTicketModal.module.scss";
+
+const AddTicketModal = ({ setAddTicketModal, setTickets, tickets }) => {
+  // Use States
   const [imageError, setImageError] = useState(false);
   const [nameError, setNameError] = useState(false);
   const [filePreview, setFilePreview] = useState();
   const [image, setImage] = useState();
+
   const schema = yup.object().shape({
     name: yup.string().required(),
-    price: yup.number().required(),
+    price: yup
+      .number()
+      .required()
+      .test(
+        "Is positive?",
+        "ERROR: The number must be greater than 0!",
+        (value) => value > 0
+      ),
     supply: yup.number().required(),
     description: yup.string().required(),
   });
+
+  // Formik initialization
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -38,7 +52,7 @@ const AddTicket = ({ setAddTicket, setTickets, tickets }) => {
         } else {
           setNameError(false);
           setTickets([...tickets, values]);
-          setAddTicket(false);
+          setAddTicketModal(false);
         }
       } else {
         setImageError(true);
@@ -65,7 +79,7 @@ const AddTicket = ({ setAddTicket, setTickets, tickets }) => {
       <Modal show onHide={() => {}} centered>
         <Modal.Header
           onClick={() => {
-            setAddTicket(false);
+            setAddTicketModal(false);
           }}
           className={styles.closeButton}
           closeButton
@@ -200,4 +214,4 @@ const AddTicket = ({ setAddTicket, setTickets, tickets }) => {
     </Form>
   );
 };
-export default AddTicket;
+export default AddTicketModal;

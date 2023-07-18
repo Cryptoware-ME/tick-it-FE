@@ -1,20 +1,25 @@
-import React, { useEffect, useState } from "react";
-import styles from "./UpcomingEventsCard.module.scss";
-import { Col, Row } from "react-bootstrap";
+import React from "react";
+import { Col } from "react-bootstrap";
 
-const UpcomingEventsCard = ({ columns = 3 }) => {
+import EventDate from "../EventDate";
+
+import styles from "./UpcomingEventsCard.module.scss";
+
+const UpcomingEventsCard = ({ ticket }) => {
   return (
     <>
-      <Col md={columns} className={styles.cardWrapper}>
+      <Col md={3} sm={6} className={styles.cardWrapper}>
         <div
           style={{
-            backgroundImage: `url("/images/photo.png")`,
+            backgroundImage: `url(${ticket?.image})`,
           }}
           className={styles.cardImage}
         >
-          <p className={styles.eventTitle}>House of Pop</p>
-          <p className={styles.eventTime}>31 March 2023 | 8 PM</p>
-          <p className={styles.eventTime}>Grand Factory</p>
+          <div className={styles.cardGradient}>
+            <p className={styles.eventTitle}>{ticket?.name}</p>
+            <EventDate data={ticket?.event?.eventDate} />
+            <p className={styles.eventTime}>{ticket?.event?.name}</p>
+          </div>
         </div>
       </Col>
     </>

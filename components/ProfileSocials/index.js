@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import styles from "./ProfileSocials.module.scss";
+import React from "react";
+import { Row, Col } from "react-bootstrap";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTwitter,
@@ -8,6 +8,8 @@ import {
   faTelegramPlane,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
+
+import styles from "./ProfileSocials.module.scss";
 
 const ProfileSocials = ({
   discord,
