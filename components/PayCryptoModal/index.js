@@ -21,19 +21,19 @@ const PayCrypto = ({
   setCryptoModal,
   cartItemsCount,
   cartTotal,
+  parsedData,
 }) => {
   // States
   const [state, setState] = useState(1);
   const [payWithCustodial, setPayWithCustodial] = useState(false);
-  const [eventId, setEventId] = useState();
-  const [eventTickets, setEventTickets] = useState();
+
   const [loading, setLoading] = useState(false);
 
   // Hooks
   const { account } = useEthereum();
   const router = useRouter();
   const { emptyCart } = useCartContext();
-
+  // Functions
   const {
     send: mint,
     state: mintState,
@@ -45,70 +45,17 @@ const PayCrypto = ({
     method: "mint",
   });
 
-  // Functions
-  const custodialWallet = () => {
-    postCustodialMint({
-      eventId: cartItemData[0].eventId,
-      ticketTypeCounts: [1],
-      proof: "",
-    });
-  };
+  const handleMint = async () => {
+    Object.keys(parsedData).map((key) => {
+      const transaction = parsedData[key];
 
-  const getTickets = async () => {
-    getEventTicketType(
-      JSON.stringify({
-        where: { eventId: eventId },
-      })
-    ).then((data) => {
-      setEventTickets(data.data);
-    });
-  };
-
-  const groupedTickets = (returnStatement) => {
-    const groupedTickets = {};
-    cartItemData.forEach((ticket) => {
-      const { eventId, ticketTypeId, price } = ticket;
-      if (!groupedTickets[eventId]) {
-        groupedTickets[eventId] = [];
-      }
-      groupedTickets[eventId].push(ticketTypeId, price);
-    });
-
-    // Create an array to store the quantities
-    const quantities = Array(eventTickets?.length).fill(0);
-    let totalPrice = 0;
-
-    // Retrieve quantities from quantityArray based on ticketId
-    cartItemsCount.forEach((quantityObj) => {
-      const { ticketId, quantity } = quantityObj;
-      cartItemData.forEach((ticket, index) => {
-        if (ticket.id === ticketId) {
-          const ticketTypeId = ticket.ticketTypeId;
-          quantities[ticketTypeId] += quantity;
-          totalPrice += ticket.price * quantity;
-        }
+      mint([account, [], transaction.tickets], {
+        value: transaction.total,
+        gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
+        gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
       });
     });
-    return returnStatement == "quantities" ? quantities : totalPrice;
   };
-
-  // Use Effects
-  useEffect(() => {
-    if (eventId) {
-      getTickets();
-    }
-  }, [eventId]);
-
-  useEffect(() => {
-    if (eventTickets) {
-    }
-  }, [eventTickets]);
-
-  useEffect(() => {
-    if (cartItemData) {
-      setEventId(cartItemData[0].eventId);
-    }
-  }, [cartItemData]);
 
   useEffect(() => {
     if (
@@ -328,13 +275,7 @@ const PayCrypto = ({
                 disabled={(!payWithCustodial && !account) || loading}
                 isLoading={loading}
                 onClick={() => {
-                  payWithCustodial
-                    ? custodialWallet()
-                    : mint([account, [], groupedTickets("quantities")], {
-                        value: groupedTickets("totalPrice"),
-                        gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
-                        gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
-                      });
+                  handleMint();
                 }}
               />
             </div>
