@@ -12,7 +12,7 @@ import TickitButton from "../tickitButton";
 
 import styles from "./PayUsd.module.scss";
 
-const PayUsd = ({ setUsdModal, cartItemData, total }) => {
+const PayUsd = ({ setUsdModal, cartItemData, total, parsedData }) => {
   // States
   const [mintModal, setMintModal] = useState(false);
   const [loading, setLoading] = useState(true);

@@ -1232,10 +1232,10 @@
     "@solana/web3.js" "^1.39.1"
     tweetnacl "^1.0.3"
 
-"@cryptogate/react-providers@^2.0.45":
-  version "2.0.45"
-  resolved "https://registry.yarnpkg.com/@cryptogate/react-providers/-/react-providers-2.0.45.tgz#6b452c72bac1cca759d03eb61848375fef78af15"
-  integrity sha512-3JZouvLsFQOEu6kxfsmXVES9VnpkS65lEKPKmC7U3qX3k7+Cqcb5ughElVw7RNIC5b4sRPtm2DPxiROCZ07OMg==
+"@cryptogate/react-providers@^2.0.49":
+  version "2.0.49"
+  resolved "https://registry.yarnpkg.com/@cryptogate/react-providers/-/react-providers-2.0.49.tgz#9860793d86145903d566bc12e54fb70c3dc8698a"
+  integrity sha512-LxhVWdj7czDKQmJTX5qwW2Kuq+qa1j8VGCocdLOfPHpmzH/jbQdRfo82wnz0ma1pOlq5U3S3euoyyViNKLPklg==
   dependencies:
     "@coinbase/wallet-sdk" "^3.5.3"
     "@metaplex-foundation/js" "^0.18.1"
@@ -1249,13 +1249,13 @@
     "@walletconnect/web3-provider" "^1.8.0"
     ethers "^5.7.1"
 
-"@cryptogate/react-ui@^2.0.109":
-  version "2.0.109"
-  resolved "https://registry.yarnpkg.com/@cryptogate/react-ui/-/react-ui-2.0.109.tgz#836ec63cb0e7a297e0c9c6f4e0e5b1f73c45aaca"
-  integrity sha512-syluRX9ZbzCrDct0iLjgFlsGBgHfmIvfbno1NKWOt2yjsMPxIN86ECbwrUJxz1JtnKyGQS6L9g6L1uCGF5N9yw==
+"@cryptogate/react-ui@^2.0.116":
+  version "2.0.116"
+  resolved "https://registry.yarnpkg.com/@cryptogate/react-ui/-/react-ui-2.0.116.tgz#0fc2740ed1bf05dc9fe4896ad23947716e0bf5b9"
+  integrity sha512-GsXA0P1Y8padt+6FUHD7TXylUsoIfkU+Decg+YUW/LM9CST9pVf4nr+IJXaNHdg3dgtowq1C07ZfcUajw3LZkw==
   dependencies:
     "@cryptogate/core" "*"
-    "@cryptogate/react-providers" "^2.0.45"
+    "@cryptogate/react-providers" "^2.0.49"
     bignumber.js "*"
     react-device-detect "^2.2.2"
     react-jazzicon "^1.0.3"

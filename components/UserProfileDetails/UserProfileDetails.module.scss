@@ -6,7 +6,7 @@
   display: flex;
   @media (max-width: 991px) {
     padding-top: 20px;
-    padding-bottom:10px;
+    padding-bottom: 10px;
   }
 }
 .profile {
@@ -43,7 +43,7 @@
   width: fit-content;
   justify-content: center;
   @media (max-width: 991px) {
-   margin-bottom: 10px;
+    margin-bottom: 10px;
   }
 }
 .title {
@@ -90,6 +90,7 @@
   cursor: pointer;
 }
 .profileImage {
+  border-radius: 100px;
   @media (max-width: 991px) {
     width: 100px;
     height: 100px;
@@ -101,7 +102,7 @@
   font-weight: 500;
   font-size: 34px;
   line-height: 41px;
-  color: #FFFFFF;
+  color: #ffffff;
   @media (max-width: 991px) {
     font-weight: 300;
     font-size: 20px;
