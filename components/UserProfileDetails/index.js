@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Image from "next/image";
+
+import { getUsers } from "../../axios/user.axios";
 
 import EventDetails from "../EventDetails";
 import ProfileSocials from "../ProfileSocials";
@@ -9,9 +11,25 @@ import EditOrganizationModal from "../EditOrganizationModal";
 
 import styles from "./UserProfileDetails.module.scss";
 
-const UserProfileDetails = ({ state = 2 }) => {
+const UserProfileDetails = ({ data }) => {
   const [reportModal, setReportModal] = useState(false);
   const [editOrganizationModal, setEditOrganizationModal] = useState(false);
+  const [userData, setUserData] = useState();
+  const [vettingData, setVettingData] = useState();
+  const getUserData = async () => {
+    getUsers(JSON.stringify({ where: { id: data.ownerId } })).then((data) => {
+      setUserData(data.data[0]);
+    });
+  };
+  const parseVettingDetails = async () => {
+    setVettingData(JSON.parse(data.vettingObj));
+  };
+  useEffect(() => {
+    if (data) {
+      getUserData();
+      parseVettingDetails();
+    }
+  }, [data]);
 
   return (
     <>
@@ -29,7 +47,8 @@ const UserProfileDetails = ({ state = 2 }) => {
                 width={208}
                 height={208}
                 alt="user"
-                src="/images/userPhoto2.png"
+                src={data?.profile}
+                // src="/images/userPhoto2.png"
                 className={styles.profileImage}
               />
             </Col>
@@ -61,11 +80,11 @@ const UserProfileDetails = ({ state = 2 }) => {
                     <p className={styles.viewTitle}>View Public Profile</p>
                   </div>
 
-                  <p className={styles.title}>Welcome,John Doe</p>
+                  <p className={styles.title}>Welcome, {userData?.username}</p>
                 </div>
                 {/* )} */}
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  <p className={styles.titlePage}>Factory People</p>
+                  <p className={styles.titlePage}>{data?.name}</p>
                   {/* {state == 1 && ( */}
                   <div
                     onClick={() => {
@@ -85,16 +104,16 @@ const UserProfileDetails = ({ state = 2 }) => {
                 </div>
               </div>
               <div style={{ marginTop: "15px" }}>
-                <EventDetails details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " />
+                <EventDetails details={vettingData?.description} />
               </div>
 
               {/* {state == 1 && ( */}
               <div style={{ paddingTop: "22px" }}>
                 <ProfileSocials
-                  telegram="c"
-                  instagram="c"
-                  twitter="c"
-                  discord="c"
+                // telegram="c"
+                // instagram="c"
+                // twitter="c"
+                // discord="c"
                 />
               </div>
               {/* )} */}

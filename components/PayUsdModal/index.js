@@ -12,11 +12,10 @@ import TickitButton from "../tickitButton";
 
 import styles from "./PayUsd.module.scss";
 
-const PayUsd = ({ setUsdModal, cartItemData, total }) => {
+const PayUsd = ({ setUsdModal, cartItemData, total, parsedData }) => {
   // States
   const [mintModal, setMintModal] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [disabled, setDisabled] = useState(true);
 
   // Hooks
   const router = useRouter();
@@ -24,17 +23,20 @@ const PayUsd = ({ setUsdModal, cartItemData, total }) => {
 
   // Functions
   const custodialWallet = () => {
-    postCustodialMint({
-      eventId: cartItemData[0].eventId,
-      ticketTypeCounts: [1],
-      proof: "",
-    }).then(() => {
-      setMintModal(true);
-      setTimeout(() => {
-        setLoading(false);
-        setDisabled(false);
-      }, 3000);
+    Object.keys(parsedData).map((key) => {
+      const transaction = parsedData[key];
+
+      postCustodialMint({
+        contractAddress: key,
+        ticketTypeCounts: transaction.tickets,
+        proof: "",
+      });
     });
+
+    setMintModal(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
   };
 
   // Formik
@@ -251,7 +253,7 @@ const PayUsd = ({ setUsdModal, cartItemData, total }) => {
                 <TickitButton
                   minWidth="100%"
                   style2
-                  disabled={disabled}
+                  disabled={loading}
                   isLoading={loading}
                   text="Back to Home"
                   onClick={() => {

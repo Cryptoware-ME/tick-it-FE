@@ -9,8 +9,8 @@
   },
   "dependencies": {
     "@cryptogate/core": "^1.0.4",
-    "@cryptogate/react-providers": "^2.0.22",
-    "@cryptogate/react-ui": "^2.0.67",
+    "@cryptogate/react-providers": "^2.0.49",
+    "@cryptogate/react-ui": "^2.0.116",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/free-regular-svg-icons": "^5.15.4",

@@ -9,7 +9,6 @@ import styles from "./DashboardBar.module.scss";
 
 export default function DashboardBar({ selected }) {
   const [width, setWidth] = useState();
-  // const [selectedSection, setSelectedSection] = useState("dashboard");
   const { toggleSidebar } = useProSidebar();
   const { user } = useAuth();
 

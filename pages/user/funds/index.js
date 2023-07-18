@@ -1,11 +1,38 @@
+import React, { useEffect, useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import Image from "next/image";
 import FundsCard from "../../../components/FundsCard";
 import DashboardBar from "../../../components/DashboardBar";
+import { getWalletsByUser } from "../../../axios/wallets.axios";
+import { useAuth } from "../../../auth/useAuth";
+import { useRouter } from "next/router";
 
 import styles from "./Funds.module.scss";
 
 const Funds = () => {
+  const [walletsList, setWalletsList] = useState([]);
+
+  const { user } = useAuth();
+  const router = useRouter();
+
+  const getWallets = async () => {
+    getWalletsByUser(
+      JSON.stringify({
+        where: { userId: user.id },
+      })
+    ).then((data) => {
+      setWalletsList(data.data);
+    });
+  };
+
+  useEffect(() => {
+    if (user?.id) {
+      getWallets();
+    } else {
+      router.push("/");
+    }
+  }, [user]);
+
   return (
     <Container fluid className="dashboardWrapper">
       <Row>
@@ -14,20 +41,17 @@ const Funds = () => {
         </Col>
 
         <Col lg={10}>
-          {/* <div className={styles.section}> */}
           <div className={styles.sectionContent}>
             <p style={{ marginBottom: "40px" }} className="section-title">
               Funds
             </p>
             <Row>
-              <Col lg={4} md={6} sm={12} className={styles.cardCol}>
-                <FundsCard />
-              </Col>
-              <Col lg={4} md={6} sm={12} className={styles.cardCol}>
-                <FundsCard state={2} />
-              </Col>
-
-              <Col lg={4} md={6} sm={12}>
+              {walletsList?.map((wallet, index) => (
+                <Col lg={4} md={6} sm={12} className={styles.cardCol}>
+                  <FundsCard data={wallet} refetch={getWallets} />
+                </Col>
+              ))}
+              {/* <Col lg={4} md={6} sm={12}>
                 <div className={styles.cardContainer}>
                   <Image
                     width={48}
@@ -37,10 +61,9 @@ const Funds = () => {
                   />
                   <p className={styles.linkWallet}>Link a new wallet</p>
                 </div>
-              </Col>
+              </Col> */}
             </Row>
           </div>
-          {/* </div> */}
         </Col>
       </Row>
     </Container>

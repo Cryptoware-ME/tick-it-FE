@@ -4,7 +4,6 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { Container, Navbar, Nav } from "react-bootstrap";
 
-import { ConnectWalletComponent } from "@cryptogate/react-ui";
 import { useEthereum } from "@cryptogate/react-providers";
 
 import { useAuth } from "../../auth/useAuth";
@@ -15,6 +14,7 @@ import { useAuthModalContext } from "../../context/AuthModalProvider";
 import UserDropdown from "../UserDropdown";
 import TickitButton from "../tickitButton";
 import LoginModal from "../LoginModal";
+import ConnectWallet from "../connect-wallet";
 
 import styles from "./TickitNavBar.module.scss";
 
@@ -133,7 +133,7 @@ const TickitNavBar = () => {
             <Nav className={styles.navbarUserRelated}>
               {account && (
                 <div className={styles.connected}>
-                  <ConnectWalletComponent ActiveComponent={<></>} />
+                  <ConnectWallet active={<></>} />
                 </div>
               )}
               <div

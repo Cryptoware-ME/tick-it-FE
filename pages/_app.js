@@ -6,7 +6,7 @@ import "swiper/scss";
 import "swiper/scss/navigation";
 import "swiper/scss/pagination";
 import "bootstrap/dist/css/bootstrap.css";
-import "@cryptogate/react-ui/dist/esm/index.css";
+// import "@cryptogate/react-ui/dist/esm/index.css";
 import { MultiChainProvider } from "@cryptogate/react-providers";
 import config from "../config";
 import React, { useEffect } from "react";

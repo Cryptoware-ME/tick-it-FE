@@ -5,7 +5,12 @@ import {
 import NFTix721 from "../abis/NFTix721.json";
 
 export const use721 = ({ contractAddress }) => {
-  const addTicket = writeContractCall({
+  const {
+    send: addTicket,
+    state: addTicketState,
+    events: addTicketEvents,
+    resetState: resetAddTicket,
+  } = writeContractCall({
     address: contractAddress,
     abi: NFTix721.abi,
     method: "addTicketTypes",
@@ -16,23 +21,48 @@ export const use721 = ({ contractAddress }) => {
     abi: NFTix721.abi,
     method: "ticketTypes",
   });
-  const editTicketPrice = writeContractCall({
+  const {
+    send: editTicketPrice,
+    state: editTicketPriceState,
+    events: editTicketPriceEvents,
+    resetState: resetEditTicketPrice,
+  } = writeContractCall({
     address: contractAddress,
     abi: NFTix721.abi,
     method: "changeTicketPrice",
   });
 
-  return { addTicket, ticketTypeAmount, editTicketPrice };
+  return {
+    addTicket,
+    addTicketState,
+    addTicketEvents,
+    resetAddTicket,
+    ticketTypeAmount,
+    editTicketPrice,
+    editTicketPriceState,
+    editTicketPriceEvents,
+    resetEditTicketPrice,
+  };
 };
 
 export const usePause = ({ contractAddress, refetchEvent }) => {
-  const pause = writeContractCall({
+  const {
+    send: pauseEvent,
+    state: pauseState,
+    events: pauseEventEvent,
+    resetState: resetPause,
+  } = writeContractCall({
     address: contractAddress,
     abi: NFTix721.abi,
     method: "pause",
   });
 
-  const unpause = writeContractCall({
+  const {
+    send: unpauseEvent,
+    state: unpauseState,
+    events: unpauseEventEvent,
+    resetState: resetUnpause,
+  } = writeContractCall({
     address: contractAddress,
     abi: NFTix721.abi,
     method: "unpause",
@@ -44,5 +74,15 @@ export const usePause = ({ contractAddress, refetchEvent }) => {
     enabled: refetchEvent,
   });
 
-  return { pause, unpause, paused };
+  return {
+    pauseEvent,
+    pauseState,
+    pauseEventEvent,
+    resetPause,
+    unpauseEvent,
+    unpauseState,
+    unpauseEventEvent,
+    resetUnpause,
+    paused,
+  };
 };

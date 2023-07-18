@@ -2,18 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Modal, Container, Row, Col } from "react-bootstrap";
 import Image from "next/image";
 
-import { ConnectWalletComponent } from "@cryptogate/react-ui";
 import { useEthereum } from "@cryptogate/react-providers";
-import { writeContractCall } from "@cryptogate/react-providers";
+import { writeDynamicContractCall } from "@cryptogate/react-providers";
 import { useRouter } from "next/router";
 import { useCartContext } from "../../cart/cart-context";
 
 import NFTix721 from "../../abis/NFTix721.json";
-import { postCustodialMint } from "../../axios/ticket.axios";
 import { getEventTicketType } from "../../axios/eventTicketType.axios";
-import { use721 } from "../../hooks/use721";
 
 import TickitButton from "../tickitButton";
+import ConnectWallet from "../connect-wallet";
 
 import styles from "./PayCrypto.module.scss";
 
@@ -22,103 +20,55 @@ const PayCrypto = ({
   setCryptoModal,
   cartItemsCount,
   cartTotal,
+  parsedData,
 }) => {
   // States
   const [state, setState] = useState(1);
   const [payWithCustodial, setPayWithCustodial] = useState(false);
-  const [eventId, setEventId] = useState();
-  const [eventTickets, setEventTickets] = useState();
+
   const [loading, setLoading] = useState(false);
 
   // Hooks
   const { account } = useEthereum();
   const router = useRouter();
   const { emptyCart } = useCartContext();
-
-  const mint = writeContractCall({
-    address: cartItemData[0]?.event.contractAddress,
+  // Functions
+  const {
+    send: mint,
+    state: mintState,
+    resetState: mintEventState,
+  } = writeDynamicContractCall({
     abi: NFTix721.abi,
     method: "mint",
   });
 
-  // Functions
-  const custodialWallet = () => {
-    postCustodialMint({
-      eventId: cartItemData[0].eventId,
-      ticketTypeCounts: [1],
-      proof: "",
-    });
-  };
+  const handleMint = async () => {
+    Object.keys(parsedData).map((key) => {
+      const transaction = parsedData[key];
 
-  const getTickets = async () => {
-    getEventTicketType(
-      JSON.stringify({
-        where: { eventId: eventId },
-      })
-    ).then((data) => {
-      setEventTickets(data.data);
-    });
-  };
 
-  const groupedTickets = (returnStatement) => {
-    const groupedTickets = {};
-    cartItemData.forEach((ticket) => {
-      const { eventId, ticketTypeId, price } = ticket;
-      if (!groupedTickets[eventId]) {
-        groupedTickets[eventId] = [];
-      }
-      groupedTickets[eventId].push(ticketTypeId, price);
-    });
+      mint(key, [account, [], transaction.tickets], {
 
-    // Create an array to store the quantities
-    const quantities = Array(eventTickets?.length).fill(0);
-    let totalPrice = 0;
-
-    // Retrieve quantities from quantityArray based on ticketId
-    cartItemsCount.forEach((quantityObj) => {
-      const { ticketId, quantity } = quantityObj;
-      cartItemData.forEach((ticket, index) => {
-        if (ticket.id === ticketId) {
-          const ticketTypeId = ticket.ticketTypeId;
-          quantities[ticketTypeId] += quantity;
-          totalPrice += ticket.price * quantity;
-        }
+        value: transaction.total,
+        gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
+        gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
       });
     });
-    return returnStatement == "quantities" ? quantities : totalPrice;
   };
 
-  const waitResponse = async () => {
-    mint.response.wait();
-    router.push("/");
-    setLoading(false);
-    emptyCart();
-  };
-
-  // Use Effects
   useEffect(() => {
-    if (eventId) {
-      getTickets();
-    }
-  }, [eventId]);
-
-  useEffect(() => {
-    if (eventTickets) {
-    }
-  }, [eventTickets]);
-
-  useEffect(() => {
-    if (cartItemData) {
-      setEventId(cartItemData[0].eventId);
-    }
-  }, [cartItemData]);
-
-  useEffect(() => {
-    if (mint.response) {
+    if (
+      mintState.status == "PendingSignature" ||
+      mintState.status == "Mining"
+    ) {
       setLoading(true);
-      waitResponse();
     }
-  }, [mint.response]);
+    if (mintState.status == "Success" || mintState.status == "Success") {
+      setLoading(false);
+      router.push("/");
+      emptyCart();
+    }
+  }, [mintState]);
 
   return (
     <Modal show onHide={() => {}} centered>
@@ -267,11 +217,8 @@ const PayCrypto = ({
                   display: "flex",
                 }}
               >
-                <ConnectWalletComponent
-                  ActiveComponent={
-                    <TickitButton style2 text="Connect wallet" />
-                  }
-                  // ConnectedComponent={<></>}
+                <ConnectWallet
+                  active={<TickitButton style2 text="Connect wallet" />}
                 />
               </div>
             )}
@@ -327,13 +274,7 @@ const PayCrypto = ({
                 disabled={(!payWithCustodial && !account) || loading}
                 isLoading={loading}
                 onClick={() => {
-                  payWithCustodial
-                    ? custodialWallet()
-                    : mint.send([account, [], groupedTickets("quantities")], {
-                        value: groupedTickets("totalPrice"),
-                        gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
-                        gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
-                      });
+                  handleMint();
                 }}
               />
             </div>

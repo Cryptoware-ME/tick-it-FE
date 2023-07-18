@@ -1,5 +1,6 @@
 import { Row, Col, Container } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 import { getEvents } from "../../../axios/event.axios";
 import { getOrganization } from "../../../axios/organization.axios";
@@ -16,6 +17,7 @@ const Hosting = () => {
   const [organizationsData, setOrganizationsData] = useState();
 
   const { user } = useAuth();
+  const router = useRouter();
 
   const getOrganizations = async (id) => {
     let organization = await getOrganization(
@@ -47,6 +49,8 @@ const Hosting = () => {
   useEffect(() => {
     if (user?.id) {
       getOrganizations(user?.id);
+    } else {
+      router.push("/");
     }
   }, [user]);
 
