@@ -77,7 +77,7 @@ const AddTickets = () => {
   const launchRes = async () => {
     updateEvent(
       {
-        contractAddress: createEventEvents[0].args["_newClone"],
+        contractAddress: createEventEvents[0].args["_newClone"].toLowerCase(),
         isPublished: true,
         totalSupply: ticketSupply.reduce((accumulator, currentValue) => {
           return accumulator + currentValue;
