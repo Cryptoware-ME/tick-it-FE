@@ -2,7 +2,7 @@ import { getChainById, ChainId, EvmWallets } from "@cryptogate/react-providers";
 import NFTix721 from "../abis/NFTix721.json";
 import NFTixLaunchpad from "../abis/NFTixLaunchpad.json";
 const ethConfig = {
-  defaultNetwork: getChainById(ChainId.Sepolia),
+  defaultNetwork: getChainById(ChainId.RSKTestnet),
   allowedNetworks: [
     getChainById(ChainId.Sepolia),
     getChainById(ChainId.RSKTestnet),

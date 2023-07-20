@@ -17,7 +17,7 @@ import { getEventTicketType } from "../../axios/eventTicketType.axios";
 const CartTicket = ({ inCart = false, item, itemData, query = false }) => {
   // Use States
   const [qrCodeModal, setQrCodeModal] = useState(false);
-  const [data, setData] = useState()
+  const [data, setData] = useState();
 
   // Hooks
   const { deleteFromCart, addToCart } = useCartContext();
@@ -28,13 +28,25 @@ const CartTicket = ({ inCart = false, item, itemData, query = false }) => {
   };
 
   useEffect(() => {
-    if(query){
-      getEventTicketType(JSON.stringify({relations: ["event"],where: {
-        event: {contractAddress: itemData.token.contractId}
-      }})).then((res) => setData(res.data[0]))
-    }
-    else setData(itemData)
-  }, [itemData])
+    if (query) {
+      getEventTicketType(
+        JSON.stringify({
+          relations: ["event"],
+          where: {
+            event: { contractAddress: itemData.token?.contractId },
+          },
+        })
+      ).then((res) => {
+        let tmp = 0;
+        res.data.forEach((ticketType) => {
+         tmp = tmp + ticketType.supply
+          if (itemData && itemData.token.tokenId <= tmp) {
+            setData(ticketType);
+          }
+        });
+      });
+    } else setData(itemData);
+  }, [itemData]);
 
   return (
     <>
@@ -90,9 +102,9 @@ const CartTicket = ({ inCart = false, item, itemData, query = false }) => {
                       />
                     </div>
                     <h1 className={styles.cardPrice}>
-                      {(
-                        Number(data.price / 10 ** 18) * item.quantity
-                      ).toFixed(4)}{" "}
+                      {(Number(data.price / 10 ** 18) * item.quantity).toFixed(
+                        4
+                      )}{" "}
                       ETH
                     </h1>
                   </Row>
