@@ -5,6 +5,9 @@ import { useRouter } from "next/router";
 
 import { useAuth } from "../../../auth/useAuth";
 import { getOrganization } from "../../../axios/organization.axios";
+import { getTicketByAddress } from "../../../axios/ticket.axios";
+import { getWalletsByUser } from "../../../axios/wallets.axios";
+import { getEvents } from "../../../axios/event.axios";
 
 import DashboardBar from "../../../components/DashboardBar";
 import OrganizationCard from "../../../components/OrganizationCard";
@@ -16,7 +19,9 @@ import styles from "./Dashboard.module.scss";
 const Dashboard = ({}) => {
   const [organizationData, setOrganizationData] = useState();
   const [tickets, setTickets] = useState([]);
-
+  const [events, setEvents] = useState([]);
+  const [sortedEvents, setSortedEvents] = useState([]);
+  const [walletsList, setWalletsList] = useState([]);
   const { user } = useAuth();
   const router = useRouter();
 
@@ -32,16 +37,69 @@ const Dashboard = ({}) => {
   useEffect(() => {
     if (user) {
       getOrganizationDetails(user?.id);
+      getWallets();
     } else {
       router.push("/");
     }
   }, [user]);
 
+  const getWallets = async () => {
+    getWalletsByUser(
+      JSON.stringify({
+        where: { userId: user?.id },
+      })
+    ).then((data) => {
+      setWalletsList(data.data);
+    });
+  };
+
+  const getTickets = async (address) => {
+    getTicketByAddress(address).then((data) => {
+      setTickets([...tickets, ...data.data]);
+    });
+  };
+
+  const getAllEvents = async () => {
+    const contractIdsArray = [
+      ...new Set(tickets.map((ticket) => ticket.token.contractId)),
+    ];
+    contractIdsArray.map((address) => getEventDetails(address));
+  };
+  const getEventDetails = async (address) => {
+    await getEvents(
+      JSON.stringify({
+        relations: ["organization", "category"],
+        where: { contractAddress: address },
+      })
+    ).then((data) => {
+      setEvents([...events, ...data.data]);
+    });
+  };
+  const compareEventDates = (a, b) => {
+    const dateA = new Date(a.eventDate);
+    const dateB = new Date(b.eventDate);
+    return dateA - dateB;
+  };
+
   useEffect(() => {
-    let temp = localStorage.getItem("tickets");
-    let tickets = JSON.parse(temp);
-    setTickets(tickets);
-  }, []);
+    if (events) {
+      setSortedEvents(events.sort(compareEventDates));
+    }
+  }, [events]);
+
+  useEffect(() => {
+    if (walletsList && walletsList.length > 0) {
+      walletsList.forEach((wallet) => {
+        getTickets(wallet.address);
+      });
+    }
+  }, [walletsList]);
+
+  useEffect(() => {
+    if (tickets) {
+      getAllEvents();
+    }
+  }, [tickets]);
 
   return (
     <Container fluid className="dashboardWrapper">
@@ -77,10 +135,10 @@ const Dashboard = ({}) => {
                     </Link>
                   )}
                 </div>
-                {tickets ? (
+                {sortedEvents ? (
                   <Row>
-                    {tickets?.slice(0, 4).map((ticket, index) => (
-                      <UpcomingEventsCard key={index} ticket={ticket} />
+                    {sortedEvents?.map((event, index) => (
+                      <UpcomingEventsCard key={index} event={event} />
                     ))}
                   </Row>
                 ) : (

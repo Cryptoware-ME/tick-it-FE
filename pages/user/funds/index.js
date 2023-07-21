@@ -47,7 +47,13 @@ const Funds = () => {
             </p>
             <Row>
               {walletsList?.map((wallet, index) => (
-                <Col lg={4} md={6} sm={12} className={styles.cardCol}>
+                <Col
+                  key={index}
+                  lg={4}
+                  md={6}
+                  sm={12}
+                  className={styles.cardCol}
+                >
                   <FundsCard data={wallet} refetch={getWallets} />
                 </Col>
               ))}

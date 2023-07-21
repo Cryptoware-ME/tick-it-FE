@@ -13,7 +13,7 @@ const Tickets = () => {
   const [walletsList, setWalletsList] = useState([]);
   const router = useRouter();
   const { user } = useAuth();
-  const [tickets, setTickets] = useState([]);
+  const [tickets, setTickets] = useState({});
 
   const getWallets = async () => {
     getWalletsByUser(
@@ -32,19 +32,20 @@ const Tickets = () => {
     }
   }, [user]);
 
-  useEffect(() => {
-    const getTickets = async (address) => {
-      getTicketByAddress(address).then((data) => {
-        setTickets(data.data);
-      });
-    };
+  const getTickets = async (address) => {
+    getTicketByAddress(address).then((data) => {
+      setTickets({...tickets, [address]: data.data})
+    });
+  };
 
+  useEffect(() => {
     if (walletsList && walletsList.length > 0) {
       walletsList.forEach((wallet) => {
         getTickets(wallet.address);
       });
     }
   }, [walletsList]);
+
 
   return (
     <Container fluid className={styles.wrapper}>
@@ -71,8 +72,8 @@ const Tickets = () => {
                       Wallet Address: {wallet.address}
                     </p>
 
-                    {tickets.length > 0 ? (
-                      tickets.map((ticket, index) => (
+                    {tickets[wallet.address]?.length > 0 ? (
+                      tickets[wallet.address].map((ticket, index) => (
                         <CartTicket key={index} itemData={ticket} query />
                       ))
                     ) : (
