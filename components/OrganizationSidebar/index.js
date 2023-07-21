@@ -3,6 +3,8 @@ import { Sidebar, Menu, useProSidebar } from "react-pro-sidebar";
 import Link from "next/link";
 import Image from "next/image";
 
+import TickitButton from "../tickitButton";
+
 import styles from "./OrganizationSidebar.module.scss";
 
 const OrganizationSidebar = ({ data, selected }) => {
@@ -90,6 +92,9 @@ const OrganizationSidebar = ({ data, selected }) => {
             >
               Payment Settings
             </Link>
+            <div className={styles.dashboardBtn}>
+              <TickitButton text="atendee data" minWidth="100%" />
+            </div>
           </div>
         </Menu>
       </Sidebar>

@@ -34,7 +34,15 @@
   line-height: 29px;
   color: #f1f1f1;
 }
-
+.dashboardBtn {
+  display: flex;
+  padding: 16px 40px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--white);
+  text-decoration: none;
+}
 .dashboardLink {
   display: flex;
   padding: 16px 0px 16px 40px;
@@ -45,11 +53,11 @@
   text-decoration: none;
 }
 .dashboardLink:active {
-  background-color: #050505;
+  background-color: #050505 !important;
 }
 .dashboardLink:hover {
-  background-color: #050505;
-  color: var(--primary-dark);
+  background-color: #050505 !important;
+  color: var(--primary-dark) !important;
 }
 .dropTitle {
   flex-direction: row;
