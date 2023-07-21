@@ -33,10 +33,11 @@ const OrganizationProfile = ({ data }) => {
 
   return (
     <>
-      {reportModal && <ReportModal setReportModal={setReportModal} />}
+      {reportModal && <ReportModal setReportModal={setReportModal}   id={data.id} />}
       {editOrganizationModal && (
         <EditOrganizationModal
           setEditOrganizationModal={setEditOrganizationModal}
+          data={data}
         />
       )}
       <div className={styles.wrapper}>

@@ -1,9 +1,7 @@
-import React from "react";
 import { Col } from "react-bootstrap";
-
 import EventDate from "../EventDate";
-
 import styles from "./UpcomingEventsCard.module.scss";
+import React from "react";
 
 const UpcomingEventsCard = ({ event }) => {
   return (

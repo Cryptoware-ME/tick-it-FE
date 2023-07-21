@@ -93,3 +93,12 @@
   color: var(--white);
   margin-top: 50px;
 }
+.createEvent{
+  color: var(--white)!important;
+  text-decoration: none;
+  width: auto;
+}
+.createEvent:hover{
+  color: var(--primary)!important;
+  text-decoration: none;
+}

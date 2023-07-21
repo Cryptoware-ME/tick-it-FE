@@ -22,9 +22,7 @@ const OrganizationSidebar = ({ data, selected }) => {
   useEffect(() => {
     getWidth();
   }, []);
-  useEffect(() => {
-    console.log("data: ", data);
-  }, [data]);
+
 
   return (
     <div className={styles.sideBar}>

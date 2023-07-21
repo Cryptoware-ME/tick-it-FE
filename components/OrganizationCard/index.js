@@ -10,7 +10,7 @@ const OrganizationCard = ({ data }) => {
     <Col lg={3} md={6} className={styles.organizerCard}>
       <Link
         href={{
-          pathname: `/organization/${data.id}`,
+          pathname: `/organization/${data.id}/all-events`,
         }}
         style={{ textDecoration: "none" }}
       >

@@ -16,3 +16,11 @@ export const getOrganization = async (filter) => {
   });
   return data;
 };
+export const updateOrganization = async (payload, organizationId) => {
+  const data = await instance.put(`/organizations/${organizationId}`, payload, {
+    headers: {
+      Authorization: localStorage.getItem("token"),
+    },
+  });
+  return data.data;
+};

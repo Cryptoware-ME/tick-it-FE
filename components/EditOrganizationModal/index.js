@@ -1,10 +1,39 @@
 import { Container, Modal } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+
+import { updateOrganization } from "../../axios/organization.axios";
 
 import TickitButton from "../tickitButton";
 
 import styles from "./EditOrganizationModal.module.scss";
 
-const EditOrganizationModal = ({ setEditOrganizationModal }) => {
+const EditOrganizationModal = ({ setEditOrganizationModal, data }) => {
+  const [vettingData, setVettingData] = useState();
+  const [name, setName] = useState();
+  const [description, setDescription] = useState();
+  const [loading, setLoading] = useState(false);
+
+  const handleEdit = () => {
+    setLoading(true);
+    let tmpObj = vettingData;
+    tmpObj.description = description;
+    let newVettingObj = JSON.stringify(tmpObj);
+    updateOrganization(
+      {
+        name: name,
+        vettingObj: newVettingObj,
+      },
+      data.id
+    ).then((data) => {
+      setLoading(false);
+      setEditOrganizationModal(false);
+    });
+  };
+
+  useEffect(() => {
+    setVettingData(JSON.parse(data.vettingObj));
+  }, [data]);
+
   return (
     <Modal show onHide={() => {}} centered>
       <Modal.Header
@@ -20,9 +49,16 @@ const EditOrganizationModal = ({ setEditOrganizationModal }) => {
         </div>
         <div style={{ marginTop: "24px" }}>
           <div style={{ width: "70%" }}>
-            <input className="modalInput" placeholder="Organization Name" />
+            <input
+              className="modalInput"
+              placeholder="Organization Name"
+              defaultValue={data.name}
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+            />
           </div>
-          <div
+          {/* <div
             style={{
               display: "flex",
 
@@ -37,14 +73,22 @@ const EditOrganizationModal = ({ setEditOrganizationModal }) => {
             >
               Used Tickets
             </p>
-          </div>
+          </div> */}
           <textarea
             className="modalInput"
             placeholder="Description"
-            style={{ minHeight: "100px" }}
+            defaultValue={vettingData?.description}
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
+            style={{
+              minHeight: "100px",
+              marginTop: "24px",
+              marginBottom: "24px",
+            }}
           />
         </div>
-        <div className={styles.socialLink}>
+        {/* <div className={styles.socialLink}>
           <p className={styles.socialTitle}>Social Links</p>
           <div className={styles.social} style={{ width: "70%" }}>
             <p className={styles.socialName}>Telegram</p>
@@ -58,7 +102,7 @@ const EditOrganizationModal = ({ setEditOrganizationModal }) => {
             <p className={styles.socialName}>Website</p>
             <input className="modalInput" />
           </div>
-        </div>
+        </div> */}
         <div
           style={{
             paddingBottom: "24px",
@@ -67,7 +111,14 @@ const EditOrganizationModal = ({ setEditOrganizationModal }) => {
             justifyContent: "center",
           }}
         >
-          <TickitButton text="edit" />
+          <TickitButton
+            text="edit"
+            isLoading={loading}
+            disabled={loading || !name || !description}
+            onClick={() => {
+              handleEdit();
+            }}
+          />
         </div>
       </Container>
     </Modal>

@@ -9,6 +9,7 @@ import OrganizationProfile from "../../../../components/organization-profile";
 import OrganizationSidebar from "../../../../components/OrganizationSidebar";
 import TickitButton from "../../../../components/tickitButton";
 import ComingSoonModal from "../../../../components/ComingSoonModal";
+import AddStaffModal from "../../../../components/add-staff-modal";
 
 import styles from "../organization.module.scss";
 
@@ -17,6 +18,7 @@ const Team = () => {
   const router = useRouter();
   const { id } = router.query;
   const [comingSoon, setComingSoon] = useState(false);
+  const [addStaff, setAddStaff] = useState(false);
 
   const getOrganizationDetails = async () => {
     await getOrganization(
@@ -38,7 +40,7 @@ const Team = () => {
   return (
     <>
       {comingSoon && <ComingSoonModal></ComingSoonModal>}
-
+      {addStaff && <AddStaffModal setAddStaff={setAddStaff} />}
       <Container fluid className={styles.organization}>
         <Row>
           <OrganizationProfile data={orgData} />
@@ -52,7 +54,12 @@ const Team = () => {
             <Container fluid>
               <div className={styles.title}>
                 <p className="pageTitle">Team</p>
-                <div className={styles.addStaffDiv}>
+                <div
+                  className={styles.addStaffDiv}
+                  onClick={() => {
+                    setAddStaff(true);
+                  }}
+                >
                   <Image
                     width={22}
                     height={22}
@@ -103,7 +110,7 @@ const Team = () => {
                 </div>
               </Row>
 
-              <Row
+              {/* <Row
                 style={{
                   padding: "30px 0px 0px 25px",
                 }}
@@ -113,7 +120,7 @@ const Team = () => {
                   padding="15px 20px"
                   fontSize="20px"
                 />
-              </Row>
+              </Row> */}
             </Container>
           </Col>
         </Row>
