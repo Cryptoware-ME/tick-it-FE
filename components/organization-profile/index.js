@@ -105,10 +105,10 @@ const OrganizationProfile = ({ data }) => {
 
               <div style={{ paddingTop: "22px" }}>
                 <ProfileSocials
-                  telegram="c"
-                  instagram="c"
-                  twitter="c"
-                  discord="c"
+                // telegram="c"
+                // instagram="c"
+                // twitter="c"
+                // discord="c"
                 />
               </div>
             </Col>
