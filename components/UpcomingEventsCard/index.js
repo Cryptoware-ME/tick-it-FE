@@ -7,22 +7,20 @@ import styles from "./UpcomingEventsCard.module.scss";
 
 const UpcomingEventsCard = ({ event }) => {
   return (
-    <>
-      <Col md={3} sm={6} className={styles.cardWrapper}>
-        <div
-          style={{
-            backgroundImage: `url(${event?.banner})`,
-          }}
-          className={styles.cardImage}
-        >
-          <div className={styles.cardGradient}>
-            <p className={styles.eventTitle}>{event?.name}</p>
-            <EventDate data={event?.eventDate} />
-            <p className={styles.eventTime}>{event?.name}</p>
-          </div>
+    <Col md={3} sm={6} className={styles.cardWrapper}>
+      <div
+        style={{
+          backgroundImage: `url(${event?.banner})`,
+        }}
+        className={styles.cardImage}
+      >
+        <div className={styles.cardGradient}>
+          <p className={styles.eventTitle}>{event?.name}</p>
+          <EventDate data={event?.eventDate} />
+          <p className={styles.eventTime}>{event?.name}</p>
         </div>
-      </Col>
-    </>
+      </div>
+    </Col>
   );
 };
 

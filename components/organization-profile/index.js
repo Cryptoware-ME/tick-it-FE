@@ -9,9 +9,9 @@ import ProfileSocials from "../ProfileSocials";
 import ReportModal from "../ReportModal";
 import EditOrganizationModal from "../EditOrganizationModal";
 
-import styles from "./UserProfileDetails.module.scss";
+import styles from "./organization-profile.module.scss";
 
-const UserProfileDetails = ({ data }) => {
+const OrganizationProfile = ({ data }) => {
   const [reportModal, setReportModal] = useState(false);
   const [editOrganizationModal, setEditOrganizationModal] = useState(false);
   const [userData, setUserData] = useState();
@@ -47,13 +47,11 @@ const UserProfileDetails = ({ data }) => {
                 width={208}
                 height={208}
                 alt="user"
-                src={data?.profile}
-                // src="/images/userPhoto2.png"
+                src={data?.profile ? data?.profile : "/images/userPhoto2.png"}
                 className={styles.profileImage}
               />
             </Col>
             <Col lg={8}>
-              {/* {state == 2 && ( */}
               <div className={styles.edit}>
                 <Image
                   onClick={() => {
@@ -66,10 +64,9 @@ const UserProfileDetails = ({ data }) => {
                   className={styles.editImage}
                 />
               </div>
-              {/* )} */}
+
               <div className={styles.profileHeader}>
-                {/* {state == 2 && ( */}
-                <div>
+                {/* <div>
                   <div className={styles.view}>
                     <Image
                       width={22}
@@ -80,12 +77,12 @@ const UserProfileDetails = ({ data }) => {
                     <p className={styles.viewTitle}>View Public Profile</p>
                   </div>
 
-                  <p className={styles.title}>Welcome, {userData?.username}</p>
-                </div>
-                {/* )} */}
+                  <p className={styles.title}> {userData?.username}</p>
+                </div> */}
+
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <p className={styles.titlePage}>{data?.name}</p>
-                  {/* {state == 1 && ( */}
+
                   <div
                     onClick={() => {
                       setReportModal(true);
@@ -100,23 +97,20 @@ const UserProfileDetails = ({ data }) => {
                     />
                     <p className={styles.profileReport}>Report</p>
                   </div>
-                  {/* )} */}
                 </div>
               </div>
               <div style={{ marginTop: "15px" }}>
                 <EventDetails details={vettingData?.description} />
               </div>
 
-              {/* {state == 1 && ( */}
               <div style={{ paddingTop: "22px" }}>
                 <ProfileSocials
-                // telegram="c"
-                // instagram="c"
-                // twitter="c"
-                // discord="c"
+                  telegram="c"
+                  instagram="c"
+                  twitter="c"
+                  discord="c"
                 />
               </div>
-              {/* )} */}
             </Col>
           </Row>
         </Container>
@@ -125,4 +119,4 @@ const UserProfileDetails = ({ data }) => {
   );
 };
 
-export default UserProfileDetails;
+export default OrganizationProfile;

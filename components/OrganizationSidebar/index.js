@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import styles from "./OrganizationSidebar.module.scss";
 
-const OrganizationSidebar = () => {
+const OrganizationSidebar = ({ data, selected }) => {
   const [width, setWidth] = useState();
 
   const { toggleSidebar } = useProSidebar();
@@ -20,6 +20,9 @@ const OrganizationSidebar = () => {
   useEffect(() => {
     getWidth();
   }, []);
+  useEffect(() => {
+    console.log("data: ", data);
+  }, [data]);
 
   return (
     <div className={styles.sideBar}>
@@ -30,16 +33,16 @@ const OrganizationSidebar = () => {
         className={styles.sideBarmenu}
       >
         <Menu>
-          <div className={styles.userDetails}>
+          {/* <div className={styles.userDetails}>
             <div className={styles.dropTitle}>
               <Image
                 width={38}
                 height={38}
                 alt="search"
-                src="/images/profile.png"
+                src={data?.profile ? data?.profile : "/images/userPhoto2.png"}
                 className={styles.profileImage}
               />
-              <p className={styles.userName}>Factory People</p>
+              <p className={styles.userName}>{data?.name}</p>
               <Image
                 width={23}
                 height={13}
@@ -48,15 +51,43 @@ const OrganizationSidebar = () => {
                 className={styles.arrowDown}
               />
             </div>
-          </div>
+          </div> */}
           <div className={styles.dashboardBar}>
-            <Link href="#" className={styles.dashboardLink}>
+            <Link
+              href={`/organization/${data?.id}/all-events`}
+              className={styles.dashboardLink}
+              style={{
+                color:
+                  selected == "events" ? "var(--primary-dark)" : "var(--white)",
+                backgroundColor:
+                  selected == "events" ? "#050505" : "transparent",
+              }}
+            >
               All Events
             </Link>
-            <Link href="#" className={styles.dashboardLink}>
+            <Link
+              href={`/organization/${data?.id}/team`}
+              className={styles.dashboardLink}
+              style={{
+                color:
+                  selected == "team" ? "var(--primary-dark)" : "var(--white)",
+                backgroundColor: selected == "team" ? "#050505" : "transparent",
+              }}
+            >
               Team
             </Link>
-            <Link href="#" className={styles.dashboardLink}>
+            <Link
+              href={`/organization/${data?.id}/payment-settings`}
+              className={styles.dashboardLink}
+              style={{
+                color:
+                  selected == "settings"
+                    ? "var(--primary-dark)"
+                    : "var(--white)",
+                backgroundColor:
+                  selected == "settings" ? "#050505" : "transparent",
+              }}
+            >
               Payment Settings
             </Link>
           </div>
