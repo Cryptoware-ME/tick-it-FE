@@ -18,6 +18,7 @@ const PaymentSettings = () => {
   const { id } = router.query;
   const [comingSoon, setComingSoon] = useState(false);
 
+
   const getOrganizationDetails = async () => {
     await getOrganization(
       JSON.stringify({
@@ -38,7 +39,6 @@ const PaymentSettings = () => {
   return (
     <>
       {comingSoon && <ComingSoonModal></ComingSoonModal>}
-
       <Container fluid className={styles.organization}>
         <Row>
           <OrganizationProfile data={orgData} />
@@ -75,6 +75,9 @@ const PaymentSettings = () => {
                           fontSize="20px"
                           padding="15px 10px"
                           style2
+                          onClick={() => {
+                            router.push(`/swift-withdraw/${id}`);
+                          }}
                         />
                       </Col>
                     </Row>
