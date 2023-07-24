@@ -156,12 +156,7 @@ export default function SideBar({ eventsFiltered }) {
             />
           </div>
           <div className={styles.sideBarInputDiv}>
-            <Image
-              width={14}
-              height={20}
-              alt="search"
-              src="/images/mapIcon.png"
-            />
+            <Image width={14} height={20} alt="map" src="/images/mapIcon.png" />
             <input
               type="text"
               // value={}

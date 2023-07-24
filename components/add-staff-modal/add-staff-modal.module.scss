@@ -45,3 +45,56 @@
   height: 100%;
   padding-top: 24px;
 }
+.sideBarInputDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 10px;
+  background: #161616;
+  border-radius: 4px;
+  margin-top: 10px;
+  width: 95%;
+  margin-left: 2.5%;
+}
+.sideBarInput {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 8px;
+  border: none;
+  font-weight: 400;
+  width: 100%;
+  font-size: 13px;
+  line-height: 16px;
+  color: var(--white);
+  overflow-x: hidden;
+  background-color: transparent !important;
+}
+.sideBarInput::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+.sideBarInput:focus {
+  outline: none;
+}
+.dropDown {
+  border-radius: 10px;
+  background-color: transparent !important;
+  border: 0.5px solid #737373 !important;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dropDown:hover {
+  background-color: transparent !important;
+  border: 0.5px solid #737373 !important;
+}
+.dropDown:active {
+  background-color: transparent !important;
+  border: 0.5px solid #737373 !important;
+}
+.error {
+  color: red;
+  font-size: 13px;
+}

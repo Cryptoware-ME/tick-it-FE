@@ -23,7 +23,6 @@ const OrganizationSidebar = ({ data, selected }) => {
     getWidth();
   }, []);
 
-
   return (
     <div className={styles.sideBar}>
       <Sidebar
@@ -38,7 +37,7 @@ const OrganizationSidebar = ({ data, selected }) => {
               <Image
                 width={38}
                 height={38}
-                alt="search"
+                alt="profile"
                 src={data?.profile ? data?.profile : "/images/userPhoto2.png"}
                 className={styles.profileImage}
               />
@@ -46,7 +45,7 @@ const OrganizationSidebar = ({ data, selected }) => {
               <Image
                 width={23}
                 height={13}
-                alt="search"
+                alt="down"
                 src="/images/downArrow.png"
                 className={styles.arrowDown}
               />

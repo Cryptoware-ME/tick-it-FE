@@ -114,7 +114,7 @@ const ReportModal = ({ id, setReportModal, reportEvent = false }) => {
           <div style={{ height: "20px" }}>
             {typeError ? (
               <div className={styles.errors}>
-                <p className={styles.error}> Type is required field</p>
+                <p className={styles.error}> Reason is required field</p>
               </div>
             ) : null}
           </div>

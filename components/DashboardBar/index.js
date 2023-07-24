@@ -42,7 +42,7 @@ export default function DashboardBar({ selected }) {
               <Image
                 width={45}
                 height={45}
-                alt="search"
+                alt="user"
                 src="/images/iconuser.png"
               />
             </div>
