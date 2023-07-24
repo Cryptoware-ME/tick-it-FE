@@ -115,10 +115,13 @@ const AllEvents = () => {
                       </Row>
                     ) : (
                       <Row>
-                        <Link href="/create-event"  className={styles.createEvent}>
+                        <Link
+                          href="/create-event"
+                          className={styles.createEvent}
+                        >
                           <p>
-                            You does not have any upcomming events, Click here to
-                            create one
+                            You does not have any upcomming events, Click here
+                            to create one
                           </p>
                         </Link>
                       </Row>

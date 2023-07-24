@@ -1,7 +1,9 @@
 import { Col } from "react-bootstrap";
+import React from "react";
+import Link from "next/link";
+
 import EventDate from "../EventDate";
 import styles from "./UpcomingEventsCard.module.scss";
-import React from "react";
 
 const UpcomingEventsCard = ({ event }) => {
   return (
@@ -13,9 +15,14 @@ const UpcomingEventsCard = ({ event }) => {
         className={styles.cardImage}
       >
         <div className={styles.cardGradient}>
-          <p className={styles.eventTitle}>{event?.name}</p>
-          <EventDate data={event?.eventDate} />
-          <p className={styles.eventTime}>{event?.name}</p>
+          <Link
+            href={`/event/${event?.slug}`}
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            <p className={styles.eventTitle}>{event?.name}</p>
+            <EventDate data={event?.eventDate} />
+            <p className={styles.eventTime}>{event?.name}</p>
+          </Link>
         </div>
       </div>
     </Col>
