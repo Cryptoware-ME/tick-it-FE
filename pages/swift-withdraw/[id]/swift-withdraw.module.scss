@@ -1,0 +1,42 @@
+.Wrapper {
+  min-height: 100vh;
+  background-color: var(--background);
+}
+.title {
+  display: flex;
+}
+.error2 {
+  color: red;
+  font-size: 10px;
+  margin-bottom: 0px;
+  display: flex;
+}
+
+.InputDiv {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+
+}
+.detailsTitle {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--white);
+  margin-bottom: 5px;
+  display: flex;
+}
+
+.withdraw {
+  padding: 25px 0px;
+}
+.details {
+  margin:15px 0px ;
+  color: #ffffff;
+}
+.bankDetails {
+  margin: 0px;
+}
+.buttonWithdraw{
+  margin:20px 0px
+}
