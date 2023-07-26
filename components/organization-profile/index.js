@@ -16,24 +16,33 @@ const OrganizationProfile = ({ data }) => {
   const [editOrganizationModal, setEditOrganizationModal] = useState(false);
   const [userData, setUserData] = useState();
   const [vettingData, setVettingData] = useState();
+  const [socialsData, setSocialsData] = useState();
   const getUserData = async () => {
     getUsers(JSON.stringify({ where: { id: data.ownerId } })).then((data) => {
       setUserData(data.data[0]);
     });
   };
-  const parseVettingDetails = async () => {
-    setVettingData(JSON.parse(data.vettingObj));
-  };
+
   useEffect(() => {
     if (data) {
+      console.log("data: ", data);
       getUserData();
-      parseVettingDetails();
+      setVettingData(JSON.parse(data.vettingObj));
+      setSocialsData(JSON.parse(data.socials));
     }
   }, [data]);
 
+  useEffect(() => {
+    if (socialsData) {
+      console.log("socialsData: ", socialsData);
+    }
+  }, [socialsData]);
+
   return (
     <>
-      {reportModal && <ReportModal setReportModal={setReportModal}   id={data.id} />}
+      {reportModal && (
+        <ReportModal setReportModal={setReportModal} id={data.id} />
+      )}
       {editOrganizationModal && (
         <EditOrganizationModal
           setEditOrganizationModal={setEditOrganizationModal}
@@ -106,10 +115,10 @@ const OrganizationProfile = ({ data }) => {
 
               <div style={{ paddingTop: "22px" }}>
                 <ProfileSocials
-                // telegram="c"
-                // instagram="c"
-                // twitter="c"
-                // discord="c"
+                  telegram={socialsData?.Telegram}
+                  instagram={socialsData?.Instagram}
+                  twitter={socialsData?.Twitter}
+                  discord={socialsData?.Discord}
                 />
               </div>
             </Col>

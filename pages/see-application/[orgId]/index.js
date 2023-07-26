@@ -3,16 +3,18 @@ import { Container, Row, Col } from "react-bootstrap";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-import { getOrganization } from "../../axios/organization.axios";
+import { getOrganization } from "../../../axios/organization.axios";
 
-import EventDetails from "../../components/EventDetails";
-import TickitButton from "../../components/tickitButton";
-import Loader from "../../components/loader/loader";
+import EventDetails from "../../../components/EventDetails";
+import TickitButton from "../../../components/tickitButton";
+import Loader from "../../../components/loader/loader";
 
 import styles from "./see-application.module.scss";
 
 const SeeApplication = () => {
+  const [orgData, setOrgData] = useState();
   const [vettingData, setVettingData] = useState();
+  const [socialsData, setSocialsData] = useState();
   const [loading, setLoading] = useState(true);
 
   const router = useRouter();
@@ -24,7 +26,9 @@ const SeeApplication = () => {
         where: { id: id },
       })
     );
+    setOrgData(tempOrg.data[0]);
     setVettingData(JSON.parse(tempOrg.data[0].vettingObj));
+    setSocialsData(JSON.parse(tempOrg.data[0].socials));
     setLoading(false);
   };
   useEffect(() => {
@@ -35,6 +39,11 @@ const SeeApplication = () => {
     }
   }, [orgId]);
 
+  useEffect(() => {
+    if (socialsData) {
+      console.log(socialsData);
+    }
+  }, [socialsData]);
   return (
     <div className={styles.wrapper}>
       {!loading ? (
@@ -93,19 +102,19 @@ const SeeApplication = () => {
               type="text"
               defaultValue={vettingData.name}
               className="modalInput"
+              disabled
             />
           </div>
-
           <div className={styles.descriptionDiv}>
             <p className={styles.title}>Description</p>
             <input
               type="text"
               defaultValue={vettingData.description}
               className="modalInput"
+              disabled
               style={{ height: "fit-content" }}
             />
           </div>
-
           <div className={styles.descriptionDiv}>
             <p className={styles.title}>
               What kind of events will you be creating?
@@ -114,9 +123,38 @@ const SeeApplication = () => {
               type="text"
               defaultValue={vettingData.eventKind}
               className="modalInput"
+              disabled
               style={{ height: "fit-content" }}
             />
           </div>
+          {orgData.website && 
+          <div className={styles.descriptionDiv}>
+            <p className={styles.title}>Website</p>
+            <input
+              type="text"
+              defaultValue={orgData.website}
+              className="modalInput"
+              disabled
+              style={{ height: "fit-content" }}
+            />
+          </div>
+          }
+          {Object.entries(socialsData)?.map(([key, value], index) => (
+            <>
+              {value && (
+                <div className={styles.descriptionDiv} key={index}>
+                  <p className={styles.title}>{key}</p>
+                  <input
+                    type="text"
+                    defaultValue={value}
+                    className="modalInput"
+                    disabled
+                    style={{ height: "fit-content" }}
+                  />
+                </div>
+              )}
+            </>
+          ))}
         </Container>
       ) : (
         <div
