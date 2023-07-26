@@ -1,0 +1,100 @@
+.title {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  color: var(--white);
+  font-family: "DrukWideMedium";
+}
+
+.error2 {
+  color: red;
+  font-size: 10px;
+  margin-bottom: 0px;
+  display: flex;
+}
+.detailsTitle {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--white);
+  margin-bottom: 5px;
+  display: flex;
+}
+
+.InputDiv {
+  display: flex;
+  flex-direction: column;
+}
+.descriptionInput {
+  height: 137px;
+  border: 0.5px solid #737373;
+  border-radius: 10px;
+  background-color: #161616;
+  width: 100%;
+}
+.buttonAdd {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 20px;
+}
+.drop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding-top: 24px;
+}
+.sideBarInputDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 10px;
+  background: #161616;
+  border-radius: 4px;
+  margin-top: 10px;
+  width: 95%;
+  margin-left: 2.5%;
+}
+.sideBarInput {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 8px;
+  border: none;
+  font-weight: 400;
+  width: 100%;
+  font-size: 13px;
+  line-height: 16px;
+  color: var(--white);
+  overflow-x: hidden;
+  background-color: transparent !important;
+}
+.sideBarInput::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+.sideBarInput:focus {
+  outline: none;
+}
+.dropDown {
+  border-radius: 10px;
+  background-color: transparent !important;
+  border: 0.5px solid #737373 !important;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dropDown:hover {
+  background-color: transparent !important;
+  border: 0.5px solid #737373 !important;
+}
+.dropDown:active {
+  background-color: transparent !important;
+  border: 0.5px solid #737373 !important;
+}
+.error {
+  color: red;
+  font-size: 13px;
+}

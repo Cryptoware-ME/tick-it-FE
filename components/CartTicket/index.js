@@ -10,6 +10,7 @@ import Counter from "../Counter";
 import EventDate from "../EventDate";
 import TickitButton from "../tickitButton";
 import QrCodeModal from "../qrcode-modal";
+import SendTicketModal from "../send-ticket-modal";
 
 import styles from "./CartTicket.module.scss";
 import { getEventTicketType } from "../../axios/eventTicketType.axios";
@@ -17,6 +18,7 @@ import { getEventTicketType } from "../../axios/eventTicketType.axios";
 const CartTicket = ({ inCart = false, item, itemData, query = false }) => {
   // Use States
   const [qrCodeModal, setQrCodeModal] = useState(false);
+  const [sendTicket, setSendTicket] = useState(false);
   const [data, setData] = useState();
 
   // Hooks
@@ -39,7 +41,7 @@ const CartTicket = ({ inCart = false, item, itemData, query = false }) => {
       ).then((res) => {
         let tmp = 0;
         res.data.forEach((ticketType) => {
-         tmp = tmp + ticketType.supply
+          tmp = tmp + ticketType.supply;
           if (itemData && itemData.token.tokenId <= tmp) {
             setData(ticketType);
           }
@@ -50,6 +52,13 @@ const CartTicket = ({ inCart = false, item, itemData, query = false }) => {
 
   return (
     <>
+      {sendTicket && (
+        <SendTicketModal
+          setSendTicket={setSendTicket}
+          data={data}
+          tokenId={itemData.token.tokenId}
+        />
+      )}
       {qrCodeModal && <QrCodeModal setQrCodeModal={setQrCodeModal} />}
       {data ? (
         <Col xl={12} style={{ padding: "10px" }}>
@@ -116,6 +125,9 @@ const CartTicket = ({ inCart = false, item, itemData, query = false }) => {
                         style2
                         text="SEND TICKET"
                         minWidth="180px"
+                        onClick={() => {
+                          setSendTicket(true);
+                        }}
                       />
                     </div>
                     <div style={{ marginTop: "16px", width: "fit-content" }}>

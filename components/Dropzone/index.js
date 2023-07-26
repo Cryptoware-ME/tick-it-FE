@@ -41,7 +41,9 @@ function MyDropzone({ filePreview, setFilePreview, setImage, text }) {
       </div>
       <div>
         {filePreview ? (
-          <p className={styles.imageName}> {acceptedFiles[0]?.path}</p>
+          <p className={styles.imageName}>
+            {acceptedFiles[0]?.path.split(0, 3)}
+          </p>
         ) : (
           <p className={styles.banner}> {text}</p>
         )}

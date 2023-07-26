@@ -15,6 +15,7 @@ import OrganizationSidebar from "../../../../components/OrganizationSidebar";
 import TickitButton from "../../../../components/tickitButton";
 import ComingSoonModal from "../../../../components/ComingSoonModal";
 import AddStaffModal from "../../../../components/add-staff-modal";
+import TransferOwnershipModal from "../../../../components/transfer-ownership-modal";
 
 import styles from "../organization.module.scss";
 
@@ -27,6 +28,7 @@ const Team = () => {
   const { id } = router.query;
   const [comingSoon, setComingSoon] = useState(false);
   const [addStaff, setAddStaff] = useState(false);
+  const [transferOwnership, setTransferOwnership] = useState(false);
 
   const getMembersData = async () => {
     const membersData = [];
@@ -97,6 +99,12 @@ const Team = () => {
           setAddStaff={setAddStaff}
           orgId={id}
           rolesData={rolesData}
+        />
+      )}
+      {transferOwnership && (
+        <TransferOwnershipModal
+          setTransferOwnership={setTransferOwnership}
+          orgId={id}
         />
       )}
       <Container fluid className={styles.organization}>
@@ -179,7 +187,7 @@ const Team = () => {
                 </div>
               </Row>
 
-              {/* <Row
+              <Row
                 style={{
                   padding: "30px 0px 0px 25px",
                 }}
@@ -188,8 +196,11 @@ const Team = () => {
                   text="TRANSFER OWNERSHIP"
                   padding="15px 20px"
                   fontSize="20px"
+                  onClick={() => {
+                    setTransferOwnership(true);
+                  }}
                 />
-              </Row> */}
+              </Row>
             </Container>
           </Col>
         </Row>
