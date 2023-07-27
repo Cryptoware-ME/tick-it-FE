@@ -15,7 +15,14 @@ import SendTicketModal from "../send-ticket-modal";
 import styles from "./CartTicket.module.scss";
 import { getEventTicketType } from "../../axios/eventTicketType.axios";
 
-const CartTicket = ({ inCart = false, item, itemData, query = false }) => {
+const CartTicket = ({
+  inCart = false,
+  item,
+  itemData,
+  query = false,
+  wallet = {},
+  setRefetch,
+}) => {
   // Use States
   const [qrCodeModal, setQrCodeModal] = useState(false);
   const [sendTicket, setSendTicket] = useState(false);
@@ -57,6 +64,8 @@ const CartTicket = ({ inCart = false, item, itemData, query = false }) => {
           setSendTicket={setSendTicket}
           data={data}
           tokenId={itemData.token.tokenId}
+          wallet={wallet}
+          setRefetch={setRefetch}
         />
       )}
       {qrCodeModal && <QrCodeModal setQrCodeModal={setQrCodeModal} />}

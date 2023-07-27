@@ -2,45 +2,75 @@ import React, { useEffect, useState } from "react";
 import { Modal, Container, Row, Col, Form } from "react-bootstrap";
 import { Dropdown, FormControl, InputGroup } from "react-bootstrap";
 
+import { useEvm } from "@cryptogate/react-providers";
+
+import { use721 } from "../../hooks/use721";
 import { getUsersSearch } from "../../axios/user.axios";
 import { sendTicket } from "../../axios/ticket.axios";
+import { getWalletsByUser } from "../../axios/wallets.axios";
 
 import TickitButton from "../tickitButton";
+import ConnectWallet from "../connect-wallet";
 
 import styles from "./send-ticket-modal.module.scss";
 
-const SendTicketModal = ({ setSendTicket, data, tokenId }) => {
+const SendTicketModal = ({
+  setSendTicket,
+  data,
+  tokenId,
+  wallet,
+  setRefetch,
+}) => {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [selectedUser, setSelectedUser] = useState();
   const [userId, setUserId] = useState();
+  const [userWallet, setUserWallet] = useState();
   const [error, setError] = useState(false);
   const [usersData, setUserData] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [isEmailChecked, setEmailChecked] = useState(true);
   const [isAddressChecked, setAddressChecked] = useState(false);
+  const [privateWallet, setPrivatewallet] = useState(false);
   const [address, setAddress] = useState("");
+  const [eventAddress, setEventAddress] = useState("");
+
+  const { account } = useEvm();
+  const { transferTicket, transferState } = use721(eventAddress);
+
   const handleSend = async () => {
-    setLoading(true);
-    if (isAddressChecked) {
-      sendTicket({
-        eventId: data.eventId,
-        address: address,
-        tokenId: tokenId,
-      }).then((data) => {
-        setLoading(false);
-        setSendTicket(false);
-      });
-    }
-    if (isEmailChecked) {
-      sendTicket({
-        eventId: data.eventId,
-        userId: userId,
-        tokenId: tokenId,
-      }).then((data) => {
-        setLoading(false);
-        setSendTicket(false);
-      });
+    if (privateWallet) {
+      transferTicket(
+        [wallet.address, isAddressChecked ? address : userWallet, tokenId],
+        {
+          gasPrice: Number(process.env.NEXT_PUBLIC_GAS_PRICE),
+          gasLimit: Number(process.env.NEXT_PUBLIC_GAS_LIMIT),
+        }
+      );
+    } else {
+      setLoading(true);
+      if (isAddressChecked) {
+        sendTicket({
+          eventId: data.eventId,
+          address: address,
+          tokenId: tokenId,
+        }).then((data) => {
+          setLoading(false);
+          setSendTicket(false);
+          setRefetch(Date.now());
+        });
+      }
+      if (isEmailChecked) {
+        sendTicket({
+          eventId: data.eventId,
+          userId: userId,
+          tokenId: tokenId,
+        }).then((data) => {
+          setLoading(false);
+          setSendTicket(false);
+          setRefetch(Date.now());
+        });
+      }
     }
   };
 
@@ -61,10 +91,42 @@ const SendTicketModal = ({ setSendTicket, data, tokenId }) => {
     }
   };
 
+  const getUserWallet = async (id) => {
+    getWalletsByUser(
+      JSON.stringify({
+        where: { userId: id, type: "custodial" },
+      })
+    ).then((data) => {
+      setUserWallet(data.data[0].address);
+    });
+  };
+
+  useEffect(() => {
+    if (
+      transferState.status == "PendingSignature" ||
+      transferState.status == "Mining"
+    ) {
+      setLoading(true);
+    }
+    if (transferState.status == "Success") {
+      setLoading(false);
+      setSendTicket(false);
+      setRefetch(Date.now());
+    }
+  }, [transferState]);
+
   useEffect(() => {
     if (search.length > 2) userSearch(search);
     else setShowDropdown(false);
   }, [search]);
+  useEffect(() => {
+    if (wallet.type == "private") setPrivatewallet(true);
+  }, [wallet]);
+  useEffect(() => {
+    if (data) {
+      setEventAddress(data?.event?.contractAddress);
+    }
+  }, [data]);
 
   return (
     <Modal show onHide={() => {}} centered>
@@ -94,6 +156,7 @@ const SendTicketModal = ({ setSendTicket, data, tokenId }) => {
                     className={styles.roundCheckbox}
                     type="checkbox"
                     checked={isEmailChecked}
+                    defaultChecked
                     onClick={() => {
                       setEmailChecked(true);
                       setAddressChecked(false);
@@ -153,6 +216,7 @@ const SendTicketModal = ({ setSendTicket, data, tokenId }) => {
                         setSelectedUser(user);
                         setShowDropdown(false);
                         setUserId(user.id);
+                        getUserWallet(user.id);
                       }}
                     >
                       {user.email}
@@ -201,19 +265,44 @@ const SendTicketModal = ({ setSendTicket, data, tokenId }) => {
           )}
 
           <div className={styles.buttonAdd}>
-            <TickitButton
-              isLoading={loading}
-              disabled={
-                loading ||
-                (isEmailChecked && search.length < 3) ||
-                (isEmailChecked && selectedUser.length == 0) ||
-                (isAddressChecked && address.length == 0)
-              }
-              text="send"
-              onClick={() => {
-                handleSend();
-              }}
-            />
+            {privateWallet ? (
+              !account ? (
+                <ConnectWallet
+                  active={<TickitButton text="connect wallet" style2 />}
+                />
+              ) : account.toLocaleLowerCase() !=
+                wallet.address.toLocaleLowerCase() ? (
+                <p>please connect to same wallet your are transfaring from</p>
+              ) : (
+                <TickitButton
+                  isLoading={loading}
+                  disabled={
+                    loading ||
+                    (isEmailChecked && search.length < 3) ||
+                    (isEmailChecked && selectedUser.length == 0) ||
+                    (isAddressChecked && address.length == 0)
+                  }
+                  text="send"
+                  onClick={() => {
+                    handleSend();
+                  }}
+                />
+              )
+            ) : (
+              <TickitButton
+                isLoading={loading}
+                disabled={
+                  loading ||
+                  (isEmailChecked && search.length < 3) ||
+                  (isEmailChecked && selectedUser.length == 0) ||
+                  (isAddressChecked && address.length == 0)
+                }
+                text="send"
+                onClick={() => {
+                  handleSend();
+                }}
+              />
+            )}
           </div>
         </Container>
       </Modal.Body>
