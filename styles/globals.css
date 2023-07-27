@@ -219,7 +219,7 @@ html {
   filter: invert(1);
 }
 .cardWrapper {
-  padding: 1px;
+  padding: 1px !important;
   position: relative;
   background: var(--cardWrapper);
   border-radius: 20px;

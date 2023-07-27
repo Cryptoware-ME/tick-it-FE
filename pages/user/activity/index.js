@@ -1,29 +1,29 @@
-import { Container, Col, Row } from 'react-bootstrap'
-import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import { Container, Col, Row } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
-import { useAuth } from '../../../auth/useAuth'
+import { useAuth } from "../../../auth/useAuth";
 
-import ActivityCard from '../../../components/ActivityCard'
-import DashboardBar from '../../../components/DashboardBar'
+import ActivityCard from "../../../components/ActivityCard";
+import DashboardBar from "../../../components/DashboardBar";
 
-import styles from './activity.module.scss'
+import styles from "./activity.module.scss";
 
 const Activity = () => {
-  const { user } = useAuth()
-  const router = useRouter()
-  const [comingSoon, setComingSoon] = useState(true)
+  const { user } = useAuth();
+  const router = useRouter();
+  const [comingSoon, setComingSoon] = useState(true);
 
   useEffect(() => {
     if (!user) {
-      router.push('/')
+      router.push("/");
     }
-  }, [user])
+  }, [user]);
 
   return (
     <Container fluid className="dashboardWrapper">
       <Row>
-        <Col lg={2} style={{ padding: '0px' }}>
+        <Col lg={2} style={{ padding: "0px" }}>
           <DashboardBar selected="activity" />
         </Col>
         {comingSoon ? (
@@ -37,7 +37,7 @@ const Activity = () => {
             </Container>
           </Col>
         ) : (
-          <Col lg={10} style={{ padding: '0px' }}>
+          <Col lg={10} style={{ padding: "0px" }}>
             <Container fluid>
               <div className={styles.title}>
                 <p className="pageTitle">Activity</p>
@@ -88,7 +88,7 @@ const Activity = () => {
         )}
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default Activity
+export default Activity;

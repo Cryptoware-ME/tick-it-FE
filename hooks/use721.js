@@ -4,7 +4,7 @@ import {
 } from "@cryptogate/react-providers";
 import NFTix721 from "../abis/NFTix721.json";
 
-export const use721 = ({ contractAddress }) => {
+export const use721 = (contractAddress) => {
   const {
     send: addTicket,
     state: addTicketState,
@@ -32,6 +32,17 @@ export const use721 = ({ contractAddress }) => {
     method: "changeTicketPrice",
   });
 
+  const {
+    send: transferTicket,
+    state: transferState,
+    events: transferTicketEvent,
+    resetState: resetTransfer,
+  } = writeContractCall({
+    address: contractAddress,
+    abi: NFTix721.abi,
+    method: "transferFrom",
+  });
+
   return {
     addTicket,
     addTicketState,
@@ -42,6 +53,10 @@ export const use721 = ({ contractAddress }) => {
     editTicketPriceState,
     editTicketPriceEvents,
     resetEditTicketPrice,
+    transferTicket,
+    transferState,
+    transferTicketEvent,
+    resetTransfer,
   };
 };
 

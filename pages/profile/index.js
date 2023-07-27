@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Row } from "react-bootstrap";
 
-import UserProfileDetails from "../../components/UserProfileDetails";
 import EventCard from "../../components/EventCard";
 
 import styles from "./Profile.module.scss";
@@ -9,7 +8,6 @@ import styles from "./Profile.module.scss";
 const Event = () => {
   return (
     <div className={styles.profileWrapper}>
-      <UserProfileDetails />
       <Container style={{ paddingTop: "48px", paddingBottom: "48px" }}>
         <Row>
           <p className="section-title">Upcoming Events</p>

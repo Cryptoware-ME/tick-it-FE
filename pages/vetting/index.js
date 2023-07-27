@@ -80,6 +80,11 @@ const Vetting = () => {
       .required("Name is a required field"),
     description: yup.string().required(),
     eventKind: yup.string().required("This field is required"),
+    Telegram: yup.string(),
+    Instagram: yup.string(),
+    Twitter: yup.string(),
+    Discord: yup.string(),
+    Website: yup.string(),
   });
   const formik = useFormik({
     initialValues: {
@@ -89,6 +94,11 @@ const Vetting = () => {
       banner: bannerImage,
       description: "",
       eventKind: "",
+      Telegram: "",
+      Instagram: "",
+      Twitter: "",
+      Discord: "",
+      Website: "",
     },
     validationSchema: schema,
 
@@ -106,12 +116,19 @@ const Vetting = () => {
             name: values.name,
             profile: values.profile,
             banner: values.banner,
+            Website: values.Website,
             vettingObj: JSON.stringify({
               name: values.name,
               profile: values.profile,
               banner: values.banner,
               description: values.description,
               eventKind: values.eventKind,
+            }),
+            socials: JSON.stringify({
+              Telegram: values.Telegram,
+              Instagram: values.Instagram,
+              Twitter: values.Twitter,
+              Discord: values.Discord,
             }),
           }).then((data) => {
             router.push("/vetting/applications");
@@ -242,21 +259,71 @@ const Vetting = () => {
             ) : null}
           </div>
 
-          {/* <div className={styles.socialLink}>
+          <div className={styles.socialLink}>
             <p className={styles.socialTitle}>Social Links</p>
-            <div className={styles.social} style={{ width: "35%" }}>
+            <div className={styles.social} style={{ width: "60%" }}>
               <p className={styles.socialName}>Telegram</p>
-              <input className="modalInput" />
+              <div className={styles.inputDiv} style={{ width: "60%" }}>
+                <input
+                  id="Telegram"
+                  name="Telegram"
+                  type="text"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.Telegram}
+                  className="modalInput"
+                />
+              </div>
               <p className={styles.socialName}>Instagram</p>
-              <input className="modalInput" />
+              <div className={styles.inputDiv} style={{ width: "60%" }}>
+                <input
+                  id="Instagram"
+                  name="Instagram"
+                  type="text"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.Instagram}
+                  className="modalInput"
+                />
+              </div>
               <p className={styles.socialName}>Twitter</p>
-              <input className="modalInput" />
+              <div className={styles.inputDiv} style={{ width: "60%" }}>
+                <input
+                  id="Twitter"
+                  name="Twitter"
+                  type="text"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.Twitter}
+                  className="modalInput"
+                />
+              </div>
               <p className={styles.socialName}>Discord</p>
-              <input className="modalInput" />
+              <div className={styles.inputDiv} style={{ width: "60%" }}>
+                <input
+                  id="Discord"
+                  name="Discord"
+                  type="text"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.Discord}
+                  className="modalInput"
+                />
+              </div>
               <p className={styles.socialName}>Website</p>
-              <input className="modalInput" />
+              <div className={styles.inputDiv} style={{ width: "60%" }}>
+                <input
+                  id="Website"
+                  name="Website"
+                  type="text"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.Website}
+                  className="modalInput"
+                />
+              </div>
             </div>
-          </div> */}
+          </div>
           <div className={styles.descriptionDiv} style={{ width: "60%" }}>
             <textarea
               id="eventKind"

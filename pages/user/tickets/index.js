@@ -14,6 +14,7 @@ const Tickets = () => {
   const router = useRouter();
   const { user } = useAuth();
   const [tickets, setTickets] = useState({});
+  const [refetch, setRefetch] = useState(Date.now());
 
   const getWallets = async () => {
     getWalletsByUser(
@@ -34,7 +35,7 @@ const Tickets = () => {
 
   const getTickets = async (address) => {
     getTicketByAddress(address).then((data) => {
-      setTickets({...tickets, [address]: data.data})
+      setTickets({ ...tickets, [address]: data.data });
     });
   };
 
@@ -44,8 +45,7 @@ const Tickets = () => {
         getTickets(wallet.address);
       });
     }
-  }, [walletsList]);
-
+  }, [walletsList, refetch]);
 
   return (
     <Container fluid className={styles.wrapper}>
@@ -74,7 +74,13 @@ const Tickets = () => {
 
                     {tickets[wallet.address]?.length > 0 ? (
                       tickets[wallet.address].map((ticket, index) => (
-                        <CartTicket key={index} itemData={ticket} query />
+                        <CartTicket
+                          key={index}
+                          itemData={ticket}
+                          query
+                          wallet={wallet}
+                          setRefetch={setRefetch}
+                        />
                       ))
                     ) : (
                       <p style={{ color: "white" }}>

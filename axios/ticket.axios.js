@@ -10,12 +10,19 @@ export const postCustodialMint = async (payload) => {
 };
 
 export const getTicketByAddress = async (address) => {
-  
   const data = await instance.get(`/tickets`, {
-    params:{
-      address:address,
-      isContract:false
-    }
+    params: {
+      address: address,
+      isContract: false,
+    },
+  });
+  return data;
+};
+export const sendTicket = async (payload) => {
+  const data = await instance.post(`/tickets/transfer`, payload, {
+    headers: {
+      Authorization: localStorage.getItem("token"),
+    },
   });
   return data;
 };

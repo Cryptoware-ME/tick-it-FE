@@ -2,17 +2,31 @@
   min-height: 100vh;
   background-color: #0c0c0c;
 }
-.allEvents {
-  border: 1px solid #f1f1f1;
-  border-radius: 10px;
-  width: 95%;
-  height: fit-content;
+
+.cardContainer {
+  width: 100%;
+  border-radius: 20px;
+
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 15px;
+  margin: 0;
 }
+
 .title {
   flex-direction: row;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 18px 0px;
+}
+
+.sectionTitle {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--white);
+  margin-bottom: 18px;
 }
 .userName {
   margin-bottom: 0 !important;
@@ -40,9 +54,51 @@
   line-height: 19px;
   margin-right: 10px;
 }
-.sectionTitle {
+.addStaffDiv {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+.addTitle {
+  color: #ffcc00;
+  font-weight: 500px;
+  font-size: 17px;
+  line-height: 21px;
+  margin-left: 5px;
+}
+.tableContainer {
+  width: 100%;
+  border-radius: 20px !important;
+  background-color: black;
+}
+.tableHead {
+  color: var(--disabled2);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+}
+.bodyText {
+  color: var(--white) !important;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  width: 33%;
+  padding: 0px 20px;
+}
+
+.paymentFunds {
   font-weight: 700;
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 24px;
+  line-height: 29px;
   color: var(--white);
+  margin-top: 50px;
+}
+.createEvent{
+  color: var(--white)!important;
+  text-decoration: none;
+  width: auto;
+}
+.createEvent:hover{
+  color: var(--primary)!important;
+  text-decoration: none;
 }
