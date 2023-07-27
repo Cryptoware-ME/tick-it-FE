@@ -117,8 +117,7 @@ const Applications = () => {
                             });
                           } else {
                             router.push({
-                              pathname: "/see-application",
-                              query: { orgId: organization.id },
+                              pathname: `/see-application/${organization.id}`,                      
                             });
                           }
                         }}
